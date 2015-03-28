@@ -1,12 +1,14 @@
 package states;
 
 import static handlers.B2DVars.PPM; 
-import main.Game;
+import handlers.B2DVars;
+import handlers.GameStateManager;
+import handlers.MyContactListener;
+import handlers.MyInput;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -17,20 +19,27 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+<<<<<<< HEAD
 import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+=======
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.GdxNativesLoader;
 
-import handlers.B2DVars;
-import handlers.GameStateManager;
-import handlers.MyContactListener;
-import handlers.MyInput;
+import main.Game;
+
+>>>>>>> origin/master
+
 
 public class Play extends GameState{
 	
-	private World world;
+
+	private World wd;
 	private Box2DDebugRenderer b2br;
 	
 	private OrthographicCamera b2dCam;
@@ -47,20 +56,32 @@ public class Play extends GameState{
 	public Play(GameStateManager gsm){
 		
 		super(gsm);
+<<<<<<< HEAD
 		
 		// creating world
 		world = new World(new Vector2(0,-1.81f), true);
+=======
+		// creating wd
+		GdxNativesLoader.load();
+		this.reset();
+>>>>>>> origin/master
 		cl = new MyContactListener();
-		world.setContactListener(cl);
-		
+		wd.setContactListener(cl);
+
 		b2br = new Box2DDebugRenderer();
 		
 		// creating platform
 		BodyDef bdef = new BodyDef();
 		//bdef.position.set(160 / PPM, 120 / PPM);
 		// Static body, don't move, unaffected by forces
+<<<<<<< HEAD
 		//bdef.type = BodyType.StaticBody;
 		//Body body = world.createBody(bdef);
+=======
+		bdef.type = BodyType.StaticBody;
+		Body body = wd.createBody(bdef);
+		
+>>>>>>> origin/master
 		PolygonShape shape = new PolygonShape();
 		FixtureDef fDef = new FixtureDef();
 		
@@ -68,7 +89,7 @@ public class Play extends GameState{
 		//dynamic body, always get affected by forces
 		bdef.position.set(160  / PPM, 200 / PPM);
 		bdef.type = BodyType.DynamicBody;
-		playerBody = world.createBody(bdef);
+		playerBody = wd.createBody(bdef);
 		shape.setAsBox(5 / PPM, 5 / PPM);
 		
 		
@@ -133,7 +154,11 @@ public class Play extends GameState{
 		
 	}
 
-	
+	public void reset(){
+		
+		wd = new World(new Vector2(0.0f, -1.9f), true);
+		
+	}
 
 
 	public void handleInput() {
@@ -151,7 +176,7 @@ public class Play extends GameState{
 	public void update(float dt) {
 		handleInput();
 		
-		world.step(dt, 6, 2);
+		wd.step(dt, 6, 2);
 	}
 
 
@@ -164,7 +189,7 @@ public class Play extends GameState{
 		tmr.setView(cam);
 		tmr.render();
 		
-		b2br.render(world, b2dCam.combined);
+		b2br.render(wd, b2dCam.combined);
 	}
 
 

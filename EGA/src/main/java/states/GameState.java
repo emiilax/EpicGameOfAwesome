@@ -2,11 +2,11 @@ package states;
 
 import handlers.GameStateManager;
 
-
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.GdxNativesLoader;
 
 import lombok.*;
 import main.Game;
@@ -22,6 +22,7 @@ public abstract class GameState {
 	protected OrthographicCamera hudCam; 
 	
 	protected GameState(GameStateManager gsm){
+
 		this.gsm = gsm;
 		game = gsm.getGame();
 		sb = game.getSb();

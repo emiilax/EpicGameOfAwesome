@@ -14,9 +14,11 @@ import com.badlogic.gdx.utils.GdxNativesLoader;
 
 @Data
 public class DesktopLauncher {
-	
-	public static void main( String[] args ) {
+		public static void main( String[] args ) {
 		
+
+    	
+
     	LwjglApplicationConfiguration cfg = 
     			new LwjglApplicationConfiguration();
     	
