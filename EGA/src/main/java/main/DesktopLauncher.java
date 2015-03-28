@@ -4,6 +4,7 @@ import lombok.Data;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.utils.GdxNativesLoader;
 
 /**
  * Hello world!
@@ -11,7 +12,10 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
  */
 @Data
 public class DesktopLauncher {
+	
     public static void main( String[] args ) {
+    	
+    	
     	LwjglApplicationConfiguration cfg = 
     			new LwjglApplicationConfiguration();
     	
