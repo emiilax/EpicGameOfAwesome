@@ -8,6 +8,7 @@ import lombok.Data;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 @Data
@@ -28,6 +29,7 @@ public class Game implements ApplicationListener{
 	private GameStateManager gsm;
 	
 	public void create() {
+		
 		
 		Gdx.input.setInputProcessor(new MyInputProcessor());
 		

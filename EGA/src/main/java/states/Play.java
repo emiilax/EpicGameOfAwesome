@@ -7,6 +7,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -32,6 +35,10 @@ public class Play extends GameState{
 	private Body playerBody;
 	
 	private MyContactListener cl;
+	
+	private TiledMap tileMap;
+	private OrthogonalTiledMapRenderer tmr;
+	
 	
 	
 	public Play(GameStateManager gsm){
@@ -87,7 +94,12 @@ public class Play extends GameState{
 		b2dCam = new OrthographicCamera();
 		b2dCam.setToOrtho(false, Game.V_WIDTH / PPM, Game.V_HEIGTH / PPM);
 		
-
+		///////////////////
+		
+		// load tiled map
+		tileMap = new TmxMapLoader().load("res/maps/firstmap.tmx");
+		tmr = new OrthogonalTiledMapRenderer(tileMap);
+		
 		// kinematic body, ex. a moving platform
 		
 	}
@@ -96,13 +108,13 @@ public class Play extends GameState{
 
 
 	public void handleInput() {
-		if(MyInput.isPressed(MyInput.BUTTON1)){
+		if(MyInput.isDown(MyInput.BUTTON1)){
 			if(cl.isPlayerOnGround()){
-				playerBody.applyForceToCenter(0, 100, true);
+				playerBody.applyForceToCenter(2, 0, true);
 			}
 		}
 		if(MyInput.isDown(MyInput.BUTTON2)){
-			System.out.println("hold x");
+			playerBody.applyForceToCenter(-2, 0, true);
 		}
 	}
 
@@ -119,6 +131,9 @@ public class Play extends GameState{
 		//clear screen
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+		// draw tile map
+		tmr.setView(cam);
+		tmr.render();
 		
 		b2br.render(world, b2dCam.combined);
 	}
