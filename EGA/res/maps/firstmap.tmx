@@ -6,14 +6,14 @@
  <tileset firstgid="2" name="whiteblock" tilewidth="32" tileheight="32">
   <image source="../tiles/whiteblock.png" width="32" height="32"/>
  </tileset>
- <layer name="Background" width="40" height="8" visible="0">
+ <layer name="Background" width="40" height="8">
   <data encoding="base64" compression="zlib">
    eJxjYmBgYBqkmGEQuGHUfaPuG6x41H2UYwAnIgJz
   </data>
  </layer>
  <layer name="Ground" width="40" height="8">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2DgACOReCDsJsV91HQvKXaQ6z5y3E2OWdR2H7X9CgB/EABy
+   eJxjYBgFo2BkAkYCmBg1yGpp4S5aAXL8QWs3kQsocRcAMwAAIA==
   </data>
  </layer>
  <objectgroup name="player" visible="0"/>

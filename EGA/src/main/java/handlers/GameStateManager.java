@@ -2,9 +2,12 @@ package handlers;
 
 import java.util.Stack;
 
+import com.badlogic.gdx.utils.GdxNativesLoader;
+
 import states.GameState;
 import states.Play;
 import lombok.Data;
+import lombok.Getter;
 import main.Game;
 
 
@@ -19,12 +22,15 @@ public class GameStateManager {
 	public static final int PLAY = 912837;
 	
 	public GameStateManager(Game game){
+		
 		this.game = game;
 		gameStates = new Stack<GameState>();
 		pushState(PLAY);
+		
 	}
 	
 	private GameState getState(int state){
+	
 		if(state == PLAY) return new Play(this);
 		return null;
 	}

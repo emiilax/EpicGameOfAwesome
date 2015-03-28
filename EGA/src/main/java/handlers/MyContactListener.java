@@ -6,6 +6,8 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
+
+
 public class MyContactListener implements ContactListener{
 	
 	private boolean playerOnGround;
@@ -40,6 +42,7 @@ public class MyContactListener implements ContactListener{
 	public boolean isPlayerOnGround(){return playerOnGround;}
 
 	public void postSolve(Contact arg0, ContactImpulse arg1) {}
+
 	public void preSolve(Contact arg0, Manifold arg1) {}
 
 }

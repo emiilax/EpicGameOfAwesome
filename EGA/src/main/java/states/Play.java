@@ -8,17 +8,20 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.GdxNativesLoader;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
 import handlers.B2DVars;
 import handlers.GameStateManager;
@@ -37,12 +40,14 @@ public class Play extends GameState{
 	private MyContactListener cl;
 	
 	private TiledMap tileMap;
+	private float tilesize;
 	private OrthogonalTiledMapRenderer tmr;
 	
 	
-	
 	public Play(GameStateManager gsm){
+		
 		super(gsm);
+		
 		// creating world
 		world = new World(new Vector2(0,-1.81f), true);
 		cl = new MyContactListener();
@@ -52,22 +57,12 @@ public class Play extends GameState{
 		
 		// creating platform
 		BodyDef bdef = new BodyDef();
-		bdef.position.set(160 / PPM, 120 / PPM);
-		
+		//bdef.position.set(160 / PPM, 120 / PPM);
 		// Static body, don't move, unaffected by forces
-		bdef.type = BodyType.StaticBody;
-		Body body = world.createBody(bdef);
-		
+		//bdef.type = BodyType.StaticBody;
+		//Body body = world.createBody(bdef);
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(50 / PPM, 5 / PPM);
-		
-		
-		
 		FixtureDef fDef = new FixtureDef();
-		fDef.shape = shape;
-		fDef.filter.categoryBits = B2DVars.BIT_GROUND;
-		fDef.filter.maskBits = B2DVars.BIT_PLAYER;
-		body.createFixture(fDef).setUserData("ground");
 		
 		//Creating player
 		//dynamic body, always get affected by forces
@@ -100,6 +95,40 @@ public class Play extends GameState{
 		tileMap = new TmxMapLoader().load("res/maps/firstmap.tmx");
 		tmr = new OrthogonalTiledMapRenderer(tileMap);
 		
+		TiledMapTileLayer layer = (TiledMapTileLayer) tileMap.getLayers().get("Ground");
+		
+		tilesize = layer.getTileHeight();
+		
+		//go through all the cells in the layer;
+		for(int row = 0; row < layer.getHeight(); row++){
+			for(int col = 0; col < layer.getWidth(); col++){
+				
+				// get cell
+				Cell cell = layer.getCell(col, row);
+				
+				//check if it exist
+				if(cell == null) continue;
+				if(cell.getTile() == null) continue;
+				
+				
+				// create a body + fixure from cell
+				bdef.type = BodyType.StaticBody;
+				bdef.position.set((col + 0.5f)* tilesize / PPM, (row + 0.5f) * tilesize / PPM);
+				
+				ChainShape cs = new ChainShape();
+				Vector2[] v = new Vector2[3];
+				v[0] = new Vector2(-tilesize / 2 / PPM, - tilesize / 2 / PPM);
+				v[1] = new Vector2(-tilesize / 2 / PPM, tilesize / 2 / PPM);
+				v[2] = new Vector2(tilesize / 2 / PPM, tilesize / 2 / PPM);
+				cs.createChain(v);
+				fDef.friction = 0;
+				fDef.shape = cs;
+				fDef.filter.categoryBits = B2DVars.BIT_GROUND;
+				fDef.filter.maskBits = B2DVars.BIT_PLAYER;
+				fDef.isSensor = false;
+				world.createBody(bdef).createFixture(fDef);
+			}
+		}
 		// kinematic body, ex. a moving platform
 		
 	}
