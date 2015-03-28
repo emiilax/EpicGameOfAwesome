@@ -2,6 +2,7 @@ package states;
 
 import handlers.GameStateManager;
 
+
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -9,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import lombok.*;
 import main.Game;
+
+@Data
 public abstract class GameState {
 	
 	protected GameStateManager gsm;
@@ -25,6 +28,7 @@ public abstract class GameState {
 		
 		cam = game.getCam();
 		cam.setToOrtho(false, Game.V_WIDTH, Game.V_HEIGTH);
+		
 		
 		//hudCam = game.getHudCam();
 		//hudCam.setToOrtho(false, Game.V_WIDTH, Game.V_HEIGTH);

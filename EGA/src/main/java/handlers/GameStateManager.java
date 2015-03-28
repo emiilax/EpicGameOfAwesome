@@ -5,6 +5,7 @@ import java.util.Stack;
 import states.GameState;
 import states.Play;
 import lombok.Data;
+import lombok.Getter;
 import main.Game;
 
 
@@ -22,6 +23,7 @@ public class GameStateManager {
 		this.game = game;
 		gameStates = new Stack<GameState>();
 		pushState(PLAY);
+		
 	}
 	
 	private GameState getState(int state){
