@@ -7,22 +7,28 @@ public class MyInputProcessor extends InputAdapter{
 	
 	@Override
 	public boolean keyDown(int k){
-		if(k == Keys.Z){
-			MyInput.setKey(MyInput.BUTTON1, true);
+		if(k == Keys.RIGHT){
+			MyInput.setKey(MyInput.BUTTON_FORWARD, true);
 		}
-		if(k == Keys.X){
-			MyInput.setKey(MyInput.BUTTON2, true);
+		if(k == Keys.LEFT){
+			MyInput.setKey(MyInput.BUTTON_BACKWARD, true);
+		}
+		if(k == Keys.UP){
+			MyInput.setKey(MyInput.BUTTON_JUMP, true);
 		}
 		return true;
 	}
 	
 	@Override
 	public boolean keyUp(int k){
-		if(k == Keys.Z){
-			MyInput.setKey(MyInput.BUTTON1, false);
+		if(k == Keys.RIGHT){
+			MyInput.setKey(MyInput.BUTTON_FORWARD, false);
 		}
-		if(k == Keys.X){
-			MyInput.setKey(MyInput.BUTTON2, false);
+		if(k == Keys.LEFT){
+			MyInput.setKey(MyInput.BUTTON_BACKWARD, false);
+		}
+		if(k == Keys.UP){
+			MyInput.setKey(MyInput.BUTTON_JUMP, false);
 		}
 		return true;
 	}

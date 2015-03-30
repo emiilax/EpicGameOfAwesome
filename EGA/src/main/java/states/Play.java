@@ -1,50 +1,49 @@
 package states;
 
 import static handlers.B2DVars.PPM; 
-import handlers.B2DVars;
-import handlers.GameStateManager;
-import handlers.MyContactListener;
-import handlers.MyInput;
+import main.Game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-<<<<<<< HEAD
 import com.badlogic.gdx.physics.box2d.ChainShape;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-=======
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.GdxNativesLoader;
 
-import main.Game;
-
->>>>>>> origin/master
-
+import enteties.Crystal;
+import enteties.HUD;
+import enteties.Player;
+import handlers.B2DVars;
+import handlers.GameStateManager;
+import handlers.MyContactListener;
+import handlers.MyInput;
 
 public class Play extends GameState{
 	
-
-	private World wd;
+	private boolean debug = false;
+	
+	private World world;
 	private Box2DDebugRenderer b2br;
 	
 	private OrthographicCamera b2dCam;
-	
-	private Body playerBody;
 	
 	private MyContactListener cl;
 	
@@ -52,75 +51,188 @@ public class Play extends GameState{
 	private float tilesize;
 	private OrthogonalTiledMapRenderer tmr;
 	
+	private Player player;
+	
+	private Array<Crystal> crystals;
+	
+	private HUD hud;
 	
 	public Play(GameStateManager gsm){
 		
 		super(gsm);
-<<<<<<< HEAD
 		
-		// creating world
-		world = new World(new Vector2(0,-1.81f), true);
-=======
-		// creating wd
-		GdxNativesLoader.load();
-		this.reset();
->>>>>>> origin/master
+		// set up box2d stuff
+		world = new World(new Vector2(0,-9.81f), true);
 		cl = new MyContactListener();
-		wd.setContactListener(cl);
-
+		world.setContactListener(cl);
 		b2br = new Box2DDebugRenderer();
 		
-		// creating platform
-		BodyDef bdef = new BodyDef();
-		//bdef.position.set(160 / PPM, 120 / PPM);
-		// Static body, don't move, unaffected by forces
-<<<<<<< HEAD
-		//bdef.type = BodyType.StaticBody;
-		//Body body = world.createBody(bdef);
-=======
-		bdef.type = BodyType.StaticBody;
-		Body body = wd.createBody(bdef);
+		// create player
+		createPlayer();
 		
->>>>>>> origin/master
-		PolygonShape shape = new PolygonShape();
-		FixtureDef fDef = new FixtureDef();
+		// create tiles
+		createTiles();
 		
-		//Creating player
-		//dynamic body, always get affected by forces
-		bdef.position.set(160  / PPM, 200 / PPM);
-		bdef.type = BodyType.DynamicBody;
-		playerBody = wd.createBody(bdef);
-		shape.setAsBox(5 / PPM, 5 / PPM);
-		
-		
-		fDef.shape = shape;
-		fDef.filter.categoryBits = B2DVars.BIT_PLAYER;
-		fDef.filter.maskBits = B2DVars.BIT_GROUND;
-		//fDef.restitution = 0.5f;
-		playerBody.createFixture(fDef).setUserData("player");
-		
-		// create foot sensor
-		shape.setAsBox(2/PPM,  2 / PPM, new Vector2(0, -5/ PPM), 0);
-		fDef.filter.categoryBits = B2DVars.BIT_PLAYER;
-		fDef.filter.maskBits = B2DVars.BIT_GROUND;
-		fDef.isSensor = true;
-		playerBody.createFixture(fDef).setUserData("foot");
+		// create crystals 
+		createCrystals();
 		
 		// set up box2d cam
 		b2dCam = new OrthographicCamera();
 		b2dCam.setToOrtho(false, Game.V_WIDTH / PPM, Game.V_HEIGTH / PPM);
 		
-		///////////////////
+		// set up HUD
+		
+		hud = new HUD(player);
+		
+		//go through all the cells in the layer;
+		
+		// kinematic body, ex. a moving platform
+		
+	}
+
+	
+
+
+	public void handleInput() {
+		
+		if(MyInput.isPressed(MyInput.BUTTON_JUMP)){
+			if(cl.isPlayerOnGround()){
+				player.getBody().applyForceToCenter(0, 250, true);
+			}
+		}
+		
+		if(MyInput.isPressed(MyInput.BUTTON_FORWARD)){
+			player.getBody().applyForceToCenter(20, 0, true);
+		}
+		if(MyInput.isPressed(MyInput.BUTTON_BACKWARD)){
+			player.getBody().applyForceToCenter(-20, 0, true);
+		}
+		
+	}
+
+
+	public void update(float dt) {
+		handleInput();
+		
+		world.step(dt, 6, 2);
+		
+		// remove crystals
+		Array<Body> bodies = cl.getBodiesToRemove();
+		
+		for(int i = 0; i < bodies.size; i++){
+			Body b = bodies.get(i);
+			crystals.removeValue((Crystal) b.getUserData(), true);
+			world.destroyBody(b);
+			player.collectCrystal();
+		}
+		
+		bodies.clear();
+		
+		player.update(dt);
+		
+		for(int i  = 0; i < crystals.size; i++){
+			crystals.get(i).update(dt);
+		}
+	}
+
+
+	public void render() {
+		
+		//clear screen
+		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		// set camera to follow player
+		cam.position.set(player.getPosition().x * PPM + Game.V_WIDTH / 4,
+							Game.V_HEIGTH / 2, 
+							0);
+		cam.update();
+		
+		// draw tile map
+		tmr.setView(cam);
+		tmr.render();
+		
+		// draw player 
+		sb.setProjectionMatrix(cam.combined);
+		player.render(sb);
+		
+		// draw crystals
+		for(int i  = 0; i < crystals.size; i++){
+			crystals.get(i).render(sb);
+		}
+		
+		sb.setProjectionMatrix(hudCam.combined);
+		hud.render(sb);
+		
+		if(debug){
+			b2br.render(world, b2dCam.combined);
+		}
+		
+	}
+
+
+	public void dispose() {}
+	
+	
+	public void createPlayer(){
+		
+		BodyDef bdef = new BodyDef();
+		PolygonShape shape = new PolygonShape();
+		FixtureDef fDef = new FixtureDef();
+		
+		//Create player
+		//dynamic body, always get affected by forces
+		bdef.position.set(100  / PPM, 200 / PPM);
+		bdef.type = BodyType.DynamicBody;
+		//bdef.linearVelocity.set(0, 0);
+		Body body = world.createBody(bdef);
+		
+		shape.setAsBox(13 / PPM, 13 / PPM);
+		fDef.shape = shape;
+		fDef.filter.categoryBits = B2DVars.BIT_PLAYER;
+		fDef.filter.maskBits = B2DVars.BIT_RED | B2DVars.BIT_GREEN | B2DVars.BIT_BLUE | B2DVars.BIT_CRYSTAL;
+		//fDef.restitution = 0.5f;
+		body.createFixture(fDef).setUserData("player");
+		
+		// create foot sensor
+		shape.setAsBox( 13/PPM,  2 / PPM, new Vector2(0, -13/ PPM), 0);
+		fDef.filter.categoryBits = B2DVars.BIT_PLAYER;
+		fDef.filter.maskBits = B2DVars.BIT_RED | B2DVars.BIT_GREEN | B2DVars.BIT_BLUE;
+		fDef.isSensor = true;
+		body.createFixture(fDef).setUserData("foot");
+		
+		//create player
+		player = new Player(body);
+		
+		body.setUserData(player);
+		
+		
+	}
+	
+	public void createTiles(){
 		
 		// load tiled map
 		tileMap = new TmxMapLoader().load("res/maps/firstmap.tmx");
 		tmr = new OrthogonalTiledMapRenderer(tileMap);
 		
-		TiledMapTileLayer layer = (TiledMapTileLayer) tileMap.getLayers().get("Ground");
 		
-		tilesize = layer.getTileHeight();
+		tilesize = (Integer) tileMap.getProperties().get("tilewidth");
 		
-		//go through all the cells in the layer;
+		TiledMapTileLayer layer;
+		
+		layer = (TiledMapTileLayer) tileMap.getLayers().get("red");	
+		createLayer(layer, B2DVars.BIT_RED);
+		layer = (TiledMapTileLayer) tileMap.getLayers().get("green");	
+		createLayer(layer, B2DVars.BIT_GREEN);
+		layer = (TiledMapTileLayer) tileMap.getLayers().get("blue");	
+		createLayer(layer, B2DVars.BIT_BLUE);
+		
+				
+	}
+	
+	public void createLayer(TiledMapTileLayer layer, short bits){
+		
+		BodyDef bdef = new BodyDef();
+		FixtureDef fdef = new FixtureDef();
 		for(int row = 0; row < layer.getHeight(); row++){
 			for(int col = 0; col < layer.getWidth(); col++){
 				
@@ -142,57 +254,84 @@ public class Play extends GameState{
 				v[1] = new Vector2(-tilesize / 2 / PPM, tilesize / 2 / PPM);
 				v[2] = new Vector2(tilesize / 2 / PPM, tilesize / 2 / PPM);
 				cs.createChain(v);
-				fDef.friction = 0;
-				fDef.shape = cs;
-				fDef.filter.categoryBits = B2DVars.BIT_GROUND;
-				fDef.filter.maskBits = B2DVars.BIT_PLAYER;
-				fDef.isSensor = false;
-				world.createBody(bdef).createFixture(fDef);
+				fdef.friction = 0;
+				fdef.shape = cs;
+				fdef.filter.categoryBits = bits;
+				fdef.filter.maskBits = B2DVars.BIT_PLAYER;
+				fdef.isSensor = false;
+				world.createBody(bdef).createFixture(fdef);
 			}
 		}
-		// kinematic body, ex. a moving platform
-		
 	}
-
-	public void reset(){
+	
+	public void createCrystals(){
 		
-		wd = new World(new Vector2(0.0f, -1.9f), true);
+		crystals = new Array<Crystal>();
 		
-	}
-
-
-	public void handleInput() {
-		if(MyInput.isDown(MyInput.BUTTON1)){
-			if(cl.isPlayerOnGround()){
-				playerBody.applyForceToCenter(2, 0, true);
-			}
+		MapLayer layer = tileMap.getLayers().get("crystals");
+		
+		BodyDef bdef = new BodyDef();
+		FixtureDef fdef = new FixtureDef();
+		
+		
+		for(MapObject mo: layer.getObjects()){
+			
+			bdef.type = BodyType.StaticBody;
+			
+			float x = mo.getProperties().get("x", Float.class) / PPM;
+			float y = mo.getProperties().get("y", Float.class) / PPM;
+			
+			bdef.position.set(x, y);
+			
+			CircleShape cshape = new CircleShape();
+			cshape.setRadius(8 / PPM);
+			
+			fdef.shape = cshape;
+			fdef.isSensor = true;
+			
+			fdef.filter.categoryBits = B2DVars.BIT_CRYSTAL;
+			fdef.filter.maskBits = B2DVars.BIT_PLAYER;
+			
+			Body body = world.createBody(bdef);
+			body.createFixture(fdef).setUserData("crystal");;
+			
+			Crystal c = new Crystal(body);
+			crystals.add(c);
+			
+			body.setUserData(c);
+			
 		}
-		if(MyInput.isDown(MyInput.BUTTON2)){
-			playerBody.applyForceToCenter(-2, 0, true);
+	}
+	private void switchBlocks(){
+		
+		Filter filter = player.getBody().getFixtureList().first().getFilterData();
+		
+		short bits = filter.maskBits;
+		
+		// switch to next color
+		
+		// red -> green -> blue -> red
+		if((bits & B2DVars.BIT_RED) != 0){
+			bits &= ~B2DVars.BIT_RED;
+			bits |= B2DVars.BIT_GREEN;
+		}else if((bits & B2DVars.BIT_GREEN) != 0){
+			bits &= ~B2DVars.BIT_GREEN;
+			bits |= B2DVars.BIT_BLUE;
+		}else if((bits & B2DVars.BIT_BLUE) != 0){
+			bits &= ~B2DVars.BIT_BLUE;
+			bits |= B2DVars.BIT_RED;
 		}
+		
+		// set new mask bits
+		filter.maskBits = bits;
+		player.getBody().getFixtureList().first().setFilterData(filter);
+		
+		// set new mask bits for foot
+		filter = player.getBody().getFixtureList().get(1).getFilterData();
+		bits &= ~B2DVars.BIT_CRYSTAL;
+		filter.maskBits = bits;
+		player.getBody().getFixtureList().get(1).setFilterData(filter);
+		
+			
 	}
-
-
-	public void update(float dt) {
-		handleInput();
-		
-		wd.step(dt, 6, 2);
-	}
-
-
-	public void render() {
-		
-		//clear screen
-		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		// draw tile map
-		tmr.setView(cam);
-		tmr.render();
-		
-		b2br.render(wd, b2dCam.combined);
-	}
-
-
-	public void dispose() {}
-
 }

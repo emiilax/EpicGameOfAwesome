@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="8" tilewidth="32" tileheight="32" nextobjectid="1">
- <tileset firstgid="1" name="greenblock" tilewidth="32" tileheight="32">
-  <image source="../tiles/greenblock.png" width="32" height="32"/>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="8" tilewidth="32" tileheight="32" nextobjectid="35">
+ <tileset firstgid="1" name="blocks" tilewidth="32" tileheight="32">
+  <image source="../tiles/blocks.png" width="96" height="32"/>
  </tileset>
- <tileset firstgid="2" name="whiteblock" tilewidth="32" tileheight="32">
-  <image source="../tiles/whiteblock.png" width="32" height="32"/>
- </tileset>
- <layer name="Background" width="40" height="8">
+ <layer name="red" width="40" height="8">
   <data encoding="base64" compression="zlib">
-   eJxjYmBgYBqkmGEQuGHUfaPuG6x41H2UYwAnIgJz
+   eJxjYBgFo2AUjALaAUYceDAAAAhsAAc=
   </data>
  </layer>
- <layer name="Ground" width="40" height="8">
+ <layer name="green" width="40" height="8">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2BkAkYCmBg1yGpp4S5aAXL8QWs3kQsocRcAMwAAIA==
+   eJxjYBgFo2AUjIKBAUw4ML0AAAqIAA0=
   </data>
  </layer>
- <objectgroup name="player" visible="0"/>
+ <layer name="blue" width="40" height="8">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjILBB5hxYGoCAAtUABM=
+  </data>
+ </layer>
+ <objectgroup name="crystals"/>
 </map>

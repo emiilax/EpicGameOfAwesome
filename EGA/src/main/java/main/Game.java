@@ -1,5 +1,6 @@
 package main;
 
+import handlers.Content;
 import handlers.GameStateManager;
 import handlers.MyInput;
 import handlers.MyInputProcessor;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.GdxNativesLoader;
+
 
 @Data
 public class Game implements ApplicationListener{
@@ -27,14 +29,20 @@ public class Game implements ApplicationListener{
 	private OrthographicCamera hudCam;
 	
 	private GameStateManager gsm;
+	
+	public static Content res;
 
 	public void create() {
 		
 		Gdx.input.setInputProcessor(new MyInputProcessor());
 		
+		res = new Content();
+		res.loadTexture("res/tiles/bunny.png", "bunny");
+		res.loadTexture("res/tiles/crystal.png", "crystal");
+		res.loadTexture("res/tiles/hud.png", "hud");
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();
-		//hudCam = new OrthographicCamera();
+		hudCam = new OrthographicCamera();
 		gsm = new GameStateManager(this);		
 	}
 	
@@ -46,6 +54,8 @@ public class Game implements ApplicationListener{
 			gsm.render();
 			MyInput.update();
 		}
+
+		
 	}
 	
 	public void dispose() {}
