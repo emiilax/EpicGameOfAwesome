@@ -12,15 +12,23 @@ public class Player extends B2DSprite {
 	
 	private int numCrystals;
 	private int totalCrystals;
+	private TextureRegion[] stickman;
 	
 	public Player(Body body) {
 		super(body);
 		
-		Texture tex = Game.res.getTexture("bunny");
+		//Texture tex = Game.res.getTexture("bunny");
+		Texture tex = Game.res.getTexture("stickman");
 		
 		TextureRegion[] sprites = TextureRegion.split(tex, 32, 32)[0];
+		stickman = new TextureRegion[8];
 		
-		setAnimation(sprites, 1 / 12f);
+		for(int i = 0; i <stickman.length; i ++){
+			stickman[i] = new TextureRegion(tex, 20 * i, 40, 20, 40); 
+		}
+		
+		//setAnimation(sprites, 1 / 12f);
+		setAnimation(stickman, 1 / 12f);
 		
 	}
 	
