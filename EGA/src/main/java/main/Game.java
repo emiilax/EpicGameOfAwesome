@@ -18,7 +18,7 @@ public class Game implements ApplicationListener{
 	
 	public static final String TITLE= "The game";
 	public static final int V_WIDTH = 320;
-	public static final int V_HEIGTH = 240;
+	public static final int V_HEIGTH = 640;
 	public static final int SCALE = 2;
 	
 	public static final float STEP = 1/ 60f;
@@ -40,7 +40,7 @@ public class Game implements ApplicationListener{
 		res.loadTexture("res/tiles/bunny.png", "bunny");
 		res.loadTexture("res/tiles/crystal.png", "crystal");
 		res.loadTexture("res/tiles/hud.png", "hud");
-		res.loadTexture("res/tiles/stickman-anim.png", "stickman");
+		res.loadTexture("res/characters/redball.png", "player");
 		
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();

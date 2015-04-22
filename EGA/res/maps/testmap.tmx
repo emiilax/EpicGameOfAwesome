@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="20" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="whiteblock" tilewidth="32" tileheight="32">
+  <image source="../tiles/whiteblock.png" width="32" height="32"/>
+ </tileset>
+ <tileset firstgid="2" name="greenblock" tilewidth="32" tileheight="32">
+  <image source="../tiles/greenblock.png" width="32" height="32"/>
+ </tileset>
+ <tileset firstgid="3" name="brownblock" tilewidth="32" tileheight="32">
+  <image source="../tiles/brownblock.png" width="32" height="32"/>
+ </tileset>
+ <layer name="background" width="10" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjZGBgYBzFo3gUY8UAPT8AyQ==
+  </data>
+ </layer>
+ <layer name="ground" width="10" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2DkASYiMQAE2AAV
+  </data>
+ </layer>
+ <layer name="platform" width="10" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFwxkwI2F62YMN08tOagMAJpAAMQ==
+  </data>
+ </layer>
+</map>

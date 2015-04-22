@@ -38,7 +38,7 @@ import handlers.MyInput;
 
 public class Play extends GameState{
 	
-	private boolean debug = false;
+	private boolean debug = true;
 	
 	private World world;
 	private Box2DDebugRenderer b2br;
@@ -97,15 +97,21 @@ public class Play extends GameState{
 		
 		if(MyInput.isPressed(MyInput.BUTTON_JUMP)){
 			if(cl.isPlayerOnGround()){
+				
 				player.getBody().applyForceToCenter(0, 250, true);
+				//player.getBody().localVector.y
+				
 			}
 		}
 		
-		if(MyInput.isPressed(MyInput.BUTTON_FORWARD)){
-			player.getBody().applyForceToCenter(20, 0, true);
-		}
-		if(MyInput.isPressed(MyInput.BUTTON_BACKWARD)){
-			player.getBody().applyForceToCenter(-20, 0, true);
+		if(MyInput.isDown(MyInput.BUTTON_FORWARD)){
+			//player.getBody().applyForceToCenter(20, 0, true);
+			player.getBody().setLinearVelocity(1.5f, player.getBody().getLinearVelocity().y);
+		}else if(MyInput.isDown(MyInput.BUTTON_BACKWARD)){
+			player.getBody().setLinearVelocity(-1.5f, player.getBody().getLinearVelocity().y);
+			//player.getBody().applyForceToCenter(-1, 0, true);
+		}else if(!MyInput.isDown(MyInput.BUTTON_FORWARD) || !MyInput.isDown(MyInput.BUTTON_BACKWARD)){
+			player.getBody().setLinearVelocity(0, player.getBody().getLinearVelocity().y);
 		}
 		
 	}
@@ -129,10 +135,10 @@ public class Play extends GameState{
 		bodies.clear();
 		
 		player.update(dt);
-		
+		/*
 		for(int i  = 0; i < crystals.size; i++){
 			crystals.get(i).update(dt);
-		}
+		}*/
 	}
 
 
@@ -142,9 +148,10 @@ public class Play extends GameState{
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		// set camera to follow player
-		cam.position.set(player.getPosition().x * PPM + Game.V_WIDTH / 4,
-							Game.V_HEIGTH / 2, 
-							0);
+		//cam.position.set(player.getPosition().x * PPM + Game.V_WIDTH / 4,
+						//	Game.V_HEIGTH / 2, 
+						//	0);
+		
 		cam.update();
 		
 		// draw tile map
@@ -156,12 +163,13 @@ public class Play extends GameState{
 		player.render(sb);
 		
 		// draw crystals
+		/*
 		for(int i  = 0; i < crystals.size; i++){
 			crystals.get(i).render(sb);
-		}
+		}*/
 		
-		sb.setProjectionMatrix(hudCam.combined);
-		hud.render(sb);
+		//sb.setProjectionMatrix(hudCam.combined);
+		//hud.render(sb);
 		
 		if(debug){
 			b2br.render(world, b2dCam.combined);
@@ -181,12 +189,12 @@ public class Play extends GameState{
 		
 		//Create player
 		//dynamic body, always get affected by forces
-		bdef.position.set(100  / PPM, 200 / PPM);
+		bdef.position.set(100  / PPM, 45 / PPM);
 		bdef.type = BodyType.DynamicBody;
 		//bdef.linearVelocity.set(0, 0);
 		Body body = world.createBody(bdef);
 		
-		shape.setAsBox(13 / PPM, 13 / PPM);
+		shape.setAsBox(10 / PPM, 9 / PPM);
 		fDef.shape = shape;
 		fDef.filter.categoryBits = B2DVars.BIT_PLAYER;
 		fDef.filter.maskBits = B2DVars.BIT_RED | B2DVars.BIT_GREEN | B2DVars.BIT_BLUE | B2DVars.BIT_CRYSTAL;
@@ -194,7 +202,7 @@ public class Play extends GameState{
 		body.createFixture(fDef).setUserData("player");
 		
 		// create foot sensor
-		shape.setAsBox( 13/PPM,  2 / PPM, new Vector2(0, -13/ PPM), 0);
+		shape.setAsBox( 10/PPM,  1 / PPM, new Vector2(0, -10/ PPM), 0);
 		fDef.filter.categoryBits = B2DVars.BIT_PLAYER;
 		fDef.filter.maskBits = B2DVars.BIT_RED | B2DVars.BIT_GREEN | B2DVars.BIT_BLUE;
 		fDef.isSensor = true;
@@ -211,7 +219,7 @@ public class Play extends GameState{
 	public void createTiles(){
 		
 		// load tiled map
-		tileMap = new TmxMapLoader().load("res/maps/firstmap.tmx");
+		tileMap = new TmxMapLoader().load("res/maps/testmap.tmx");
 		tmr = new OrthogonalTiledMapRenderer(tileMap);
 		
 		
@@ -219,12 +227,12 @@ public class Play extends GameState{
 		
 		TiledMapTileLayer layer;
 		
-		layer = (TiledMapTileLayer) tileMap.getLayers().get("red");	
+		layer = (TiledMapTileLayer) tileMap.getLayers().get("ground");	
 		createLayer(layer, B2DVars.BIT_RED);
-		layer = (TiledMapTileLayer) tileMap.getLayers().get("green");	
+		layer = (TiledMapTileLayer) tileMap.getLayers().get("platform");	
 		createLayer(layer, B2DVars.BIT_GREEN);
-		layer = (TiledMapTileLayer) tileMap.getLayers().get("blue");	
-		createLayer(layer, B2DVars.BIT_BLUE);
+		//layer = (TiledMapTileLayer) tileMap.getLayers().get("blue");	
+		//createLayer(layer, B2DVars.BIT_BLUE);
 		
 				
 	}
@@ -249,10 +257,13 @@ public class Play extends GameState{
 				bdef.position.set((col + 0.5f)* tilesize / PPM, (row + 0.5f) * tilesize / PPM);
 				
 				ChainShape cs = new ChainShape();
-				Vector2[] v = new Vector2[3];
+				Vector2[] v = new Vector2[5];
 				v[0] = new Vector2(-tilesize / 2 / PPM, - tilesize / 2 / PPM);
 				v[1] = new Vector2(-tilesize / 2 / PPM, tilesize / 2 / PPM);
 				v[2] = new Vector2(tilesize / 2 / PPM, tilesize / 2 / PPM);
+				v[3] = new Vector2(tilesize / 2 / PPM, -tilesize / 2 / PPM);
+				v[4] = new Vector2(-tilesize / 2 / PPM, -tilesize / 2 / PPM);
+				
 				cs.createChain(v);
 				fdef.friction = 0;
 				fdef.shape = cs;
@@ -262,10 +273,29 @@ public class Play extends GameState{
 				world.createBody(bdef).createFixture(fdef);
 			}
 		}
+		
+		bdef.position.set(Game.V_WIDTH / PPM, Game.V_HEIGTH / PPM);
+		
+		Vector2[] v = new Vector2[5];
+		v[0] = new Vector2(-Game.V_WIDTH / PPM, -Game.V_HEIGTH/PPM);
+		v[1] = new Vector2(-Game.V_WIDTH/PPM, Game.V_HEIGTH/PPM);
+		v[2] = new Vector2(Game.V_WIDTH/PPM, Game.V_HEIGTH/PPM);
+		v[3] = new Vector2(Game.V_WIDTH/PPM, -Game.V_HEIGTH/PPM);
+		v[4] = new Vector2(-Game.V_WIDTH/PPM, -Game.V_HEIGTH/PPM);
+		
+		ChainShape cs = new ChainShape();
+		cs.createChain(v);
+		fdef.friction = 0;
+		fdef.shape = cs;
+		fdef.filter.categoryBits = bits;
+		fdef.filter.maskBits = B2DVars.BIT_PLAYER;
+		fdef.isSensor = false;
+		world.createBody(bdef).createFixture(fdef);
+		
 	}
 	
 	public void createCrystals(){
-		
+		/*
 		crystals = new Array<Crystal>();
 		
 		MapLayer layer = tileMap.getLayers().get("crystals");
@@ -301,6 +331,7 @@ public class Play extends GameState{
 			body.setUserData(c);
 			
 		}
+		*/
 	}
 	private void switchBlocks(){
 		
