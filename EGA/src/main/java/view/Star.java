@@ -1,26 +1,30 @@
-package enteties;
+package view;
 
-import view.Animation;
-import lombok.Data;
-
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
 import controller.B2DVars;
+import controller.EGA;
 
-@Data
-public class B2DSprite {
+public class Star implements B2DSprite{
+
+	private Body body;
+	private Animation animation;
+	private float width;
+	private float height;
 	
-	protected Body body;
-	protected Animation animation;
-	protected float width;
-	protected float height;
-	
-	public B2DSprite(Body body){
+	public Star(Body body) {
+		
 		this.body = body;
-		animation = new Animation();	
+		animation = new Animation();
+		Texture tex = EGA.res.getTexture("star");
+		TextureRegion[] sprites = TextureRegion.split(tex,  16,  16)[0];
+		
+		setAnimation(sprites, 1/ 12f);
+		
 	}
 	
 	public void setAnimation(TextureRegion[] reg, float delay){
@@ -44,6 +48,5 @@ public class B2DSprite {
 	}
 	
 	public Vector2 getPosition() { return body.getPosition(); }
-	
 
 }

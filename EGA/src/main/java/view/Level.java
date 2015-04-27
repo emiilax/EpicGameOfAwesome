@@ -32,9 +32,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import controller.B2DVars;
 import controller.EGA;
 import controller.GameStateManager;
-import enteties.Star;
-import enteties.HUD;
-import enteties.Character;
 
 public class Level extends GameState{
 	
