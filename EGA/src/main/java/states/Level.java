@@ -131,7 +131,7 @@ public class Level extends GameState{
 			Body b = bodies.get(i);
 			crystals.removeValue((Star) b.getUserData(), true);
 			world.destroyBody(b);
-			player.collectCrystal();
+			player.collectGrowStar();
 		}
 		
 		bodies.clear();
