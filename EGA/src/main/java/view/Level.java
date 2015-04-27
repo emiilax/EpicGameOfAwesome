@@ -180,9 +180,10 @@ public class Level extends GameState{
 	
 	public void createPlayer(){
 		
+		
 		BodyDef bdef = new BodyDef();
-		PolygonShape shape = new PolygonShape();
-		FixtureDef fDef = new FixtureDef();
+		//PolygonShape shape = new PolygonShape();
+		//FixtureDef fDef = new FixtureDef();
 		
 		//Create player
 		//dynamic body, always get affected by forces
@@ -191,22 +192,24 @@ public class Level extends GameState{
 		//bdef.linearVelocity.set(0, 0);
 		Body body = world.createBody(bdef);
 		
+		player = new Character(body);
+		/*
 		shape.setAsBox(10 / PPM, 9 / PPM);
 		fDef.shape = shape;
 		fDef.filter.categoryBits = B2DVars.BIT_PLAYER;
 		fDef.filter.maskBits = B2DVars.BIT_RED | B2DVars.BIT_GREEN | B2DVars.BIT_BLUE | B2DVars.BIT_CRYSTAL;
 		//fDef.restitution = 0.5f;
 		body.createFixture(fDef).setUserData("player");
-		
+		*/
 		// create foot sensor
-		shape.setAsBox( 10/PPM,  1 / PPM, new Vector2(0, -10/ PPM), 0);
+		/*shape.setAsBox( 10/PPM,  1 / PPM, new Vector2(0, -10/ PPM), 0);
 		fDef.filter.categoryBits = B2DVars.BIT_PLAYER;
 		fDef.filter.maskBits = B2DVars.BIT_RED | B2DVars.BIT_GREEN | B2DVars.BIT_BLUE;
 		fDef.isSensor = true;
-		body.createFixture(fDef).setUserData("foot");
+		body.createFixture(fDef).setUserData("foot");*/
 		
 		//create player
-		player = new Character(body);
+		
 		
 		body.setUserData(player);
 			
