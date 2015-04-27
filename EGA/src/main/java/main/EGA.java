@@ -40,8 +40,8 @@ public class EGA implements ApplicationListener{
 		res.loadTexture("res/tiles/bunny.png", "bunny");
 		res.loadTexture("res/stars/star.png", "star");
 		res.loadTexture("res/tiles/hud.png", "hud");
-		res.loadTexture("res/characters/redball.png", "player");
-		res.loadTexture("res/characters/bigredball.png", "bigPlayer");
+		res.loadTexture("res/characters/redball_small.png", "smallplayer");
+		res.loadTexture("res/characters/redball_big.png", "bigPlayer");
 		
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();
@@ -58,7 +58,6 @@ public class EGA implements ApplicationListener{
 			MyInput.update();
 		}
 
-		
 	}
 	
 	public void dispose() {}

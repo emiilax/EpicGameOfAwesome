@@ -1,11 +1,13 @@
 package enteties;
 
 import lombok.Data;
+import static handlers.B2DVars.PPM;
 import main.EGA;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 
 @Data
 public class Character extends B2DSprite {
@@ -29,24 +31,21 @@ public class Character extends B2DSprite {
 		
 		if(size.equals("small")){
 			//Texture tex = Game.res.getTexture("bunny");
-			Texture tex = EGA.res.getTexture("player");
+			Texture tex = EGA.res.getTexture("smallplayer");
 			
 			sprites = TextureRegion.split(tex, 20, 20)[0];
-			stickman = new TextureRegion[8];
 			
-			for(int i = 0; i < stickman.length; i ++){
-				stickman[i] = new TextureRegion(tex, 20 * i, 40, 20, 40);
-			}
 		}else {
-		
+			BodyDef bdef = new BodyDef();
+			
+			bdef.position.set(body.getPosition().x/PPM, body.getPosition().y / PPM);
+			
+			
+			
 			Texture tex = EGA.res.getTexture("bigPlayer");
 			
-			sprites = TextureRegion.split(tex, 40, 40)[0];
-			stickman = new TextureRegion[8];
+			sprites = TextureRegion.split(tex, 35, 35)[0];
 			
-			for(int i = 0; i < stickman.length; i ++){
-				stickman[i] = new TextureRegion(tex, 20 * i, 40, 20, 40); 
-			}
 		}
 		
 	}
