@@ -53,7 +53,7 @@ public class Level extends GameState{
 	
 	private Character player;
 	
-	private Array<Star> crystals;
+	private Array<Star> stars;
 	
 	private HUD hud;
 	
@@ -74,7 +74,7 @@ public class Level extends GameState{
 		createTiles();
 		
 		// create crystals 
-		createCrystals();
+		createStars();
 		
 		// set up box2d cam
 		b2dCam = new OrthographicCamera();
@@ -129,7 +129,7 @@ public class Level extends GameState{
 		
 		for(int i = 0; i < bodies.size; i++){
 			Body b = bodies.get(i);
-			crystals.removeValue((Star) b.getUserData(), true);
+			stars.removeValue((Star) b.getUserData(), true);
 			world.destroyBody(b);
 			player.collectCrystal();
 		}
@@ -137,10 +137,10 @@ public class Level extends GameState{
 		bodies.clear();
 		
 		player.update(dt);
-		/*
-		for(int i  = 0; i < crystals.size; i++){
-			crystals.get(i).update(dt);
-		}*/
+		
+		for(int i  = 0; i < stars.size; i++){
+			stars.get(i).update(dt);
+		}
 	}
 
 
@@ -165,10 +165,10 @@ public class Level extends GameState{
 		player.render(sb);
 		
 		// draw crystals
-		/*
-		for(int i  = 0; i < crystals.size; i++){
-			crystals.get(i).render(sb);
-		}*/
+		
+		for(int i  = 0; i < stars.size; i++){
+			stars.get(i).render(sb);
+		}
 		
 		//sb.setProjectionMatrix(hudCam.combined);
 		//hud.render(sb);
@@ -290,11 +290,11 @@ public class Level extends GameState{
 		
 	}
 	
-	public void createCrystals(){
-		/*
-		crystals = new Array<Crystal>();
+	public void createStars(){
 		
-		MapLayer layer = tileMap.getLayers().get("crystals");
+		stars = new Array<Star>();
+		
+		MapLayer layer = tileMap.getLayers().get("stars");
 		
 		BodyDef bdef = new BodyDef();
 		FixtureDef fdef = new FixtureDef();
@@ -321,13 +321,13 @@ public class Level extends GameState{
 			Body body = world.createBody(bdef);
 			body.createFixture(fdef).setUserData("crystal");;
 			
-			Crystal c = new Crystal(body);
-			crystals.add(c);
+			Star s = new Star(body);
+			stars.add(s);
 			
-			body.setUserData(c);
+			body.setUserData(s);
 			
 		}
-		*/
+		
 	}
 	private void switchBlocks(){
 		
