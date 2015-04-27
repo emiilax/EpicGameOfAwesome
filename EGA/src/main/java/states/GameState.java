@@ -8,11 +8,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import lombok.*;
-import main.Game;
+import main.EGA;
 public abstract class GameState {
 	
 	protected GameStateManager gsm;
-	protected Game game;
+	protected EGA game;
 	
 	protected SpriteBatch sb;
 	protected OrthographicCamera cam; 
@@ -24,10 +24,10 @@ public abstract class GameState {
 		sb = game.getSb();
 		
 		cam = game.getCam();
-		cam.setToOrtho(false, Game.V_WIDTH, Game.V_HEIGTH);
+		cam.setToOrtho(false, EGA.V_WIDTH, EGA.V_HEIGTH);
 		
 		hudCam = game.getHudCam();
-		hudCam.setToOrtho(false, Game.V_WIDTH, Game.V_HEIGTH);
+		hudCam.setToOrtho(false, EGA.V_WIDTH, EGA.V_HEIGTH);
 	}
 	
 	public abstract void handleInput();

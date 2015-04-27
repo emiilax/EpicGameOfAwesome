@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="20" tilewidth="32" tileheight="32" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="20" tilewidth="32" tileheight="32" nextobjectid="7">
  <tileset firstgid="1" name="whiteblock" tilewidth="32" tileheight="32">
   <image source="../tiles/whiteblock.png" width="32" height="32"/>
  </tileset>
@@ -24,4 +24,18 @@
    eJxjYBgFwxkwI2F62YMN08tOagMAJpAAMQ==
   </data>
  </layer>
+ <objectgroup name="stars">
+  <object id="2" x="241" y="529">
+   <ellipse/>
+  </object>
+  <object id="3" x="78" y="464">
+   <ellipse/>
+  </object>
+  <object id="4" x="239" y="432">
+   <ellipse/>
+  </object>
+  <object id="5" x="47" y="365">
+   <ellipse/>
+  </object>
+ </objectgroup>
 </map>

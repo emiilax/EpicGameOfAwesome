@@ -20,11 +20,11 @@ public class DesktopLauncher {
     	LwjglApplicationConfiguration cfg = 
     			new LwjglApplicationConfiguration();
     	
-    	cfg.title = Game.TITLE;
-    	cfg.width = Game.V_WIDTH * Game.SCALE;
-    	cfg.height = Game.V_HEIGTH * Game.SCALE;
+    	cfg.title = EGA.TITLE;
+    	cfg.width = EGA.V_WIDTH * EGA.SCALE;
+    	cfg.height = EGA.V_HEIGTH * EGA.SCALE;
     	GdxNativesLoader.load();
-    	new LwjglApplication(new Game(), cfg);
+    	new LwjglApplication(new EGA(), cfg);
     	GdxNativesLoader.load();
     }
 }

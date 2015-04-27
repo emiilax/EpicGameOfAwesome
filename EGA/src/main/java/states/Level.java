@@ -1,7 +1,7 @@
 package states;
 
 import static handlers.B2DVars.PPM; 
-import main.Game;
+import main.EGA;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -28,17 +28,17 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
-import enteties.Crystal;
+import enteties.Star;
 import enteties.HUD;
-import enteties.Player;
+import enteties.Character;
 import handlers.B2DVars;
 import handlers.GameStateManager;
 import handlers.MyContactListener;
 import handlers.MyInput;
 
-public class Play extends GameState{
+public class Level extends GameState{
 	
-	private boolean debug = true;
+	private boolean debug = false;
 	
 	private World world;
 	private Box2DDebugRenderer b2br;
@@ -51,13 +51,13 @@ public class Play extends GameState{
 	private float tilesize;
 	private OrthogonalTiledMapRenderer tmr;
 	
-	private Player player;
+	private Character player;
 	
-	private Array<Crystal> crystals;
+	private Array<Star> crystals;
 	
 	private HUD hud;
 	
-	public Play(GameStateManager gsm){
+	public Level(GameStateManager gsm){
 		
 		super(gsm);
 		
@@ -78,7 +78,7 @@ public class Play extends GameState{
 		
 		// set up box2d cam
 		b2dCam = new OrthographicCamera();
-		b2dCam.setToOrtho(false, Game.V_WIDTH / PPM, Game.V_HEIGTH / PPM);
+		b2dCam.setToOrtho(false, EGA.V_WIDTH / PPM, EGA.V_HEIGTH / PPM);
 		
 		// set up HUD
 		
@@ -99,23 +99,25 @@ public class Play extends GameState{
 			if(cl.isPlayerOnGround()){
 				
 				player.getBody().applyForceToCenter(0, 250, true);
-				//player.getBody().localVector.y
 				
 			}
 		}
 		
 		if(MyInput.isDown(MyInput.BUTTON_FORWARD)){
-			//player.getBody().applyForceToCenter(20, 0, true);
+			
 			player.getBody().setLinearVelocity(1.5f, player.getBody().getLinearVelocity().y);
+			
 		}else if(MyInput.isDown(MyInput.BUTTON_BACKWARD)){
+			
 			player.getBody().setLinearVelocity(-1.5f, player.getBody().getLinearVelocity().y);
-			//player.getBody().applyForceToCenter(-1, 0, true);
+			
 		}else if(!MyInput.isDown(MyInput.BUTTON_FORWARD) || !MyInput.isDown(MyInput.BUTTON_BACKWARD)){
+			
 			player.getBody().setLinearVelocity(0, player.getBody().getLinearVelocity().y);
+			
 		}
 		
 	}
-
 
 	public void update(float dt) {
 		handleInput();
@@ -127,7 +129,7 @@ public class Play extends GameState{
 		
 		for(int i = 0; i < bodies.size; i++){
 			Body b = bodies.get(i);
-			crystals.removeValue((Crystal) b.getUserData(), true);
+			crystals.removeValue((Star) b.getUserData(), true);
 			world.destroyBody(b);
 			player.collectCrystal();
 		}
@@ -177,9 +179,7 @@ public class Play extends GameState{
 		
 	}
 
-
 	public void dispose() {}
-	
 	
 	public void createPlayer(){
 		
@@ -209,11 +209,10 @@ public class Play extends GameState{
 		body.createFixture(fDef).setUserData("foot");
 		
 		//create player
-		player = new Player(body);
+		player = new Character(body);
 		
 		body.setUserData(player);
-		
-		
+			
 	}
 	
 	public void createTiles(){
@@ -231,9 +230,6 @@ public class Play extends GameState{
 		createLayer(layer, B2DVars.BIT_RED);
 		layer = (TiledMapTileLayer) tileMap.getLayers().get("platform");	
 		createLayer(layer, B2DVars.BIT_GREEN);
-		//layer = (TiledMapTileLayer) tileMap.getLayers().get("blue");	
-		//createLayer(layer, B2DVars.BIT_BLUE);
-		
 				
 	}
 	
@@ -247,7 +243,7 @@ public class Play extends GameState{
 				// get cell
 				Cell cell = layer.getCell(col, row);
 				
-				//check if it exist
+				// check if it exist
 				if(cell == null) continue;
 				if(cell.getTile() == null) continue;
 				
@@ -274,14 +270,14 @@ public class Play extends GameState{
 			}
 		}
 		
-		bdef.position.set(Game.V_WIDTH / PPM, Game.V_HEIGTH / PPM);
+		bdef.position.set(EGA.V_WIDTH /2/ PPM, EGA.V_HEIGTH /2/ PPM);
 		
 		Vector2[] v = new Vector2[5];
-		v[0] = new Vector2(-Game.V_WIDTH / PPM, -Game.V_HEIGTH/PPM);
-		v[1] = new Vector2(-Game.V_WIDTH/PPM, Game.V_HEIGTH/PPM);
-		v[2] = new Vector2(Game.V_WIDTH/PPM, Game.V_HEIGTH/PPM);
-		v[3] = new Vector2(Game.V_WIDTH/PPM, -Game.V_HEIGTH/PPM);
-		v[4] = new Vector2(-Game.V_WIDTH/PPM, -Game.V_HEIGTH/PPM);
+		v[0] = new Vector2(-EGA.V_WIDTH /2/ PPM, -EGA.V_HEIGTH/2/PPM);
+		v[1] = new Vector2(-EGA.V_WIDTH/2/PPM, EGA.V_HEIGTH/2/PPM);
+		v[2] = new Vector2(EGA.V_WIDTH/2/PPM, EGA.V_HEIGTH/2/PPM);
+		v[3] = new Vector2(EGA.V_WIDTH/2/PPM, -EGA.V_HEIGTH/2/PPM);
+		v[4] = new Vector2(-EGA.V_WIDTH/2/PPM, -EGA.V_HEIGTH/2/PPM);
 		
 		ChainShape cs = new ChainShape();
 		cs.createChain(v);

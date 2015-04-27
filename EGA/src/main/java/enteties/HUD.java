@@ -1,7 +1,7 @@
 package enteties;
 
 import handlers.B2DVars;
-import main.Game;
+import main.EGA;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,14 +9,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class HUD {
 	
-	private Player player;
+	private Character player;
 	
 	private TextureRegion[] blocks;
 	
-	public HUD(Player player){
+	public HUD(Character player){
 		this.player = player;
 		
-		Texture tex = Game.res.getTexture("hud");
+		Texture tex = EGA.res.getTexture("hud");
 		
 		blocks = new TextureRegion[3];
 		

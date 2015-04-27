@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.GdxNativesLoader;
 
 
 @Data
-public class Game implements ApplicationListener{
+public class EGA implements ApplicationListener{
 	
 	public static final String TITLE= "The game";
 	public static final int V_WIDTH = 320;

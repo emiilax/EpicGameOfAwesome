@@ -5,22 +5,22 @@ import java.util.Stack;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
 import states.GameState;
-import states.Play;
+import states.Level;
 import lombok.Data;
-import main.Game;
+import main.EGA;
 
 
 @Data
 public class GameStateManager {
 	
 	
-	private Game game;
+	private EGA game;
 	
 	private Stack<GameState> gameStates;
 	
 	public static final int PLAY = 912837;
 	
-	public GameStateManager(Game game){
+	public GameStateManager(EGA game){
 		
 		this.game = game;
 		gameStates = new Stack<GameState>();
@@ -29,7 +29,7 @@ public class GameStateManager {
 	
 	private GameState getState(int state){
 	
-		if(state == PLAY) return new Play(this);
+		if(state == PLAY) return new Level(this);
 		return null;
 	}
 	
