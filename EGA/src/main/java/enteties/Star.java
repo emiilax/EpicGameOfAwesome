@@ -11,7 +11,7 @@ public class Star extends B2DSprite{
 	public Star(Body body) {
 		super(body);
 		
-		Texture tex = EGA.res.getTexture("crystal");
+		Texture tex = EGA.res.getTexture("star");
 		TextureRegion[] sprites = TextureRegion.split(tex,  16,  16)[0];
 		
 		setAnimation(sprites, 1/ 12f);
