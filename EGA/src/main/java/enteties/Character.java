@@ -33,16 +33,10 @@ public class Character extends B2DSprite {
 		if(size.equals("small")){
 			//Texture tex = Game.res.getTexture("bunny");
 			Texture tex = EGA.res.getTexture("smallplayer");
-			
 			sprites = TextureRegion.split(tex, 20, 20)[0];
 			
 		}else {
-			BodyDef bdef = new BodyDef();
-			
-			bdef.position.set(body.getPosition().x/PPM, body.getPosition().y / PPM);
-			
-			
-			
+
 			Texture tex = EGA.res.getTexture("bigPlayer");
 			
 			sprites = TextureRegion.split(tex, 35, 35)[0];
