@@ -1,7 +1,8 @@
-package states;
+package view;
 
-import static handlers.B2DVars.PPM; 
-import main.EGA;
+import static controller.B2DVars.PPM;
+import model.MyContactListener;
+import model.MyInput;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -28,13 +29,12 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
+import controller.B2DVars;
+import controller.EGA;
+import controller.GameStateManager;
 import enteties.Star;
 import enteties.HUD;
 import enteties.Character;
-import handlers.B2DVars;
-import handlers.GameStateManager;
-import handlers.MyContactListener;
-import handlers.MyInput;
 
 public class Level extends GameState{
 	

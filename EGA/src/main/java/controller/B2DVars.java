@@ -1,4 +1,4 @@
-package handlers;
+package controller;
 
 public class B2DVars {
 	//  pixel per meter ratio

@@ -1,4 +1,6 @@
-package handlers;
+package controller;
+
+import model.MyInput;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;

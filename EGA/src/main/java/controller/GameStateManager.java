@@ -1,13 +1,12 @@
-package handlers;
+package controller;
 
 import java.util.Stack;
 
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
-import states.GameState;
-import states.Level;
+import view.GameState;
+import view.Level;
 import lombok.Data;
-import main.EGA;
 
 
 @Data

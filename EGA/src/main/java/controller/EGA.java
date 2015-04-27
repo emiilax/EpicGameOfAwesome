@@ -1,10 +1,8 @@
-package main;
+package controller;
 
-import handlers.Content;
-import handlers.GameStateManager;
-import handlers.MyInput;
-import handlers.MyInputProcessor;
 import lombok.Data;
+import model.Content;
+import model.MyInput;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;

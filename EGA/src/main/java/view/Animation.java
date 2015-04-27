@@ -1,4 +1,4 @@
-package handlers;
+package view;
 
 import lombok.Data;
 

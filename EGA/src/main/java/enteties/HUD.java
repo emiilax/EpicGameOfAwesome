@@ -1,11 +1,11 @@
 package enteties;
 
-import handlers.B2DVars;
-import main.EGA;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
+import controller.B2DVars;
+import controller.EGA;
 
 public class HUD {
 	

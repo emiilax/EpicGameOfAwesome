@@ -1,13 +1,14 @@
 package enteties;
 
+import view.Animation;
 import lombok.Data;
-import handlers.Animation;
-import handlers.B2DVars;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+
+import controller.B2DVars;
 
 @Data
 public class B2DSprite {

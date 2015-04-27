@@ -1,13 +1,14 @@
 package enteties;
 
 import lombok.Data;
-import static handlers.B2DVars.PPM;
-import main.EGA;
+import static controller.B2DVars.PPM;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+
+import controller.EGA;
 
 @Data
 public class Character extends B2DSprite {
