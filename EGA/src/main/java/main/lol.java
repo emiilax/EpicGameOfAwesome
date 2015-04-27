@@ -4,17 +4,17 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
-public class tmp {
-	public static void main( String[] args ) {
+public class lol {
+public static void main( String[] args ) {
 		
     	LwjglApplicationConfiguration cfg = 
     			new LwjglApplicationConfiguration();
     	
-    	cfg.title = Game.TITLE;
-    	cfg.width = Game.V_WIDTH * Game.SCALE;
-    	cfg.height = Game.V_HEIGTH * Game.SCALE;
+    	cfg.title = EGA.TITLE;
+    	cfg.width = EGA.V_WIDTH * EGA.SCALE;
+    	cfg.height = EGA.V_HEIGTH * EGA.SCALE;
     	GdxNativesLoader.load();
-    	new LwjglApplication(new Game(), cfg);
+    	new LwjglApplication(new EGA(), cfg);
     	GdxNativesLoader.load();
     }
 }

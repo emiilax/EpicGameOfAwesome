@@ -13,26 +13,50 @@ public class Character extends B2DSprite {
 	private int numCrystals;
 	private int totalCrystals;
 	private TextureRegion[] stickman;
+	private TextureRegion[] sprites;
 	
 	public Character(Body body) {
 		super(body);
 		
-		//Texture tex = Game.res.getTexture("bunny");
-		Texture tex = EGA.res.getTexture("player");
-		
-		TextureRegion[] sprites = TextureRegion.split(tex, 20, 20)[0];
-		stickman = new TextureRegion[8];
-		
-		for(int i = 0; i < stickman.length; i ++){
-			stickman[i] = new TextureRegion(tex, 20 * i, 40, 20, 40); 
-		}
+		setTexture("small");
 		
 		setAnimation(sprites, 1 / 12f);
 		//setAnimation(stickman, 1 / 12f);
 		
 	}
 	
-	public void collectCrystal() { numCrystals++; }
+	private void setTexture(String size){
+		
+		if(size.equals("small")){
+			//Texture tex = Game.res.getTexture("bunny");
+			Texture tex = EGA.res.getTexture("player");
+			
+			sprites = TextureRegion.split(tex, 20, 20)[0];
+			stickman = new TextureRegion[8];
+			
+			for(int i = 0; i < stickman.length; i ++){
+				stickman[i] = new TextureRegion(tex, 20 * i, 40, 20, 40);
+			}
+		}else {
+		
+			Texture tex = EGA.res.getTexture("bigPlayer");
+			
+			sprites = TextureRegion.split(tex, 40, 40)[0];
+			stickman = new TextureRegion[8];
+			
+			for(int i = 0; i < stickman.length; i ++){
+				stickman[i] = new TextureRegion(tex, 20 * i, 40, 20, 40); 
+			}
+		}
+		
+	}
+	
+	public void collectGrowStar() { 
+		//Ta bort?
+		numCrystals++; 
+		
+		setTexture("big");
+	}
 	
 	
 }
