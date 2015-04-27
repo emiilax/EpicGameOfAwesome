@@ -56,6 +56,8 @@ public class Character extends B2DSprite {
 		numCrystals++; 
 		
 		setTexture("big");
+		setAnimation(sprites, 1 / 12f);
+		System.out.println("test");
 	}
 	
 	
