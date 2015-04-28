@@ -43,6 +43,15 @@ public class MyContactListener implements ContactListener{
 			bodiesToRemove.add(fb.getBody());
 		}
 		
+		if(fa.getUserData() != null && fa.getUserData().equals("bigStar")){
+			// remove crystal
+			bodiesToRemove.add(fa.getBody());
+			
+		}
+		if(fb.getUserData() != null && fb.getUserData().equals("bigStar")){
+			bodiesToRemove.add(fb.getBody());
+		}
+		
 		//System.out.println(fa.getUserData() + ", " + fb.getUserData());
 	}
 	

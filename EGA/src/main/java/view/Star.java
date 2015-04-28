@@ -9,7 +9,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import controller.B2DVars;
 import controller.EGA;
 
-public class Star implements B2DSprite{
+public class Star implements B2DSprite, IStar{
 
 	private Body body;
 	private Animation animation;

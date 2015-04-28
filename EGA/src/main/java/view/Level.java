@@ -50,9 +50,9 @@ public class Level extends GameState{
 
 	private Character player;
 
-	private Array<Star> stars;
-	
-	private Array<BigStar> bigStars;
+	private Array<IStar> stars;
+
+	//private Array<BigStar> bigStars;
 
 	private HUD hud;
 
@@ -66,6 +66,8 @@ public class Level extends GameState{
 		world.setContactListener(cl);
 		b2br = new Box2DDebugRenderer();
 
+		stars = new Array<IStar>();
+
 		// create player
 		createPlayer();
 
@@ -74,7 +76,7 @@ public class Level extends GameState{
 
 		// create crystals 
 		createStars();
-		
+
 		//create big Stars
 		createBigStars();
 
@@ -129,12 +131,21 @@ public class Level extends GameState{
 		// remove crystals
 		Array<Body> bodies = cl.getBodiesToRemove();
 
-		for(int i = 0; i < bodies.size; i++){
-			Body b = bodies.get(i);
-			stars.removeValue((Star) b.getUserData(), true);
-			world.destroyBody(b);
-			player.collectGrowStar();
+		if(bodies.size > 0){
+			String uData = bodies.get(0).getFixtureList().get(0).getUserData().toString();
+			for(int i = 0; i < bodies.size; i++){
+				Body b = bodies.get(i);
+				stars.removeValue((IStar) b.getUserData(), true);
+				world.destroyBody(b);
+				if(uData.equals("crystal")){
+						player.collectShrinkStar();
+				} else {
+						player.collectGrowStar();
+				}
+			}
 		}
+
+
 
 		bodies.clear();
 
@@ -184,30 +195,30 @@ public class Level extends GameState{
 	public void dispose() {}
 
 	public void createPlayer(){
-/*<<<<<<< HEAD
+		/*<<<<<<< HEAD
 
 		BodyDef bdef = new BodyDef();
 		PolygonShape shape = new PolygonShape();
 		FixtureDef fDef = new FixtureDef();
 
 =======*/
-		
-		
+
+
 		BodyDef bdef = new BodyDef();
 		//PolygonShape shape = new PolygonShape();
 		//FixtureDef fDef = new FixtureDef();
-		
-//>>>>>>> 15809fa8c2969a19c9d64a9c29cab766df57194e
+
+		//>>>>>>> 15809fa8c2969a19c9d64a9c29cab766df57194e
 		//Create player
 		//dynamic body, always get affected by forces
 		bdef.position.set(100  / PPM, 45 / PPM);
 		bdef.type = BodyType.DynamicBody;
 		//bdef.linearVelocity.set(0, 0);
 		Body body = world.createBody(bdef);
-//<<<<<<< HEAD
+		//<<<<<<< HEAD
 
-//=======
-		
+		//=======
+
 		player = new Character(body);
 		/*
 >>>>>>> 15809fa8c2969a19c9d64a9c29cab766df57194e
@@ -220,8 +231,8 @@ public class Level extends GameState{
 <<<<<<< HEAD
 
 =======
-		*/
-//>>>>>>> 15809fa8c2969a19c9d64a9c29cab766df57194e
+		 */
+		//>>>>>>> 15809fa8c2969a19c9d64a9c29cab766df57194e
 		// create foot sensor
 		/*shape.setAsBox( 10/PPM,  1 / PPM, new Vector2(0, -10/ PPM), 0);
 		fDef.filter.categoryBits = B2DVars.BIT_PLAYER;
@@ -235,11 +246,11 @@ public class Level extends GameState{
 
 =======
 		body.createFixture(fDef).setUserData("foot");*/
-		
+
 		//create player
-		
-		
-//>>>>>>> 15809fa8c2969a19c9d64a9c29cab766df57194e
+
+
+		//>>>>>>> 15809fa8c2969a19c9d64a9c29cab766df57194e
 		body.setUserData(player);
 
 	}
@@ -321,8 +332,6 @@ public class Level extends GameState{
 
 	public void createStars(){
 
-		stars = new Array<Star>();
-
 		MapLayer layer = tileMap.getLayers().get("stars");
 
 		BodyDef bdef = new BodyDef();
@@ -350,7 +359,7 @@ public class Level extends GameState{
 			Body body = world.createBody(bdef);
 			body.createFixture(fdef).setUserData("crystal");;
 
-			Star s = new Star(body);
+			IStar s = new Star(body);
 			stars.add(s);
 
 			body.setUserData(s);	
@@ -358,8 +367,6 @@ public class Level extends GameState{
 	}
 
 	public void createBigStars(){
-
-		bigStars = new Array<BigStar>();
 
 		MapLayer layer = tileMap.getLayers().get("bigStar");
 
@@ -386,9 +393,9 @@ public class Level extends GameState{
 			fdef.filter.maskBits = B2DVars.BIT_PLAYER;
 
 			Body body = world.createBody(bdef);
-			body.createFixture(fdef).setUserData("crystal");
+			body.createFixture(fdef).setUserData("bigStar");
 
-			Star s = new Star(body);
+			IStar s = new BigStar(body);
 			stars.add(s);
 
 			body.setUserData(s);	

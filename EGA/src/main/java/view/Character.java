@@ -91,7 +91,14 @@ public class Character implements B2DSprite {
 		
 		setTexture("big");
 		setAnimation(sprites, 1 / 12f);
-		System.out.println("test");
+	}
+	
+	public void collectShrinkStar() { 
+		//Ta bort?
+		numCrystals++; 
+		
+		setTexture("small");
+		setAnimation(sprites, 1 / 12f);
 	}
 	
 	public void render(SpriteBatch sb){
