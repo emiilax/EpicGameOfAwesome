@@ -1,6 +1,10 @@
 package view;
 
-import static controller.B2DVars.PPM;
+import static controller.Variables.PPM;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import model.MyContactListener;
 import model.MyInput;
 
@@ -29,7 +33,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
-import controller.B2DVars;
+import controller.Variables;
 import controller.EGA;
 import controller.GameStateManager;
 
@@ -78,7 +82,7 @@ public class Level extends GameState{
 		createStars();
 
 		//create big Stars
-		createBigStars();
+		//createBigStars();
 
 		// set up box2d cam
 		b2dCam = new OrthographicCamera();
@@ -195,62 +199,14 @@ public class Level extends GameState{
 	public void dispose() {}
 
 	public void createPlayer(){
-		/*<<<<<<< HEAD
 
 		BodyDef bdef = new BodyDef();
-		PolygonShape shape = new PolygonShape();
-		FixtureDef fDef = new FixtureDef();
-
-=======*/
-
-
-		BodyDef bdef = new BodyDef();
-		//PolygonShape shape = new PolygonShape();
-		//FixtureDef fDef = new FixtureDef();
-
-		//>>>>>>> 15809fa8c2969a19c9d64a9c29cab766df57194e
-		//Create player
-		//dynamic body, always get affected by forces
 		bdef.position.set(100  / PPM, 45 / PPM);
 		bdef.type = BodyType.DynamicBody;
-		//bdef.linearVelocity.set(0, 0);
 		Body body = world.createBody(bdef);
-		//<<<<<<< HEAD
-
-		//=======
-
-		player = new Character(body);
-		/*
->>>>>>> 15809fa8c2969a19c9d64a9c29cab766df57194e
-		shape.setAsBox(10 / PPM, 9 / PPM);
-		fDef.shape = shape;
-		fDef.filter.categoryBits = B2DVars.BIT_PLAYER;
-		fDef.filter.maskBits = B2DVars.BIT_RED | B2DVars.BIT_GREEN | B2DVars.BIT_BLUE | B2DVars.BIT_CRYSTAL;
-		//fDef.restitution = 0.5f;
-		body.createFixture(fDef).setUserData("player");
-<<<<<<< HEAD
-
-=======
-		 */
-		//>>>>>>> 15809fa8c2969a19c9d64a9c29cab766df57194e
-		// create foot sensor
-		/*shape.setAsBox( 10/PPM,  1 / PPM, new Vector2(0, -10/ PPM), 0);
-		fDef.filter.categoryBits = B2DVars.BIT_PLAYER;
-		fDef.filter.maskBits = B2DVars.BIT_RED | B2DVars.BIT_GREEN | B2DVars.BIT_BLUE;
-		fDef.isSensor = true;
-<<<<<<< HEAD
-		body.createFixture(fDef).setUserData("foot");
-
-		//create player
+	
 		player = new Character(body);
 
-=======
-		body.createFixture(fDef).setUserData("foot");*/
-
-		//create player
-
-
-		//>>>>>>> 15809fa8c2969a19c9d64a9c29cab766df57194e
 		body.setUserData(player);
 
 	}
@@ -267,9 +223,9 @@ public class Level extends GameState{
 		TiledMapTileLayer layer;
 
 		layer = (TiledMapTileLayer) tileMap.getLayers().get("ground");	
-		createLayer(layer, B2DVars.BIT_RED);
+		createLayer(layer, Variables.BIT_GROUND);
 		layer = (TiledMapTileLayer) tileMap.getLayers().get("platform");	
-		createLayer(layer, B2DVars.BIT_GREEN);
+		createLayer(layer, Variables.BIT_PLATFORM);
 
 	}
 
@@ -304,7 +260,7 @@ public class Level extends GameState{
 				fdef.friction = 0;
 				fdef.shape = cs;
 				fdef.filter.categoryBits = bits;
-				fdef.filter.maskBits = B2DVars.BIT_PLAYER;
+				fdef.filter.maskBits = Variables.BIT_PLAYER;
 				fdef.isSensor = false;
 				world.createBody(bdef).createFixture(fdef);
 			}
@@ -324,19 +280,17 @@ public class Level extends GameState{
 		fdef.friction = 0;
 		fdef.shape = cs;
 		fdef.filter.categoryBits = bits;
-		fdef.filter.maskBits = B2DVars.BIT_PLAYER;
+		fdef.filter.maskBits = Variables.BIT_PLAYER;
 		fdef.isSensor = false;
 		world.createBody(bdef).createFixture(fdef);
 
 	}
 
 	public void createStars(){
-
-		MapLayer layer = tileMap.getLayers().get("stars");
-
 		BodyDef bdef = new BodyDef();
-		FixtureDef fdef = new FixtureDef();
-
+		
+		//Create small stars
+		MapLayer layer = tileMap.getLayers().get("stars");
 
 		for(MapObject mo: layer.getObjects()){
 
@@ -346,26 +300,36 @@ public class Level extends GameState{
 			float y = mo.getProperties().get("y", Float.class) / PPM;
 
 			bdef.position.set(x, y);
-
-			CircleShape cshape = new CircleShape();
-			cshape.setRadius(8 / PPM);
-
-			fdef.shape = cshape;
-			fdef.isSensor = true;
-
-			fdef.filter.categoryBits = B2DVars.BIT_CRYSTAL;
-			fdef.filter.maskBits = B2DVars.BIT_PLAYER;
-
+		
 			Body body = world.createBody(bdef);
-			body.createFixture(fdef).setUserData("crystal");;
+			
+			IStar s = new SmallStar(body);
+			stars.add(s);
 
-			IStar s = new Star(body);
+			body.setUserData(s);	
+		}
+		
+		
+		// Create the big stars
+		layer = tileMap.getLayers().get("bigStar");
+		for(MapObject mo: layer.getObjects()){
+
+			bdef.type = BodyType.StaticBody;
+
+			float x = mo.getProperties().get("x", Float.class) / PPM;
+			float y = mo.getProperties().get("y", Float.class) / PPM;
+
+			bdef.position.set(x, y);
+			
+			Body body = world.createBody(bdef);
+			IStar s = new BigStar(body);
 			stars.add(s);
 
 			body.setUserData(s);	
 		}
 	}
 
+	/*
 	public void createBigStars(){
 
 		MapLayer layer = tileMap.getLayers().get("bigStar");
@@ -400,38 +364,6 @@ public class Level extends GameState{
 
 			body.setUserData(s);	
 		}
-	}
+	}*/
 
-	private void switchBlocks(){
-
-		Filter filter = player.getBody().getFixtureList().first().getFilterData();
-
-		short bits = filter.maskBits;
-
-		// switch to next color
-
-		// red -> green -> blue -> red
-		if((bits & B2DVars.BIT_RED) != 0){
-			bits &= ~B2DVars.BIT_RED;
-			bits |= B2DVars.BIT_GREEN;
-		}else if((bits & B2DVars.BIT_GREEN) != 0){
-			bits &= ~B2DVars.BIT_GREEN;
-			bits |= B2DVars.BIT_BLUE;
-		}else if((bits & B2DVars.BIT_BLUE) != 0){
-			bits &= ~B2DVars.BIT_BLUE;
-			bits |= B2DVars.BIT_RED;
-		}
-
-		// set new mask bits
-		filter.maskBits = bits;
-		player.getBody().getFixtureList().first().setFilterData(filter);
-
-		// set new mask bits for foot
-		filter = player.getBody().getFixtureList().get(1).getFilterData();
-		bits &= ~B2DVars.BIT_CRYSTAL;
-		filter.maskBits = bits;
-		player.getBody().getFixtureList().get(1).setFilterData(filter);
-
-
-	}
 }
