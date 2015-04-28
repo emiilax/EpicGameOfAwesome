@@ -184,35 +184,62 @@ public class Level extends GameState{
 	public void dispose() {}
 
 	public void createPlayer(){
+/*<<<<<<< HEAD
 
 		BodyDef bdef = new BodyDef();
 		PolygonShape shape = new PolygonShape();
 		FixtureDef fDef = new FixtureDef();
 
+=======*/
+		
+		
+		BodyDef bdef = new BodyDef();
+		//PolygonShape shape = new PolygonShape();
+		//FixtureDef fDef = new FixtureDef();
+		
+//>>>>>>> 15809fa8c2969a19c9d64a9c29cab766df57194e
 		//Create player
 		//dynamic body, always get affected by forces
 		bdef.position.set(100  / PPM, 45 / PPM);
 		bdef.type = BodyType.DynamicBody;
 		//bdef.linearVelocity.set(0, 0);
 		Body body = world.createBody(bdef);
+//<<<<<<< HEAD
 
+//=======
+		
+		player = new Character(body);
+		/*
+>>>>>>> 15809fa8c2969a19c9d64a9c29cab766df57194e
 		shape.setAsBox(10 / PPM, 9 / PPM);
 		fDef.shape = shape;
 		fDef.filter.categoryBits = B2DVars.BIT_PLAYER;
 		fDef.filter.maskBits = B2DVars.BIT_RED | B2DVars.BIT_GREEN | B2DVars.BIT_BLUE | B2DVars.BIT_CRYSTAL;
 		//fDef.restitution = 0.5f;
 		body.createFixture(fDef).setUserData("player");
+<<<<<<< HEAD
 
+=======
+		*/
+//>>>>>>> 15809fa8c2969a19c9d64a9c29cab766df57194e
 		// create foot sensor
-		shape.setAsBox( 10/PPM,  1 / PPM, new Vector2(0, -10/ PPM), 0);
+		/*shape.setAsBox( 10/PPM,  1 / PPM, new Vector2(0, -10/ PPM), 0);
 		fDef.filter.categoryBits = B2DVars.BIT_PLAYER;
 		fDef.filter.maskBits = B2DVars.BIT_RED | B2DVars.BIT_GREEN | B2DVars.BIT_BLUE;
 		fDef.isSensor = true;
+<<<<<<< HEAD
 		body.createFixture(fDef).setUserData("foot");
 
 		//create player
 		player = new Character(body);
 
+=======
+		body.createFixture(fDef).setUserData("foot");*/
+		
+		//create player
+		
+		
+//>>>>>>> 15809fa8c2969a19c9d64a9c29cab766df57194e
 		body.setUserData(player);
 
 	}
