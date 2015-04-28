@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="20" tilewidth="32" tileheight="32" nextobjectid="17">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="32" tileheight="32" nextobjectid="91">
  <tileset firstgid="1" name="whiteblock" tilewidth="32" tileheight="32">
   <image source="../tiles/whiteblock.png" width="32" height="32"/>
  </tileset>
@@ -9,19 +9,19 @@
  <tileset firstgid="3" name="brownblock" tilewidth="32" tileheight="32">
   <image source="../tiles/brownblock.png" width="32" height="32"/>
  </tileset>
- <layer name="background" width="10" height="20">
+ <layer name="background" width="40" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjZGBgYBzFo3gUY8UAPT8AyQ==
+   eJztw0ENAAAMA6Grf9NzsRckrJqqqurDA5vdAyE=
   </data>
  </layer>
- <layer name="ground" width="10" height="20">
+ <layer name="ground" width="40" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2DkASYiMQAE2AAV
+   eJztwwEJAAAMA6Cx/qFX4xwFEwAA4IsePyYgAFE=
   </data>
  </layer>
- <layer name="platform" width="10" height="20">
+ <layer name="platform" width="40" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFwxkwI2F62YMN08tOagMAJpAAMQ==
+   eJxjYBgFo2AU0BowEylGjByx9sEwNjFyzafUXbjMJNZNuNTQwl3UAPR012AKA/S0Rkz8kqNnqANy/IkrnIZ7WJEC8IURMWFGrfAdjR/qA3LicxQMTgAANdQA0A==
   </data>
  </layer>
  <objectgroup name="stars">
@@ -37,5 +37,10 @@
   <object id="16" x="242" y="525">
    <ellipse/>
   </object>
+ </objectgroup>
+ <objectgroup name="bigStar">
+  <object id="87" x="495" y="362"/>
+  <object id="89" x="239" y="297"/>
+  <object id="90" x="401" y="170"/>
  </objectgroup>
 </map>
