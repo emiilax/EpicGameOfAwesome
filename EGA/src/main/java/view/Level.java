@@ -284,32 +284,21 @@ public class Level extends GameState{
 
 	}
 
-	public void createStars(){
+	private void createStars(){
 		BodyDef bdef = new BodyDef();
 		
 		//Create small stars
 		MapLayer layer = tileMap.getLayers().get("stars");
-
-		for(MapObject mo: layer.getObjects()){
-
-			bdef.type = BodyType.StaticBody;
-
-			float x = mo.getProperties().get("x", Float.class) / PPM;
-			float y = mo.getProperties().get("y", Float.class) / PPM;
-
-			bdef.position.set(x, y);
-		
-			Body body = world.createBody(bdef);
-			
-			IStar s = new SmallStar(body);
-			stars.add(s);
-
-			body.setUserData(s);	
-		}
-		
-		
+		loopInStars(layer,true);
+	
 		// Create the big stars
 		layer = tileMap.getLayers().get("bigStar");
+		loopInStars(layer,false);
+	
+	}
+	
+	private void loopInStars(MapLayer layer, boolean isSmallStar){
+		BodyDef bdef = new BodyDef();
 		for(MapObject mo: layer.getObjects()){
 
 			bdef.type = BodyType.StaticBody;
@@ -320,48 +309,16 @@ public class Level extends GameState{
 			bdef.position.set(x, y);
 			
 			Body body = world.createBody(bdef);
-			IStar s = new BigStar(body);
+			
+			IStar s;
+			if(isSmallStar){
+				s = new SmallStar(body);
+			} else {	
+				s = new BigStar(body);	
+			}
 			stars.add(s);
-
-			body.setUserData(s);	
-		}
+			body.setUserData(s);
+		}	
 	}
-
-	/*
-	public void createBigStars(){
-
-		MapLayer layer = tileMap.getLayers().get("bigStar");
-
-		BodyDef bdef = new BodyDef();
-		FixtureDef fdef = new FixtureDef();
-
-
-		for(MapObject mo: layer.getObjects()){
-
-			bdef.type = BodyType.StaticBody;
-
-			float x = mo.getProperties().get("x", Float.class) / PPM;
-			float y = mo.getProperties().get("y", Float.class) / PPM;
-
-			bdef.position.set(x, y);
-
-			CircleShape cshape = new CircleShape();
-			cshape.setRadius(8 / PPM);
-
-			fdef.shape = cshape;
-			fdef.isSensor = true;
-
-			fdef.filter.categoryBits = B2DVars.BIT_CRYSTAL;
-			fdef.filter.maskBits = B2DVars.BIT_PLAYER;
-
-			Body body = world.createBody(bdef);
-			body.createFixture(fdef).setUserData("bigStar");
-
-			IStar s = new BigStar(body);
-			stars.add(s);
-
-			body.setUserData(s);	
-		}
-	}*/
 
 }

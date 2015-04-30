@@ -13,7 +13,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import controller.Variables;
 import controller.EGA;
 
-public class BigStar extends B2DSprite implements IStar{
+public class BigStar extends Entity implements IStar{
 
 	/*private Body body;
 	private Animation animation;

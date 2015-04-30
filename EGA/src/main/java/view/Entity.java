@@ -19,7 +19,7 @@ import controller.Variables;
  */
 
 @Data
-public abstract class B2DSprite {
+public abstract class Entity {
 	
 	
 	private Animation animation;
@@ -35,7 +35,7 @@ public abstract class B2DSprite {
 	 * @param body, the body of the object 
 	 * 
 	 */
-	public B2DSprite(Body body){
+	public Entity(Body body){
 		this.body = body;
 		animation = new Animation();
 		

@@ -16,7 +16,7 @@ import controller.Variables;
 import controller.EGA;
 
 @Data
-public class Character extends B2DSprite {
+public class Character extends Entity {
 	
 	//private Body body;
 	//private Animation animation;
