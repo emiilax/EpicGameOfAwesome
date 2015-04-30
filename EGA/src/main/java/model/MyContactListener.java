@@ -10,17 +10,19 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.utils.Array;
 
+import controller.NamedBody;
+
 
 @Data
 public class MyContactListener implements ContactListener{
 	
 	
 	private int numFootContacts;
-	private Array<Body> bodiesToRemove;
+	private Array<NamedBody> bodiesToRemove;
 	
 	public MyContactListener(){
 		super();
-		bodiesToRemove = new Array<Body>();
+		bodiesToRemove = new Array<NamedBody>();
 	}
 	// called when two fixures collides
 	public void beginContact(Contact c) {
@@ -36,20 +38,20 @@ public class MyContactListener implements ContactListener{
 		
 		if(fa.getUserData() != null && fa.getUserData().equals("crystal")){
 			// remove crystal
-			bodiesToRemove.add(fa.getBody());
+			bodiesToRemove.add((NamedBody)fa.getBody());
 			
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("crystal")){
-			bodiesToRemove.add(fb.getBody());
+			bodiesToRemove.add((NamedBody)fb.getBody());
 		}
 		
 		if(fa.getUserData() != null && fa.getUserData().equals("bigStar")){
 			// remove crystal
-			bodiesToRemove.add(fa.getBody());
+			bodiesToRemove.add((NamedBody)fa.getBody());
 			
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("bigStar")){
-			bodiesToRemove.add(fb.getBody());
+			bodiesToRemove.add((NamedBody)fb.getBody());
 		}
 		
 		//System.out.println(fa.getUserData() + ", " + fb.getUserData());

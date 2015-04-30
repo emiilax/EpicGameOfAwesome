@@ -33,6 +33,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
+import controller.NamedBody;
 import controller.Variables;
 import controller.EGA;
 import controller.GameStateManager;
@@ -133,15 +134,16 @@ public class Level extends GameState{
 		world.step(dt, 6, 2);
 
 		// remove crystals
-		Array<Body> bodies = cl.getBodiesToRemove();
+		Array<NamedBody> bodies = cl.getBodiesToRemove();
 
 		if(bodies.size > 0){
-			String uData = bodies.get(0).getFixtureList().get(0).getUserData().toString();
+			//String uData = bodies.get(0).getFixtureList().get(0).getUserData().toString();
 			for(int i = 0; i < bodies.size; i++){
-				Body b = bodies.get(i);
+				NamedBody b = bodies.get(i);
+				String uData = b.getName();
 				stars.removeValue((IStar) b.getUserData(), true);
 				world.destroyBody(b);
-				if(uData.equals("crystal")){
+				if(uData.equals("smallStar")){
 						player.collectShrinkStar();
 				} else {
 						player.collectGrowStar();
@@ -308,12 +310,14 @@ public class Level extends GameState{
 
 			bdef.position.set(x, y);
 			
-			Body body = world.createBody(bdef);
+			NamedBody body = (NamedBody)world.createBody(bdef);
 			
 			IStar s;
 			if(isSmallStar){
+				body.setName("smallStar");
 				s = new SmallStar(body);
-			} else {	
+			} else {
+				body.setName("bigStar");
 				s = new BigStar(body);	
 			}
 			stars.add(s);
