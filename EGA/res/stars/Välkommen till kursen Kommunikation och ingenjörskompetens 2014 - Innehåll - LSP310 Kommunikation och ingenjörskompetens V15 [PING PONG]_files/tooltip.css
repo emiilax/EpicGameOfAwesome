@@ -1,0 +1,78 @@
+
+/* The tooltip box (for PP.util.tooltip)
+/**********************************************************/
+.pp-tooltip {
+	background: rgb(255, 255, 255);
+	margin: 1em 0;
+	padding: 1em;
+	border: 1px solid rgb(219, 219, 219);
+	border-radius: 6px;
+	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+	position: absolute;
+	overflow: hidden;
+	z-index: 1100000;
+}
+
+/* Is set on tooltip target element if tooltip is activateOnClick==true */
+.pp-tooltip-activate-onclick {
+	cursor: help;
+}
+
+/* These rules are for displaying an indicator that
+/* something is tooltip-i-fied. Depending on if the text
+/* in question was wrappedin an extra span, the js engine 
+/* must choose the correct class. (the js option 'wrapped'
+/* is default false)
+/**********************************************************/
+.pp-tooltip-indication-after:after, .pp-tooltip-indication-before:before {
+	content: url(/pp/lookAndFeel/standard/icons/tooltip-indicator.png);
+}
+.pp-tooltip-indication-after-wrapped > *:after, .pp-tooltip-indication-before-wrapped > *:before {
+	content: url(/pp/lookAndFeel/standard/icons/tooltip-indicator.png);
+}
+
+/* Class for the tooltip's "loading" placeholder */
+.pp-tooltip-placeholder {
+	text-align: center;
+	background: url(/pp/lookAndFeel/standard/icons/wait_large_right.gif) no-repeat center center;
+	min-width: 50px;
+	min-height: 50px;
+}
+
+/* The close icon that is used when tooltip is useCloseIcon==true */
+.pp-tooltip-close-icon {
+	position: absolute;
+	top: .2em;
+	right: .2em;
+	width: 15px;
+	height: 15px;
+	background: url(/pp/lookAndFeel/standard/icons/tooltip-close.png) no-repeat;
+	cursor: pointer;
+}
+
+/* Dimensions for and path to image to use as tooltip indicator */
+.pp-tooltip-indicator-icon {
+	width: 16px;
+	height: 16px;
+	background: url(/pp/lookAndFeel/standard/icons/tooltip-indicator.png) no-repeat center center;
+}
+
+/* Try a new variant in Course Admin; a question mark instead of a lifebuoy (which many don't seem to understands) */
+.course-admin .pp-tooltip-indicator-icon {
+	width: 16px;
+	height: 16px;
+	background: url(/pp/lookAndFeel/standard/icons/tooltip-indicator-questionmark.png) no-repeat center center;
+	background-size: 16px 16px;
+}
+
+.course-admin .pp-tooltip-indicator-icon:hover {
+	background: url(/pp/lookAndFeel/standard/icons/tooltip-indicator-questionmark2.png) no-repeat center center;
+	background-size: 16px 16px;
+}
+/* Class used to define src for a nill.png, used by tooltip indicator element */
+.pp-tooltip-indicator-icon-nill {
+	/* XXX
+	/* This value is read by javascript and should contain a path to a nill img. */
+	background: url(/nill.png);
+	display: none;
+}

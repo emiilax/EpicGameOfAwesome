@@ -15,9 +15,9 @@ import com.badlogic.gdx.utils.GdxNativesLoader;
 public class EGA implements ApplicationListener{
 	
 	public static final String TITLE= "The game";
-	public static final int V_WIDTH = 940;
-	public static final int V_HEIGTH = 500;
-	public static final int SCALE = 2;
+	public static final int V_WIDTH = 920;
+	public static final int V_HEIGTH = 700;
+	public static final int SCALE = 4;
 	
 	public static final float STEP = 1/ 60f;
 	private float accum;

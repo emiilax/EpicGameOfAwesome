@@ -98,7 +98,7 @@ public class Level extends GameState{
 
 
 	public void handleInput() {
-
+		
 		if(MyInput.isPressed(MyInput.BUTTON_JUMP)){
 			if(cl.isPlayerOnGround()){
 
@@ -144,8 +144,6 @@ public class Level extends GameState{
 				}
 			}
 		}
-
-
 
 		bodies.clear();
 
@@ -195,14 +193,6 @@ public class Level extends GameState{
 	public void dispose() {}
 
 	public void createPlayer(){
-		/*<<<<<<< HEAD
-
-		BodyDef bdef = new BodyDef();
-		PolygonShape shape = new PolygonShape();
-		FixtureDef fDef = new FixtureDef();
-
-=======*/
-
 
 		BodyDef bdef = new BodyDef();
 		//PolygonShape shape = new PolygonShape();
@@ -215,42 +205,9 @@ public class Level extends GameState{
 		bdef.type = BodyType.DynamicBody;
 		//bdef.linearVelocity.set(0, 0);
 		Body body = world.createBody(bdef);
-		//<<<<<<< HEAD
-
-		//=======
-
+		
 		player = new Character(body);
-		/*
->>>>>>> 15809fa8c2969a19c9d64a9c29cab766df57194e
-		shape.setAsBox(10 / PPM, 9 / PPM);
-		fDef.shape = shape;
-		fDef.filter.categoryBits = B2DVars.BIT_PLAYER;
-		fDef.filter.maskBits = B2DVars.BIT_RED | B2DVars.BIT_GREEN | B2DVars.BIT_BLUE | B2DVars.BIT_CRYSTAL;
-		//fDef.restitution = 0.5f;
-		body.createFixture(fDef).setUserData("player");
-<<<<<<< HEAD
-
-=======
-		 */
-		//>>>>>>> 15809fa8c2969a19c9d64a9c29cab766df57194e
-		// create foot sensor
-		/*shape.setAsBox( 10/PPM,  1 / PPM, new Vector2(0, -10/ PPM), 0);
-		fDef.filter.categoryBits = B2DVars.BIT_PLAYER;
-		fDef.filter.maskBits = B2DVars.BIT_RED | B2DVars.BIT_GREEN | B2DVars.BIT_BLUE;
-		fDef.isSensor = true;
-<<<<<<< HEAD
-		body.createFixture(fDef).setUserData("foot");
-
-		//create player
-		player = new Character(body);
-
-=======
-		body.createFixture(fDef).setUserData("foot");*/
-
-		//create player
-
-
-		//>>>>>>> 15809fa8c2969a19c9d64a9c29cab766df57194e
+	
 		body.setUserData(player);
 
 	}
@@ -292,7 +249,6 @@ public class Level extends GameState{
 				bdef.type = BodyType.StaticBody;
 				bdef.position.set((col + 0.5f)* tilesize / PPM, (row + 0.5f) * tilesize / PPM);
 
-				ChainShape cs = new ChainShape();
 				Vector2[] v = new Vector2[5];
 				v[0] = new Vector2(-tilesize / 2 / PPM, - tilesize / 2 / PPM);
 				v[1] = new Vector2(-tilesize / 2 / PPM, tilesize / 2 / PPM);
@@ -300,6 +256,7 @@ public class Level extends GameState{
 				v[3] = new Vector2(tilesize / 2 / PPM, -tilesize / 2 / PPM);
 				v[4] = new Vector2(-tilesize / 2 / PPM, -tilesize / 2 / PPM);
 
+				ChainShape cs = new ChainShape();
 				cs.createChain(v);
 				fdef.friction = 0;
 				fdef.shape = cs;
