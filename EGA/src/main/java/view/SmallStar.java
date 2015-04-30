@@ -1,32 +1,55 @@
 package view;
 
+import static controller.Variables.PPM;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 
-import controller.B2DVars;
+import controller.Variables;
 import controller.EGA;
 
-public class Star implements B2DSprite, IStar{
-
+public class SmallStar extends B2DSprite implements  IStar{
+/*
 	private Body body;
 	private Animation animation;
 	private float width;
-	private float height;
+	private float height;*/
 	
-	public Star(Body body) {
+	public SmallStar(Body body) {
+		super(body);
 		
-		this.body = body;
-		animation = new Animation();
+		FixtureDef fdef = new FixtureDef();
+		CircleShape cshape = new CircleShape();
+		cshape.setRadius(8 / PPM);
+
+		fdef.shape = cshape;
+		fdef.isSensor = true;
+
+		fdef.filter.categoryBits = Variables.BIT_STAR;
+		fdef.filter.maskBits = Variables.BIT_PLAYER;
+		
+		setSensor(fdef, "crystal");
+		
 		Texture tex = EGA.res.getTexture("star");
 		TextureRegion[] sprites = TextureRegion.split(tex,  16,  16)[0];
 		
 		setAnimation(sprites, 1/ 12f);
 		
+		
+		
+		//this.body = body;
+		//animation = new Animation();
+		
+		
+		
 	}
 	
+	/*
 	public void setAnimation(TextureRegion[] reg, float delay){
 		animation.setFrames(reg, delay);
 		
@@ -48,5 +71,5 @@ public class Star implements B2DSprite, IStar{
 	}
 	
 	public Vector2 getPosition() { return body.getPosition(); }
-
+	*/
 }

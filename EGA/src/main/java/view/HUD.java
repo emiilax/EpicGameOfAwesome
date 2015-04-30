@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import controller.B2DVars;
+import controller.Variables;
 import controller.EGA;
 
 public class HUD {
@@ -32,19 +32,19 @@ public class HUD {
 		short bits = player.getBody().getFixtureList().first().getFilterData().maskBits;
 		
 		sb.begin();
-		
-		if((bits & B2DVars.BIT_RED) != 0){
+		/*
+		if((bits & Variables.BIT_RED) != 0){
 			sb.draw(blocks[0], 40, 200);
 		}
 		
-		if((bits & B2DVars.BIT_GREEN) != 0){
+		if((bits & Variables.BIT_GREEN) != 0){
 			sb.draw(blocks[1], 40, 200);
 		}
 		
-		if((bits & B2DVars.BIT_BLUE) != 0){
+		if((bits & Variables.BIT_BLUE) != 0){
 			sb.draw(blocks[2], 40, 200);
 		}
-		
+		*/
 		sb.end();
 		
 	}
