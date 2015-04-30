@@ -1,5 +1,6 @@
 package controller;
 
+import view.GameState;
 import lombok.Data;
 import model.Content;
 import model.MyInput;
@@ -15,9 +16,9 @@ import com.badlogic.gdx.utils.GdxNativesLoader;
 public class EGA implements ApplicationListener{
 	
 	public static final String TITLE= "The game";
-	public static final int V_WIDTH = 920;
-	public static final int V_HEIGTH = 700;
-	public static final int SCALE = 4;
+	public static final int V_WIDTH = 940;
+	public static final int V_HEIGTH = 500;
+	public static final int SCALE = 2;
 	
 	public static final float STEP = 1/ 60f;
 	private float accum;
@@ -27,6 +28,7 @@ public class EGA implements ApplicationListener{
 	private OrthographicCamera hudCam;
 	
 	private GameStateManager gsm;
+	private GameState game;
 	
 	public static Content res;
 
@@ -45,7 +47,8 @@ public class EGA implements ApplicationListener{
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();
 		hudCam = new OrthographicCamera();
-		gsm = new GameStateManager(this);		
+		gsm = new GameStateManager(this);
+		
 	}
 	
 	public void render() {
@@ -59,9 +62,9 @@ public class EGA implements ApplicationListener{
 
 	}
 	
+	//public void handleInput() {}
+	
 	public void dispose() {}
-
-
 	public void resize(int arg0, int arg1) {}
 	public void resume() {}
 	public void pause() {}

@@ -81,8 +81,8 @@ public class Character extends Entity {
 		if(size.equals("small")){
 			//Texture tex = Game.res.getTexture("bunny");
 			removeSensors();
-			testFixt();
-			//setFixtureDef(10, 10);
+			
+			setFixtureDef(10, 10);
 			
 			Texture tex = EGA.res.getTexture("smallplayer");
 			sprites = TextureRegion.split(tex, 20, 20)[0];
@@ -96,26 +96,6 @@ public class Character extends Entity {
 			
 		}
 		
-	}
-	public void testFixt(){
-		shape = new PolygonShape();
-		fDef = new FixtureDef();
-		shape.setAsBox(10 / PPM, 10 / PPM);
-		fDef.shape = shape;
-		fDef.filter.categoryBits = Variables.BIT_PLAYER;
-		fDef.filter.maskBits = Variables.BIT_GROUND | Variables.BIT_PLATFORM | Variables.BIT_STAR;
-		
-		//fDef.restitution = 0.5f;
-		//body.createFixture(fDef).setUserData("player");
-		setSensor(fDef, "player");
-		
-		
-		shape.setAsBox( 10/PPM,  1 / PPM, new Vector2(0, -11/ PPM), 0);
-		fDef.filter.categoryBits = Variables.BIT_PLAYER;
-		fDef.filter.maskBits = Variables.BIT_GROUND | Variables.BIT_PLATFORM;
-		fDef.isSensor = true;
-		//body.createFixture(fDef).setUserData("foot");
-		setSensor(fDef, "foot");
 	}
 	
 	public void setFixtureDef(float width, float heigth){

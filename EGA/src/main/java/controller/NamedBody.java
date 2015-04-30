@@ -8,11 +8,14 @@ public class NamedBody extends Body {
 	String name;
 	Body body;
 	
-	public NamedBody(World world, long l, String name, Body body){
+	public NamedBody(World world, long l){
+		super(world,l);
+	}
+	
+	public NamedBody(World world, long l, String name){
 		super(world,l);
 		
 		this.name = name;
-		this.body = body;
 	}
 	
 	public String getName(){

@@ -6,7 +6,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.utils.Array;
 
 import controller.Variables;
 
@@ -26,7 +28,7 @@ public abstract class Entity {
 	private float width;
 	private float height;
 	private Body body;
-	
+	private Array<Fixture> fixtures = new Array<Fixture>();
 	
 	/**
 	 * Constructor for the abstract class. Initiate the body 
@@ -92,8 +94,9 @@ public abstract class Entity {
 	public void setSensor(FixtureDef fdef, String userData){
 		
 		body.createFixture(fdef).setUserData(userData);
+		
 		if(userData.equals("foot")){
-		System.out.println(body.getFixtureList().size);	
+			System.out.println(body.getFixtureList().size);	
 		}
 		
 	}

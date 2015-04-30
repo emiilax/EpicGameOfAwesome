@@ -23,6 +23,7 @@ public class SmallStar extends Entity implements  IStar{
 	public SmallStar(Body body) {
 		super(body);
 		
+		
 		FixtureDef fdef = new FixtureDef();
 		CircleShape cshape = new CircleShape();
 		cshape.setRadius(8 / PPM);
@@ -33,7 +34,7 @@ public class SmallStar extends Entity implements  IStar{
 		fdef.filter.categoryBits = Variables.BIT_STAR;
 		fdef.filter.maskBits = Variables.BIT_PLAYER;
 		
-		setSensor(fdef, "crystal");
+		setSensor(fdef, "smallStar");
 		
 		Texture tex = EGA.res.getTexture("star");
 		TextureRegion[] sprites = TextureRegion.split(tex,  16,  16)[0];
