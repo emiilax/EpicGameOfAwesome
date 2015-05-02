@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="32" tileheight="32" nextobjectid="102">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="32" tileheight="32" nextobjectid="114">
  <tileset firstgid="1" name="whiteblock" tilewidth="32" tileheight="32">
   <image source="../tiles/whiteblock.png" width="32" height="32"/>
  </tileset>
@@ -21,20 +21,20 @@
  </layer>
  <layer name="platform" width="40" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjAIEYMaCh7I99Aaj4Te0Ab3DkdQ4HM7xzoxGDzYwUtxHqzQ2HNPsKCAfAADXCgCF
+   eJxjYBgFo2AUjIJRMNwBMxY8nOyjNRgNP9oBZjSaFH2khhG5eshxH73AUHAfNdMwtjgcrH4fBbgBAD1KAIg=
   </data>
  </layer>
  <objectgroup name="stars">
-  <object id="96" x="114" y="331">
+  <object id="96" x="27" y="428">
    <ellipse/>
   </object>
-  <object id="101" x="651" y="236">
+  <object id="101" x="584" y="334">
    <ellipse/>
   </object>
  </objectgroup>
  <objectgroup name="bigStars">
   <object id="91" x="1074" y="104" height="1"/>
-  <object id="94" x="307" y="464"/>
-  <object id="97" x="553" y="336"/>
+  <object id="94" x="339" y="518"/>
+  <object id="97" x="446" y="425"/>
  </objectgroup>
 </map>

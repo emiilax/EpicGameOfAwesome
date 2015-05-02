@@ -340,7 +340,7 @@ public class Level extends GameState{
 		loopInStars(layer,true);
 	
 		// Create the big stars
-		layer = tileMap.getLayers().get("bigStar");
+		layer = tileMap.getLayers().get("bigStars");
 		loopInStars(layer,false);
 	
 	}
