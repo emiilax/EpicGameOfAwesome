@@ -125,22 +125,11 @@ public class Level extends GameState{
 
 	}
 	
-	float x = 0;
-	float y = 0;
 	public void update(float dt) {
 		handleInput();
 		
 		world.step(dt, 6, 2);
-		
-		Body plb = player.getBody();
-		if(!(plb.getPosition().x == x &&  plb.getPosition().y == y)){
-			System.out.println("x: " + plb.getPosition().x + ", y: " + plb.getPosition().y);
-		}
-		
-		
-		x = plb.getPosition().x;
-		y = plb.getPosition().y;
-		
+		/*
 		// remove crystals
 		Array<Body> bodies = cl.getBodiesToRemove();
 
@@ -148,33 +137,24 @@ public class Level extends GameState{
 			String uData = bodies.get(0).getFixtureList().get(0).getUserData().toString();
 			for(int i = 0; i < bodies.size; i++){
 				Body b = bodies.get(i);
-				
 				stars.removeValue((IStar) b.getUserData(), true);
 				world.destroyBody(b);
-				if(uData.equals("smallStar")){
-					Body pb = player.getBody();
-					
-					world.destroyBody(pb);
-					BodyDef bdef = new BodyDef();
-					bdef.position.set(pb.getPosition().x , pb.getPosition().y );
-					bdef.type = BodyType.DynamicBody;
-					Body body = world.createBody(bdef);
 				
-					player = new Character(body);
-
-					body.setUserData(player);
-					
+				if(uData.equals("smallStar")){
+					changePlayerBody();
 					player.collectShrinkStar();
 				} else {
+					changePlayerBody();
 					player.collectGrowStar();
 				}
 			}
 		}
 
 		bodies.clear();
-
+		*/ 
+		removeStars();
 		player.update(dt);
-
+		 
 		for(int i  = 0; i < stars.size; i++){
 			stars.get(i).update(dt);
 		}
@@ -217,7 +197,35 @@ public class Level extends GameState{
 	}
 
 	public void dispose() {}
+	
+	/**
+	 * Removes the stars that have been collected
+	 */
+	public void removeStars(){
+		Array<Body> bodies = cl.getBodiesToRemove();
 
+		if(bodies.size > 0){
+			String uData = bodies.get(0).getFixtureList().get(0).getUserData().toString();
+			for(int i = 0; i < bodies.size; i++){
+				Body b = bodies.get(i);
+				stars.removeValue((IStar) b.getUserData(), true);
+				world.destroyBody(b);
+				
+				if(uData.equals("smallStar")){
+					changePlayerBody();
+					player.collectShrinkStar();
+				} else {
+					changePlayerBody();
+					player.collectGrowStar();
+				}
+			}
+		}
+		bodies.clear();
+	}
+	
+	/**
+	 * Creates the character
+	 */
 	public void createPlayer(){
 
 		BodyDef bdef = new BodyDef();
@@ -230,6 +238,23 @@ public class Level extends GameState{
 		body.setUserData(player);
 	}
 	
+	/**
+	 * Used when character is growing or shrinking.
+	 * The method destroys the existing body and replace
+	 * it with a new.
+	 */
+	public void changePlayerBody(){
+		Body pb = player.getBody();
+		
+		world.destroyBody(pb);
+		BodyDef bdef = new BodyDef();
+		bdef.position.set(pb.getPosition().x , pb.getPosition().y);
+		bdef.type = BodyType.DynamicBody;
+		Body body = world.createBody(bdef);
+		player.setBody(body);
+
+		body.setUserData(player);
+	}
 	
 
 	public void createTiles(){
