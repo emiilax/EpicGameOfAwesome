@@ -115,8 +115,7 @@ public class Level extends GameState{
 			stars.get(i).update(dt);
 		}
 	}
-
-
+	
 	public void render() {
 
 		//clear screen
@@ -200,8 +199,8 @@ public class Level extends GameState{
 	 * it with a new.
 	 */
 	public void changePlayerBody(){
+		player.setCurrentVelocity();
 		Body pb = player.getBody();
-		
 		world.destroyBody(pb);
 		BodyDef bdef = new BodyDef();
 		bdef.position.set(pb.getPosition().x , pb.getPosition().y);
@@ -212,7 +211,11 @@ public class Level extends GameState{
 		body.setUserData(player);
 	}
 	
-
+	
+	/**
+	 * Create the tiles of the map (ground and platforms) 
+	 * @param level, what level that should be loaded
+	 */
 	public void createTiles(int level){
 
 		// load tiled map
@@ -264,7 +267,7 @@ public class Level extends GameState{
 			world.createBody(bdef).createFixture(fdef);
 		}
 	}
-
+	// Get rid of this eventually! use the method above instead
 	public void createLayer(TiledMapTileLayer layer, short bits){
 
 		BodyDef bdef = new BodyDef();
@@ -321,7 +324,10 @@ public class Level extends GameState{
 		world.createBody(bdef).createFixture(fdef);
 
 	}
-
+	
+	/**
+	 * Creates the stars on the map
+	 */
 	private void createStars(){
 		BodyDef bdef = new BodyDef();
 		
@@ -334,7 +340,13 @@ public class Level extends GameState{
 		loopInStars(layer,false);
 	
 	}
-
+	
+	/**
+	 * Used to loop in the stars to the map. A help
+	 * method to createStars();
+	 * @param layer, the layer that should be filled
+	 * @param isSmallStar, boolean that says if its a small or big star
+	 */
 	private void loopInStars(MapLayer layer, boolean isSmallStar){
 		BodyDef bdef = new BodyDef();
 		

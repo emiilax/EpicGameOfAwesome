@@ -33,10 +33,12 @@ public class Character extends Entity {
 	private PolygonShape shape;
 	private FixtureDef fDef;
 
-	private Texture smallTex = new Texture(Gdx.files.internal("res/characters/redball_small.png"));
-	private Texture bigTex = new Texture(Gdx.files.internal("res/characters/redball_big.png"));
-
 	private boolean isBig = false;
+	
+	private float xVelocity;
+	private float yVelocity;
+	
+	
 	
 	public Character(Body body) {
 		super(body);
@@ -115,9 +117,23 @@ public class Character extends Entity {
 		return fDef.shape.getRadius();
 	}
 	
+	@Override
+	public void setBody(Body body){
+		
+		super.setBody(body);
+		Body playerBody = this.getBody();
+		playerBody.setLinearVelocity(xVelocity, yVelocity);
+	}
+	public void setCurrentVelocity(){
+		Body playerBody = this.getBody();
+		
+		yVelocity = playerBody.getLinearVelocity().y;
+		xVelocity = playerBody.getLinearVelocity().x;
+	}
+	
 	public void handleInput(MyContactListener cl) {
 		Body playerBody = this.getBody();
-		Float yVelocity = playerBody.getLinearVelocity().y;
+		yVelocity = playerBody.getLinearVelocity().y;
 		int force;
 		float speed;
 		if(isBig){
