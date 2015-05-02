@@ -99,9 +99,6 @@ public class Level extends GameState{
 
 	}
 
-
-
-
 	public void handleInput() {
 		
 		if(MyInput.isPressed(MyInput.BUTTON_JUMP)){
