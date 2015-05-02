@@ -129,29 +129,7 @@ public class Level extends GameState{
 		handleInput();
 		
 		world.step(dt, 6, 2);
-		/*
-		// remove crystals
-		Array<Body> bodies = cl.getBodiesToRemove();
-
-		if(bodies.size > 0){
-			String uData = bodies.get(0).getFixtureList().get(0).getUserData().toString();
-			for(int i = 0; i < bodies.size; i++){
-				Body b = bodies.get(i);
-				stars.removeValue((IStar) b.getUserData(), true);
-				world.destroyBody(b);
-				
-				if(uData.equals("smallStar")){
-					changePlayerBody();
-					player.collectShrinkStar();
-				} else {
-					changePlayerBody();
-					player.collectGrowStar();
-				}
-			}
-		}
-
-		bodies.clear();
-		*/ 
+		
 		removeStars();
 		player.update(dt);
 		 
@@ -273,6 +251,28 @@ public class Level extends GameState{
 		layer = (TiledMapTileLayer) tileMap.getLayers().get("platform");	
 		createLayer(layer, Variables.BIT_PLATFORM);
 
+	}
+	
+	public void testCreateLayer(TiledMapTileLayer layer){
+		BodyDef bdef = new BodyDef();
+		FixtureDef fdef = new FixtureDef();
+		PolygonShape shape = new PolygonShape();
+		
+		for(MapObject mo: layer.getObjects()){
+			bdef.type = BodyType.StaticBody;
+			float x = mo.getProperties().get("x", Float.class) / PPM;
+			float y = mo.getProperties().get("y", Float.class) / PPM;
+			
+			bdef.position.set(x, y);
+			
+			float width = mo.getProperties().get("width", Float.class) / PPM;
+			float height = mo.getProperties().get("height", Float.class) / PPM;
+
+			
+			shape.setAsBox(width, height);
+			
+			Body body = world.createBody(bdef);
+		}
 	}
 
 	public void createLayer(TiledMapTileLayer layer, short bits){
