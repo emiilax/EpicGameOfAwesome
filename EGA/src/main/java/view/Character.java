@@ -1,6 +1,8 @@
 package view;
 
 import lombok.Data;
+import model.MyContactListener;
+import model.MyInput;
 import static controller.Variables.PPM;
 
 import com.badlogic.gdx.Gdx;
@@ -18,7 +20,7 @@ import controller.EGA;
 
 @Data
 public class Character extends Entity {
-	
+
 	//private Body body;
 	//private Animation animation;
 	//private float width;
@@ -27,78 +29,84 @@ public class Character extends Entity {
 	private int totalCrystals;
 	private TextureRegion[] stickman;
 	private TextureRegion[] sprites;
-	
+
 	private PolygonShape shape;
 	private FixtureDef fDef;
+
 	private Texture smallTex = new Texture(Gdx.files.internal("res/characters/redball_small.png"));
 	private Texture bigTex = new Texture(Gdx.files.internal("res/characters/redball_big.png"));
+
+	private boolean isBig = false;
 	
 	public Character(Body body) {
 		super(body);
 		
 		shape = new PolygonShape();
 		fDef = new FixtureDef();
-		
+
 		setTexture("small");
-		
+
 		setAnimation(sprites, 1 / 12f);
+
 		
 	}
+
 	
-	
+
 	private void setTexture(String size){
-		
+
 		if(size.equals("small")){
 			
 			removeSensors();
-			
+
 			setFixtureDef(10, 10);
-			
+
 			Texture tex = EGA.res.getTexture("smallplayer");
-			sprites = TextureRegion.split(smallTex, 20, 20)[0];
-			
+			sprites = TextureRegion.split(tex, 20, 20)[0];
+			isBig = false;
+
 		}else {
 			removeSensors();
 			setFixtureDef(17.5f, 17.5f);
-			
+
 			Texture tex = EGA.res.getTexture("bigPlayer");
-			sprites = TextureRegion.split(bigTex, 35, 35)[0];
-			
+			sprites = TextureRegion.split(tex, 35, 35)[0];
+			isBig = true;
+
 		}
-		
 	}
-	
+
 	public void setFixtureDef(float width, float heigth){
 		shape = new PolygonShape();
 		fDef = new FixtureDef();
-		
+
 		shape.setAsBox(width / PPM, heigth / PPM);
 		fDef.shape = shape;
 		fDef.filter.categoryBits = Variables.BIT_PLAYER;
 		fDef.filter.maskBits = Variables.BIT_GROUND | Variables.BIT_PLATFORM | Variables.BIT_STAR;
-		
+
 		setSensor(fDef, "player");
-		
+
 		shape.setAsBox( width/PPM,  1 / PPM, new Vector2(0, -heigth/ PPM), 0);
 		fDef.filter.categoryBits = Variables.BIT_PLAYER;
 		fDef.filter.maskBits = Variables.BIT_GROUND | Variables.BIT_PLATFORM;
 		fDef.isSensor = true;
-	
+
 		setSensor(fDef, "foot");
 	}
-	
+
 	public void collectGrowStar() { 
 		//Ta bort?
 		numCrystals++; 
-		
+
 		setTexture("big");
 		setAnimation(sprites, 1 / 12f);
 	}
-	
+
 	public void collectShrinkStar() { 
 		//Ta bort?
 		numCrystals++; 
-		
+
 		setTexture("small");
 		setAnimation(sprites, 1 / 12f);
 	}
@@ -107,7 +115,36 @@ public class Character extends Entity {
 		return fDef.shape.getRadius();
 	}
 	
-	
-	
-	
+	public void handleInput(MyContactListener cl) {
+		Body playerBody = this.getBody();
+		Float yVelocity = playerBody.getLinearVelocity().y;
+		int force;
+		float speed;
+		if(isBig){
+			force = 350;
+			speed = 1f;
+		} else {
+			force = 250;
+			speed = 2f;
+		}
+		if(MyInput.isPressed(MyInput.BUTTON_JUMP)){
+			if(cl.isPlayerOnGround()){
+				playerBody.applyForceToCenter(0, force, true);
+			}
+		}
+
+		if(MyInput.isDown(MyInput.BUTTON_FORWARD)){
+
+			playerBody.setLinearVelocity(speed, yVelocity);
+
+		}else if(MyInput.isDown(MyInput.BUTTON_BACKWARD)){
+
+			playerBody.setLinearVelocity(-speed, yVelocity);
+
+		}else if(!MyInput.isDown(MyInput.BUTTON_FORWARD) || !MyInput.isDown(MyInput.BUTTON_BACKWARD)){
+
+			playerBody.setLinearVelocity(0, yVelocity);
+
+		}
+	}
 }

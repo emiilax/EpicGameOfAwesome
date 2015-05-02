@@ -77,7 +77,7 @@ public class Level extends GameState{
 		createPlayer();
 
 		// create tiles
-		createTiles();
+		createTiles(0);
 
 		// create crystals 
 		createStars();
@@ -100,33 +100,11 @@ public class Level extends GameState{
 	}
 
 	public void handleInput() {
-		
-		if(MyInput.isPressed(MyInput.BUTTON_JUMP)){
-			if(cl.isPlayerOnGround()){
-
-				player.getBody().applyForceToCenter(0, 250, true);
-
-			}
-		}
-
-		if(MyInput.isDown(MyInput.BUTTON_FORWARD)){
-
-			player.getBody().setLinearVelocity(1.5f, player.getBody().getLinearVelocity().y);
-
-		}else if(MyInput.isDown(MyInput.BUTTON_BACKWARD)){
-
-			player.getBody().setLinearVelocity(-1.5f, player.getBody().getLinearVelocity().y);
-
-		}else if(!MyInput.isDown(MyInput.BUTTON_FORWARD) || !MyInput.isDown(MyInput.BUTTON_BACKWARD)){
-
-			player.getBody().setLinearVelocity(0, player.getBody().getLinearVelocity().y);
-
-		}
-
+		player.handleInput(cl);
 	}
 	
 	public void update(float dt) {
-		handleInput();
+		player.handleInput(cl);
 		
 		world.step(dt, 6, 2);
 		
@@ -235,10 +213,14 @@ public class Level extends GameState{
 	}
 	
 
-	public void createTiles(){
+	public void createTiles(int level){
 
 		// load tiled map
-		tileMap = new TmxMapLoader().load("res/maps/testmap.tmx");
+		if(level == 1){
+			tileMap = new TmxMapLoader().load("res/maps/testmap.tmx");
+		} else {
+			tileMap = new TmxMapLoader().load("res/maps/testmap.tmx");
+		}
 		tmr = new OrthogonalTiledMapRenderer(tileMap);
 
 
