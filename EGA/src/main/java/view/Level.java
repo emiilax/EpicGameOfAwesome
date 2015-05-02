@@ -127,13 +127,23 @@ public class Level extends GameState{
 		}
 
 	}
-
+	
+	float x = 0;
+	float y = 0;
 	public void update(float dt) {
 		handleInput();
 		
 		world.step(dt, 6, 2);
 		
-
+		Body plb = player.getBody();
+		if(!(plb.getPosition().x == x &&  plb.getPosition().y == y)){
+			System.out.println("x: " + plb.getPosition().x + ", y: " + plb.getPosition().y);
+		}
+		
+		
+		x = plb.getPosition().x;
+		y = plb.getPosition().y;
+		
 		// remove crystals
 		Array<Body> bodies = cl.getBodiesToRemove();
 
@@ -145,9 +155,21 @@ public class Level extends GameState{
 				stars.removeValue((IStar) b.getUserData(), true);
 				world.destroyBody(b);
 				if(uData.equals("smallStar")){
-						player.collectShrinkStar();
+					Body pb = player.getBody();
+					
+					world.destroyBody(pb);
+					BodyDef bdef = new BodyDef();
+					bdef.position.set(pb.getPosition().x , pb.getPosition().y );
+					bdef.type = BodyType.DynamicBody;
+					Body body = world.createBody(bdef);
+				
+					player = new Character(body);
+
+					body.setUserData(player);
+					
+					player.collectShrinkStar();
 				} else {
-						player.collectGrowStar();
+					player.collectGrowStar();
 				}
 			}
 		}
