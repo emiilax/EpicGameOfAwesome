@@ -248,30 +248,38 @@ public class Level extends GameState{
 
 		layer = (TiledMapTileLayer) tileMap.getLayers().get("ground");	
 		createLayer(layer, Variables.BIT_GROUND);
-		layer = (TiledMapTileLayer) tileMap.getLayers().get("platform");	
+		layer = (TiledMapTileLayer) tileMap.getLayers().get("platform");
 		createLayer(layer, Variables.BIT_PLATFORM);
+		
+		//MapLayer ml = tileMap.getLayers().get("thePlatforms");
+		//testCreateLayer(ml, Variables.BIT_PLATFORM);
 
 	}
 	
-	public void testCreateLayer(TiledMapTileLayer layer){
+	public void testCreateLayer(MapLayer layer, short bits){
 		BodyDef bdef = new BodyDef();
 		FixtureDef fdef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();
 		
 		for(MapObject mo: layer.getObjects()){
 			bdef.type = BodyType.StaticBody;
-			float x = mo.getProperties().get("x", Float.class) / PPM;
-			float y = mo.getProperties().get("y", Float.class) / PPM;
+			
+			
+			float width = mo.getProperties().get("width", Float.class) / PPM / 2;
+			float height = mo.getProperties().get("height", Float.class) / PPM / 2;
+			
+			float x = (mo.getProperties().get("x", Float.class) + width*PPM) / PPM;
+			float y = (mo.getProperties().get("y", Float.class) + height*PPM) / PPM;
 			
 			bdef.position.set(x, y);
-			
-			float width = mo.getProperties().get("width", Float.class) / PPM;
-			float height = mo.getProperties().get("height", Float.class) / PPM;
-
-			
 			shape.setAsBox(width, height);
+			fdef.friction = 0;
+			fdef.shape = shape;
+			fdef.filter.categoryBits = bits;
+			fdef.filter.maskBits = Variables.BIT_PLAYER;
+			fdef.isSensor = false;
 			
-			Body body = world.createBody(bdef);
+			world.createBody(bdef).createFixture(fdef);
 		}
 	}
 
@@ -340,13 +348,14 @@ public class Level extends GameState{
 		loopInStars(layer,true);
 	
 		// Create the big stars
-		layer = tileMap.getLayers().get("bigStar");
+		layer = tileMap.getLayers().get("bigStars");
 		loopInStars(layer,false);
 	
 	}
 
 	private void loopInStars(MapLayer layer, boolean isSmallStar){
 		BodyDef bdef = new BodyDef();
+		
 		for(MapObject mo: layer.getObjects()){
 
 			bdef.type = BodyType.StaticBody;
