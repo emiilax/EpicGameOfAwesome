@@ -1,6 +1,8 @@
 package view;
 
 import lombok.Data;
+import model.MyContactListener;
+import model.MyInput;
 import static controller.Variables.PPM;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -17,7 +19,7 @@ import controller.EGA;
 
 @Data
 public class Character extends Entity {
-	
+
 	//private Body body;
 	//private Animation animation;
 	//private float width;
@@ -26,9 +28,10 @@ public class Character extends Entity {
 	private int totalCrystals;
 	private TextureRegion[] stickman;
 	private TextureRegion[] sprites;
-	
+
 	private PolygonShape shape;
 	private FixtureDef fDef;
+	private boolean isBig = false;
 	
 	public Character(Body body) {
 		super(body);
@@ -36,111 +39,102 @@ public class Character extends Entity {
 		//animation = new Animation();
 		shape = new PolygonShape();
 		fDef = new FixtureDef();
-		
+
 		//setFixtureDef(10, 10);
-		
-		/*
-		shape.setAsBox(10 / PPM, 10 / PPM);
-		fDef.shape = shape;
-		fDef.filter.categoryBits = Variables.BIT_PLAYER;
-		fDef.filter.maskBits = Variables.BIT_GROUND | Variables.BIT_PLATFORM | Variables.BIT_STAR;
-		
-		//fDef.restitution = 0.5f;
-		//body.createFixture(fDef).setUserData("player");
-		setSensor(fDef, "player");
-		
-		
-		shape.setAsBox( 10/PPM,  1 / PPM, new Vector2(0, -10/ PPM), 0);
-		fDef.filter.categoryBits = Variables.BIT_PLAYER;
-		fDef.filter.maskBits = Variables.BIT_GROUND | Variables.BIT_PLATFORM;
-		fDef.isSensor = true;
-		//body.createFixture(fDef).setUserData("foot");
-		setSensor(fDef, "foot");
-		*/
-		
+
 		setTexture("small");
-		
+
 		setAnimation(sprites, 1 / 12f);
-		
+
 	}
-	
-	/*public void setAnimation(TextureRegion[] reg, float delay){
-		animation.setFrames(reg, delay);
-		
-		width = reg[0].getRegionWidth();
-		height = reg[0].getRegionHeight();
-	}
-	
-	public void update(float dt){
-		animation.updtate(dt);
-		
-	}*/
-	
+
 	private void setTexture(String size){
-		
+
 		if(size.equals("small")){
 			//Texture tex = Game.res.getTexture("bunny");
 			removeSensors();
-			
+
 			setFixtureDef(10, 10);
-			
+
 			Texture tex = EGA.res.getTexture("smallplayer");
 			sprites = TextureRegion.split(tex, 20, 20)[0];
-			
+			isBig = false;
+
 		}else {
 			removeSensors();
 			setFixtureDef(17.5f, 17.5f);
-			
+
 			Texture tex = EGA.res.getTexture("bigPlayer");
 			sprites = TextureRegion.split(tex, 35, 35)[0];
-			
+			isBig = true;
 		}
-		
 	}
-	
+
 	public void setFixtureDef(float width, float heigth){
 		shape = new PolygonShape();
 		fDef = new FixtureDef();
-		
+
 		shape.setAsBox(width / PPM, heigth / PPM);
 		fDef.shape = shape;
 		fDef.filter.categoryBits = Variables.BIT_PLAYER;
 		fDef.filter.maskBits = Variables.BIT_GROUND | Variables.BIT_PLATFORM | Variables.BIT_STAR;
-		
+
 		setSensor(fDef, "player");
-		
+
 		shape.setAsBox( width/PPM,  1 / PPM, new Vector2(0, -heigth/ PPM), 0);
 		fDef.filter.categoryBits = Variables.BIT_PLAYER;
 		fDef.filter.maskBits = Variables.BIT_GROUND | Variables.BIT_PLATFORM;
 		fDef.isSensor = true;
-	
+
 		setSensor(fDef, "foot");
 	}
-	
+
 	public void collectGrowStar() { 
 		//Ta bort?
 		numCrystals++; 
-		
+
 		setTexture("big");
 		setAnimation(sprites, 1 / 12f);
 	}
-	
+
 	public void collectShrinkStar() { 
 		//Ta bort?
 		numCrystals++; 
-		
+
 		setTexture("small");
 		setAnimation(sprites, 1 / 12f);
 	}
-	/*
-	public void render(SpriteBatch sb){
-		sb.begin();
-		sb.draw(animation.getFrame(), 
-				body.getPosition().x * B2DVars.PPM - width / 2,
-				body.getPosition().y * B2DVars.PPM - height / 2);
-		sb.end();
+
+	public void handleInput(MyContactListener cl) {
+		Body playerBody = this.getBody();
+		Float yVelocity = playerBody.getLinearVelocity().y;
+		int force;
+		float speed;
+		if(isBig){
+			force = 350;
+			speed = 1f;
+		} else {
+			force = 250;
+			speed = 2f;
+		}
+		if(MyInput.isPressed(MyInput.BUTTON_JUMP)){
+			if(cl.isPlayerOnGround()){
+				playerBody.applyForceToCenter(0, force, true);
+			}
+		}
+
+		if(MyInput.isDown(MyInput.BUTTON_FORWARD)){
+
+			playerBody.setLinearVelocity(speed, yVelocity);
+
+		}else if(MyInput.isDown(MyInput.BUTTON_BACKWARD)){
+
+			playerBody.setLinearVelocity(-speed, yVelocity);
+
+		}else if(!MyInput.isDown(MyInput.BUTTON_FORWARD) || !MyInput.isDown(MyInput.BUTTON_BACKWARD)){
+
+			playerBody.setLinearVelocity(0, yVelocity);
+
+		}
 	}
-	*/
-	//public Vector2 getPosition() { return body.getPosition(); }
-	
 }

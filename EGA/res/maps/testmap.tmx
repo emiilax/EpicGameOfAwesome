@@ -21,7 +21,7 @@
  </layer>
  <layer name="platform" width="40" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMNwBMxY8nOyjNRgNP9oBZjSaFH2khhG5eshxH73AUHAfNdMwtjgcrH4fBbgBAD1KAIg=
+   eJxjYBgFo4B4wDzQDiASDFZ3DlZ3oYPB6M7B6KahBJix4OFkH63BaPjRDjCj0aToIzWMyNVDjvvoBYaC+6iZhrHF4WD1+yjADQDFFgCX
   </data>
  </layer>
  <objectgroup name="stars">
