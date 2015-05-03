@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="32" tileheight="32" nextobjectid="114">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="32" tileheight="32" nextobjectid="117">
  <tileset firstgid="1" name="whiteblock" tilewidth="32" tileheight="32">
   <image source="../tiles/whiteblock.png" width="32" height="32"/>
  </tileset>
@@ -36,5 +36,8 @@
   <object id="91" x="1074" y="104" height="1"/>
   <object id="94" x="339" y="518"/>
   <object id="97" x="446" y="425"/>
+ </objectgroup>
+ <objectgroup name="door">
+  <object id="114" x="338" y="306"/>
  </objectgroup>
 </map>

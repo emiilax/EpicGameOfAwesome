@@ -18,13 +18,13 @@ public class Door extends Entity {
 			
 			FixtureDef fdef = new FixtureDef();
 			PolygonShape ps = new PolygonShape();
-			ps.setAsBox(1000, 1000);
+			ps.setAsBox(16/PPM, 16/PPM);
 			//ps.setRadius(8/PPM);
 
 			fdef.shape = ps;
-			fdef.isSensor = true;
+			//fdef.isSensor = true;
 
-			fdef.filter.categoryBits = Variables.BIT_STAR;
+			fdef.filter.categoryBits = Variables.BIT_DOOR;
 			fdef.filter.maskBits = Variables.BIT_PLAYER;
 			
 			setSensor(fdef, "door");

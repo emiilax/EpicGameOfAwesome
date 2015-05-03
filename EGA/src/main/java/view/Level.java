@@ -74,12 +74,13 @@ public class Level extends GameState{
 
 		stars = new Array<IStar>();
 		spikes = new Array<Spike>();
+		//doors = new Array<Door>();
 
 		// create player
 		createPlayer();
 
 		// create tiles
-		createTiles(0);
+		createTiles(1);
 
 		// create stars
 		createStars();
@@ -91,7 +92,7 @@ public class Level extends GameState{
 		//createBigStars();
 		
 		// create door
-		//createDoor();
+		createDoor();
 
 		// set up box2d cam
 		b2dCam = new OrthographicCamera();
@@ -133,6 +134,8 @@ public class Level extends GameState{
 		for(Spike s: spikes){
 			s.update(dt);
 		}
+		
+		door.update(dt);
 	}
 
 	public void render() {
@@ -167,6 +170,8 @@ public class Level extends GameState{
 		for(Spike s: spikes){
 			s.render(sb);
 		}
+		
+		door.render(sb);
 
 		if(debug){
 			b2br.render(world, b2dCam.combined);
@@ -185,6 +190,8 @@ public class Level extends GameState{
 
 		// create crystals 
 		createStars();
+		
+		createDoor();
 	}
 
 	public void dispose() {}
