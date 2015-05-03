@@ -37,21 +37,27 @@ public class MyContactListener implements ContactListener{
 		}
 		
 		if(fa.getUserData() != null && fa.getUserData().equals("smallStar")){
-			// remove crystal
-			bodiesToRemove.add(fa.getBody());
-			
+			bodiesToRemove.add(fa.getBody());	
 		}
+		
 		if(fb.getUserData() != null && fb.getUserData().equals("smallStar")){
 			bodiesToRemove.add(fb.getBody());
 		}
 		
 		if(fa.getUserData() != null && fa.getUserData().equals("bigStar")){
-			// remove crystal
-			bodiesToRemove.add(fa.getBody());
-			
+			bodiesToRemove.add(fa.getBody());	
 		}
+		
 		if(fb.getUserData() != null && fb.getUserData().equals("bigStar")){
 			bodiesToRemove.add(fb.getBody());
+		}
+		
+		if(fa.getUserData() != null && fa.getUserData().equals("spike")){
+			System.out.println("AJ!");
+		}
+		
+		if(fb.getUserData() != null && fb.getUserData().equals("spike")){
+			System.out.println("AJ!");
 		}
 		
 		//System.out.println(fa.getUserData() + ", " + fb.getUserData());

@@ -105,7 +105,8 @@ public class Character extends Entity {
 		shape.setAsBox(width / PPM, heigth / PPM);
 		fDef.shape = shape;
 		fDef.filter.categoryBits = Variables.BIT_PLAYER;
-		fDef.filter.maskBits = Variables.BIT_GROUND | Variables.BIT_PLATFORM | Variables.BIT_STAR;
+		fDef.filter.maskBits = Variables.BIT_GROUND | Variables.BIT_PLATFORM | Variables.BIT_STAR 
+				| Variables.BIT_SPIKE;
 		
 		setSensor(fDef, "player");
 		

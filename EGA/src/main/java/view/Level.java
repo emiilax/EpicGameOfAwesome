@@ -56,6 +56,7 @@ public class Level extends GameState{
 	private Character player;
 
 	private Array<IStar> stars;
+	private Array<Spike> spikes;
 
 	//private Array<BigStar> bigStars;
 
@@ -72,6 +73,7 @@ public class Level extends GameState{
 		b2br = new Box2DDebugRenderer();
 
 		stars = new Array<IStar>();
+		spikes = new Array<Spike>();
 
 		// create player
 		createPlayer();
@@ -79,9 +81,12 @@ public class Level extends GameState{
 		// create tiles
 		createTiles();
 
-		// create crystals 
+		// create stars
 		createStars();
 
+		// create spikes
+		createSpikes();
+		
 		//create big Stars
 		//createBigStars();
 
@@ -159,6 +164,10 @@ public class Level extends GameState{
 		for(int i  = 0; i < stars.size; i++){
 			stars.get(i).update(dt);
 		}
+		
+		for(Spike s: spikes){
+			s.update(dt);
+		}
 	}
 
 
@@ -190,6 +199,10 @@ public class Level extends GameState{
 
 		//sb.setProjectionMatrix(hudCam.combined);
 		//hud.render(sb);
+		
+		for(Spike s: spikes){
+			s.render(sb);
+		}
 
 		if(debug){
 			b2br.render(world, b2dCam.combined);
@@ -289,7 +302,7 @@ public class Level extends GameState{
 	}
 
 	private void createStars(){
-		BodyDef bdef = new BodyDef();
+		//BodyDef bdef = new BodyDef();
 		
 		//Create small stars
 		MapLayer layer = tileMap.getLayers().get("stars");
@@ -327,4 +340,34 @@ public class Level extends GameState{
 			
 		}	
 	}
+
+	private void createSpikes(){
+		//BodyDef bdef = new BodyDef();
+		
+		//Create spikes
+		MapLayer layer = tileMap.getLayers().get("spikes");
+		loopInSpikes(layer);	
+	}
+	
+	private void loopInSpikes(MapLayer layer){
+		BodyDef bdef = new BodyDef();
+		for(MapObject mo: layer.getObjects()){
+
+			bdef.type = BodyType.StaticBody;
+
+			float x = mo.getProperties().get("x", Float.class) / PPM;
+			float y = mo.getProperties().get("y", Float.class) / PPM;
+			
+			bdef.position.set(x, y);
+			
+			Body body = world.createBody(bdef);
+			
+			Spike s;
+			s = new Spike(body);
+			spikes.add(s);
+			body.setUserData(s);
+			
+		}	
+	}
+	
 }
