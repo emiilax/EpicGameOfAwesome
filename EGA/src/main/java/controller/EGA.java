@@ -76,7 +76,6 @@ public class EGA implements ApplicationListener{
 	public void handleInput() {
 	
 		if(MyInput.isPressed(MyInput.BUTTON_JUMP)){
-			System.out.println("Should jump");
 			((Level)theLevel).playerJump();
 			
 		}
