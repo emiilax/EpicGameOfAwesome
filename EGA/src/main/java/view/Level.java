@@ -88,7 +88,7 @@ public class Level extends GameState{
 		//createBigStars();
 		
 		// create door
-		createDoor();
+		//createDoor();
 
 		// set up box2d cam
 		b2dCam = new OrthographicCamera();
