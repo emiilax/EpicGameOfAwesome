@@ -38,6 +38,8 @@ public class Character extends Entity {
 	private float xVelocity;
 	private float yVelocity;
 	
+	private float currentJumpForce;
+	private float currentSpeed;
 	
 	
 	public Character(Body body) {
@@ -65,7 +67,8 @@ public class Character extends Entity {
 
 			Texture tex = EGA.res.getTexture("smallplayer");
 			sprites = TextureRegion.split(tex, 20, 20)[0];
-			isBig = false;
+			setBig(false);
+			
 
 		}else {
 			removeSensors();
@@ -73,7 +76,7 @@ public class Character extends Entity {
 
 			Texture tex = EGA.res.getTexture("bigPlayer");
 			sprites = TextureRegion.split(tex, 35, 35)[0];
-			isBig = true;
+			setBig(true);
 
 		}
 	}
@@ -96,7 +99,8 @@ public class Character extends Entity {
 
 		setSensor(fDef, "foot");
 	}
-
+	
+	
 	public void collectGrowStar() { 
 		//Ta bort?
 		numCrystals++; 
@@ -115,6 +119,18 @@ public class Character extends Entity {
 	
 	public float getRadius(){
 		return fDef.shape.getRadius();
+	}
+	
+	public void setBig(boolean truFal){
+		isBig = truFal;
+		
+		if(isBig){
+			currentJumpForce = 350;
+			currentSpeed = 1f;
+		} else{
+			currentJumpForce = 250;
+			currentSpeed = 2f;
+		}
 	}
 	
 	@Override
@@ -136,7 +152,34 @@ public class Character extends Entity {
 		xVelocity = playerBody.getLinearVelocity().x;
 	}
 	
-	public void handleInput(MyContactListener cl) {
+	public void jump(){
+		Body playerBody = this.getBody();
+		playerBody.applyForceToCenter(0, currentJumpForce, true);
+	}
+	
+	public void moveForward(){
+		
+		Body playerBody = this.getBody();
+		yVelocity = playerBody.getLinearVelocity().y;
+		
+		playerBody.setLinearVelocity(currentSpeed, yVelocity);
+	}
+	
+	public void moveBackward(){
+		Body playerBody = this.getBody();
+		yVelocity = playerBody.getLinearVelocity().y;
+		
+		playerBody.setLinearVelocity(-currentSpeed, yVelocity);
+	}
+	
+	
+	public void stop(){
+		Body playerBody = this.getBody();
+		yVelocity = playerBody.getLinearVelocity().y;
+		playerBody.setLinearVelocity(0, yVelocity);
+	}
+	
+	/*public void handleInput(MyContactListener cl) {
 		Body playerBody = this.getBody();
 		yVelocity = playerBody.getLinearVelocity().y;
 		int force;
@@ -169,5 +212,5 @@ public class Character extends Entity {
 			playerBody.setLinearVelocity(0, yVelocity);
 
 		}
-	}
+	}*/
 }
