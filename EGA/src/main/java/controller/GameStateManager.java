@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.GdxNativesLoader;
 
 import view.GameState;
 import view.Level;
+import view.Menu;
 import lombok.Data;
 
 
@@ -17,6 +18,7 @@ public class GameStateManager {
 	
 	private Stack<GameState> gameStates;
 	
+	public static final int MENU = 123123;
 	public static final int PLAY = 912837;
 	
 	public GameStateManager(EGA game){
@@ -28,6 +30,7 @@ public class GameStateManager {
 	
 	private GameState getState(int state){
 	
+		if(state == MENU) return new Menu(this);
 		if(state == PLAY) return new Level(this);
 		return null;
 	}
