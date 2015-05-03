@@ -85,7 +85,7 @@ public class Level extends GameState{
 		createStars();
 
 		// create spikes
-		createSpikes();
+		//createSpikes();
 		
 		//create big Stars
 		//createBigStars();
