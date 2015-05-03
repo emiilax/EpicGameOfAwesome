@@ -13,7 +13,6 @@ import lombok.Data;
 @Data
 public class GameStateManager {
 	
-	
 	private EGA game;
 	
 	private Stack<GameState> gameStates;
