@@ -14,6 +14,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.ChainShape;
@@ -21,9 +22,13 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import controller.EGA;
 import controller.GameStateManager;
+import controller.TiledMapActor;
+import controller.TiledMapClickListener;
+import controller.TiledMapStage;
 import controller.Variables;
 
 public class Menu extends GameState {
@@ -39,8 +44,10 @@ public class Menu extends GameState {
 	private float menuWidth;
 	private OrthogonalTiledMapRenderer tmr;
 	private OrthographicCamera b2dCam;
-
-
+	private TiledMapClickListener clickListener;
+	private TiledMapActor actor;
+	private Stage stage;
+	
 	public Menu(GameStateManager gsm){
 
 		super(gsm);
@@ -58,7 +65,7 @@ public class Menu extends GameState {
 
 		menuWidth = 296;
 		menuHeight = 600;
-
+		
 		createTiles();
 
 	}
@@ -73,11 +80,13 @@ public class Menu extends GameState {
 
 		MapLayer layer;
 		layer = (MapLayer) tileMap.getLayers().get("button");
-		createLayer(layer, Variables.BIT_PLATFORM);
+		TiledMapTileLayer TiledMapLayer;
+		TiledMapLayer = (TiledMapTileLayer)tileMap.getLayers().get("startbutton");
+		createLayer(layer, TiledMapLayer, Variables.BIT_PLATFORM);
 
 	}
 
-	public void createLayer(MapLayer layer, short bits){
+	public void createLayer(MapLayer layer, TiledMapTileLayer tiledMapLayer, short bits){
 
 		BodyDef bdef = new BodyDef();
 		FixtureDef fdef = new FixtureDef();
@@ -85,14 +94,23 @@ public class Menu extends GameState {
 		
 		for(MapObject mo: layer.getObjects()){
 			bdef.type = BodyType.StaticBody;
-
-
+			
 			float width = mo.getProperties().get("width", Float.class) / PPM / 2;
 			float height = mo.getProperties().get("height", Float.class) / PPM / 2;
 
 			float x = (mo.getProperties().get("x", Float.class) + width*PPM) / PPM;
 			float y = (mo.getProperties().get("y", Float.class) + height*PPM) / PPM;
-
+			
+			Cell cell = tiledMapLayer.getCell(1,1);
+			
+			actor = new TiledMapActor(tileMap, tiledMapLayer, cell);
+			clickListener = new TiledMapClickListener(actor);
+			
+			stage = new TiledMapStage(tileMap);
+			Gdx.input.setInputProcessor(stage);
+			
+			System.out.println(Float.floatToIntBits((Float)mo.getProperties().get("x")));
+			
 			bdef.position.set(x, y);
 			shape.setAsBox(width, height);
 			fdef.friction = 0;
@@ -102,6 +120,8 @@ public class Menu extends GameState {
 			fdef.isSensor = false;
 
 			world.createBody(bdef).createFixture(fdef);
+			
+			
 		}
 
 	}

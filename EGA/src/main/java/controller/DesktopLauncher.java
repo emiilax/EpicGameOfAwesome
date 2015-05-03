@@ -2,6 +2,7 @@ package controller;
 
 import lombok.Data;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.utils.GdxNativesLoader;
@@ -23,7 +24,6 @@ public class DesktopLauncher {
     	cfg.title = EGA.TITLE;
     	cfg.width = EGA.V_WIDTH * EGA.SCALE;
     	cfg.height = EGA.V_HEIGTH * EGA.SCALE;
-
     	GdxNativesLoader.load();
     	new LwjglApplication(new EGA(), cfg);
     	GdxNativesLoader.load();

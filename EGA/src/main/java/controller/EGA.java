@@ -2,6 +2,7 @@ package controller;
 
 import view.GameState;
 import view.Level;
+import view.Menu;
 import lombok.Data;
 import model.Content;
 import model.MyInput;
