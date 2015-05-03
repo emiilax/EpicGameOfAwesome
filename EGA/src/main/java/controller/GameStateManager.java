@@ -14,7 +14,7 @@ import lombok.Data;
 public class GameStateManager {
 	
 	private EGA game;
-	
+	private GameState theState;
 	private Stack<GameState> gameStates;
 	
 	public static final int MENU = 123123;
@@ -23,24 +23,28 @@ public class GameStateManager {
 	public GameStateManager(EGA game){
 		
 		this.game = game;
+		//this.theState = theState;
 		gameStates = new Stack<GameState>();
-		pushState(PLAY);
+		//pushState(this.theState);
+		//pushState(PLAY);
 	}
 	
 	private GameState getState(int state){
+
 	
 		if(state == MENU) return new Menu(this);
 		if(state == PLAY) return new Level(this);
 		return null;
 	}
 	
-	public void setState(int state){
+	public void setState(GameState theState){
 		popState();
-		pushState(state);
+		pushState(theState);
 	}
 	
-	public void pushState(int state){
-		gameStates.push(getState(state));
+	public void pushState(GameState state){
+		gameStates.push(state);
+		//gameStates.push(getState(state));
 	}
 	
 	public void popState(){

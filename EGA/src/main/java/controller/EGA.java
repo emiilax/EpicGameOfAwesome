@@ -1,6 +1,7 @@
 package controller;
 
 import view.GameState;
+import view.Level;
 import lombok.Data;
 import model.Content;
 import model.MyInput;
@@ -28,7 +29,7 @@ public class EGA implements ApplicationListener{
 	private OrthographicCamera hudCam;
 	
 	private GameStateManager gsm;
-	private GameState game;
+	private GameState theLevel;
 	
 	public static Content res;
 
@@ -46,25 +47,54 @@ public class EGA implements ApplicationListener{
 		res.loadTexture("res/door/exit_door.png", "door");
 		res.loadTexture("res/tiles/spikes.png", "spike");
 		
+		
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();
 		hudCam = new OrthographicCamera();
 		gsm = new GameStateManager(this);
-		
+		theLevel = new Level(gsm);
+		gsm.pushState(theLevel);
 	}
 	
 	public void render() {
 		accum+=Gdx.graphics.getDeltaTime();
+		
+		////handleInput();
 		while (accum >= STEP){
 			accum -= STEP;
 			gsm.update(STEP);
 			gsm.render();
+			//handleInput();
 			MyInput.update();
 		}
 
 	}
 	
-	//public void handleInput() {}
+	/**
+	 * Handles the input from the user
+	 */
+	public void handleInput() {
+	
+		if(MyInput.isPressed(MyInput.BUTTON_JUMP)){
+			System.out.println("Should jump");
+			((Level)theLevel).playerJump();
+			
+		}
+
+		if(MyInput.isDown(MyInput.BUTTON_FORWARD)){
+
+			((Level)theLevel).playerMoveForward();
+
+		}else if(MyInput.isDown(MyInput.BUTTON_BACKWARD)){
+
+			((Level)theLevel).playerMoveBackward();
+
+		}else if(!MyInput.isDown(MyInput.BUTTON_FORWARD) || !MyInput.isDown(MyInput.BUTTON_BACKWARD)){
+
+			((Level)theLevel).playerStop();
+
+		}
+	}
 	
 	public void dispose() {}
 	public void resize(int arg0, int arg1) {}

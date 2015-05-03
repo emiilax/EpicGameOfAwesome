@@ -79,7 +79,7 @@ public class Level extends GameState{
 		createPlayer();
 
 		// create tiles
-		createTiles(0);
+		createTiles(1);
 
 		// create stars
 		createStars();
@@ -108,7 +108,7 @@ public class Level extends GameState{
 	}
 
 	public void handleInput() {
-		player.handleInput(cl);
+		//player.handleInput(cl);
 	}
 
 	public void update(float dt) {
@@ -119,7 +119,8 @@ public class Level extends GameState{
 			renderNewLevel(2);
 		}
 		
-		player.handleInput(cl);
+		gsm.getGame().handleInput();
+		//player.handleInput(cl);
 
 		world.step(dt, 6, 2);
 
@@ -430,7 +431,26 @@ public class Level extends GameState{
 
 		}	
 	}
-
+		
+	public void playerJump(){
+		if(cl.isPlayerOnGround()){
+			System.out.println("jump");
+			player.jump();
+		}
+	}
+	
+	public void playerMoveForward(){
+		player.moveForward();
+	}
+	
+	public void playerMoveBackward(){
+		player.moveBackward();
+	}
+	
+	public void playerStop(){
+		player.stop();
+	}
+	
 	private void createSpikes(){
 		//BodyDef bdef = new BodyDef();
 		
@@ -459,5 +479,5 @@ public class Level extends GameState{
 			
 		}	
 	}
-	
+
 }
