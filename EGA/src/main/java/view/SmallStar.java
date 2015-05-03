@@ -14,11 +14,6 @@ import controller.Variables;
 import controller.EGA;
 
 public class SmallStar extends Entity implements  IStar{
-/*
-	private Body body;
-	private Animation animation;
-	private float width;
-	private float height;*/
 	
 	public SmallStar(Body body) {
 		super(body);
@@ -41,36 +36,5 @@ public class SmallStar extends Entity implements  IStar{
 		
 		setAnimation(sprites, 1/ 12f);
 		
-		
-		
-		//this.body = body;
-		//animation = new Animation();
-		
-		
-		
 	}
-	
-	/*
-	public void setAnimation(TextureRegion[] reg, float delay){
-		animation.setFrames(reg, delay);
-		
-		width = reg[0].getRegionWidth();
-		height = reg[0].getRegionHeight();
-	}
-	
-	public void update(float dt){
-		animation.updtate(dt);
-		
-	}
-	
-	public void render(SpriteBatch sb){
-		sb.begin();
-		sb.draw(animation.getFrame(), 
-				body.getPosition().x * B2DVars.PPM - width / 2,
-				body.getPosition().y * B2DVars.PPM - height / 2);
-		sb.end();
-	}
-	
-	public Vector2 getPosition() { return body.getPosition(); }
-	*/
 }

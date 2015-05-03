@@ -1,4 +1,5 @@
 package view;
+//TODO uncomment testmap.tmx and stuff
 
 import static controller.Variables.PPM;
 
@@ -86,7 +87,7 @@ public class Level extends GameState{
 		createStars();
 
 		// create spikes
-		//createSpikes();
+		createSpikes();
 		
 		//create big Stars
 		//createBigStars();
@@ -189,10 +190,15 @@ public class Level extends GameState{
 		// create tiles
 		createTiles(pressedButton);
 
-		// create crystals 
+		// create stars 
 		createStars();
 		
+<<<<<<< HEAD
 		createDoor();
+=======
+		// create spikes
+		createSpikes();
+>>>>>>> spikes
 	}
 
 	public void dispose() {}
@@ -261,13 +267,17 @@ public class Level extends GameState{
 	 * @param level, what level that should be loaded
 	 */
 	public void createTiles(int level){
-
 		// load tiled map
 		if(level == 1){
 			tileMap = new TmxMapLoader().load("res/maps/testmap.tmx");
+			
 		} else {
 			tileMap = new TmxMapLoader().load("res/maps/map2.tmx");
 		}
+		// This is if you want to try with a different map
+		//tileMap = new TmxMapLoader().load("res/maps/testmap_ClausX.tmx");
+		
+		
 		tmr = new OrthogonalTiledMapRenderer(tileMap);
 
 
@@ -459,8 +469,6 @@ public class Level extends GameState{
 	}
 	
 	private void createSpikes(){
-		//BodyDef bdef = new BodyDef();
-		
 		//Create spikes
 		MapLayer layer = tileMap.getLayers().get("spikes");
 		loopInSpikes(layer);	
@@ -473,7 +481,7 @@ public class Level extends GameState{
 			bdef.type = BodyType.StaticBody;
 
 			float x = mo.getProperties().get("x", Float.class) / PPM;
-			float y = mo.getProperties().get("y", Float.class) / PPM;
+			float y = (mo.getProperties().get("y", Float.class)+10) / PPM;
 			
 			bdef.position.set(x, y);
 			
