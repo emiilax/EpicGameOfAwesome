@@ -11,6 +11,7 @@ public class Variables {
 	public static final short BIT_PLATFORM = 8;
 	//public static final short BIT_BLUE = 16;
 	public static final short BIT_STAR = 32;
+	public static final short BIT_SPIKE = 64;
 	
 	
 }

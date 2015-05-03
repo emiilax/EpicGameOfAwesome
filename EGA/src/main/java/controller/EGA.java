@@ -17,9 +17,9 @@ import com.badlogic.gdx.utils.GdxNativesLoader;
 public class EGA implements ApplicationListener{
 	
 	public static final String TITLE= "The game";
-	public static final int V_WIDTH = 940;
-	public static final int V_HEIGTH = 500;
-	public static final int SCALE = 2;
+	public static final int V_WIDTH = 1080;
+	public static final int V_HEIGTH = 900;
+	public static final int SCALE = 1;
 	
 	public static final float STEP = 1/ 60f;
 	private float accum;
@@ -45,6 +45,7 @@ public class EGA implements ApplicationListener{
 		res.loadTexture("res/characters/redball_big.png", "bigPlayer");
 		res.loadTexture("res/stars/bigStar.png", "bigStar");
 		res.loadTexture("res/door/exit_door.png", "door");
+		res.loadTexture("res/tiles/spikes.png", "spike");
 		
 		
 		sb = new SpriteBatch();

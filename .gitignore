@@ -46,6 +46,7 @@ x64/
 x86/
 ipch/
 /dist
+Thumbs.db
 
 *.a
 *.dll
