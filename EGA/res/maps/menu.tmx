@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="36" height="30" tilewidth="30" tileheight="30" nextobjectid="2">
+ <tileset firstgid="1" name="whiteblock" tilewidth="30" tileheight="30">
+  <image source="../tiles/whiteblock.png" width="32" height="32"/>
+ </tileset>
+ <tileset firstgid="2" name="start-button-png-hi" tilewidth="30" tileheight="30">
+  <image source="../menu/start-button-png-hi.png" width="600" height="296"/>
+ </tileset>
+ <tileset firstgid="182" name="greenblock" tilewidth="30" tileheight="30">
+  <image source="../tiles/greenblock.png" width="32" height="32"/>
+ </tileset>
+ <tileset firstgid="183" name="start-button-png-hi" tilewidth="600" tileheight="296">
+  <image source="../menu/start-button-png-hi.png" width="600" height="296"/>
+ </tileset>
+ <layer name="background" width="36" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztziEBADAMBLGffz/VNxsHAsJz2y7mRfj4+Pj4+Pj4+Pj4+Pj4FFQ/JR8tsF65
+  </data>
+ </layer>
+ <layer name="startbutton" width="36" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztztVOEGAAQGFmIoqNYmF3ohhgF2AX2C02goqYYAdgKwYKigUKdszX43sFt3/Di/9s3/1JSIjFYq1VG9rSjvZ0oCOJdCKJznQhma50ozs96EkvepMS4KcPfUmlH/0ZwEAGkcZghjCUYQxnBCMZxWjGMDbAzzjGM4GJTGIyU0hnKtPIYDozmMksMsliNnOYG+BnHvNZwEIWsZglLCWbHHJZxnJWsJJVrGYNa1kX4Gc9G8gjn41sYjNb2Mo2trODnexiN3vYyz4K2B/g5wAHOcRhjnCUQo5RRDHHOcFJSjhFKac5w1nOBfg5zwXKKOcil7jMFa5yjevc4Ca3qKCSKm5zh7sBfu5xnwc85BGPqeYJT3nGc2p4wUtqqeMVr6nnTYCft7zjPR9ooJGPfKKJZj7zha984zs/+MkvfvMnwE8sFovF/s/+tvZALPYPtQA5iUEO
+  </data>
+ </layer>
+ <objectgroup name="button">
+  <object id="1" x="262" y="194" width="552" height="254"/>
+ </objectgroup>
+</map>
