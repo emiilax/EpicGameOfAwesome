@@ -17,7 +17,7 @@ public class MyInputProcessor extends InputAdapter{
 		}
 		if(k == Keys.UP){
 			MyInput.setKey(MyInput.BUTTON_JUMP, true);
-			System.out.println("key up");
+			
 		} 
 		if(k == Keys.NUM_1){
 			MyInput.setKey(MyInput.BUTTON_LEVEL1, true);

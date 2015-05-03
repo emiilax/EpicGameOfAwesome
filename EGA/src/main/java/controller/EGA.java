@@ -53,6 +53,7 @@ public class EGA implements ApplicationListener{
 		cam = new OrthographicCamera();
 		hudCam = new OrthographicCamera();
 		gsm = new GameStateManager(this);
+		
 		theLevel = new Level(gsm);
 		gsm.pushState(theLevel);
 	}
@@ -77,6 +78,7 @@ public class EGA implements ApplicationListener{
 	public void handleInput() {
 	
 		if(MyInput.isPressed(MyInput.BUTTON_JUMP)){
+
 			((Level)theLevel).playerJump();
 			
 		}
