@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 import controller.EGA;
 import controller.Variables;
+import static controller.Variables.PPM;
 
 public class Spike extends Entity{
 
@@ -18,9 +19,9 @@ public class Spike extends Entity{
 		FixtureDef fdef = new FixtureDef();
 		
 		Vector2 v1, v2, v3;
-		v1 = new Vector2(0.0f, 0.0f);
-		v2 = new Vector2(0.1f, 0.1f);
-		v3 = new Vector2(0.2f, 0.0f);
+		v1 = new Vector2(-8f/PPM, -10f/PPM);
+		v2 = new Vector2(0.0f/PPM, 10f/PPM);
+		v3 = new Vector2(8f/PPM, -10f/PPM);
 
 		Vector2[] vertices = {v1, v2, v3};
 		
@@ -29,7 +30,6 @@ public class Spike extends Entity{
 		pshape.set(vertices);
 		
 		fdef.shape = pshape;
-		//fdef.isSensor = true;
 
 		fdef.filter.categoryBits = Variables.BIT_SPIKE;
 		fdef.filter.maskBits = Variables.BIT_PLAYER;
@@ -38,7 +38,7 @@ public class Spike extends Entity{
 		
 		Texture tex = EGA.res.getTexture("spike");
 		// is this part necessary?
-		TextureRegion[] sprites = TextureRegion.split(tex,  32,  32)[0];
+		TextureRegion[] sprites = TextureRegion.split(tex,  16,  21)[0];
 		setAnimation(sprites, 0/ 12f);
 	}
 

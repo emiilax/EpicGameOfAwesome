@@ -44,9 +44,8 @@ public class EGA implements ApplicationListener{
 		res.loadTexture("res/characters/redball_small.png", "smallplayer");
 		res.loadTexture("res/characters/redball_big.png", "bigPlayer");
 		res.loadTexture("res/stars/bigStar.png", "bigStar");
-		res.loadTexture("res/door/exit_door.png", "door");
 		res.loadTexture("res/door/door2.jpg", "bigdoor");
-		res.loadTexture("res/tiles/spikes.png", "spike");
+		res.loadTexture("res/tiles/spikes_16x21.png", "spike");
 		
 		
 		sb = new SpriteBatch();
@@ -77,7 +76,6 @@ public class EGA implements ApplicationListener{
 	public void handleInput() {
 	
 		if(MyInput.isPressed(MyInput.BUTTON_JUMP)){
-			System.out.println("Should jump");
 			((Level)theLevel).playerJump();
 			
 		}
