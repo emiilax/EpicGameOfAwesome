@@ -124,6 +124,7 @@ public class Character extends Entity {
 		Body playerBody = this.getBody();
 		playerBody.setLinearVelocity(xVelocity, yVelocity);
 	}
+	
 	public void setCurrentVelocity(){
 		Body playerBody = this.getBody();
 		
@@ -136,6 +137,7 @@ public class Character extends Entity {
 		yVelocity = playerBody.getLinearVelocity().y;
 		int force;
 		float speed;
+		
 		if(isBig){
 			force = 350;
 			speed = 1f;
@@ -143,6 +145,7 @@ public class Character extends Entity {
 			force = 250;
 			speed = 2f;
 		}
+		
 		if(MyInput.isPressed(MyInput.BUTTON_JUMP)){
 			if(cl.isPlayerOnGround()){
 				playerBody.applyForceToCenter(0, force, true);
