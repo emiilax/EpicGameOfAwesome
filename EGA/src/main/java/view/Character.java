@@ -119,11 +119,15 @@ public class Character extends Entity {
 	
 	@Override
 	public void setBody(Body body){
-		
 		super.setBody(body);
 		Body playerBody = this.getBody();
 		playerBody.setLinearVelocity(xVelocity, yVelocity);
 	}
+	
+	/**
+	 * Used to set the current speed in both directions. They will 
+	 * be used when stting new body.
+	 */
 	public void setCurrentVelocity(){
 		Body playerBody = this.getBody();
 		
