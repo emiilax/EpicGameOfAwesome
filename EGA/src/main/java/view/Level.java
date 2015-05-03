@@ -434,7 +434,7 @@ public class Level extends GameState{
 		
 	public void playerJump(){
 		if(cl.isPlayerOnGround()){
-			System.out.println("jump");
+			
 			player.jump();
 		}
 	}
