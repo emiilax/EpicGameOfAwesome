@@ -56,6 +56,8 @@ public class Level extends GameState{
 	private Character player;
 
 	private Array<IStar> stars;
+	
+	private Door door;
 
 	//private Array<BigStar> bigStars;
 
@@ -77,13 +79,16 @@ public class Level extends GameState{
 		createPlayer();
 
 		// create tiles
-		createTiles(1);
+		createTiles(0);
 
 		// create crystals 
 		createStars();
 
 		//create big Stars
 		//createBigStars();
+		
+		// create door
+		createDoor();
 
 		// set up box2d cam
 		b2dCam = new OrthographicCamera();
@@ -361,6 +366,27 @@ public class Level extends GameState{
 
 	}
 
+	private void createDoor(){
+		BodyDef bdef = new BodyDef();
+		MapLayer layer = tileMap.getLayers().get("door");
+			
+			for(MapObject mo: layer.getObjects()){
+
+				bdef.type = BodyType.StaticBody;
+
+				float x = mo.getProperties().get("x", Float.class) / PPM;
+				float y = mo.getProperties().get("y", Float.class) / PPM;
+
+				bdef.position.set(x, y);
+				
+				Body body = world.createBody(bdef);
+				
+				door = new Door(body);
+
+				body.setUserData(door);
+				
+			}
+		}
 	/**
 	 * Used to loop in the stars to the map. A help
 	 * method to createStars();
