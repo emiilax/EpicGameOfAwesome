@@ -77,7 +77,7 @@ public class Level extends GameState{
 		createPlayer();
 
 		// create tiles
-		createTiles(0);
+		createTiles(1);
 
 		// create crystals 
 		createStars();
@@ -102,20 +102,27 @@ public class Level extends GameState{
 	public void handleInput() {
 		player.handleInput(cl);
 	}
-	
+
 	public void update(float dt) {
+		
+		if(MyInput.isPressed(MyInput.BUTTON_LEVEL1)){
+			renderNewLevel(1);
+		} else if (MyInput.isPressed(MyInput.BUTTON_LEVEL2)) {
+			renderNewLevel(2);
+		}
+		
 		player.handleInput(cl);
-		
+
 		world.step(dt, 6, 2);
-		
+
 		removeStars();
 		player.update(dt);
-		 
+
 		for(int i  = 0; i < stars.size; i++){
 			stars.get(i).update(dt);
 		}
 	}
-	
+
 	public void render() {
 
 		//clear screen
@@ -151,8 +158,21 @@ public class Level extends GameState{
 
 	}
 
+	public void renderNewLevel(int pressedButton){
+		
+		
+		// create player
+		createPlayer();
+
+		// create tiles
+		createTiles(pressedButton);
+
+		// create crystals 
+		createStars();
+	}
+
 	public void dispose() {}
-	
+
 	/**
 	 * Removes the stars that have been collected
 	 */
@@ -165,7 +185,7 @@ public class Level extends GameState{
 				Body b = bodies.get(i);
 				stars.removeValue((IStar) b.getUserData(), true);
 				world.destroyBody(b);
-				
+
 				if(uData.equals("smallStar")){
 					changePlayerBody();
 					player.collectShrinkStar();
@@ -177,7 +197,7 @@ public class Level extends GameState{
 		}
 		bodies.clear();
 	}
-	
+
 	/**
 	 * Creates the character
 	 */
@@ -187,12 +207,12 @@ public class Level extends GameState{
 		bdef.position.set(100  / PPM, 45 / PPM);
 		bdef.type = BodyType.DynamicBody;
 		Body body = world.createBody(bdef);
-	
+
 		player = new Character(body);
 
 		body.setUserData(player);
 	}
-	
+
 	/**
 	 * Used when character is growing or shrinking.
 	 * The method destroys the existing body and replace
@@ -210,8 +230,8 @@ public class Level extends GameState{
 
 		body.setUserData(player);
 	}
-	
-	
+
+
 	/**
 	 * Create the tiles of the map (ground and platforms) 
 	 * @param level, what level that should be loaded
@@ -222,7 +242,7 @@ public class Level extends GameState{
 		if(level == 1){
 			tileMap = new TmxMapLoader().load("res/maps/testmap.tmx");
 		} else {
-			tileMap = new TmxMapLoader().load("res/maps/testmap.tmx");
+			tileMap = new TmxMapLoader().load("res/maps/map2.tmx");
 		}
 		tmr = new OrthogonalTiledMapRenderer(tileMap);
 
@@ -235,27 +255,27 @@ public class Level extends GameState{
 		createLayer(layer, Variables.BIT_GROUND);
 		layer = (TiledMapTileLayer) tileMap.getLayers().get("platform");
 		createLayer(layer, Variables.BIT_PLATFORM);
-		
+
 		//MapLayer ml = tileMap.getLayers().get("thePlatforms");
 		//testCreateLayer(ml, Variables.BIT_PLATFORM);
 
 	}
-	
+
 	public void testCreateLayer(MapLayer layer, short bits){
 		BodyDef bdef = new BodyDef();
 		FixtureDef fdef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();
-		
+
 		for(MapObject mo: layer.getObjects()){
 			bdef.type = BodyType.StaticBody;
-			
-			
+
+
 			float width = mo.getProperties().get("width", Float.class) / PPM / 2;
 			float height = mo.getProperties().get("height", Float.class) / PPM / 2;
-			
+
 			float x = (mo.getProperties().get("x", Float.class) + width*PPM) / PPM;
 			float y = (mo.getProperties().get("y", Float.class) + height*PPM) / PPM;
-			
+
 			bdef.position.set(x, y);
 			shape.setAsBox(width, height);
 			fdef.friction = 0;
@@ -263,7 +283,7 @@ public class Level extends GameState{
 			fdef.filter.categoryBits = bits;
 			fdef.filter.maskBits = Variables.BIT_PLAYER;
 			fdef.isSensor = false;
-			
+
 			world.createBody(bdef).createFixture(fdef);
 		}
 	}
@@ -324,23 +344,23 @@ public class Level extends GameState{
 		world.createBody(bdef).createFixture(fdef);
 
 	}
-	
+
 	/**
 	 * Creates the stars on the map
 	 */
 	private void createStars(){
 		BodyDef bdef = new BodyDef();
-		
+
 		//Create small stars
 		MapLayer layer = tileMap.getLayers().get("stars");
 		loopInStars(layer,true);
-	
+
 		// Create the big stars
 		layer = tileMap.getLayers().get("bigStars");
 		loopInStars(layer,false);
-	
+
 	}
-	
+
 	/**
 	 * Used to loop in the stars to the map. A help
 	 * method to createStars();
@@ -349,7 +369,7 @@ public class Level extends GameState{
 	 */
 	private void loopInStars(MapLayer layer, boolean isSmallStar){
 		BodyDef bdef = new BodyDef();
-		
+
 		for(MapObject mo: layer.getObjects()){
 
 			bdef.type = BodyType.StaticBody;
@@ -358,9 +378,9 @@ public class Level extends GameState{
 			float y = mo.getProperties().get("y", Float.class) / PPM;
 
 			bdef.position.set(x, y);
-			
+
 			Body body = world.createBody(bdef);
-			
+
 			IStar s;
 			if(isSmallStar){
 				//body.setUserData("smallstar");
@@ -371,7 +391,7 @@ public class Level extends GameState{
 			}
 			stars.add(s);
 			body.setUserData(s);
-			
+
 		}	
 	}
 }
