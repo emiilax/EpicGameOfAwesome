@@ -24,9 +24,9 @@ public class DesktopLauncher {
     	cfg.width = EGA.V_WIDTH * EGA.SCALE;
     	cfg.height = EGA.V_HEIGTH * EGA.SCALE;
     	 // fullscreen
-        cfg.fullscreen = true;
+        //cfg.fullscreen = true;
         // vSync
-        cfg.vSyncEnabled = true;
+        //cfg.vSyncEnabled = true;
 
     	GdxNativesLoader.load();
     	new LwjglApplication(new EGA(), cfg);

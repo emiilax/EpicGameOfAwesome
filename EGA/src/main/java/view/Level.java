@@ -386,7 +386,7 @@ public class Level extends GameState{
 
 	private void createDoor(){
 		BodyDef bdef = new BodyDef();
-		MapLayer layer = tileMap.getLayers().get("door");
+		MapLayer layer = tileMap.getLayers().get("bigdoor");
 			
 			for(MapObject mo: layer.getObjects()){
 

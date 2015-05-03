@@ -45,6 +45,7 @@ public class EGA implements ApplicationListener{
 		res.loadTexture("res/characters/redball_big.png", "bigPlayer");
 		res.loadTexture("res/stars/bigStar.png", "bigStar");
 		res.loadTexture("res/door/exit_door.png", "door");
+		res.loadTexture("res/door/door2.jpg", "bigdoor");
 		res.loadTexture("res/tiles/spikes.png", "spike");
 		
 		

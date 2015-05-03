@@ -51,12 +51,12 @@ public class MyContactListener implements ContactListener{
 		if(fb.getUserData() != null && fb.getUserData().equals("bigStar")){
 			bodiesToRemove.add(fb.getBody());
 		}
-		if(fa.getUserData() != null && fa.getUserData().equals("door")){
-			System.out.println("bla");
+		if(fa.getUserData() != null && fa.getUserData().equals("bigdoor")){
+			System.out.println("Ball in contact with the door!");
 			
 		}
-		if(fb.getUserData() != null && fb.getUserData().equals("door")){
-			System.out.println("bla");
+		if(fb.getUserData() != null && fb.getUserData().equals("bigdoor")){
+			System.out.println("Ball in contact with the door!");
 		}
 		
 		if(fa.getUserData() != null && fa.getUserData().equals("spike")){
