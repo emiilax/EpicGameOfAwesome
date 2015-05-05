@@ -1,5 +1,7 @@
 package model;
 
+import view.GameState;
+import view.Level;
 import lombok.Data;
 
 import com.badlogic.gdx.physics.box2d.Body;
@@ -10,6 +12,9 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.utils.Array;
 
+import controller.EGA;
+import controller.GameStateManager;
+
 
 
 
@@ -19,9 +24,14 @@ public class MyContactListener implements ContactListener{
 	
 	private int numFootContacts;
 	private Array<Body> bodiesToRemove;
+	private Level lvl;
+	private GameStateManager gsm;
+	private EGA ega;
 	
-	public MyContactListener(){
+	public MyContactListener(GameState gs){
 		super();
+		lvl = (Level) gs;
+		gsm = gs.getGsm();
 		bodiesToRemove = new Array<Body>();
 	}
 	// called when two fixures collides
@@ -60,14 +70,17 @@ public class MyContactListener implements ContactListener{
 		}
 		
 		if(fa.getUserData() != null && fa.getUserData().equals("spike")){
-			System.out.println("AJ!");
+			contactWithSpike();
 		}
 		
 		if(fb.getUserData() != null && fb.getUserData().equals("spike")){
-			System.out.println("AJ!");
+			contactWithSpike();
 		}
-		
-		//System.out.println(fa.getUserData() + ", " + fb.getUserData());
+	}
+	
+	public void contactWithSpike(){
+		ega = gsm.getGame();
+		ega.setLevel(new Level(gsm));
 	}
 	
 	// called when two fixures no longer collide

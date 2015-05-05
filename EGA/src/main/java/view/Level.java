@@ -2,6 +2,7 @@ package view;
 //TODO uncomment testmap.tmx and stuff
 
 import static controller.Variables.PPM;
+import lombok.Lombok;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +60,7 @@ public class Level extends GameState{
 	private Array<IStar> stars;
 	private Door door;
 	private Array<Spike> spikes;
+	private GameStateManager gsm;
 	//private Array<BigStar> bigStars;
 
 	private HUD hud;
@@ -66,10 +68,12 @@ public class Level extends GameState{
 	public Level(GameStateManager gsm){
 
 		super(gsm);
+		
+		this.gsm = gsm;
 
 		// set up box2d stuff
 		world = new World(new Vector2(0,-9.81f), true);
-		cl = new MyContactListener();
+		cl = new MyContactListener(this);
 		world.setContactListener(cl);
 		b2br = new Box2DDebugRenderer();
 
@@ -77,23 +81,7 @@ public class Level extends GameState{
 		spikes = new Array<Spike>();
 		//doors = new Array<Door>();
 
-		// create player
-		createPlayer();
-
-		// create tiles
-		createTiles(1);
-
-		// create stars
-		createStars();
-
-		// create spikes
-		createSpikes();
-		
-		//create big Stars
-		//createBigStars();
-		
-		// create door
-		createDoor();
+		createEntities();
 
 		// set up box2d cam
 		b2dCam = new OrthographicCamera();
@@ -159,7 +147,8 @@ public class Level extends GameState{
 		//	Game.V_HEIGTH / 2, 
 		//	0);
 
-		cam.update();
+		//we never move the cam?
+		//cam.update();
 
 		// draw tile map
 		tmr.setView(cam);
@@ -188,6 +177,10 @@ public class Level extends GameState{
 			b2br.render(world, b2dCam.combined);
 		}
 
+	}
+	
+	public void resetLevel(){
+		createMapObjects();
 	}
 
 	public void renderNewLevel(int pressedButton){
@@ -234,6 +227,33 @@ public class Level extends GameState{
 		bodies.clear();
 	}
 
+	public void createEntities(){
+
+		// create player
+		createPlayer();
+
+		// create tiles
+		createTiles(1);
+
+		// create stars
+		createStars();
+
+		// create spikes
+		createSpikes();
+		
+		//create big Stars
+		//createBigStars();
+		
+		// create door
+		createDoor();
+	}
+	
+	public void createMapObjects(){
+		createStars();
+		createSpikes();
+		createDoor();
+	}
+	
 	/**
 	 * Creates the character
 	 */

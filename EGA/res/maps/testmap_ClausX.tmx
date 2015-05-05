@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="32" tileheight="32" nextobjectid="125">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="34" tilewidth="32" tileheight="32" nextobjectid="125">
  <tileset firstgid="1" name="whiteblock" tilewidth="32" tileheight="32">
   <image source="../tiles/whiteblock.png" width="32" height="32"/>
  </tileset>
@@ -15,19 +15,19 @@
  <tileset firstgid="8" name="spikes2" tilewidth="16" tileheight="21">
   <image source="../tiles/spikes_16x21.png" width="64" height="21"/>
  </tileset>
- <layer name="background" width="40" height="20">
+ <layer name="background" width="40" height="34">
   <data encoding="base64" compression="zlib">
-   eJztw0ENAAAMA6Grf9NzsRckrJqqqurDA5vdAyE=
+   eJztwwEJAAAMA6Ctf+m3GBwUbJKqqqoOAgB8c/4yAyE=
   </data>
  </layer>
- <layer name="ground" width="40" height="20">
+ <layer name="ground" width="40" height="34">
   <data encoding="base64" compression="zlib">
-   eJztwwEJAAAMA6Cx/qFX4xwFEwAA4IsePyYgAFE=
+   eJztw4EJAAAIA6DR/0f3xgoFEwAA4IspDwBwzQLq/gBR
   </data>
  </layer>
- <layer name="platform" width="40" height="20">
+ <layer name="platform" width="40" height="34">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo4B4wDzQDiASDFZ3DlZ3oYPB6M7B6KahBJix4OFkH63BaPjRDjCj0aToIzWMyNVDjvvoBYaC+6iZhrHF4WD1+yjADQDFFgCX
+   eJzt0jkKACAMBdFA7n9ne7EwweUnzAOxEsfFDNjnvwM2qXaqds0UOxWbKvHF6LTfbdzfPT7NkXXRO8quyfS9UqHv5B9evaHq2QEAANDHAO6hAJc=
   </data>
  </layer>
  <objectgroup name="stars">
