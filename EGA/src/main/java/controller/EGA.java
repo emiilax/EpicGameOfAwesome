@@ -87,6 +87,11 @@ public class EGA implements ApplicationListener{
 			theLevel.handleInput(MyInput.BUTTON_JUMP);
 		
 		}
+		if(MyInput.isPressed(MyInput.BUTTON_DOWN)){
+
+			theLevel.handleInput(MyInput.BUTTON_DOWN);
+
+		}
 
 		if(MyInput.isDown(MyInput.BUTTON_FORWARD)){
 

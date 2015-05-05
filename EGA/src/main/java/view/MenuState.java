@@ -97,7 +97,9 @@ public class MenuState extends GameState{
 			break;
 		case MyInput.BUTTON_ENTER:
 			select();
+			break;
 		}
+		
 	}
 
 	private void select(){
