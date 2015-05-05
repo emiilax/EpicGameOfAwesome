@@ -21,7 +21,7 @@ public class Door extends Entity {
 			//ps.setRadius(8/PPM);
 
 			fdef.shape = ps;
-			//fdef.isSensor = true;
+			fdef.isSensor = true;
 
 			fdef.filter.categoryBits = Variables.BIT_DOOR;
 			fdef.filter.maskBits = Variables.BIT_PLAYER;
