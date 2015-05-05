@@ -13,9 +13,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
+import event.EventSupport;
+import event.TheChangeListener;
+import event.TheEvent;
+
 
 @Data
-public class EGA implements ApplicationListener{
+public class EGA implements ApplicationListener, TheChangeListener{
 	
 	public static final String TITLE= "The game";
 	public static final int V_WIDTH = 1280;
@@ -48,7 +52,7 @@ public class EGA implements ApplicationListener{
 		res.loadTexture("res/door/door2.jpg", "bigdoor");
 		res.loadTexture("res/tiles/spikes_16x21.png", "spike");
 		
-		
+		EventSupport.getInstance().addListner(this);
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();
 		hudCam = new OrthographicCamera();
@@ -116,4 +120,11 @@ public class EGA implements ApplicationListener{
 	public void resize(int arg0, int arg1) {}
 	public void resume() {}
 	public void pause() {}
+
+	public void eventRecieved(TheEvent evt) {
+		if(evt.getNameOfEvent().equals("spikehit")){
+			setLevel(new Level(gsm));
+		}
+		
+	}
 }

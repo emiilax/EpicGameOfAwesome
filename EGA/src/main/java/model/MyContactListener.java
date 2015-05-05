@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.Array;
 
 import controller.EGA;
 import controller.GameStateManager;
+import event.EventSupport;
 
 
 
@@ -79,8 +80,9 @@ public class MyContactListener implements ContactListener{
 	}
 	
 	public void contactWithSpike(){
-		ega = gsm.getGame();
-		ega.setLevel(new Level(gsm));
+		EventSupport.getInstance().fireNewEvent("spikehit");
+		//ega = gsm.getGame();
+		//ega.setLevel(new Level(gsm));
 	}
 	
 	// called when two fixures no longer collide
