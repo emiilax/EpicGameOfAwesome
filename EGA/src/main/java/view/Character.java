@@ -29,6 +29,9 @@ public class Character extends Entity {
 	private int totalCrystals;
 	private TextureRegion[] stickman;
 	private TextureRegion[] sprites;
+	
+	private Texture texSmall = new Texture(Gdx.files.internal("res/characters/redball_small.png"));
+	private Texture texBig = new Texture(Gdx.files.internal("res/characters/redball_big.png"));
 
 	private PolygonShape shape;
 	private FixtureDef fDef;
@@ -64,8 +67,14 @@ public class Character extends Entity {
 			removeSensors();
 
 			setFixtureDef(10, 10);
-
-			Texture tex = EGA.res.getTexture("smallplayer");
+			Texture tex;
+			try{
+				tex = texSmall;
+				tex = EGA.res.getTexture("smallplayer");
+			}catch(Exception e){
+				tex = texSmall;
+			} 
+			
 			sprites = TextureRegion.split(tex, 20, 20)[0];
 			setBig(false);
 			
@@ -73,8 +82,14 @@ public class Character extends Entity {
 		}else {
 			removeSensors();
 			setFixtureDef(17.5f, 17.5f);
-
-			Texture tex = EGA.res.getTexture("bigPlayer");
+			
+			Texture tex;
+			try{
+				tex = EGA.res.getTexture("bigPlayer");
+			}catch(Exception e){
+				tex = texBig;
+			} 
+			//Texture tex = EGA.res.getTexture("bigPlayer");
 			sprites = TextureRegion.split(tex, 35, 35)[0];
 			setBig(true);
 

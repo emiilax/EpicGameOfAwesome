@@ -7,12 +7,13 @@ import org.junit.Test;
 
 import view.Character;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 
-import controller.DesktopLauncher;
 
 public class CharacterTest {
 	
@@ -28,6 +29,7 @@ public class CharacterTest {
 	
 	@Test
 	public void testCollectGrowStar() {
+		//Texture texBig = new Texture(Gdx.files.internal("res/characters/redball_big.png"));
 		World w = new World(new Vector2(), true);
 		BodyDef bdef = new BodyDef();
 		
