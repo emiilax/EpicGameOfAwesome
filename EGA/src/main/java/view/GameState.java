@@ -29,7 +29,7 @@ public abstract class GameState {
 		hudCam.setToOrtho(false, EGA.V_WIDTH, EGA.V_HEIGTH);
 	}
 	
-	public abstract void handleInput();
+	public abstract void handleInput(int i);
 	public abstract void update(float dt);
 	public abstract void render();
 	public abstract void dispose();

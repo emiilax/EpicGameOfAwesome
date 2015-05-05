@@ -109,7 +109,7 @@ public class Level extends GameState{
 
 	}
 
-	public void handleInput() {
+	public void handleInput(int i) {
 		//player.handleInput(cl);
 	}
 
@@ -121,7 +121,7 @@ public class Level extends GameState{
 			renderNewLevel(2);
 		}
 		
-		gsm.getGame().handleInput();
+		//gsm.getGame().handleInput();
 		//player.handleInput(cl);
 
 		world.step(dt, 6, 2);

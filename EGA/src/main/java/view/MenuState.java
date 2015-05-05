@@ -83,7 +83,7 @@ public class MenuState extends GameState{
 	
 	
 	@Override
-	public void handleInput() {
+	public void handleInput(int i) {
 		if(MyInput.isPressed(MyInput.BUTTON_JUMP)){
 			if(currentItem > 0){
 				currentItem --;
@@ -113,7 +113,7 @@ public class MenuState extends GameState{
 	
 	@Override
 	public void update(float dt) {
-		handleInput();
+		//handleInput();
 	}
 	@Override
 	public void render() {
