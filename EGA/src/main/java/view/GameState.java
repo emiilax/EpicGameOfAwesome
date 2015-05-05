@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import controller.EGA;
 import controller.GameStateManager;
 import lombok.*;
+
+@Data
 public abstract class GameState {
 	
 	protected GameStateManager gsm;

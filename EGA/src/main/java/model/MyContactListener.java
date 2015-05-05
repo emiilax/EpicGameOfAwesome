@@ -12,6 +12,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.utils.Array;
 
+import controller.GameStateManager;
+
 
 
 
@@ -22,10 +24,12 @@ public class MyContactListener implements ContactListener{
 	private int numFootContacts;
 	private Array<Body> bodiesToRemove;
 	private Level lvl;
+	private GameStateManager gsm;
 	
 	public MyContactListener(GameState gs){
 		super();
 		lvl = (Level) gs;
+		gsm = gs.getGsm();
 		bodiesToRemove = new Array<Body>();
 	}
 	// called when two fixures collides
@@ -73,8 +77,10 @@ public class MyContactListener implements ContactListener{
 	}
 	
 	public void contactWithSpike(){
-		//lvl.resetLevel();
-		System.out.println("aj");
+		// wrong place?
+		Level level = new Level(gsm);
+		gsm.setState(level);
+		gsm.getGame().setTheLevel(level);
 	}
 	
 	// called when two fixures no longer collide

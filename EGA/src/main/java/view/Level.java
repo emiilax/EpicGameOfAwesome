@@ -2,6 +2,7 @@ package view;
 //TODO uncomment testmap.tmx and stuff
 
 import static controller.Variables.PPM;
+import lombok.Lombok;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +60,7 @@ public class Level extends GameState{
 	private Array<IStar> stars;
 	private Door door;
 	private Array<Spike> spikes;
+	private GameStateManager gsm;
 	//private Array<BigStar> bigStars;
 
 	private HUD hud;
@@ -66,6 +68,8 @@ public class Level extends GameState{
 	public Level(GameStateManager gsm){
 
 		super(gsm);
+		
+		this.gsm = gsm;
 
 		// set up box2d stuff
 		world = new World(new Vector2(0,-9.81f), true);
