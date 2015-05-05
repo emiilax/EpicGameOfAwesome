@@ -107,7 +107,7 @@ public class Character extends Entity {
 				| Variables.BIT_SPIKE | Variables.BIT_DOOR;
 		setSensor(fDef, "player");
 
-		shape.setAsBox( width/PPM,  1 / PPM, new Vector2(0, -heigth/ PPM), 0);
+		shape.setAsBox( (width-1)/PPM,  1 / PPM, new Vector2(0, -heigth/ PPM), 0);
 		fDef.filter.categoryBits = Variables.BIT_PLAYER;
 		fDef.filter.maskBits = Variables.BIT_GROUND | Variables.BIT_PLATFORM;
 		fDef.isSensor = true;
