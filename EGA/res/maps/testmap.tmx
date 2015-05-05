@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="32" tileheight="32" nextobjectid="133">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="32" tileheight="32" nextobjectid="144">
  <tileset firstgid="1" name="whiteblock" tilewidth="32" tileheight="32">
   <image source="../tiles/whiteblock.png" width="32" height="32"/>
  </tileset>
@@ -15,44 +15,44 @@
  <tileset firstgid="5" name="spikes" tilewidth="16" tileheight="21">
   <image source="../tiles/spikes_16x21.png" width="64" height="21"/>
  </tileset>
- <layer name="background" width="40" height="20">
+ <layer name="background" width="40" height="23">
   <data encoding="base64" compression="zlib">
-   eJztw0ENAAAMA6Grf9NzsRckrJqqqurDA5vdAyE=
+   eJztwzENAAAMA6DWv+ldNbAbEpqkqqqq+jwH63sDlw==
   </data>
  </layer>
- <layer name="ground" width="40" height="20">
+ <layer name="ground" width="40" height="23">
   <data encoding="base64" compression="zlib">
-   eJztwwEJAAAMA6Cx/qFX4xwFEwAA4IsePyYgAFE=
+   eJztwwEJAAAMA6Cx/qFX4wcFEwAAAD7o8QMoAABR
   </data>
  </layer>
- <layer name="platform" width="40" height="20">
+ <layer name="platform" width="40" height="23">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo4B4wDzQDiASDFZ3DlZ3oYPB6M7B6KahBJix4OFkH63BaPjRDjCj0aToIzWMyNVDjvvoBYaC+6iZhrHF4WD1+yjADQDFFgCX
+   eJxjYBgFo2AUjAIIYB5oBxAJBqs7B6u70MFgdOdgdNNQAsxY8HCyj9ZgNPxoB5jRaFL0kRpG5Oohx330AkPBfdRMw9jicLD6fRTgBgDG9gCX
   </data>
  </layer>
  <objectgroup name="stars">
-  <object id="96" x="27" y="428">
+  <object id="96" x="22" y="520">
    <ellipse/>
   </object>
-  <object id="101" x="584" y="334">
+  <object id="101" x="579" y="426">
    <ellipse/>
   </object>
  </objectgroup>
  <objectgroup name="bigStars">
-  <object id="91" x="1074" y="104" height="1"/>
-  <object id="94" x="339" y="518"/>
-  <object id="97" x="446" y="425"/>
+  <object id="91" x="866.718" y="201.201" rotation="-17.8054"/>
+  <object id="94" x="346" y="610"/>
+  <object id="97" x="453" y="517"/>
  </objectgroup>
  <objectgroup name="door">
-  <object id="114" x="338" y="306"/>
+  <object id="114" x="345" y="398"/>
  </objectgroup>
  <objectgroup name="bigdoor">
-  <object id="127" gid="4" x="246" y="289"/>
+  <object id="127" gid="4" x="242" y="415"/>
  </objectgroup>
  <objectgroup name="spikes">
-  <object id="129" gid="6" x="247.6" y="544.4"/>
-  <object id="130" gid="6" x="466.6" y="608"/>
-  <object id="131" gid="6" x="482.6" y="608"/>
-  <object id="132" gid="6" x="498.4" y="608"/>
+  <object id="129" gid="6" x="256" y="640"/>
+  <object id="130" gid="6" x="475" y="703.6"/>
+  <object id="131" gid="6" x="491" y="703.6"/>
+  <object id="132" gid="6" x="506.8" y="703.6"/>
  </objectgroup>
 </map>

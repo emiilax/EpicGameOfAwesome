@@ -19,7 +19,7 @@ public class EGA implements ApplicationListener{
 	
 	public static final String TITLE= "The game";
 	public static final int V_WIDTH = 1280;
-	public static final int V_HEIGTH = 1024;
+	public static final int V_HEIGTH = 720;
 	public static final int SCALE = 1;
 	
 	public static final float STEP = 1/ 60f;
