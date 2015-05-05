@@ -23,6 +23,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import controller.EGA;
 import controller.GameStateManager;
@@ -47,6 +48,7 @@ public class Menu extends GameState {
 	private TiledMapClickListener clickListener;
 	private TiledMapActor actor;
 	private Stage stage;
+	private TextButton buttonStart;
 	
 	public Menu(GameStateManager gsm){
 
