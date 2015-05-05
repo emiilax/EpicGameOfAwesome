@@ -6,7 +6,6 @@ import com.badlogic.gdx.utils.GdxNativesLoader;
 
 import view.GameState;
 import view.Level;
-import view.Menu;
 import view.MenuState;
 import lombok.Data;
 
