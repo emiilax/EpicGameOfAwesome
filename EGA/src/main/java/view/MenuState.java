@@ -28,41 +28,41 @@ public class MenuState extends GameState{
 	private BitmapFont titleFont;
 	private BitmapFont font;
 	private GlyphLayout layout = new GlyphLayout();
-	
+
 	public static Texture backgroundTexture;
-    public static Sprite backgroundSprite;
-	
+	public static Sprite backgroundSprite;
+
 	private final String title = "EGA";
-	
+
 	private int titleFontSize = 150;
 	private int menuFontSize = 50;
-	
+
 	private int currentItem;
 	private String menuItems[];
-	
+
 	private GameStateManager gsm;
-	
-	
+
+
 	public MenuState(GameStateManager gsm) {
 		super(gsm);
 		this.gsm = gsm;
 		init();
 		loadTextures();
 	}
-	
+
 	public void init(){
 		sb = new SpriteBatch();
 
-		
+
 		FreeTypeFontGenerator gen = new FreeTypeFontGenerator(
 				Gdx.files.internal("res/fonts/orbitron-black.otf")
-		);
-		
+				);
+
 		titleFont = gen.generateFont(titleFontSize);
 		titleFont.setColor(Color.WHITE);
-		
+
 		font = gen.generateFont(menuFontSize);
-		
+
 		menuItems = new String[]{
 				"Play",
 				"Level Select",
@@ -70,38 +70,39 @@ public class MenuState extends GameState{
 		};
 
 	}
-	
 
-    private void loadTextures() {
-        backgroundTexture = new Texture("res/menu/blue-sky-background.jpg");
-        backgroundSprite =new Sprite(backgroundTexture);
-    }
-    
-    public void renderBackground() {
-        backgroundSprite.draw(sb);
-    }
-	
-	
+
+	private void loadTextures() {
+		backgroundTexture = new Texture("res/menu/blue-sky-background.jpg");
+		backgroundSprite =new Sprite(backgroundTexture);
+	}
+
+	public void renderBackground() {
+		backgroundSprite.draw(sb);
+	}
+
+
 	@Override
 	public void handleInput(int i) {
-		if(MyInput.isPressed(MyInput.BUTTON_JUMP)){
+		switch(i){
+		case MyInput.BUTTON_JUMP:
 			if(currentItem > 0){
 				currentItem --;
-			} 
-		}
-		if(MyInput.isPressed(MyInput.BUTTON_DOWN)){
-			if(currentItem < menuItems.length -1){
+			}
+			break;
+		case MyInput.BUTTON_DOWN:
+			if(currentItem < menuItems.length-1){
 				currentItem++;
 			}
-		}
-		if(MyInput.isPressed(MyInput.BUTTON_ENTER)){
+			break;
+		case MyInput.BUTTON_ENTER:
 			select();
 		}
 	}
-	
+
 	private void select(){
 		if (currentItem == 0){
-			gsm.setState(new Level(gsm));
+			gsm.getGame().setLevel(new Level(gsm));
 		}
 		if (currentItem == 1){
 			System.out.println("Level select!");
@@ -110,28 +111,28 @@ public class MenuState extends GameState{
 			System.out.println("Settings!");
 		}
 	}
-	
+
 	@Override
 	public void update(float dt) {
 		//handleInput();
 	}
 	@Override
 	public void render() {
-		
+
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 		cam.update();
-		
+
 		sb.setProjectionMatrix(cam.combined);
-		
+
 		sb.begin();
-		
+
 		renderBackground();
-		
+
 		layout.setText(titleFont, title);
 		float width = layout.width;
 		titleFont.draw(sb, title, (EGA.V_WIDTH-width) / 2, 800);
-		
+
 		for(int i = 0; i < menuItems.length; i++){
 			layout.setText(font, menuItems[i]);
 			if(currentItem == i){
@@ -145,15 +146,15 @@ public class MenuState extends GameState{
 					(EGA.V_WIDTH - width) / 2,
 					450 - 70 *i
 					);
-			}
-		
+		}
+
 		sb.end();
-		
+
 	}
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 }

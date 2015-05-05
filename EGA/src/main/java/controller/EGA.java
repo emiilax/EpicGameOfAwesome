@@ -54,7 +54,7 @@ public class EGA implements ApplicationListener{
 		hudCam = new OrthographicCamera();
 		gsm = new GameStateManager(this);
 		
-		theLevel = new Level(gsm);
+		theLevel = new MenuState(gsm);
 		gsm.pushState(theLevel);
 	}
 	
@@ -70,6 +70,11 @@ public class EGA implements ApplicationListener{
 			MyInput.update();
 		}
 
+	}
+	
+	public void setLevel(GameState state){
+		theLevel = state;
+		gsm.setState(theLevel);
 	}
 	
 	/**
@@ -89,15 +94,15 @@ public class EGA implements ApplicationListener{
 
 		}else if(MyInput.isDown(MyInput.BUTTON_BACKWARD)){
 
-			((Level)theLevel).playerMoveBackward();
-
+			theLevel.handleInput(MyInput.BUTTON_BACKWARD);
+			
 		}else if(MyInput.isDown(MyInput.BUTTON_ENTER)){
 
-			System.out.println("Do nothing");
+			theLevel.handleInput(MyInput.BUTTON_ENTER);
 
 		}else if(!MyInput.isDown(MyInput.BUTTON_FORWARD) || !MyInput.isDown(MyInput.BUTTON_BACKWARD)){
 
-			((Level)theLevel).playerStop();
+			theLevel.handleInput(-1);
 
 		}
 	}

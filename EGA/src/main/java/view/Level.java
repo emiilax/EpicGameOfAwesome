@@ -110,7 +110,16 @@ public class Level extends GameState{
 	}
 
 	public void handleInput(int i) {
-		//player.handleInput(cl);
+		switch(i){
+		case -1: playerStop();
+		break;
+		case MyInput.BUTTON_FORWARD: playerMoveForward();
+		break;
+		case MyInput.BUTTON_BACKWARD: playerMoveBackward();
+		break;
+		case MyInput.BUTTON_JUMP: playerJump();
+		break;
+		}
 	}
 
 	public void update(float dt) {
