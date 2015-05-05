@@ -37,6 +37,7 @@ public class MenuState extends GameState{
 	
 	public void init(){
 		sb = new SpriteBatch();
+
 		
 		FreeTypeFontGenerator gen = new FreeTypeFontGenerator(
 				Gdx.files.internal("res/fonts/orbitron-black.otf")
@@ -52,6 +53,7 @@ public class MenuState extends GameState{
 				"Level Select",
 				"Settings"	
 		};
+
 	}
 	
 	
