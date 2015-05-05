@@ -18,13 +18,20 @@ public class MyInputProcessor extends InputAdapter{
 		if(k == Keys.UP){
 			MyInput.setKey(MyInput.BUTTON_JUMP, true);
 			
+		}
+		if(k == Keys.DOWN){
+			MyInput.setKey(MyInput.BUTTON_DOWN, true);
 		} 
 		if(k == Keys.NUM_1){
 			MyInput.setKey(MyInput.BUTTON_LEVEL1, true);
 		}
 		if(k == Keys.NUM_2){
 			MyInput.setKey(MyInput.BUTTON_LEVEL2, true);
+		}
+		if(k == Keys.ENTER){
+			MyInput.setKey(MyInput.BUTTON_ENTER, true);
 		} 
+		
 		return true;
 	}
 	
@@ -39,6 +46,18 @@ public class MyInputProcessor extends InputAdapter{
 		if(k == Keys.UP){
 			MyInput.setKey(MyInput.BUTTON_JUMP, false);
 		}
+		if(k == Keys.DOWN){
+			MyInput.setKey(MyInput.BUTTON_DOWN, false);
+		} 
+		if(k == Keys.NUM_1){
+			MyInput.setKey(MyInput.BUTTON_LEVEL1, false);
+		}
+		if(k == Keys.NUM_2){
+			MyInput.setKey(MyInput.BUTTON_LEVEL2, false);
+		}
+		if(k == Keys.ENTER){
+			MyInput.setKey(MyInput.BUTTON_ENTER, false);
+		} 
 		return true;
 	}
 

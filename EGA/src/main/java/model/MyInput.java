@@ -5,12 +5,14 @@ public class MyInput {
 	public static boolean[] keys;
 	public static boolean[] pkeys;
 	
-	public static final int NUM_KEYS = 6;
+	public static final int NUM_KEYS = 8;
 	public static final int BUTTON_FORWARD = 0;
 	public static final int BUTTON_BACKWARD = 1;
 	public static final int BUTTON_JUMP = 2;
-	public static final int BUTTON_LEVEL1 = 4;
-	public static final int BUTTON_LEVEL2 = 5;
+	public static final int BUTTON_DOWN = 3;
+	public static final int BUTTON_ENTER = 5;
+	public static final int BUTTON_LEVEL1 = 6;
+	public static final int BUTTON_LEVEL2 = 7;
 	
 	
 	static{
