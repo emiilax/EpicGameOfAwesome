@@ -28,7 +28,7 @@ public abstract class Entity {
 	private float width;
 	private float height;
 	private Body body;
-	private Array<Fixture> fixtures = new Array<Fixture>();
+	private Array<Fixture> fixtures; // = new Array<Fixture>(); needed? check constructor
 	
 	/**
 	 * Constructor for the abstract class. Initiate the body 
@@ -40,7 +40,7 @@ public abstract class Entity {
 	public Entity(Body body){
 		this.body = body;
 		animation = new Animation();
-		
+		fixtures = body.getFixtureList();
 	}
 	
 	/**
