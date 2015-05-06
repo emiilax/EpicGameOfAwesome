@@ -11,6 +11,8 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
 import event.EventSupport;
@@ -37,12 +39,19 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	private GameState theLevel;
 	
 	public static Content res;
+	
+	// levels
+	private TiledMap level1;
+	private TiledMap level2;
+	private TiledMap level3;
+	//end levels
 
 	public void create() {
 		
 		Gdx.input.setInputProcessor(new MyInputProcessor());
 		
 		res = new Content();
+		//load pictures
 		res.loadTexture("res/tiles/bunny.png", "bunny");
 		res.loadTexture("res/stars/star.png", "star");
 		res.loadTexture("res/tiles/hud.png", "hud");
@@ -51,6 +60,12 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		res.loadTexture("res/stars/bigStar.png", "bigStar");
 		res.loadTexture("res/door/door2.jpg", "bigdoor");
 		res.loadTexture("res/tiles/spikes_16x21.png", "spike");
+		
+		//load levels
+		level1 = new TmxMapLoader().load("res/maps/testmap.tmx");
+		level2 = new TmxMapLoader().load("res/maps/map2.tmx");
+		level3 = new TmxMapLoader().load("res/maps/testmap.tmx");
+		
 		
 		EventSupport.getInstance().addListner(this);
 		sb = new SpriteBatch();
@@ -124,7 +139,18 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	public void eventRecieved(TheEvent evt) {
 		if(evt.getNameOfEvent().equals("spikehit")){
 			setLevel(new Level(gsm));
+		}		
+	}
+	public TiledMap getLevel(int i){
+		if(i==1){
+			return level1;
 		}
-		
+		if(i==2){
+			return level2;
+		}
+		if(i==3){
+			return level3;
+		}
+		return null;
 	}
 }

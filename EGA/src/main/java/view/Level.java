@@ -293,19 +293,10 @@ public class Level extends GameState{
 	 * @param level, what level that should be loaded
 	 */
 	public void createTiles(int level){
-		// load tiled map
-		if(level == 1){
-			tileMap = new TmxMapLoader().load("res/maps/testmap.tmx");
-			
-		} else {
-			tileMap = new TmxMapLoader().load("res/maps/map2.tmx");
-		}
-		// This is if you want to try with a different map
-		//tileMap = new TmxMapLoader().load("res/maps/testmap_ClausX.tmx");
-		
-		
+		//select current level
+		tileMap = gsm.getGame().getLevel(level);
+		//create renderer
 		tmr = new OrthogonalTiledMapRenderer(tileMap);
-
 
 		tilesize = (Integer) tileMap.getProperties().get("tilewidth");
 
