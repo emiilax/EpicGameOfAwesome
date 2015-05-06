@@ -66,14 +66,14 @@ public class MenuState extends GameState{
 		menuItems = new String[]{
 				"Play",
 				"Level Select",
-				"Settings"	
+				"Settings"
 		};
 
 	}
 
 
 	private void loadTextures() {
-		backgroundTexture = new Texture("res/menu/blue-sky-background.jpg");
+		backgroundTexture = new Texture("res/menu/emilsmamma.jpg");
 		backgroundSprite =new Sprite(backgroundTexture);
 	}
 
@@ -99,7 +99,7 @@ public class MenuState extends GameState{
 			select();
 			break;
 		}
-		
+
 	}
 
 	private void select(){
@@ -118,6 +118,8 @@ public class MenuState extends GameState{
 	public void update(float dt) {
 		//handleInput();
 	}
+
+	int titleHeight = 900; 
 	@Override
 	public void render() {
 
@@ -133,7 +135,8 @@ public class MenuState extends GameState{
 
 		layout.setText(titleFont, title);
 		float width = layout.width;
-		titleFont.draw(sb, title, (EGA.V_WIDTH-width) / 2, 800);
+
+		animateTitle(width);
 
 		for(int i = 0; i < menuItems.length; i++){
 			layout.setText(font, menuItems[i]);
@@ -153,6 +156,15 @@ public class MenuState extends GameState{
 		sb.end();
 
 	}
+
+
+	private void animateTitle(Float width){	
+		if(titleHeight > 600){
+			titleHeight -= 2;
+		} 
+		titleFont.draw(sb, title, (EGA.V_WIDTH-width) / 2, titleHeight);
+	}
+
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub

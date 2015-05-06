@@ -141,7 +141,7 @@ public class Character extends Entity {
 		
 		if(isBig){
 			currentJumpForce = 350;
-			currentSpeed = 1f;
+			currentSpeed = 1.5f;
 		} else{
 			currentJumpForce = 250;
 			currentSpeed = 2f;
