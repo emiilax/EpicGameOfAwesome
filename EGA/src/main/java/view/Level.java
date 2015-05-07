@@ -36,8 +36,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
-
-
 import controller.Variables;
 import controller.EGA;
 import controller.GameStateManager;
@@ -59,12 +57,16 @@ public class Level extends GameState{
 	private Character player;
 	private Array<IStar> stars;
 	private Array<Spike> spikes;
+
+	
 	private Door door;
 	private Key key;
 	//end Entities 
 	private EGATimer timer;
 
-	public Level(GameStateManager gsm, TiledMap tiledMap){
+
+	//public Level(GameStateManager gsm){
+		public Level(GameStateManager gsm, TiledMap tiledMap){
 
 		super(gsm);
 		
@@ -88,25 +90,29 @@ public class Level extends GameState{
 
 		// set up HUD
 		hud = new HUD(player);
+		
+		timer = EGATimer.getTimer();
+		timer.startTimer();
 
 		//go through all the cells in the layer;
 
 		// kinematic body, ex. a moving platform
-		timer = EGATimer.getTimer();
-		timer.startTimer();
 
 	}
 
 	public void handleInput(int i) {
 		switch(i){
-		case -1: playerStop();
-		break;
-		case MyInput.BUTTON_FORWARD: playerMoveForward();
-		break;
-		case MyInput.BUTTON_BACKWARD: playerMoveBackward();
-		break;
-		case MyInput.BUTTON_JUMP: playerJump();
-		break;
+			case -1: playerStop();
+			break;
+			
+			case MyInput.BUTTON_FORWARD: playerMoveForward();
+			break;
+			
+			case MyInput.BUTTON_BACKWARD: playerMoveBackward();
+			break;
+			
+			case MyInput.BUTTON_JUMP: playerJump();
+			break;
 		}
 	}
 
