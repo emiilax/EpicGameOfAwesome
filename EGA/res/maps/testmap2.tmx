@@ -30,7 +30,7 @@
  </layer>
  <layer name="platform" width="40" height="23">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjAIIYB5oBxAJBqs7B6u70MFgdOdgdNNQAsxY8HCyj9ZgNPxoB5jRaFL0kRpG5Oohx330AkPBfdRMw9jicLD6fRTgBgDG9gCX
+   eJxjYBgFo2AUjAL6A2YCeKiAoeDWUTcOf0DvPDSU8yw2MBp+tAPMaDQp+kgNI3L1kOM+eoGh4D5qpuGh3iYYBRAAAHeBAKk=
   </data>
  </layer>
  <objectgroup name="stars">
@@ -50,14 +50,13 @@
   <object id="114" x="345" y="398"/>
  </objectgroup>
  <objectgroup name="bigdoor">
-  <object id="127" gid="4" x="242" y="415"/>
+  <object id="127" gid="4" x="251" y="190"/>
  </objectgroup>
  <objectgroup name="spikes">
   <object id="129" gid="6" x="256" y="640"/>
   <object id="130" gid="6" x="475" y="703.6"/>
   <object id="131" gid="6" x="491" y="703.6"/>
   <object id="132" gid="6" x="506.8" y="703.6"/>
-  <object id="146" gid="6" x="535" y="537"/>
  </objectgroup>
  <objectgroup name="key">
   <object id="147" gid="9" x="79" y="521"/>
