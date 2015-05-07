@@ -34,6 +34,7 @@ public class MyContactListener implements ContactListener{
 		super();
 		lvl = (Level) gs;
 		gsm = gs.getGsm();
+		ega = gsm.getGame();
 		bodiesToRemove = new Array<Body>();
 		timer = EGATimer.getTimer();
 	}
@@ -45,6 +46,7 @@ public class MyContactListener implements ContactListener{
 		if(fa.getUserData() != null && fa.getUserData().equals("foot")){
 			numFootContacts++;
 		}
+		
 		if(fb.getUserData() != null && fb.getUserData().equals("foot")){
 			numFootContacts++;
 		}
@@ -67,13 +69,13 @@ public class MyContactListener implements ContactListener{
 		if(fa.getUserData() != null && fa.getUserData().equals("bigdoor")){
 			System.out.println("Ball in contact with the door!");
 			timer.stopTimer();
-			System.out.println(timer.getTimePassed());
+			//ega.setLevelFinished(1);
 			
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("bigdoor")){
 			System.out.println("Ball in contact with the door!");
 			timer.stopTimer();
-			System.out.println(timer.getTimePassed());
+			//ega.setLevelFinished(1);
 		}
 		
 		if(fa.getUserData() != null && fa.getUserData().equals("spike")){

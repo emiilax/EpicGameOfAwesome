@@ -1,7 +1,10 @@
 package controller;
 
+import java.util.HashMap;
+
 import view.GameState;
 import view.Level;
+import view.LevelFinished;
 import view.MenuState;
 import lombok.Data;
 import model.Content;
@@ -10,6 +13,7 @@ import model.MyInput;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
@@ -36,6 +40,8 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	private GameStateManager gsm;
 	private GameState theLevel;
 	
+	private HashMap<Integer, Texture> finishedBgr;
+	
 	public static Content res;
 
 	public void create() {
@@ -58,8 +64,15 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		hudCam = new OrthographicCamera();
 		gsm = new GameStateManager(this);
 		
+		initHashMap();
+		
 		theLevel = new MenuState(gsm);
 		gsm.pushState(theLevel);
+	}
+	
+	private void initHashMap(){
+		finishedBgr = new HashMap<Integer, Texture>();
+		finishedBgr.put(1,  new Texture("res/menu/lol.jpg"));
 	}
 	
 	public void render() {
@@ -73,7 +86,11 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			handleInput();
 			MyInput.update();
 		}
-
+	}
+	
+	public void setLevelFinished(int i){
+		LevelFinished state = new LevelFinished(gsm, finishedBgr.get(1));
+		setLevel(state);
 	}
 	
 	public void setLevel(GameState state){
