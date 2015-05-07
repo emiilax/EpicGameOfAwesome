@@ -69,13 +69,13 @@ public class MyContactListener implements ContactListener{
 		if(fa.getUserData() != null && fa.getUserData().equals("bigdoor")){
 			System.out.println("Ball in contact with the door!");
 			timer.stopTimer();
-			//ega.setLevelFinished(1);
+			ega.setLevelFinished(1);
 			
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("bigdoor")){
 			System.out.println("Ball in contact with the door!");
 			timer.stopTimer();
-			//ega.setLevelFinished(1);
+			ega.setLevelFinished(1);
 		}
 		
 		if(fa.getUserData() != null && fa.getUserData().equals("spike")){
