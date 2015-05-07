@@ -58,6 +58,7 @@ public class Level extends GameState{
 	private Array<IStar> stars;
 	private Array<Spike> spikes;
 	private Door door;
+	private Key key;
 
 	public Level(GameStateManager gsm, TiledMap tiledMap){
 
@@ -128,6 +129,7 @@ public class Level extends GameState{
 		}
 		
 		door.update(dt);
+		key.update(dt);
 	}
 
 	public void render() {
@@ -165,6 +167,7 @@ public class Level extends GameState{
 		}
 		
 		door.render(sb);
+		key.render(sb);
 
 		if(debug){
 			b2br.render(world, b2dCam.combined);
@@ -187,6 +190,8 @@ public class Level extends GameState{
 		createDoor();
 
 		createSpikes();
+		
+		createKey();
 	}
 
 	public void dispose() {}
@@ -215,7 +220,7 @@ public class Level extends GameState{
 		}
 		bodies.clear();
 	}
-
+// 	CREATE METHODS --------------------------------------------------------------
 	public void createEntities(){
 
 		// create player
@@ -228,12 +233,15 @@ public class Level extends GameState{
 		createSpikes();
 
 		createDoor();
+		
+		createKey();
 	}
 	
 	public void createMapObjects(){ //skillnad på denna och createEntities? /reb
 		createStars();
 		createSpikes();
 		createDoor();
+		createKey();
 	}
 	
 	/**
@@ -247,24 +255,6 @@ public class Level extends GameState{
 		Body body = world.createBody(bdef);
 
 		player = new Character(body);
-
-		body.setUserData(player);
-	}
-
-	/**
-	 * Used when character is growing or shrinking.
-	 * The method destroys the existing body and replace
-	 * it with a new.
-	 */
-	public void changePlayerBody(){
-		player.setCurrentVelocity();
-		Body pb = player.getBody();
-		world.destroyBody(pb);
-		BodyDef bdef = new BodyDef();
-		bdef.position.set(pb.getPosition().x , pb.getPosition().y);
-		bdef.type = BodyType.DynamicBody;
-		Body body = world.createBody(bdef);
-		player.setBody(body);
 
 		body.setUserData(player);
 	}
@@ -412,8 +402,42 @@ public class Level extends GameState{
 				
 			}
 		}
+	
+	private void createKey(){
+		BodyDef bdef = new BodyDef();
+		MapLayer layer = tiledMap.getLayers().get("key");
+			
+			for(MapObject mo: layer.getObjects()){
+
+				bdef.type = BodyType.StaticBody;
+
+				float x = mo.getProperties().get("x", Float.class) / PPM;
+				float y = mo.getProperties().get("y", Float.class) / PPM;
+
+				bdef.position.set(x, y);
+				
+				Body body = world.createBody(bdef);
+				
+				key = new Key(body);
+
+				body.setUserData(key);
+				
+			}
+		}
+	private void createSpikes(){
+		//Create spikes
+		MapLayer layer = tiledMap.getLayers().get("spikes");
+		loopInSpikes(layer);	
+	}
+	
+	// END CREATE METHODS ----------------------------------------------------
+	
 	public Door getDoor(){
 		return door;
+	}
+	
+	public Key getKey(){
+		return key;
 	}
 	
 	/**
@@ -469,11 +493,6 @@ public class Level extends GameState{
 		player.stop();
 	}
 	
-	private void createSpikes(){
-		//Create spikes
-		MapLayer layer = tiledMap.getLayers().get("spikes");
-		loopInSpikes(layer);	
-	}
 	
 	private void loopInSpikes(MapLayer layer){
 		BodyDef bdef = new BodyDef();
@@ -494,6 +513,23 @@ public class Level extends GameState{
 			body.setUserData(s);
 			
 		}	
+	}
+	/**
+	 * Used when character is growing or shrinking.
+	 * The method destroys the existing body and replace
+	 * it with a new.
+	 */
+	public void changePlayerBody(){
+		player.setCurrentVelocity();
+		Body pb = player.getBody();
+		world.destroyBody(pb);
+		BodyDef bdef = new BodyDef();
+		bdef.position.set(pb.getPosition().x , pb.getPosition().y);
+		bdef.type = BodyType.DynamicBody;
+		Body body = world.createBody(bdef);
+		player.setBody(body);
+
+		body.setUserData(player);
 	}
 
 

@@ -81,6 +81,18 @@ public class MyContactListener implements ContactListener{
 		if(fb.getUserData() != null && fb.getUserData().equals("spike")){
 			contactWithSpike();
 		}
+		if(fa.getUserData() != null && fa.getUserData().equals("key")){
+			//fa.getBody().setActive(false);
+			//setKey 	
+			//lvl.getKey().getBody().setActive(false);
+			System.out.print("in contact with key");
+		}
+		if(fb.getUserData() != null && fb.getUserData().equals("key")){
+			//fa.getBody().setActive(false);
+			//setKey 
+			//lvl.getKey().getBody().setActive(false);
+			System.out.print("in contact with key");
+		}
 	}
 	
 	public void contactWithSpike(){

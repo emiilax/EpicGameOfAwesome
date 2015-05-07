@@ -45,7 +45,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	private TiledMap level1;
 	private TiledMap level2;
 	private TiledMap level3;
-	private Array<TiledMap> levels;
+	//private Array<TiledMap> levels;
 	//end levels
 
 	public void create() {
@@ -62,17 +62,17 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		res.loadTexture("res/stars/bigStar.png", "bigStar");
 		res.loadTexture("res/door/door2.jpg", "bigdoor");
 		res.loadTexture("res/tiles/spikes_16x21.png", "spike");
+		res.loadTexture("res/key/key-4.png", "key");
 		
 		//load levels
 		level1 = new TmxMapLoader().load("res/maps/testmap.tmx");
 		level2 = new TmxMapLoader().load("res/maps/testmap2.tmx");
 		level3 = new TmxMapLoader().load("res/maps/testmap.tmx");
 		//add levels to the array levels
-		levels = new Array<TiledMap>();
-		levels.add(level1);
-		levels.add(level2);
-		levels.add(level3);
-		
+//		levels = new Array<TiledMap>();
+//		levels.add(level1);
+//		levels.add(level2);
+//		levels.add(level3);
 		
 		
 		EventSupport.getInstance().addListner(this);
