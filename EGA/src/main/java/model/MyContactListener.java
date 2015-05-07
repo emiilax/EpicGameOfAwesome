@@ -70,12 +70,17 @@ public class MyContactListener implements ContactListener{
 			System.out.println("Ball in contact with the door!");
 			timer.stopTimer();
 			//ega.setLevelFinished(1);
+			gsm.getGame().setLevel(new Level(gsm, gsm.getNextLevel()));
+			//behöver man uppdatera ngt?
 			
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("bigdoor")){
 			System.out.println("Ball in contact with the door!");
+
 			timer.stopTimer();
 			//ega.setLevelFinished(1);
+			gsm.getGame().setLevel(new Level(gsm, gsm.getNextLevel()));
+			//behöver man uppdatera ngt?
 		}
 		
 		if(fa.getUserData() != null && fa.getUserData().equals("spike")){
@@ -84,6 +89,18 @@ public class MyContactListener implements ContactListener{
 		
 		if(fb.getUserData() != null && fb.getUserData().equals("spike")){
 			contactWithSpike();
+		}
+		if(fa.getUserData() != null && fa.getUserData().equals("key")){
+			//fa.getBody().setActive(false);
+			//setKey 	
+			//lvl.getKey().getBody().setActive(false);
+			System.out.print("in contact with key");
+		}
+		if(fb.getUserData() != null && fb.getUserData().equals("key")){
+			//fa.getBody().setActive(false);
+			//setKey 
+			//lvl.getKey().getBody().setActive(false);
+			System.out.print("in contact with key");
 		}
 	}
 	

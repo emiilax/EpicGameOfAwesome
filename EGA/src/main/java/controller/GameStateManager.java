@@ -2,6 +2,7 @@ package controller;
 
 import java.util.Stack;
 
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
 import view.GameState;
@@ -20,20 +21,18 @@ public class GameStateManager {
 	public static final int MENU = 123123;
 	public static final int PLAY = 912837;
 	
+	private int currentLevel = 1;
+	
 	public GameStateManager(EGA game){
 		
 		this.game = game;
-		//this.theState = theState;
 		gameStates = new Stack<GameState>();
-		//pushState(this.theState);
-		//pushState(PLAY);
 	}
 	
 	private GameState getState(int state){
-
 	
 		if(state == MENU) return new MenuState(this);
-		if(state == PLAY) return new Level(this);
+		if(state == PLAY) return new Level(this, game.getLevel(currentLevel));
 		return null;
 	}
 	
@@ -57,6 +56,14 @@ public class GameStateManager {
 	
 	public void render(){
 		gameStates.peek().render();
+	}
+	
+	public TiledMap getNextLevel(){
+		currentLevel++;
+		return game.getLevel(currentLevel);
+	}
+	public TiledMap getCurrentLevel(){
+		return game.getLevel(currentLevel);
 	}
 	
 }
