@@ -65,7 +65,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		
 		//load levels
 		level1 = new TmxMapLoader().load("res/maps/testmap.tmx");
-		level2 = new TmxMapLoader().load("res/maps/map2.tmx");
+		level2 = new TmxMapLoader().load("res/maps/testmap2.tmx");
 		level3 = new TmxMapLoader().load("res/maps/testmap.tmx");
 		//add levels to the array levels
 		levels = new Array<TiledMap>();
