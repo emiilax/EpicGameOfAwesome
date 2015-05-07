@@ -11,6 +11,8 @@ import controller.Variables;
 import controller.EGA;
 
 public class Door extends Entity {
+	
+		private boolean doorIsLocked = true;
 		
 		public Door(Body body) {
 			super(body);
@@ -32,8 +34,14 @@ public class Door extends Entity {
 			TextureRegion[] sprites = TextureRegion.split(tex,  50,  50)[0];
 			
 			setAnimation(sprites, 1/ 12f);
-		
 			
+		}
+		
+		public void setDoorIsLocked(boolean b){
+			doorIsLocked = b;
+		}
+		public boolean getDoorisLocked(){
+			return doorIsLocked;
 		}
 
 	}

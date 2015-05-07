@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
 import event.EventSupport;
@@ -44,6 +45,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	private TiledMap level1;
 	private TiledMap level2;
 	private TiledMap level3;
+	private Array<TiledMap> levels;
 	//end levels
 
 	public void create() {
@@ -65,6 +67,12 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		level1 = new TmxMapLoader().load("res/maps/testmap.tmx");
 		level2 = new TmxMapLoader().load("res/maps/map2.tmx");
 		level3 = new TmxMapLoader().load("res/maps/testmap.tmx");
+		//add levels to the array levels
+		levels = new Array<TiledMap>();
+		levels.add(level1);
+		levels.add(level2);
+		levels.add(level3);
+		
 		
 		
 		EventSupport.getInstance().addListner(this);
@@ -91,7 +99,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 
 	}
 	
-	public void setLevel(GameState state){
+	public void setLevel(GameState state){ //borde denna inte heta ngt annat?
 		theLevel = state;
 		gsm.setState(theLevel);
 	}
@@ -138,7 +146,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 
 	public void eventRecieved(TheEvent evt) {
 		if(evt.getNameOfEvent().equals("spikehit")){
-			setLevel(new Level(gsm));
+			setLevel(new Level(gsm, gsm.getCurrentLevel()));
 		}		
 	}
 	public TiledMap getLevel(int i){
@@ -152,5 +160,6 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			return level3;
 		}
 		return null;
+//		return levels.get(i);
 	}
 }

@@ -64,10 +64,14 @@ public class MyContactListener implements ContactListener{
 		}
 		if(fa.getUserData() != null && fa.getUserData().equals("bigdoor")){
 			System.out.println("Ball in contact with the door!");
+			gsm.getGame().setLevel(new Level(gsm, gsm.getNextLevel()));
+			//behöver man uppdatera ngt?
 			
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("bigdoor")){
 			System.out.println("Ball in contact with the door!");
+			gsm.getGame().setLevel(new Level(gsm, gsm.getNextLevel()));
+			//behöver man uppdatera ngt?
 		}
 		
 		if(fa.getUserData() != null && fa.getUserData().equals("spike")){

@@ -46,30 +46,25 @@ public class Level extends GameState{
 
 	private World world;
 	private Box2DDebugRenderer b2br;
-
 	private OrthographicCamera b2dCam;
-
 	private MyContactListener cl;
-
-	private TiledMap tileMap;
+	private TiledMap tiledMap;
 	private float tilesize;
 	private OrthogonalTiledMapRenderer tmr;
-
-	private Character player;
-
-	private Array<IStar> stars;
-	private Door door;
-	private Array<Spike> spikes;
 	private GameStateManager gsm;
-	//private Array<BigStar> bigStars;
-
 	private HUD hud;
+	//Entities
+	private Character player;
+	private Array<IStar> stars;
+	private Array<Spike> spikes;
+	private Door door;
 
-	public Level(GameStateManager gsm){
+	public Level(GameStateManager gsm, TiledMap tiledMap){
 
 		super(gsm);
 		
 		this.gsm = gsm;
+		this.tiledMap = tiledMap;
 
 		// set up box2d stuff
 		world = new World(new Vector2(0,-9.81f), true);
@@ -79,7 +74,6 @@ public class Level extends GameState{
 
 		stars = new Array<IStar>();
 		spikes = new Array<Spike>();
-		//doors = new Array<Door>();
 
 		createEntities();
 
@@ -88,7 +82,6 @@ public class Level extends GameState{
 		b2dCam.setToOrtho(false, EGA.V_WIDTH / PPM, EGA.V_HEIGTH / PPM);
 
 		// set up HUD
-
 		hud = new HUD(player);
 
 		//go through all the cells in the layer;
@@ -111,7 +104,7 @@ public class Level extends GameState{
 	}
 
 	public void update(float dt) {
-		
+		//boolean from door should be checked 
 		if(MyInput.isPressed(MyInput.BUTTON_LEVEL1)){
 			renderNewLevel(1);
 		} else if (MyInput.isPressed(MyInput.BUTTON_LEVEL2)) {
@@ -183,20 +176,16 @@ public class Level extends GameState{
 		createMapObjects();
 	}
 
-	public void renderNewLevel(int pressedButton){
+	public void renderNewLevel(int Level){
 		
-		
-		// create player
 		createPlayer();
 
-		// create tiles
-		createTiles(pressedButton);
+		createTiles();
 
-		// create stars 
 		createStars();
 		
 		createDoor();
-		// create spikes
+
 		createSpikes();
 	}
 
@@ -232,23 +221,16 @@ public class Level extends GameState{
 		// create player
 		createPlayer();
 
-		// create tiles
-		createTiles(1);
+		createTiles();
 
-		// create stars
 		createStars();
 
-		// create spikes
 		createSpikes();
-		
-		//create big Stars
-		//createBigStars();
-		
-		// create door
+
 		createDoor();
 	}
 	
-	public void createMapObjects(){
+	public void createMapObjects(){ //skillnad på denna och createEntities? /reb
 		createStars();
 		createSpikes();
 		createDoor();
@@ -286,25 +268,22 @@ public class Level extends GameState{
 
 		body.setUserData(player);
 	}
-
-
+	
 	/**
 	 * Create the tiles of the map (ground and platforms) 
 	 * @param level, what level that should be loaded
 	 */
-	public void createTiles(int level){
-		//select current level
-		tileMap = gsm.getGame().getLevel(level);
+	public void createTiles(){
 		//create renderer
-		tmr = new OrthogonalTiledMapRenderer(tileMap);
+		tmr = new OrthogonalTiledMapRenderer(tiledMap);
 
-		tilesize = (Integer) tileMap.getProperties().get("tilewidth");
+		tilesize = (Integer) tiledMap.getProperties().get("tilewidth");
 
 		TiledMapTileLayer layer;
 
-		layer = (TiledMapTileLayer) tileMap.getLayers().get("ground");	
+		layer = (TiledMapTileLayer) tiledMap.getLayers().get("ground");	
 		createLayer(layer, Variables.BIT_GROUND);
-		layer = (TiledMapTileLayer) tileMap.getLayers().get("platform");
+		layer = (TiledMapTileLayer) tiledMap.getLayers().get("platform");
 		createLayer(layer, Variables.BIT_PLATFORM);
 
 		//MapLayer ml = tileMap.getLayers().get("thePlatforms");
@@ -401,19 +380,20 @@ public class Level extends GameState{
 	 */
 	private void createStars(){
 		BodyDef bdef = new BodyDef();
+		
 		//Create small stars
-		MapLayer layer = tileMap.getLayers().get("stars");
+		MapLayer layer = tiledMap.getLayers().get("stars");
 		loopInStars(layer,true);
 
 		// Create the big stars
-		layer = tileMap.getLayers().get("bigStars");
+		layer = tiledMap.getLayers().get("bigStars");
 		loopInStars(layer,false);
 
 	}
 
 	private void createDoor(){
 		BodyDef bdef = new BodyDef();
-		MapLayer layer = tileMap.getLayers().get("bigdoor");
+		MapLayer layer = tiledMap.getLayers().get("bigdoor");
 			
 			for(MapObject mo: layer.getObjects()){
 
@@ -432,6 +412,10 @@ public class Level extends GameState{
 				
 			}
 		}
+	public Door getDoor(){
+		return door;
+	}
+	
 	/**
 	 * Used to loop in the stars to the map. A help
 	 * method to createStars();
@@ -487,7 +471,7 @@ public class Level extends GameState{
 	
 	private void createSpikes(){
 		//Create spikes
-		MapLayer layer = tileMap.getLayers().get("spikes");
+		MapLayer layer = tiledMap.getLayers().get("spikes");
 		loopInSpikes(layer);	
 	}
 	

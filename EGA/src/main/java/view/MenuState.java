@@ -104,7 +104,7 @@ public class MenuState extends GameState{
 
 	private void select(){
 		if (currentItem == 0){
-			gsm.getGame().setLevel(new Level(gsm));
+			gsm.getGame().setLevel(new Level(gsm, gsm.getCurrentLevel()));
 		}
 		if (currentItem == 1){
 			System.out.println("Level select!");
