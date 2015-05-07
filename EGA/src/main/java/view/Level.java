@@ -7,6 +7,7 @@ import lombok.Lombok;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.EGATimer;
 import model.MyContactListener;
 import model.MyInput;
 
@@ -36,6 +37,7 @@ import com.badlogic.gdx.utils.GdxNativesLoader;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
 
+
 import controller.Variables;
 import controller.EGA;
 import controller.GameStateManager;
@@ -61,7 +63,7 @@ public class Level extends GameState{
 	private Door door;
 	private Array<Spike> spikes;
 	private GameStateManager gsm;
-	//private Array<BigStar> bigStars;
+	private EGATimer timer;
 
 	private HUD hud;
 
@@ -94,6 +96,8 @@ public class Level extends GameState{
 		//go through all the cells in the layer;
 
 		// kinematic body, ex. a moving platform
+		timer = EGATimer.getTimer();
+		timer.startTimer();
 
 	}
 

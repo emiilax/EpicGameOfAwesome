@@ -28,12 +28,14 @@ public class MyContactListener implements ContactListener{
 	private Level lvl;
 	private GameStateManager gsm;
 	private EGA ega;
+	private EGATimer timer;
 	
 	public MyContactListener(GameState gs){
 		super();
 		lvl = (Level) gs;
 		gsm = gs.getGsm();
 		bodiesToRemove = new Array<Body>();
+		timer = EGATimer.getTimer();
 	}
 	// called when two fixures collides
 	public void beginContact(Contact c) {
@@ -64,10 +66,14 @@ public class MyContactListener implements ContactListener{
 		}
 		if(fa.getUserData() != null && fa.getUserData().equals("bigdoor")){
 			System.out.println("Ball in contact with the door!");
+			timer.stopTimer();
+			System.out.println(timer.getTimePassed());
 			
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("bigdoor")){
 			System.out.println("Ball in contact with the door!");
+			timer.stopTimer();
+			System.out.println(timer.getTimePassed());
 		}
 		
 		if(fa.getUserData() != null && fa.getUserData().equals("spike")){
