@@ -1,5 +1,7 @@
 package view;
 
+import java.util.Arrays;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -39,7 +41,8 @@ public class Spike extends Entity{
 		Texture tex = EGA.res.getTexture("spike");
 		// is this part necessary?
 		TextureRegion[] sprites = TextureRegion.split(tex,  16,  21)[0];
-		setAnimation(sprites, 0/ 12f);
+		//Range is which sprite to use
+		setAnimation(Arrays.copyOfRange(sprites,  1,  2), 0/ 12f);
 	}
 
 }
