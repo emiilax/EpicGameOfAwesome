@@ -20,7 +20,7 @@ import controller.EGA;
 
 public class OpenDoor extends Entity implements IDoor {
 	
-		private boolean doorIsLocked;
+		//private boolean doorIsLocked;
 		private Texture texture;
 		
 		public OpenDoor(Body body, String texString) {
@@ -43,24 +43,24 @@ public class OpenDoor extends Entity implements IDoor {
 			
 			setAnimation(sprites, 1/ 12f);
 			
-			setDoorStatus(texString);
+			//setDoorStatus(texString);
 			
 		}
 		/*
 		 * This method determine if the door will be open or closed
 		 * Will only be nessesary if open and closed door is the same class
 		 */
-		private void setDoorStatus(String texture){
-			if (texture.equals("openDoor")){
-				doorIsLocked = false;
-			}
-			if(texture.equals("lockedDoor")){
-				doorIsLocked = true;
-			}
-		}
-		
-		public boolean getDoorisLocked(){
-			return doorIsLocked;
-		}
+//		private void setDoorStatus(String texture){
+//			if (texture.equals("openDoor")){
+//				doorIsLocked = false;
+//			}
+//			if(texture.equals("lockedDoor")){
+//				doorIsLocked = true;
+//			}
+//		}
+//		
+//		public boolean getDoorisLocked(){
+//			return doorIsLocked;
+//		}
 
 	}

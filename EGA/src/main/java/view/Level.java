@@ -62,6 +62,7 @@ public class Level extends GameState{
 
 	//end Entities 
 	private EGATimer timer;
+	private boolean doorIsOpen;
 
 
 	//public Level(GameStateManager gsm){
@@ -71,6 +72,8 @@ public class Level extends GameState{
 		
 		this.gsm = gsm;
 		this.tiledMap = tiledMap;
+		
+		doorIsOpen = false;
 
 		// set up box2d stuff
 		world = new World(new Vector2(0,-9.81f), true);
@@ -250,20 +253,21 @@ public class Level extends GameState{
 	public void removeKeys(){
 		Array<Body> bodies = cl.getKeysToRemove();
 
-		if(bodies.size > 0){
+		if(bodies.size > 0 ){
 			//String uData = bodies.get(0).getFixtureList().get(0).getUserData().toString();
 			for(int i = 0; i < bodies.size; i++){
 				Body b = bodies.get(i);
 				keys.removeValue((Key) b.getUserData(), true);
 				world.destroyBody(b);
 			}
+			setDoorIsOpen(true);
 		}
 		bodies.clear();
 	}
 	public void removeDoors(){
 		Array<Body> bodies = cl.getDoorsToRemove();
 
-		if(bodies.size > 0){
+		if(bodies.size > 0 && doorIsOpen){
 			//String uData = bodies.get(0).getFixtureList().get(0).getUserData().toString();
 			for(int i = 0; i < bodies.size; i++){
 				Body b = bodies.get(i);
@@ -602,6 +606,9 @@ public class Level extends GameState{
 		body.setUserData(player);
 	}
 
+	private void setDoorIsOpen(boolean b){
+		doorIsOpen = b;
+	}
 //	public void addDoor(OpenDoor door){
 //		doors.add(door);
 //	}
