@@ -57,10 +57,9 @@ public class Level extends GameState{
 	private Character player;
 	private Array<IStar> stars;
 	private Array<Spike> spikes;
+	private Array <IDoor> doors;
+	private Array <Key> keys;
 
-	
-	private Door door;
-	private Key key;
 	//end Entities 
 	private EGATimer timer;
 
@@ -80,7 +79,9 @@ public class Level extends GameState{
 		b2br = new Box2DDebugRenderer();
 
 		stars = new Array<IStar>();
+		doors = new Array <IDoor>();
 		spikes = new Array<Spike>();
+		keys = new Array<Key>();
 
 		createEntities();
 
@@ -117,7 +118,6 @@ public class Level extends GameState{
 	}
 
 	public void update(float dt) {
-		//boolean from door should be checked 
 		if(MyInput.isPressed(MyInput.BUTTON_LEVEL1)){
 			renderNewLevel(1);
 		} else if (MyInput.isPressed(MyInput.BUTTON_LEVEL2)) {
@@ -130,18 +130,25 @@ public class Level extends GameState{
 		world.step(dt, 6, 2);
 
 		removeStars();
+		removeKeys();
 		player.update(dt);
-
-		for(int i  = 0; i < stars.size; i++){
-			stars.get(i).update(dt);
+		
+		for(IStar s: stars){
+			s.update(dt);
 		}
 		
 		for(Spike s: spikes){
 			s.update(dt);
 		}
 		
-		door.update(dt);
-		key.update(dt);
+		for(IDoor d: doors){
+			d.update(dt);
+		}
+		
+		for(Key k: keys){
+			k.update(dt);
+		}
+
 	}
 
 	public void render() {
@@ -178,8 +185,14 @@ public class Level extends GameState{
 			s.render(sb);
 		}
 		
-		door.render(sb);
-		key.render(sb);
+		//door.render(sb);
+		
+		for(IDoor d: doors){
+			d.render(sb);
+		}
+		for(Key k: keys){
+			k.render(sb);
+		}
 
 		if(debug){
 			b2br.render(world, b2dCam.combined);
@@ -198,8 +211,8 @@ public class Level extends GameState{
 		createTiles();
 
 		createStars();
-		
-		createDoor();
+
+		createDoors();
 
 		createSpikes();
 		
@@ -232,10 +245,23 @@ public class Level extends GameState{
 		}
 		bodies.clear();
 	}
+	public void removeKeys(){
+		Array<Body> bodies = cl.getKeysToRemove();
+
+		if(bodies.size > 0){
+			//String uData = bodies.get(0).getFixtureList().get(0).getUserData().toString();
+			for(int i = 0; i < bodies.size; i++){
+				Body b = bodies.get(i);
+				keys.removeValue((Key) b.getUserData(), true);
+				world.destroyBody(b);
+			}
+		}
+		bodies.clear();
+	}
+	
 // 	CREATE METHODS --------------------------------------------------------------
 	public void createEntities(){
 
-		// create player
 		createPlayer();
 
 		createTiles();
@@ -244,15 +270,15 @@ public class Level extends GameState{
 
 		createSpikes();
 
-		createDoor();
+		createDoors();
 		
 		createKey();
 	}
 	
-	public void createMapObjects(){ //skillnad på denna och createEntities? /reb
+	public void createMapObjects(){
 		createStars();
 		createSpikes();
-		createDoor();
+		createDoors();
 		createKey();
 	}
 	
@@ -381,7 +407,7 @@ public class Level extends GameState{
 	 * Creates the stars on the map
 	 */
 	private void createStars(){
-		BodyDef bdef = new BodyDef();
+		//BodyDef bdef = new BodyDef();
 		
 		//Create small stars
 		MapLayer layer = tiledMap.getLayers().get("stars");
@@ -392,29 +418,19 @@ public class Level extends GameState{
 		loopInStars(layer,false);
 
 	}
+	
+	private void createDoors(){
+		//BodyDef bdef = new BodyDef();
+		
+		//Create OpenDoors
+		MapLayer layer = tiledMap.getLayers().get("openDoor");
+		loopInDoors(layer, "openDoor");
 
-	private void createDoor(){
-		BodyDef bdef = new BodyDef();
-		MapLayer layer = tiledMap.getLayers().get("bigdoor");
-			
-			for(MapObject mo: layer.getObjects()){
+		// Create LockedDoors
+		layer = tiledMap.getLayers().get("lockedDoor");
+		loopInDoors(layer, "lockedDoor");
 
-				bdef.type = BodyType.StaticBody;
-
-				float x = mo.getProperties().get("x", Float.class) / PPM;
-				float y = mo.getProperties().get("y", Float.class) / PPM;
-
-				bdef.position.set(x, y);
-				
-				Body body = world.createBody(bdef);
-				
-				String bigdoor = "bigdoor";
-				door = new Door(body, bigdoor);
-
-				body.setUserData(door);
-				
-			}
-		}
+	}
 	
 	private void createKey(){
 		BodyDef bdef = new BodyDef();
@@ -431,7 +447,8 @@ public class Level extends GameState{
 				
 				Body body = world.createBody(bdef);
 				
-				key = new Key(body);
+				Key key = new Key(body);
+				keys.add(key);
 
 				body.setUserData(key);
 				
@@ -444,14 +461,6 @@ public class Level extends GameState{
 	}
 	
 	// END CREATE METHODS ----------------------------------------------------
-	
-	public Door getDoor(){
-		return door;
-	}
-	
-	public Key getKey(){
-		return key;
-	}
 	
 	/**
 	 * Used to loop in the stars to the map. A help
@@ -486,6 +495,33 @@ public class Level extends GameState{
 
 		}	
 	}
+	private void loopInDoors(MapLayer layer, String texString){
+		BodyDef bdef = new BodyDef();
+
+		for(MapObject mo: layer.getObjects()){
+
+			bdef.type = BodyType.StaticBody;
+
+			float x = mo.getProperties().get("x", Float.class) / PPM;
+			float y = mo.getProperties().get("y", Float.class) / PPM;
+
+			bdef.position.set(x, y);
+
+			Body body = world.createBody(bdef);
+
+			IDoor id;
+			if(texString.equals("openDoor")){
+				id = new OpenDoor(body, "openDoor");
+				doors.add(id);
+				body.setUserData(id);
+			} else{
+				id = new LockedDoor(body, "lockedDoor");
+				doors.add(id);
+				body.setUserData(id);
+			}	
+		}	
+	}
+	
 		
 	public void playerJump(){
 		if(cl.isPlayerOnGround()){
@@ -545,5 +581,7 @@ public class Level extends GameState{
 		body.setUserData(player);
 	}
 
-
+//	public void addDoor(OpenDoor door){
+//		doors.add(door);
+//	}
 }

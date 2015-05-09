@@ -18,16 +18,14 @@ import controller.EGA;
  * the door will be open if the texture argument is "openDoor"
  */
 
-public class Door extends Entity {
+public class OpenDoor extends Entity implements IDoor {
 	
 		private boolean doorIsLocked;
 		private Texture texture;
-		//private String texString;
 		
-		public Door(Body body, String texString) {
+		public OpenDoor(Body body, String texString) {
 			super(body);
-			
-			//this.texString = texture;
+
 			FixtureDef fdef = new FixtureDef();
 			PolygonShape ps = new PolygonShape();
 			ps.setAsBox(25/PPM, 25/PPM);
@@ -50,9 +48,10 @@ public class Door extends Entity {
 		}
 		/*
 		 * This method determine if the door will be open or closed
+		 * Will only be nessesary if open and closed door is the same class
 		 */
 		private void setDoorStatus(String texture){
-			if (texture.equals("bigdoor")){
+			if (texture.equals("openDoor")){
 				doorIsLocked = false;
 			}
 			if(texture.equals("lockedDoor")){
@@ -60,9 +59,6 @@ public class Door extends Entity {
 			}
 		}
 		
-		private void setDoorIsLocked(boolean b){
-			doorIsLocked = b;
-		}
 		public boolean getDoorisLocked(){
 			return doorIsLocked;
 		}

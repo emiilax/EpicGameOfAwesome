@@ -32,7 +32,7 @@ public class GameStateManager {
 	private GameState getState(int state){
 	
 		if(state == MENU) return new MenuState(this);
-		if(state == PLAY) return new Level(this, game.getLevel(currentLevel));
+		if(state == PLAY) return new Level(this, game.getTiledMap(currentLevel));
 		return null;
 	}
 	
@@ -60,10 +60,10 @@ public class GameStateManager {
 	
 	public TiledMap getNextLevel(){
 		currentLevel++;
-		return game.getLevel(currentLevel);
+		return game.getTiledMap(currentLevel);
 	}
 	public TiledMap getCurrentLevel(){
-		return game.getLevel(currentLevel);
+		return game.getTiledMap(currentLevel);
 	}
 	
 }
