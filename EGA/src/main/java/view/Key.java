@@ -12,6 +12,10 @@ import controller.EGA;
 
 public class Key extends Entity {
 	
+/*
+ * @author Rebecka Reitmaier
+ */
+	
 		private boolean keyIsTaken = false;
 		
 		public Key(Body body) {

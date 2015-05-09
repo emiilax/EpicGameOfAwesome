@@ -408,7 +408,8 @@ public class Level extends GameState{
 				
 				Body body = world.createBody(bdef);
 				
-				door = new Door(body);
+				String bigdoor = "bigdoor";
+				door = new Door(body, bigdoor);
 
 				body.setUserData(door);
 				
