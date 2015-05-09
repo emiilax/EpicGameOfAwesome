@@ -43,8 +43,6 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	private GameStateManager gsm;
 	private GameState theLevel;
 	
-	private HashMap<Integer, Texture> finishedBgr;
-	
 	public static Content res;
 	
 	// levels
@@ -53,6 +51,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	private TiledMap level3;
 	//private Array<TiledMap> levels;
 	//end levels
+	private HashMap<Integer, Texture> finishedBgr;
 
 	public void create() {
 		
@@ -86,16 +85,11 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		cam = new OrthographicCamera();
 		hudCam = new OrthographicCamera();
 		gsm = new GameStateManager(this);
-		
 		initHashMap();
 		
 		theLevel = new MenuState(gsm);
 		gsm.pushState(theLevel);
-	}
-	
-	private void initHashMap(){
-		finishedBgr = new HashMap<Integer, Texture>();
-		finishedBgr.put(1,  new Texture("res/menu/lol.jpg"));
+		
 	}
 	
 	public void render() {
@@ -109,11 +103,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			handleInput();
 			MyInput.update();
 		}
-	}
-	
-	public void setLevelFinished(int i){
-		LevelFinished state = new LevelFinished(gsm, finishedBgr.get(1));
-		setLevel(state);
+
 	}
 	
 	public void setLevel(GameState state){ //borde denna inte heta ngt annat?
@@ -136,7 +126,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			theLevel.handleInput(MyInput.BUTTON_DOWN);
 
 		}
-
+		
 		if(MyInput.isDown(MyInput.BUTTON_FORWARD)){
 
 			theLevel.handleInput(MyInput.BUTTON_FORWARD);
@@ -178,5 +168,15 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		}
 		return null;
 //		return levels.get(i);
+	}
+	
+	public void setLevelFinished(int i){
+		LevelFinished state = new LevelFinished(gsm, finishedBgr.get(1));
+		setLevel(state);
+	}
+	
+	private void initHashMap(){
+		finishedBgr = new HashMap<Integer, Texture>();
+		finishedBgr.put(1,  new Texture("res/menu/lol.jpg"));
 	}
 }
