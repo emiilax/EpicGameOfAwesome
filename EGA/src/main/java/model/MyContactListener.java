@@ -28,6 +28,7 @@ public class MyContactListener implements ContactListener{
 	private int numFootContacts;
 	private Array<Body> bodiesToRemove;
 	private Array<Body> keysToRemove;
+	private Array<Body> doorsToRemove;
 	private Level lvl;
 	private GameStateManager gsm;
 	private EGA ega;
@@ -40,6 +41,7 @@ public class MyContactListener implements ContactListener{
 		ega = gsm.getGame();
 		bodiesToRemove = new Array<Body>();
 		keysToRemove = new Array<Body>();
+		doorsToRemove = new Array<Body>();
 		timer = EGATimer.getTimer();
 	}
 	// called when two fixures collides
@@ -73,16 +75,24 @@ public class MyContactListener implements ContactListener{
 		if(fa.getUserData() != null && fa.getUserData().equals("openDoor")){
 			System.out.println("Ball in contact with the open-door!");
 			timer.stopTimer();
-			gsm.getGame().setLevel(new Level(gsm, gsm.getNextLevel()));
-//			Door d1 = new Door(fb.getBody(), "closedDoor");
-//			lvl.addDoor(d1);
+			gsm.getGame().setLevel(new Level(gsm, gsm.getNextLevel()));//this or highscore
+
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("openDoor")){
 			System.out.println("Ball in contact with the open-door!");
 			timer.stopTimer();
-			gsm.getGame().setLevel(new Level(gsm, gsm.getNextLevel()));
-//			Door d1 = new Door(fb.getBody(), "closedDoor");
-//			lvl.addDoor(d1);
+			gsm.getGame().setLevel(new Level(gsm, gsm.getNextLevel())); //this or highscore
+
+		}
+		
+		if(fa.getUserData() != null && fa.getUserData().equals("lockedDoor")){
+			System.out.println("Ball in contact with the locked-door!");
+			doorsToRemove.add(fa.getBody());
+			
+		}
+		if(fb.getUserData() != null && fb.getUserData().equals("lockedDoor")){
+			System.out.println("Ball in contact with the locked-door!");
+			doorsToRemove.add(fb.getBody());
 		}
 		
 		if(fa.getUserData() != null && fa.getUserData().equals("spike")){

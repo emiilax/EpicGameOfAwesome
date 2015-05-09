@@ -131,6 +131,8 @@ public class Level extends GameState{
 
 		removeStars();
 		removeKeys();
+		removeDoors();
+		
 		player.update(dt);
 		
 		for(IStar s: stars){
@@ -212,7 +214,7 @@ public class Level extends GameState{
 
 		createStars();
 
-		createDoors();
+		createLockedDoors();
 
 		createSpikes();
 		
@@ -258,7 +260,28 @@ public class Level extends GameState{
 		}
 		bodies.clear();
 	}
-	
+	public void removeDoors(){
+		Array<Body> bodies = cl.getDoorsToRemove();
+
+		if(bodies.size > 0){
+			//String uData = bodies.get(0).getFixtureList().get(0).getUserData().toString();
+			for(int i = 0; i < bodies.size; i++){
+				Body b = bodies.get(i);
+				doors.removeValue((IDoor) b.getUserData(), true);
+				world.destroyBody(b);
+				
+				createOpenDoors();
+
+//				if(uData.equals("closedDoor")){
+//					createOpenDoors();
+//				} else {
+//					// new level or highscore
+//					//this can be in myContactListener too, which it is now				
+//				}
+			}
+		}
+		bodies.clear();
+	}
 // 	CREATE METHODS --------------------------------------------------------------
 	public void createEntities(){
 
@@ -270,7 +293,7 @@ public class Level extends GameState{
 
 		createSpikes();
 
-		createDoors();
+		createLockedDoors();
 		
 		createKey();
 	}
@@ -278,7 +301,7 @@ public class Level extends GameState{
 	public void createMapObjects(){
 		createStars();
 		createSpikes();
-		createDoors();
+		createLockedDoors();
 		createKey();
 	}
 	
@@ -419,17 +442,15 @@ public class Level extends GameState{
 
 	}
 	
-	private void createDoors(){
-		//BodyDef bdef = new BodyDef();
-		
+	private void createLockedDoors(){
+		// Create LockedDoors
+		MapLayer layer = tiledMap.getLayers().get("lockedDoor");
+		loopInDoors(layer, "lockedDoor");
+	}
+	private void createOpenDoors(){
 		//Create OpenDoors
 		MapLayer layer = tiledMap.getLayers().get("openDoor");
 		loopInDoors(layer, "openDoor");
-
-		// Create LockedDoors
-		layer = tiledMap.getLayers().get("lockedDoor");
-		loopInDoors(layer, "lockedDoor");
-
 	}
 	
 	private void createKey(){

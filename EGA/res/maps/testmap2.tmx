@@ -62,6 +62,6 @@
   <object id="147" gid="8" x="79" y="521"/>
  </objectgroup>
  <objectgroup name="lockedDoor">
-  <object id="148" gid="9" x="314" y="194"/>
+  <object id="148" gid="9" x="412" y="191"/>
  </objectgroup>
 </map>
