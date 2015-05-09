@@ -12,21 +12,25 @@ import controller.EGA;
 
 /*
  * @author Rebecka Reitmaier
- * 
+ * Door is a class which extends the class Entity.
+ * The class can create two different "doors" - open and closed,
+ * the door will be closed if the texture argument is "lockedDoor"
+ * the door will be open if the texture argument is "openDoor"
  */
 
 public class Door extends Entity {
 	
 		private boolean doorIsLocked;
-		private Texture tex;
+		private Texture texture;
+		//private String texString;
 		
-		public Door(Body body, String texture) {
+		public Door(Body body, String texString) {
 			super(body);
 			
+			//this.texString = texture;
 			FixtureDef fdef = new FixtureDef();
 			PolygonShape ps = new PolygonShape();
 			ps.setAsBox(25/PPM, 25/PPM);
-			//ps.setRadius(8/PPM);
 
 			fdef.shape = ps;
 			fdef.isSensor = true;
@@ -34,16 +38,20 @@ public class Door extends Entity {
 			fdef.filter.categoryBits = Variables.BIT_DOOR;
 			fdef.filter.maskBits = Variables.BIT_PLAYER;
 			
-			setSensor(fdef, "bigdoor");
-			setTexture(texture);
-			//Texture tex = EGA.res.getTexture("bigdoor");
-			TextureRegion[] sprites = TextureRegion.split(this.tex,  50,  50)[0];
+			setSensor(fdef, texString);
+			this.texture = EGA.res.getTexture(texString);
+			
+			TextureRegion[] sprites = TextureRegion.split(this.texture,  50,  50)[0];
 			
 			setAnimation(sprites, 1/ 12f);
 			
+			setDoorStatus(texString);
+			
 		}
-		public void setTexture(String texture){
-			this.tex = EGA.res.getTexture(texture);
+		/*
+		 * This method determine if the door will be open or closed
+		 */
+		private void setDoorStatus(String texture){
 			if (texture.equals("bigdoor")){
 				doorIsLocked = false;
 			}
@@ -52,7 +60,7 @@ public class Door extends Entity {
 			}
 		}
 		
-		public void setDoorIsLocked(boolean b){
+		private void setDoorIsLocked(boolean b){
 			doorIsLocked = b;
 		}
 		public boolean getDoorisLocked(){
