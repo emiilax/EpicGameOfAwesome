@@ -10,7 +10,11 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import controller.Variables;
 import controller.EGA;
 
-public class Key extends Entity {
+public class Key extends Entity{
+	
+/*
+ * @author Rebecka Reitmaier
+ */
 	
 		private boolean keyIsTaken = false;
 		

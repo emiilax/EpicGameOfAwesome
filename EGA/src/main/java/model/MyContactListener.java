@@ -1,6 +1,8 @@
 package model;
 
+import view.OpenDoor;
 import view.GameState;
+import view.Key;
 import view.Level;
 import lombok.Data;
 
@@ -25,6 +27,8 @@ public class MyContactListener implements ContactListener{
 	
 	private int numFootContacts;
 	private Array<Body> bodiesToRemove;
+	private Array<Body> keysToRemove;
+	private Array<Body> doorsToRemove;
 	private Level lvl;
 	private GameStateManager gsm;
 	private EGA ega;
@@ -36,6 +40,8 @@ public class MyContactListener implements ContactListener{
 		gsm = gs.getGsm();
 		ega = gsm.getGame();
 		bodiesToRemove = new Array<Body>();
+		keysToRemove = new Array<Body>();
+		doorsToRemove = new Array<Body>();
 		timer = EGATimer.getTimer();
 	}
 	// called when two fixures collides
@@ -66,18 +72,27 @@ public class MyContactListener implements ContactListener{
 		if(fb.getUserData() != null && fb.getUserData().equals("bigStar")){
 			bodiesToRemove.add(fb.getBody());
 		}
-		if(fa.getUserData() != null && fa.getUserData().equals("bigdoor")){
-			System.out.println("Ball in contact with the door!");
+		if(fa.getUserData() != null && fa.getUserData().equals("openDoor")){
+			System.out.println("Ball in contact with the open-door!");
 			timer.stopTimer();
 			//ega.setLevelFinished(1);
 			gsm.getGame().setLevel(new Level(gsm, gsm.getNextLevel()));
 		}
-		if(fb.getUserData() != null && fb.getUserData().equals("bigdoor")){
-			System.out.println("Ball in contact with the door!");
+		if(fb.getUserData() != null && fb.getUserData().equals("openDoor")){
+			System.out.println("Ball in contact with the open-door!");
 			timer.stopTimer();
-			gsm.getGame().setLevel(new Level(gsm, gsm.getNextLevel()));
-			//behöver man uppdatera ngt?
-			//ega.setLevelFinished(1);
+			gsm.getGame().setLevel(new Level(gsm, gsm.getNextLevel())); //this or highscore
+
+		}
+		
+		if(fa.getUserData() != null && fa.getUserData().equals("lockedDoor")){
+			System.out.println("Ball in contact with the locked-door!");
+			doorsToRemove.add(fa.getBody());
+			
+		}
+		if(fb.getUserData() != null && fb.getUserData().equals("lockedDoor")){
+			System.out.println("Ball in contact with the locked-door!");
+			doorsToRemove.add(fb.getBody());
 		}
 		
 		if(fa.getUserData() != null && fa.getUserData().equals("spike")){
@@ -88,15 +103,11 @@ public class MyContactListener implements ContactListener{
 			contactWithSpike();
 		}
 		if(fa.getUserData() != null && fa.getUserData().equals("key")){
-			//fa.getBody().setActive(false);
-			//setKey 	
-			//lvl.getKey().getBody().setActive(false);
+			keysToRemove.add(fa.getBody());
 			System.out.print("in contact with key");
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("key")){
-			//fa.getBody().setActive(false);
-			//setKey 
-			//lvl.getKey().getBody().setActive(false);
+			keysToRemove.add(fb.getBody());
 			System.out.print("in contact with key");
 		}
 	}

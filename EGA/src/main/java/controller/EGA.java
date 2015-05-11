@@ -32,7 +32,6 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	public static final int V_WIDTH = 1280;
 	public static final int V_HEIGTH = 720;
 	public static final int SCALE = 1;
-	
 	public static final float STEP = 1/ 60f;
 	private float accum;
 	
@@ -65,7 +64,8 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		res.loadTexture("res/characters/redball_small.png", "smallplayer");
 		res.loadTexture("res/characters/redball_big.png", "bigPlayer");
 		res.loadTexture("res/stars/bigStar.png", "bigStar");
-		res.loadTexture("res/door/door2.jpg", "bigdoor");
+		res.loadTexture("res/door/openDoor.jpg", "openDoor");
+		res.loadTexture("res/door/closedDoor.jpg", "lockedDoor");
 		res.loadTexture("res/tiles/spikes_16x21.png", "spike");
 		res.loadTexture("res/key/key-4.png", "key");
 		
@@ -156,7 +156,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			setLevel(new Level(gsm, gsm.getCurrentLevel()));
 		}		
 	}
-	public TiledMap getLevel(int i){
+	public TiledMap getTiledMap(int i){
 		if(i==1){
 			return level1;
 		}

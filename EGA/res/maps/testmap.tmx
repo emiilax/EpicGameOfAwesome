@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="32" tileheight="32" nextobjectid="146">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="32" tileheight="32" nextobjectid="148">
  <tileset firstgid="1" name="whiteblock" tilewidth="32" tileheight="32">
   <image source="../tiles/whiteblock.png" width="32" height="32"/>
  </tileset>
@@ -9,14 +9,17 @@
  <tileset firstgid="3" name="brownblock" tilewidth="32" tileheight="32">
   <image source="../tiles/brownblock.png" width="32" height="32"/>
  </tileset>
- <tileset firstgid="4" name="doortile" tilewidth="50" tileheight="50">
-  <image source="../door/door2.jpg" width="50" height="50"/>
- </tileset>
- <tileset firstgid="5" name="spikes" tilewidth="16" tileheight="21">
+ <tileset firstgid="4" name="spikes" tilewidth="16" tileheight="21">
   <image source="../tiles/spikes_16x21.png" width="64" height="21"/>
  </tileset>
- <tileset firstgid="9" name="keyTile" tilewidth="50" tileheight="50">
+ <tileset firstgid="8" name="keyTile" tilewidth="50" tileheight="50">
   <image source="../key/key-4.png" width="50" height="50"/>
+ </tileset>
+ <tileset firstgid="9" name="closedDoor" tilewidth="50" tileheight="50">
+  <image source="../door/closedDoor.jpg" width="50" height="50"/>
+ </tileset>
+ <tileset firstgid="10" name="openDoor" tilewidth="50" tileheight="50">
+  <image source="../door/openDoor.jpg" width="50" height="50"/>
  </tileset>
  <layer name="background" width="40" height="23">
   <data encoding="base64" compression="zlib">
@@ -46,16 +49,19 @@
   <object id="94" x="346" y="610"/>
   <object id="97" x="453" y="517"/>
  </objectgroup>
- <objectgroup name="bigdoor">
-  <object id="127" gid="4" x="280" y="391"/>
+ <objectgroup name="openDoor">
+  <object id="147" gid="10" x="252" y="381"/>
  </objectgroup>
  <objectgroup name="spikes">
-  <object id="129" gid="6" x="256" y="640"/>
-  <object id="130" gid="6" x="475" y="703.6"/>
-  <object id="131" gid="6" x="491" y="703.6"/>
-  <object id="132" gid="6" x="506.8" y="703.6"/>
+  <object id="129" gid="5" x="256" y="640"/>
+  <object id="130" gid="5" x="475" y="703.6"/>
+  <object id="131" gid="5" x="491" y="703.6"/>
+  <object id="132" gid="5" x="506.8" y="703.6"/>
  </objectgroup>
  <objectgroup name="key">
-  <object id="144" gid="9" x="734" y="674"/>
+  <object id="144" gid="8" x="734" y="674"/>
+ </objectgroup>
+ <objectgroup name="lockedDoor">
+  <object id="146" gid="9" x="346" y="384"/>
  </objectgroup>
 </map>
