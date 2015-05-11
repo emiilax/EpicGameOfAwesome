@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="32" tileheight="32" nextobjectid="148">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="32" tileheight="32" nextobjectid="158">
  <tileset firstgid="1" name="whiteblock" tilewidth="32" tileheight="32">
   <image source="../tiles/whiteblock.png" width="32" height="32"/>
  </tileset>
@@ -52,16 +52,31 @@
  <objectgroup name="openDoor">
   <object id="147" gid="10" x="252" y="381"/>
  </objectgroup>
- <objectgroup name="spikes">
-  <object id="129" gid="5" x="256" y="640"/>
-  <object id="130" gid="5" x="475" y="703.6"/>
-  <object id="131" gid="5" x="491" y="703.6"/>
-  <object id="132" gid="5" x="506.8" y="703.6"/>
- </objectgroup>
  <objectgroup name="key">
   <object id="144" gid="8" x="734" y="674"/>
  </objectgroup>
  <objectgroup name="lockedDoor">
   <object id="146" gid="9" x="346" y="384"/>
+ </objectgroup>
+ <objectgroup name="upSpikes">
+  <object id="129" gid="5" x="256" y="640"/>
+  <object id="130" gid="5" x="475" y="703.6"/>
+  <object id="131" gid="5" x="491" y="703.6"/>
+  <object id="132" gid="5" x="506.8" y="703.6"/>
+ </objectgroup>
+ <objectgroup name="leftSpikes">
+  <object id="153" gid="5" x="797" y="548"/>
+  <object id="154" gid="5" x="797" y="570"/>
+  <object id="155" gid="5" x="797" y="594"/>
+ </objectgroup>
+ <objectgroup name="rightSpikes">
+  <object id="150" gid="5" x="944" y="539"/>
+  <object id="151" gid="5" x="939" y="571"/>
+  <object id="152" gid="5" x="937" y="612"/>
+ </objectgroup>
+ <objectgroup name="downSpikes">
+  <object id="148" gid="5" x="696" y="383"/>
+  <object id="149" gid="5" x="718" y="332"/>
+  <object id="156" gid="5" x="645" y="311"/>
  </objectgroup>
 </map>

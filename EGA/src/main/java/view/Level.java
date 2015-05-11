@@ -7,6 +7,7 @@ import lombok.Lombok;
 import java.util.ArrayList;
 import java.util.List;
 
+import view.Spike.spikeOrientation;
 import model.CharacterModel;
 import model.EGATimer;
 import model.MyContactListener;
@@ -506,8 +507,17 @@ public class Level extends GameState{
 		}
 	private void createSpikes(){
 		//Create spikes
-		MapLayer layer = tiledMap.getLayers().get("spikes");
-		loopInSpikes(layer);	
+		MapLayer layer = tiledMap.getLayers().get("upSpikes");
+		loopInSpikes(layer, spikeOrientation.UP);	
+		
+		layer = tiledMap.getLayers().get("downSpikes");
+		loopInSpikes(layer, spikeOrientation.DOWN);
+		
+		layer = tiledMap.getLayers().get("leftSpikes");
+		loopInSpikes(layer, spikeOrientation.LEFT);
+		
+		layer = tiledMap.getLayers().get("rightSpikes");
+		loopInSpikes(layer, spikeOrientation.RIGHT);
 	}
 	
 	// END CREATE METHODS ----------------------------------------------------
@@ -593,7 +603,7 @@ public class Level extends GameState{
 	}
 	
 	
-	private void loopInSpikes(MapLayer layer){
+	private void loopInSpikes(MapLayer layer, spikeOrientation ori){
 		BodyDef bdef = new BodyDef();
 		for(MapObject mo: layer.getObjects()){
 
@@ -607,7 +617,7 @@ public class Level extends GameState{
 			Body body = world.createBody(bdef);
 			
 			Spike s;
-			s = new Spike(body);
+			s = new Spike(body, ori);
 			spikes.add(s);
 			body.setUserData(s);
 			

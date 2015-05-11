@@ -16,16 +16,15 @@ import static controller.Variables.PPM;
 public class Spike extends Entity{
 
 	public Spike(Body body) {
+		this(body, spikeOrientation.UP);
+	}
+	
+	public Spike(Body body, spikeOrientation ori){
 		super(body);
 
 		FixtureDef fdef = new FixtureDef();
-		
-		Vector2 v1, v2, v3;
-		v1 = new Vector2(-8f/PPM, -10f/PPM);
-		v2 = new Vector2(0.0f/PPM, 10f/PPM);
-		v3 = new Vector2(8f/PPM, -10f/PPM);
 
-		Vector2[] vertices = {v1, v2, v3};
+		Vector2[] vertices = setSpikeShape(ori);
 		
 		PolygonShape pshape;
 		pshape = new PolygonShape();
@@ -38,11 +37,54 @@ public class Spike extends Entity{
 		
 		setSensor(fdef, "spike");
 		
-		Texture tex = EGA.res.getTexture("spike");
-		// is this part necessary?
-		TextureRegion[] sprites = TextureRegion.split(tex,  16,  21)[0];
+		TextureRegion[] sprites = getTextureRegion(ori);
 		//Range is which sprite to use
 		setAnimation(Arrays.copyOfRange(sprites,  1,  2), 0/ 12f);
+		
 	}
 
+	protected enum spikeOrientation{
+		UP, DOWN, RIGHT, LEFT
+	}
+	
+	private Vector2[] setSpikeShape(spikeOrientation ori){
+		switch (ori){
+		case UP: 
+			return spikeVectors(new Vector2(-8f/PPM, -10f/PPM), 
+					new Vector2(0.0f/PPM, 10f/PPM), new Vector2(8f/PPM, -10f/PPM));
+		case DOWN:
+			return spikeVectors(new Vector2(-8f/PPM, -10f/PPM), 
+					new Vector2(0.0f/PPM, -20f/PPM), new Vector2(8f/PPM, -10f/PPM));
+		case RIGHT:
+			return spikeVectors(new Vector2(-8f/PPM, -10f/PPM), 
+					new Vector2(0.0f/PPM, 10f/PPM), new Vector2(8f/PPM, -10f/PPM));
+		case LEFT:
+			return spikeVectors(new Vector2(-8f/PPM, -10f/PPM), 
+					new Vector2(0.0f/PPM, 10f/PPM), new Vector2(8f/PPM, -10f/PPM));
+		default:
+			return spikeVectors(new Vector2(-8f/PPM, -10f/PPM), 
+					new Vector2(0.0f/PPM, 10f/PPM), new Vector2(8f/PPM, -10f/PPM));
+		}
+	}
+	
+	private Vector2[] spikeVectors(Vector2 v1, Vector2 v2, Vector2 v3){
+		Vector2[] vertices = {v1, v2, v3};
+		return vertices;
+	}
+	
+	private TextureRegion[] getTextureRegion(spikeOrientation ori){
+		switch(ori){
+		case UP:
+			return TextureRegion.split(EGA.res.getTexture("spike"),  16,  21)[0];
+		case DOWN:
+			return TextureRegion.split(EGA.res.getTexture("spike"),  16,  21)[0];
+		case LEFT:
+			return TextureRegion.split(EGA.res.getTexture("spike"),  16,  21)[0];
+		case RIGHT:
+			return TextureRegion.split(EGA.res.getTexture("spike"),  16,  21)[0];
+		default:
+			return TextureRegion.split(EGA.res.getTexture("spike"),  16,  21)[0];
+		}
+	}
+	
 }
