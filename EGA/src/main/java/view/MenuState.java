@@ -21,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import controller.EGA;
 import controller.GameStateManager;
+import controller.SaveHandler;
 
 public class MenuState extends GameState{
 
@@ -66,7 +67,8 @@ public class MenuState extends GameState{
 		menuItems = new String[]{
 				"Play",
 				"Level Select",
-				"Settings"
+				"Settings",
+				"Quit"
 		};
 
 	}
@@ -111,6 +113,10 @@ public class MenuState extends GameState{
 		}
 		if (currentItem == 2){
 			System.out.println("Settings!");
+		}
+		if(currentItem == 3){
+			SaveHandler.save();
+			Gdx.app.exit();
 		}
 	}
 
