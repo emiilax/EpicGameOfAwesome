@@ -4,6 +4,7 @@ public class Variables {
 	//  pixel per meter ratio
 	public static final float PPM = 100;
 	
+	public static final int nbOfLevels = 3;
 	
 	// category bits
 	public static final short BIT_PLAYER = 2;

@@ -1,6 +1,7 @@
 package view;
 
 import model.EGATimer;
+import model.GameData;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -14,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import controller.EGA;
 import controller.GameStateManager;
+import controller.SaveHandler;
 
 public class LevelFinished extends GameState {
 	
@@ -26,20 +28,24 @@ public class LevelFinished extends GameState {
 	public static Sprite backgroundSprite;
 
 	private String title;
+	
+	//private GameData gd;
 
-	private int titleFontSize = 150;
+	private int titleFontSize = 50;
 	private int menuFontSize = 50;
-
+	private int level;
 	private int currentItem;
 	private String menuItems[];
 
 	private GameStateManager gsm;
 	private EGATimer timer;
 	
-	public LevelFinished(GameStateManager gsm, Texture backgroundTexture){
+	public LevelFinished(GameStateManager gsm, Texture backgroundTexture, int level){
 		super(gsm);
 		this.gsm = gsm;
 		this.backgroundTexture = backgroundTexture;
+		this.level = level;
+	//	gd = SaveHandler.getGameData();
 		init();
 		
 	}
@@ -61,8 +67,25 @@ public class LevelFinished extends GameState {
 				"Next Level",
 		};
 		
+		setTimeString();
+		
+		SaveHandler.save();
+	}
+	
+	private void setTimeString(){
 		timer = EGATimer.getTimer();
-		title = "Time passed: " + "\n" + Float.toString(timer.getTimePassed());
+		Float timePassed = timer.getTimePassed();
+		
+		
+		if(SaveHandler.gd.isBetterTime(level, timePassed)){
+			title = "Nytt rekord! " + "\n" + "Din tid blev: " +  Float.toString(timePassed);
+		} else {
+			title = "Din tid blev: " + "\n" + Float.toString(timePassed) 
+					+ "\n" + "Din bästa tid: " + "\n" + Float.toString(SaveHandler.gd.getTime(level));
+		}
+		SaveHandler.gd.addTime(level, timePassed);
+		
+		
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import view.LevelFinished;
 import view.MenuState;
 import lombok.Data;
 import model.Content;
+import model.GameData;
 import model.MyInput;
 
 import com.badlogic.gdx.ApplicationListener;
@@ -34,6 +35,9 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	public static final int SCALE = 1;
 	public static final float STEP = 1/ 60f;
 	private float accum;
+	
+	//private SaveHandler saveHandler;
+	private GameData gameData;
 	
 	private SpriteBatch sb;
 	private OrthographicCamera cam;
@@ -79,6 +83,8 @@ public class EGA implements ApplicationListener, TheChangeListener{
 //		levels.add(level2);
 //		levels.add(level3);
 		
+		SaveHandler.load();
+		//SaveHandler.getGameData();
 		
 		EventSupport.getInstance().addListner(this);
 		sb = new SpriteBatch();
@@ -171,7 +177,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	}
 	
 	public void setLevelFinished(int i){
-		LevelFinished state = new LevelFinished(gsm, finishedBgr.get(1));
+		LevelFinished state = new LevelFinished(gsm, finishedBgr.get(i), i);
 		setLevel(state);
 	}
 	
