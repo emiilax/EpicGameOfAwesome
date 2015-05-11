@@ -15,6 +15,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
 import event.EventSupport;
@@ -40,15 +43,22 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	private GameStateManager gsm;
 	private GameState theLevel;
 	
-	private HashMap<Integer, Texture> finishedBgr;
-	
 	public static Content res;
+	
+	// levels
+	private TiledMap level1;
+	private TiledMap level2;
+	private TiledMap level3;
+	//private Array<TiledMap> levels;
+	//end levels
+	private HashMap<Integer, Texture> finishedBgr;
 
 	public void create() {
 		
 		Gdx.input.setInputProcessor(new MyInputProcessor());
 		
 		res = new Content();
+		//load pictures, borde ligga i view
 		res.loadTexture("res/tiles/bunny.png", "bunny");
 		res.loadTexture("res/stars/star.png", "star");
 		res.loadTexture("res/tiles/hud.png", "hud");
@@ -57,22 +67,29 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		res.loadTexture("res/stars/bigStar.png", "bigStar");
 		res.loadTexture("res/door/door2.jpg", "bigdoor");
 		res.loadTexture("res/tiles/spikes_16x21.png", "spike");
+		res.loadTexture("res/key/key-4.png", "key");
+		
+		//load levels
+		level1 = new TmxMapLoader().load("res/maps/testmap.tmx");
+		level2 = new TmxMapLoader().load("res/maps/testmap2.tmx");
+		level3 = new TmxMapLoader().load("res/maps/testmap.tmx");
+		//add levels to the array levels
+//		levels = new Array<TiledMap>();
+//		levels.add(level1);
+//		levels.add(level2);
+//		levels.add(level3);
+		
 		
 		EventSupport.getInstance().addListner(this);
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();
 		hudCam = new OrthographicCamera();
 		gsm = new GameStateManager(this);
-		
 		initHashMap();
 		
 		theLevel = new MenuState(gsm);
 		gsm.pushState(theLevel);
-	}
-	
-	private void initHashMap(){
-		finishedBgr = new HashMap<Integer, Texture>();
-		finishedBgr.put(1,  new Texture("res/menu/lol.jpg"));
+		
 	}
 	
 	public void render() {
@@ -86,14 +103,10 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			handleInput();
 			MyInput.update();
 		}
+
 	}
 	
-	public void setLevelFinished(int i){
-		LevelFinished state = new LevelFinished(gsm, finishedBgr.get(1));
-		setLevel(state);
-	}
-	
-	public void setLevel(GameState state){
+	public void setLevel(GameState state){ //borde denna inte heta ngt annat?
 		theLevel = state;
 		gsm.setState(theLevel);
 	}
@@ -113,7 +126,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			theLevel.handleInput(MyInput.BUTTON_DOWN);
 
 		}
-
+		
 		if(MyInput.isDown(MyInput.BUTTON_FORWARD)){
 
 			theLevel.handleInput(MyInput.BUTTON_FORWARD);
@@ -140,8 +153,30 @@ public class EGA implements ApplicationListener, TheChangeListener{
 
 	public void eventRecieved(TheEvent evt) {
 		if(evt.getNameOfEvent().equals("spikehit")){
-			setLevel(new Level(gsm));
+			setLevel(new Level(gsm, gsm.getCurrentLevel()));
+		}		
+	}
+	public TiledMap getLevel(int i){
+		if(i==1){
+			return level1;
 		}
-		
+		if(i==2){
+			return level2;
+		}
+		if(i==3){
+			return level3;
+		}
+		return null;
+//		return levels.get(i);
+	}
+	
+	public void setLevelFinished(int i){
+		LevelFinished state = new LevelFinished(gsm, finishedBgr.get(1));
+		setLevel(state);
+	}
+	
+	private void initHashMap(){
+		finishedBgr = new HashMap<Integer, Texture>();
+		finishedBgr.put(1,  new Texture("res/menu/lol.jpg"));
 	}
 }

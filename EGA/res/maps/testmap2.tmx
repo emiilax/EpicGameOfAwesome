@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="32" tileheight="32" nextobjectid="146">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="32" tileheight="32" nextobjectid="148">
  <tileset firstgid="1" name="whiteblock" tilewidth="32" tileheight="32">
   <image source="../tiles/whiteblock.png" width="32" height="32"/>
  </tileset>
@@ -30,7 +30,7 @@
  </layer>
  <layer name="platform" width="40" height="23">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjAIIYB5oBxAJBqs7B6u70MFgdOdgdNNQAsxY8HCyj9ZgNPxoB5jRaFL0kRpG5Oohx330AkPBfdRMw9jicLD6fRTgBgDG9gCX
+   eJxjYBgFo2AUjAL6A2YCeKiAoeDWUTcOf0DvPDSU8yw2MBp+tAPMaDQp+kgNI3L1kOM+eoGh4D5qpuGh3iYYBRAAAHeBAKk=
   </data>
  </layer>
  <objectgroup name="stars">
@@ -46,8 +46,11 @@
   <object id="94" x="346" y="610"/>
   <object id="97" x="453" y="517"/>
  </objectgroup>
+ <objectgroup name="door">
+  <object id="114" x="345" y="398"/>
+ </objectgroup>
  <objectgroup name="bigdoor">
-  <object id="127" gid="4" x="280" y="391"/>
+  <object id="127" gid="4" x="251" y="190"/>
  </objectgroup>
  <objectgroup name="spikes">
   <object id="129" gid="6" x="256" y="640"/>
@@ -56,6 +59,6 @@
   <object id="132" gid="6" x="506.8" y="703.6"/>
  </objectgroup>
  <objectgroup name="key">
-  <object id="144" gid="9" x="734" y="674"/>
+  <object id="147" gid="9" x="79" y="521"/>
  </objectgroup>
 </map>

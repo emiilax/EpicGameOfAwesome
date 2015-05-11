@@ -10,11 +10,11 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import controller.Variables;
 import controller.EGA;
 
-public class Door extends Entity {
+public class Key extends Entity {
 	
-		private boolean doorIsLocked = true;
+		private boolean keyIsTaken = false;
 		
-		public Door(Body body) {
+		public Key(Body body) {
 			super(body);
 			
 			FixtureDef fdef = new FixtureDef();
@@ -25,23 +25,23 @@ public class Door extends Entity {
 			fdef.shape = ps;
 			fdef.isSensor = true;
 
-			fdef.filter.categoryBits = Variables.BIT_DOOR;
+			fdef.filter.categoryBits = Variables.BIT_KEY;
 			fdef.filter.maskBits = Variables.BIT_PLAYER;
 			
-			setSensor(fdef, "bigdoor");
+			setSensor(fdef, "key");
 			
-			Texture tex = EGA.res.getTexture("bigdoor");
+			Texture tex = EGA.res.getTexture("key");
 			TextureRegion[] sprites = TextureRegion.split(tex,  50,  50)[0];
 			
 			setAnimation(sprites, 1/ 12f);
 			
 		}
-		
-		public void setDoorIsLocked(boolean b){
-			doorIsLocked = b;
+		public boolean getKeyIsTaken(){
+			return keyIsTaken;
 		}
-		public boolean getDoorisLocked(){
-			return doorIsLocked;
+		
+		public void setKeyIsTaken(boolean b){
+			keyIsTaken = b;
 		}
 
 	}

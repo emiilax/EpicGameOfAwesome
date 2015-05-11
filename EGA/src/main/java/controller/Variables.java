@@ -9,7 +9,7 @@ public class Variables {
 	public static final short BIT_PLAYER = 2;
 	public static final short BIT_GROUND = 4;
 	public static final short BIT_PLATFORM = 8;
-	//public static final short BIT_BLUE = 16;
+	public static final short BIT_KEY = 16;
 	public static final short BIT_STAR = 32;
 	public static final short BIT_SPIKE = 64;
 	public static final short BIT_DOOR = 128;

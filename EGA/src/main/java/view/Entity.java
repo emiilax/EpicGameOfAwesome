@@ -28,7 +28,7 @@ public abstract class Entity {
 	private float width;
 	private float height;
 	private Body body;
-	private Array<Fixture> fixtures; // = new Array<Fixture>(); needed? check constructor
+	private Array<Fixture> fixtures; 
 	
 	/**
 	 * Constructor for the abstract class. Initiate the body 
