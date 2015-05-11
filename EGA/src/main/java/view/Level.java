@@ -1,12 +1,13 @@
 package view;
-//TODO uncomment testmap.tmx and stuff
 
 import static controller.Variables.PPM;
+import lombok.Data;
 import lombok.Lombok;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import view.Spike.spikeOrientation;
 import model.CharacterModel;
 import model.EGATimer;
 import model.MyContactListener;
@@ -42,6 +43,7 @@ import controller.Variables;
 import controller.EGA;
 import controller.GameStateManager;
 
+@Data
 public class Level extends GameState{
 
 	private boolean debug = true;
@@ -70,6 +72,7 @@ public class Level extends GameState{
 	private CharacterController chc;
 	private CharacterModel chm;
 	private CharacterView chv;
+	
 
 
 	//public Level(GameStateManager gsm){
@@ -506,8 +509,17 @@ public class Level extends GameState{
 		}
 	private void createSpikes(){
 		//Create spikes
-		MapLayer layer = tiledMap.getLayers().get("spikes");
-		loopInSpikes(layer);	
+		MapLayer layer = tiledMap.getLayers().get("upSpikes");
+		loopInSpikes(layer, spikeOrientation.UP);	
+		
+		layer = tiledMap.getLayers().get("downSpikes");
+		loopInSpikes(layer, spikeOrientation.DOWN);
+		
+		layer = tiledMap.getLayers().get("leftSpikes");
+		loopInSpikes(layer, spikeOrientation.LEFT);
+		
+		layer = tiledMap.getLayers().get("rightSpikes");
+		loopInSpikes(layer, spikeOrientation.RIGHT);
 	}
 	
 	// END CREATE METHODS ----------------------------------------------------
@@ -593,21 +605,21 @@ public class Level extends GameState{
 	}
 	
 	
-	private void loopInSpikes(MapLayer layer){
+	private void loopInSpikes(MapLayer layer, spikeOrientation ori){
 		BodyDef bdef = new BodyDef();
 		for(MapObject mo: layer.getObjects()){
 
 			bdef.type = BodyType.StaticBody;
 
-			float x = mo.getProperties().get("x", Float.class) / PPM;
+			float x = (mo.getProperties().get("x", Float.class)+10) / PPM;
 			float y = (mo.getProperties().get("y", Float.class)+10) / PPM;
 			
 			bdef.position.set(x, y);
-			
+		
 			Body body = world.createBody(bdef);
 			
 			Spike s;
-			s = new Spike(body);
+			s = new Spike(body, ori);
 			spikes.add(s);
 			body.setUserData(s);
 			
