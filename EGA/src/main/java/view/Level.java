@@ -7,6 +7,7 @@ import lombok.Lombok;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.CharacterModel;
 import model.EGATimer;
 import model.MyContactListener;
 import model.MyInput;
@@ -36,13 +37,14 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
+import controller.CharacterController;
 import controller.Variables;
 import controller.EGA;
 import controller.GameStateManager;
 
 public class Level extends GameState{
 
-	private boolean debug = false;
+	private boolean debug = true;
 
 	private World world;
 	private Box2DDebugRenderer b2br;
@@ -63,6 +65,11 @@ public class Level extends GameState{
 	//end Entities 
 	private EGATimer timer;
 	private boolean doorIsOpen;
+	
+	
+	private CharacterController chc;
+	private CharacterModel chm;
+	private CharacterView chv;
 
 
 	//public Level(GameStateManager gsm){
@@ -85,7 +92,10 @@ public class Level extends GameState{
 		doors = new Array <IDoor>();
 		spikes = new Array<Spike>();
 		keys = new Array<Key>();
-
+		
+		chc = new CharacterController(new CharacterModel(), new CharacterView());
+		chc.setSpriteBatch(sb);
+		
 		createEntities();
 
 		// set up box2d cam
@@ -101,21 +111,24 @@ public class Level extends GameState{
 		//go through all the cells in the layer;
 
 		// kinematic body, ex. a moving platform
+		
+		
+		
 
 	}
 
 	public void handleInput(int i) {
 		switch(i){
-			case -1: playerStop();
+			case -1: playerStop(); chc.stop();
 			break;
 			
-			case MyInput.BUTTON_FORWARD: playerMoveForward();
+			case MyInput.BUTTON_FORWARD:  chc.moveForward();//playerMoveForward();
 			break;
 			
-			case MyInput.BUTTON_BACKWARD: playerMoveBackward();
+			case MyInput.BUTTON_BACKWARD:  chc.moveBackward();//playerMoveBackward();
 			break;
 			
-			case MyInput.BUTTON_JUMP: playerJump();
+			case MyInput.BUTTON_JUMP:  if(cl.isPlayerOnGround()) chc.jump();//playerJump();
 			break;
 		}
 	}
@@ -136,7 +149,9 @@ public class Level extends GameState{
 		removeKeys();
 		removeDoors();
 		
-		player.update(dt);
+		//player.update(dt);
+		
+		chc.update(dt);
 		
 		for(IStar s: stars){
 			s.update(dt);
@@ -175,10 +190,11 @@ public class Level extends GameState{
 
 		// draw player 
 		sb.setProjectionMatrix(cam.combined);
-		player.render(sb);
+		//player.render(sb);
+		
+		chc.render();
 
 		// draw crystals
-
 		for(int i  = 0; i < stars.size; i++){
 			stars.get(i).render(sb);
 		}
@@ -202,7 +218,7 @@ public class Level extends GameState{
 		if(debug){
 			b2br.render(world, b2dCam.combined);
 		}
-
+		
 	}
 	
 	public void resetLevel(){
@@ -240,16 +256,21 @@ public class Level extends GameState{
 				world.destroyBody(b);
 
 				if(uData.equals("smallStar")){
+					chc.setIsBig(false);
 					changePlayerBody();
-					player.collectShrinkStar();
+					//player.collectShrinkStar();
+					chc.collectShrinkStar();
 				} else {
+					chc.setIsBig(true);
 					changePlayerBody();
-					player.collectGrowStar();
+					//player.collectGrowStar();
+					chc.collectGrowStar();
 				}
 			}
 		}
 		bodies.clear();
 	}
+	
 	public void removeKeys(){
 		Array<Body> bodies = cl.getKeysToRemove();
 
@@ -264,6 +285,7 @@ public class Level extends GameState{
 		}
 		bodies.clear();
 	}
+	
 	public void removeDoors(){
 		Array<Body> bodies = cl.getDoorsToRemove();
 
@@ -286,6 +308,7 @@ public class Level extends GameState{
 		}
 		bodies.clear();
 	}
+	
 // 	CREATE METHODS --------------------------------------------------------------
 	public void createEntities(){
 
@@ -319,8 +342,10 @@ public class Level extends GameState{
 		bdef.type = BodyType.DynamicBody;
 		Body body = world.createBody(bdef);
 
-		player = new Character(body);
-
+		//player = new Character(body);
+		
+		chc.setBody(body);
+		
 		body.setUserData(player);
 	}
 	
@@ -551,20 +576,20 @@ public class Level extends GameState{
 	public void playerJump(){
 		if(cl.isPlayerOnGround()){
 			
-			player.jump();
+			//player.jump();
 		}
 	}
 	
 	public void playerMoveForward(){
-		player.moveForward();
+		//player.moveForward();
 	}
 	
 	public void playerMoveBackward(){
-		player.moveBackward();
+		//player.moveBackward();
 	}
 	
 	public void playerStop(){
-		player.stop();
+		//player.stop();
 	}
 	
 	
@@ -594,15 +619,20 @@ public class Level extends GameState{
 	 * it with a new.
 	 */
 	public void changePlayerBody(){
-		player.setCurrentVelocity();
-		Body pb = player.getBody();
+		//player.setCurrentVelocity();
+		chc.setCurrentVelocity();
+		
+		//Body pb = player.getBody();
+		Body pb = chc.getBody();
 		world.destroyBody(pb);
+		
 		BodyDef bdef = new BodyDef();
-		bdef.position.set(pb.getPosition().x , pb.getPosition().y);
+		bdef.position.set(pb.getPosition().x , pb.getPosition().y+0.1f);
+		
 		bdef.type = BodyType.DynamicBody;
 		Body body = world.createBody(bdef);
-		player.setBody(body);
-
+		//player.setBody(body);
+		chc.setBody(body);
 		body.setUserData(player);
 	}
 

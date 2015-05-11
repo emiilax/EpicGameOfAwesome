@@ -64,7 +64,7 @@ public abstract class Entity {
 	}
 	
 	/**
-	 * This method is looped in the level class. moves the 
+	 * This method is looped in the level class. Moves the 
 	 * texture on the screen depending on where you have moved 
 	 * the body.
 	 * @param sb
