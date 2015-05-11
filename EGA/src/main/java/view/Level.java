@@ -1,7 +1,7 @@
 package view;
-//TODO uncomment testmap.tmx and stuff
 
 import static controller.Variables.PPM;
+import lombok.Data;
 import lombok.Lombok;
 
 import java.util.ArrayList;
@@ -43,6 +43,7 @@ import controller.Variables;
 import controller.EGA;
 import controller.GameStateManager;
 
+@Data
 public class Level extends GameState{
 
 	private boolean debug = true;
@@ -71,6 +72,7 @@ public class Level extends GameState{
 	private CharacterController chc;
 	private CharacterModel chm;
 	private CharacterView chv;
+	
 
 
 	//public Level(GameStateManager gsm){
@@ -609,11 +611,11 @@ public class Level extends GameState{
 
 			bdef.type = BodyType.StaticBody;
 
-			float x = mo.getProperties().get("x", Float.class) / PPM;
+			float x = (mo.getProperties().get("x", Float.class)+10) / PPM;
 			float y = (mo.getProperties().get("y", Float.class)+10) / PPM;
 			
 			bdef.position.set(x, y);
-			
+		
 			Body body = world.createBody(bdef);
 			
 			Spike s;
