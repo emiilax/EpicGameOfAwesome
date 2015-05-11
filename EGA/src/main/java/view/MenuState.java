@@ -1,5 +1,6 @@
 package view;
 
+import lombok.Data;
 import model.MyInput;
 
 import com.badlogic.gdx.Gdx;
@@ -23,6 +24,7 @@ import controller.EGA;
 import controller.GameStateManager;
 import controller.SaveHandler;
 
+@Data
 public class MenuState extends GameState{
 
 	private SpriteBatch sb;

@@ -117,8 +117,6 @@ public class MyContactListener implements ContactListener{
 	
 	public void contactWithSpike(){
 		EventSupport.getInstance().fireNewEvent("spikehit");
-		//ega = gsm.getGame();
-		//ega.setLevel(new Level(gsm));
 	}
 	
 	// called when two fixures no longer collide

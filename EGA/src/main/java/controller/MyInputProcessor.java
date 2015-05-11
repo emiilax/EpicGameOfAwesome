@@ -5,6 +5,8 @@ import model.MyInput;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 
+import event.EventSupport;
+
 public class MyInputProcessor extends InputAdapter{
 	
 	@Override
@@ -58,6 +60,22 @@ public class MyInputProcessor extends InputAdapter{
 		if(k == Keys.ENTER){
 			MyInput.setKey(MyInput.BUTTON_ENTER, false);
 		} 
+		return true;
+	}
+	
+	@Override
+	public boolean touchDown(int x, int y, int pointer, int button){
+		if((x > 460 && x < 581) && (y > 269 && y < 316)){
+			EventSupport.getInstance().fireNewEvent("startLevel");
+		}
+		return true;
+	}
+	
+	@Override
+	public boolean mouseMoved(int x, int y){
+		if((x > 460 && x < 581) && (y > 269 && y < 316)){
+			EventSupport.getInstance().fireNewEvent("currentMenuItem0");;
+		}
 		return true;
 	}
 
