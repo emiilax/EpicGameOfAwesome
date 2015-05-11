@@ -1,49 +1,54 @@
 package model;
 
-public class CharacterModel {
+import java.util.Observable;
+
+import view.CharacterView;
+import lombok.Data;
+
+@Data
+public class CharacterModel extends Observable {
 	
-	private float yVelocity;
 	private float xVelocity;
-	
+	private float yVelocity;
 	
 	private float speed;
 	private float force;
 	
 	private boolean isBig;
 	
-	public void setForce(int theInput){
-		
-		//getCurrentSpeed();
-		
-		switch(theInput){
-			case -1: xVelocity = 0;
-			break;
-			
-			case MyInput.BUTTON_FORWARD: xVelocity = speed;
-			break;
-			
-			case MyInput.BUTTON_BACKWARD: xVelocity = -speed;
-			break;
-			
-			case MyInput.BUTTON_JUMP: yVelocity = force;
-			break;
-		}
+	private float xPosition;
+	private float yPosition;
+	
+	public CharacterModel(){
 		
 	}
 	
-	public void setIsBig(boolean isBig){
-		this.isBig = isBig;
+	public void setPosition(float xPos, float yPos){
+		xPosition = xPos;
+		yPosition = yPos;
 		
-		if(isBig){
-			force = 350;
-			speed = 1.5f;
-		}else{
-			force = 250;
-			speed = 2.5f;
-		}
+		
+		setChanged();
+		notifyObservers();
+	}
+	
+	public void setVelocity(float xVel, float yVel){
+		xVelocity = xVel;
+		yVelocity = yVel;
+		
+		setChanged();
+		notifyObservers();
 	}
 	
 	
-	
+	public static void main(String []args){
+		CharacterModel chm = new CharacterModel();
+		CharacterView chv = new CharacterView();
+		
+		chm.addObserver(chv);
+		
+		chm.setPosition(10, 10);
+	}
 
+	
 }

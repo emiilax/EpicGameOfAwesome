@@ -30,7 +30,6 @@ public class Animation {
 		time = 0;
 		currentFrame = 0;
 		timesPlayed = 0;
-		
 	}
 	
 	public void updtate(float dt){
