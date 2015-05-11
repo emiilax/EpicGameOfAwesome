@@ -74,15 +74,15 @@
   <object id="172" gid="8" x="224.333" y="416.333"/>
  </objectgroup>
  <objectgroup name="leftSpikes">
-  <object id="169" gid="20" x="203" y="432.5"/>
-  <object id="170" gid="20" x="203" y="446.833"/>
+  <object id="169" gid="20" x="587" y="398.5"/>
+  <object id="170" gid="20" x="587" y="414.833"/>
  </objectgroup>
  <objectgroup name="rightSpikes">
   <object id="166" gid="16" x="384" y="657"/>
   <object id="167" gid="16" x="384" y="671"/>
  </objectgroup>
  <objectgroup name="downSpikes">
-  <object id="164" gid="12" x="494" y="597"/>
-  <object id="165" gid="12" x="510" y="597"/>
+  <object id="164" gid="12" x="544.667" y="596.333"/>
+  <object id="165" gid="12" x="560" y="597"/>
  </objectgroup>
 </map>
