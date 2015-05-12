@@ -115,7 +115,6 @@ public class MenuState extends GameState{
 			select();
 			break;
 		}
-
 	}
 
 	private void select(){
