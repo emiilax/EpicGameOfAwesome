@@ -3,6 +3,12 @@ package model;
 import java.io.Serializable;
 import java.util.HashMap;
 
+/**
+ * 
+ * @author Erik Karlvist 
+ *
+ */
+
 public class GameData implements Serializable {
 
 	private HashMap<Integer, Float> times;
