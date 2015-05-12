@@ -2,10 +2,6 @@ package view;
 
 import static controller.Variables.PPM;
 import lombok.Data;
-import lombok.Lombok;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import view.Spike.spikeOrientation;
 import model.CharacterModel;
@@ -67,6 +63,7 @@ public class Level extends GameState{
 	//end Entities 
 	private EGATimer timer;
 	private boolean doorIsOpen;
+	private boolean isPaused;
 	
 	
 	private CharacterController chc;
@@ -84,7 +81,7 @@ public class Level extends GameState{
 		this.tiledMap = tiledMap;
 		
 		doorIsOpen = false;
-
+		isPaused = false;
 		// set up box2d stuff
 		world = new World(new Vector2(0,-9.81f), true);
 		cl = new MyContactListener(this);
@@ -133,45 +130,59 @@ public class Level extends GameState{
 			
 			case MyInput.BUTTON_JUMP:  if(cl.isPlayerOnGround()) chc.jump();//playerJump();
 			break;
+			case MyInput.BUTTON_PAUSE: 
+				if(!isPaused){
+					isPaused = true;
+					System.out.println("is now paused");
+					timer.stopTimer();
+				}else{
+					isPaused = false;
+					System.out.println("is pause");
+					timer.startTimer();
+				}
+			break;
+				
 		}
 	}
 
 	public void update(float dt) {
-		if(MyInput.isPressed(MyInput.BUTTON_LEVEL1)){
-			renderNewLevel(1);
-		} else if (MyInput.isPressed(MyInput.BUTTON_LEVEL2)) {
-			renderNewLevel(2);
-		}
-		
-		//gsm.getGame().handleInput();
-		//player.handleInput(cl);
-
-		world.step(dt, 6, 2);
-
-		removeStars();
-		removeKeys();
-		removeDoors();
-		
-		//player.update(dt);
-		
-		chc.update(dt);
-		
-		for(IStar s: stars){
-			s.update(dt);
-		}
-		
-		for(Spike s: spikes){
-			s.update(dt);
-		}
-		
-		for(IDoor d: doors){
-			d.update(dt);
-		}
-		
-		for(Key k: keys){
-			k.update(dt);
-		}
-
+		if(!isPaused){
+			if(MyInput.isPressed(MyInput.BUTTON_LEVEL1)){
+				renderNewLevel(1);
+			} else if (MyInput.isPressed(MyInput.BUTTON_LEVEL2)) {
+				renderNewLevel(2);
+			}
+			
+			//gsm.getGame().handleInput();
+			//player.handleInput(cl);
+	
+			world.step(dt, 6, 2);
+	
+			removeStars();
+			removeKeys();
+			removeDoors();
+			
+			//player.update(dt);
+			
+			chc.update(dt);
+			
+			for(IStar s: stars){
+				s.update(dt);
+			}
+			
+			for(Spike s: spikes){
+				s.update(dt);
+			}
+			
+			for(IDoor d: doors){
+				d.update(dt);
+			}
+			
+			for(Key k: keys){
+				k.update(dt);
+			}
+	}
+	
 	}
 
 	public void render() {

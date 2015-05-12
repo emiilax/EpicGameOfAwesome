@@ -165,6 +165,9 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			if(evt.getNameOfEvent().equals("spikehit")){
 				setLevel(new Level(gsm, gsm.getCurrentLevel()));
 			}
+			if(evt.getNameOfEvent().equals("pause")){
+				theLevel.handleInput(MyInput.BUTTON_PAUSE);
+			}
 		}
 		if(theLevel instanceof MenuState){
 			if(evt.getNameOfEvent().equals("startLevel")){

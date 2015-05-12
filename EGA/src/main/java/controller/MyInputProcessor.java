@@ -33,6 +33,9 @@ public class MyInputProcessor extends InputAdapter{
 		if(k == Keys.ENTER){
 			MyInput.setKey(MyInput.BUTTON_ENTER, true);
 		} 
+		if(k == Keys.P){
+			EventSupport.getInstance().fireNewEvent("pause");
+		}
 		
 		return true;
 	}

@@ -13,6 +13,7 @@ public class MyInput {
 	public static final int BUTTON_ENTER = 5;
 	public static final int BUTTON_LEVEL1 = 6;
 	public static final int BUTTON_LEVEL2 = 7;
+	public static final int BUTTON_PAUSE = 8;
 	
 	
 	static{
