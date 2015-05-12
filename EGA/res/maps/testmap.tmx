@@ -73,10 +73,7 @@
   <object id="171" gid="8" x="416" y="544"/>
   <object id="172" gid="8" x="224.333" y="416.333"/>
  </objectgroup>
- <objectgroup name="leftSpikes">
-  <object id="169" gid="20" x="203" y="432.5"/>
-  <object id="170" gid="20" x="203" y="446.833"/>
- </objectgroup>
+ <objectgroup name="leftSpikes"/>
  <objectgroup name="rightSpikes">
   <object id="166" gid="16" x="384" y="657"/>
   <object id="167" gid="16" x="384" y="671"/>

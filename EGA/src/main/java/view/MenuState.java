@@ -28,15 +28,18 @@ public class MenuState extends GameState{
 	private SpriteBatch sb;
 	private BitmapFont titleFont;
 	private BitmapFont font;
+	private BitmapFont subFont;
 	private GlyphLayout layout = new GlyphLayout();
 
 	public static Texture backgroundTexture;
 	public static Sprite backgroundSprite;
 
 	private final String title = "EGA";
+	private final String subTitle = "Epic Game Of Awesome";
 
 	private int titleFontSize = 150;
 	private int menuFontSize = 50;
+	private int subTitleFontSize = 28;
 
 	private int currentItem;
 	private String menuItems[];
@@ -63,7 +66,8 @@ public class MenuState extends GameState{
 		titleFont.setColor(Color.WHITE);
 
 		font = gen.generateFont(menuFontSize);
-
+		subFont = gen.generateFont(subTitleFontSize);
+		
 		menuItems = new String[]{
 				"Play",
 				"Level Select",
@@ -165,10 +169,11 @@ public class MenuState extends GameState{
 
 
 	private void animateTitle(Float width){	
-		if(titleHeight > 600){
+		if(titleHeight > 650){
 			titleHeight -= 2;
 		} 
 		titleFont.draw(sb, title, (EGA.V_WIDTH-width) / 2, titleHeight);
+		subFont.draw(sb, subTitle, (EGA.V_WIDTH-width) / 2, titleHeight-120);
 	}
 
 	@Override
