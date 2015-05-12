@@ -177,8 +177,27 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			if(evt.getNameOfEvent().equals("startLevel")){
 				setLevel(new Level(gsm, gsm.getCurrentLevel()));
 			}
+			if(evt.getNameOfEvent().equals("levelSelect")){
+				//put code here
+			}
+			if(evt.getNameOfEvent().equals("settings")){
+				//put code here
+			}
+			if(evt.getNameOfEvent().equals("quit")){
+				SaveHandler.save();
+				Gdx.app.exit();
+			}
 			if(evt.getNameOfEvent().equals("currentMenuItem0")){
 				((MenuState) theLevel).setCurrentItem(0);
+			}
+			if(evt.getNameOfEvent().equals("currentMenuItem1")){
+				((MenuState) theLevel).setCurrentItem(1);
+			}
+			if(evt.getNameOfEvent().equals("currentMenuItem2")){
+				((MenuState) theLevel).setCurrentItem(2);
+			}
+			if(evt.getNameOfEvent().equals("currentMenuItem3")){
+				((MenuState) theLevel).setCurrentItem(3);
 			}
 		}
 	}

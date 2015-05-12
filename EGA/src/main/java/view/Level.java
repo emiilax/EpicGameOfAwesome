@@ -134,11 +134,9 @@ public class Level extends GameState{
 			case MyInput.BUTTON_PAUSE: 
 				if(!isPaused){
 					isPaused = true;
-					System.out.println("is now paused");
 					timer.stopTimer();
 				}else{
 					isPaused = false;
-					System.out.println("is pause");
 					timer.resumeTimer();
 				}
 			break;
