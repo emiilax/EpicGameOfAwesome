@@ -138,7 +138,7 @@ public class Level extends GameState{
 				}else{
 					isPaused = false;
 					System.out.println("is pause");
-					timer.startTimer();
+					timer.resumeTimer();
 				}
 			break;
 				
