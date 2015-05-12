@@ -15,6 +15,7 @@ public class TheEvent extends EventObject {
 	
 	/** Instacevariable that contains the name of event */
 	private String nameOfEvent;
+	private int x, y;
 	
 	/**
 	 * The constructor for the event
@@ -28,7 +29,9 @@ public class TheEvent extends EventObject {
 	}
 	
 	public TheEvent(Object source, String nameOfEvent, int x, int y){
-		TheEvent(source, nameOfEvent);
+		this(source, nameOfEvent);
+		this.x = x;
+		this.y = y;
 	}
 	
 
