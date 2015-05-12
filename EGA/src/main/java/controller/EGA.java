@@ -70,7 +70,10 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		res.loadTexture("res/stars/bigStar.png", "bigStar");
 		res.loadTexture("res/door/openDoor.jpg", "openDoor");
 		res.loadTexture("res/door/closedDoor.jpg", "lockedDoor");
-		res.loadTexture("res/tiles/spikes_16x21.png", "spike");
+		res.loadTexture("res/tiles/upSpikes_16x21.png", "upSpike");
+		res.loadTexture("res/tiles/downSpikes_16x21.png", "downSpike");
+		res.loadTexture("res/tiles/leftSpikes_21x16.png", "leftSpike");
+		res.loadTexture("res/tiles/rightSpikes_21x16.png", "rightSpike");
 		res.loadTexture("res/key/key-4.png", "key");
 		
 		//load levels
@@ -145,6 +148,10 @@ public class EGA implements ApplicationListener, TheChangeListener{
 
 			theLevel.handleInput(MyInput.BUTTON_ENTER);
 
+		}else if(MyInput.isDown(MyInput.BUTTON_RESTART)){
+
+			theLevel.handleInput(MyInput.BUTTON_RESTART);
+
 		}else if(!MyInput.isDown(MyInput.BUTTON_FORWARD) || !MyInput.isDown(MyInput.BUTTON_BACKWARD)){
 
 			theLevel.handleInput(-1);
@@ -158,9 +165,41 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	public void pause() {}
 
 	public void eventRecieved(TheEvent evt) {
-		if(evt.getNameOfEvent().equals("spikehit")){
-			setLevel(new Level(gsm, gsm.getCurrentLevel()));
-		}		
+		if(theLevel instanceof Level){	
+			if(evt.getNameOfEvent().equals("spikehit")){
+				setLevel(new Level(gsm, gsm.getCurrentLevel()));
+			}
+			if(evt.getNameOfEvent().equals("pause")){
+				theLevel.handleInput(MyInput.BUTTON_PAUSE);
+			}
+		}
+		if(theLevel instanceof MenuState){
+			if(evt.getNameOfEvent().equals("startLevel")){
+				setLevel(new Level(gsm, gsm.getCurrentLevel()));
+			}
+			if(evt.getNameOfEvent().equals("levelSelect")){
+				//put code here
+			}
+			if(evt.getNameOfEvent().equals("settings")){
+				//put code here
+			}
+			if(evt.getNameOfEvent().equals("quit")){
+				SaveHandler.save();
+				Gdx.app.exit();
+			}
+			if(evt.getNameOfEvent().equals("currentMenuItem0")){
+				((MenuState) theLevel).setCurrentItem(0);
+			}
+			if(evt.getNameOfEvent().equals("currentMenuItem1")){
+				((MenuState) theLevel).setCurrentItem(1);
+			}
+			if(evt.getNameOfEvent().equals("currentMenuItem2")){
+				((MenuState) theLevel).setCurrentItem(2);
+			}
+			if(evt.getNameOfEvent().equals("currentMenuItem3")){
+				((MenuState) theLevel).setCurrentItem(3);
+			}
+		}
 	}
 	public TiledMap getTiledMap(int i){
 		if(i==1){

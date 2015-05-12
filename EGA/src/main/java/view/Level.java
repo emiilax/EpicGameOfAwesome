@@ -1,12 +1,9 @@
 package view;
-//TODO uncomment testmap.tmx and stuff
 
 import static controller.Variables.PPM;
-import lombok.Lombok;
+import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import view.Spike.spikeOrientation;
 import model.CharacterModel;
 import model.EGATimer;
 import model.MyContactListener;
@@ -42,6 +39,7 @@ import controller.Variables;
 import controller.EGA;
 import controller.GameStateManager;
 
+@Data
 public class Level extends GameState{
 
 	private boolean debug = true;
@@ -65,11 +63,13 @@ public class Level extends GameState{
 	//end Entities 
 	private EGATimer timer;
 	private boolean doorIsOpen;
+	private boolean isPaused;
 	
 	
 	private CharacterController chc;
 	private CharacterModel chm;
 	private CharacterView chv;
+	
 
 
 	//public Level(GameStateManager gsm){
@@ -81,7 +81,7 @@ public class Level extends GameState{
 		this.tiledMap = tiledMap;
 		
 		doorIsOpen = false;
-
+		isPaused = false;
 		// set up box2d stuff
 		world = new World(new Vector2(0,-9.81f), true);
 		cl = new MyContactListener(this);
@@ -130,45 +130,60 @@ public class Level extends GameState{
 			
 			case MyInput.BUTTON_JUMP:  if(cl.isPlayerOnGround()) chc.jump();//playerJump();
 			break;
+
+			case MyInput.BUTTON_PAUSE: 
+				if(!isPaused){
+					isPaused = true;
+					timer.stopTimer();
+				}else{
+					isPaused = false;
+					timer.resumeTimer();
+				}
+			break;
+			
+			case MyInput.BUTTON_RESTART: gsm.getGame().setLevel(new Level(gsm, gsm.getCurrentLevel()));
+			break;
 		}
 	}
 
 	public void update(float dt) {
-		if(MyInput.isPressed(MyInput.BUTTON_LEVEL1)){
-			renderNewLevel(1);
-		} else if (MyInput.isPressed(MyInput.BUTTON_LEVEL2)) {
-			renderNewLevel(2);
-		}
-		
-		//gsm.getGame().handleInput();
-		//player.handleInput(cl);
-
-		world.step(dt, 6, 2);
-
-		removeStars();
-		removeKeys();
-		removeDoors();
-		
-		//player.update(dt);
-		
-		chc.update(dt);
-		
-		for(IStar s: stars){
-			s.update(dt);
-		}
-		
-		for(Spike s: spikes){
-			s.update(dt);
-		}
-		
-		for(IDoor d: doors){
-			d.update(dt);
-		}
-		
-		for(Key k: keys){
-			k.update(dt);
-		}
-
+		if(!isPaused){
+			if(MyInput.isPressed(MyInput.BUTTON_LEVEL1)){
+				renderNewLevel(1);
+			} else if (MyInput.isPressed(MyInput.BUTTON_LEVEL2)) {
+				renderNewLevel(2);
+			}
+			
+			//gsm.getGame().handleInput();
+			//player.handleInput(cl);
+	
+			world.step(dt, 6, 2);
+	
+			removeStars();
+			removeKeys();
+			removeDoors();
+			
+			//player.update(dt);
+			
+			chc.update(dt);
+			
+			for(IStar s: stars){
+				s.update(dt);
+			}
+			
+			for(Spike s: spikes){
+				s.update(dt);
+			}
+			
+			for(IDoor d: doors){
+				d.update(dt);
+			}
+			
+			for(Key k: keys){
+				k.update(dt);
+			}
+	}
+	
 	}
 
 	public void render() {
@@ -506,8 +521,17 @@ public class Level extends GameState{
 		}
 	private void createSpikes(){
 		//Create spikes
-		MapLayer layer = tiledMap.getLayers().get("spikes");
-		loopInSpikes(layer);	
+		MapLayer layer = tiledMap.getLayers().get("upSpikes");
+		loopInSpikes(layer, spikeOrientation.UP);	
+		
+		layer = tiledMap.getLayers().get("downSpikes");
+		loopInSpikes(layer, spikeOrientation.DOWN);
+		
+		layer = tiledMap.getLayers().get("leftSpikes");
+		loopInSpikes(layer, spikeOrientation.LEFT);
+		
+		layer = tiledMap.getLayers().get("rightSpikes");
+		loopInSpikes(layer, spikeOrientation.RIGHT);
 	}
 	
 	// END CREATE METHODS ----------------------------------------------------
@@ -593,21 +617,21 @@ public class Level extends GameState{
 	}
 	
 	
-	private void loopInSpikes(MapLayer layer){
+	private void loopInSpikes(MapLayer layer, spikeOrientation ori){
 		BodyDef bdef = new BodyDef();
 		for(MapObject mo: layer.getObjects()){
 
 			bdef.type = BodyType.StaticBody;
 
-			float x = mo.getProperties().get("x", Float.class) / PPM;
+			float x = (mo.getProperties().get("x", Float.class)+10) / PPM;
 			float y = (mo.getProperties().get("y", Float.class)+10) / PPM;
 			
 			bdef.position.set(x, y);
-			
+		
 			Body body = world.createBody(bdef);
 			
 			Spike s;
-			s = new Spike(body);
+			s = new Spike(body, ori);
 			spikes.add(s);
 			body.setUserData(s);
 			

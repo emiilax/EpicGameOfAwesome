@@ -28,6 +28,10 @@ public class EGATimer implements ActionListener {
 	public void stopTimer(){
 		timer.stop();
 	}
+	
+	public void resumeTimer(){
+		timer.start();
+	}
 
 	public void actionPerformed(ActionEvent e) {
 		timePassed++;

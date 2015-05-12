@@ -2,6 +2,7 @@ package view;
 
 import model.EGATimer;
 import model.GameData;
+import model.MyInput;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -63,8 +64,9 @@ public class LevelFinished extends GameState {
 		font = gen.generateFont(menuFontSize);
 
 		menuItems = new String[]{
-				"Replay",
 				"Next Level",
+				"Replay",
+				"Main Menu",
 		};
 		
 		setTimeString();
@@ -75,23 +77,43 @@ public class LevelFinished extends GameState {
 	private void setTimeString(){
 		timer = EGATimer.getTimer();
 		Float timePassed = timer.getTimePassed();
+		GameData gd = SaveHandler.getGameData();
 		
-		
-		if(SaveHandler.gd.isBetterTime(level, timePassed)){
+		if(gd.isBetterTime(level, timePassed)){
 			title = "Nytt rekord! " + "\n" + "Din tid blev: " +  Float.toString(timePassed);
 		} else {
 			title = "Din tid blev: " + "\n" + Float.toString(timePassed) 
-					+ "\n" + "Din bästa tid: " + "\n" + Float.toString(SaveHandler.gd.getTime(level));
+					+ "\n" + "Din bästa tid: " + "\n" + Float.toString(gd.getTime(level));
 		}
-		SaveHandler.gd.addTime(level, timePassed);
-		
-		
+		gd.addTime(level, timePassed);
+		SaveHandler.setGameData(gd);
 	}
 
 	@Override
 	public void handleInput(int i) {
-		// TODO Auto-generated method stub
-		
+		switch(i){
+		case MyInput.BUTTON_JUMP:
+			if(currentItem > 0){
+				currentItem --;
+			}
+			break;
+		case MyInput.BUTTON_DOWN:
+			if(currentItem < menuItems.length-1){
+				currentItem++;
+			}
+			break;
+		case MyInput.BUTTON_ENTER:
+			select();
+			break;
+		}
+	}
+	
+	private void select(){
+		if(currentItem == 1){
+			gsm.getGame().setLevel(new Level(gsm, gsm.getCurrentLevel()));
+		} else if(currentItem == 2){
+			gsm.getGame().setLevel(new MenuState(gsm));
+		}
 	}
 
 	@Override

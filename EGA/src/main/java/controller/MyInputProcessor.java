@@ -5,6 +5,8 @@ import model.MyInput;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 
+import event.EventSupport;
+
 public class MyInputProcessor extends InputAdapter{
 	
 	@Override
@@ -30,7 +32,12 @@ public class MyInputProcessor extends InputAdapter{
 		}
 		if(k == Keys.ENTER){
 			MyInput.setKey(MyInput.BUTTON_ENTER, true);
+		}if(k == Keys.R){
+			MyInput.setKey(MyInput.BUTTON_RESTART, true);
 		} 
+		if(k == Keys.P){
+			EventSupport.getInstance().fireNewEvent("pause");
+		}
 		
 		return true;
 	}
@@ -57,7 +64,44 @@ public class MyInputProcessor extends InputAdapter{
 		}
 		if(k == Keys.ENTER){
 			MyInput.setKey(MyInput.BUTTON_ENTER, false);
+		}
+		if(k == Keys.R){
+			MyInput.setKey(MyInput.BUTTON_RESTART, false);
 		} 
+		return true;
+	}
+	
+	@Override
+	public boolean touchDown(int x, int y, int pointer, int button){
+		if((x > 460 && x < 581) && (y > 269 && y < 316)){
+			EventSupport.getInstance().fireNewEvent("startLevel");
+		}
+		if((x > 460 && x < 811) && (y > 338 && y < 376)){
+			EventSupport.getInstance().fireNewEvent("levelSelect");
+		}
+		if((x > 460 && x < 689) && (y > 374 && y < 457)){
+			EventSupport.getInstance().fireNewEvent("setting");
+		}
+		if((x > 460 && x < 568) && (y > 477 && y < 516)){
+			EventSupport.getInstance().fireNewEvent("quit");
+		}
+		return true;
+	}
+	
+	@Override
+	public boolean mouseMoved(int x, int y){
+		if((x > 460 && x < 581) && (y > 269 && y < 316)){
+			EventSupport.getInstance().fireNewEvent("currentMenuItem0");;
+		}
+		if((x > 460 && x < 811) && (y > 338 && y < 376)){
+			EventSupport.getInstance().fireNewEvent("currentMenuItem1");
+		}
+		if((x > 460 && x < 689) && (y > 374 && y < 457)){
+			EventSupport.getInstance().fireNewEvent("currentMenuItem2");
+		}
+		if((x > 460 && x < 568) && (y > 477 && y < 516)){
+			EventSupport.getInstance().fireNewEvent("currentMenuItem3");
+		}
 		return true;
 	}
 

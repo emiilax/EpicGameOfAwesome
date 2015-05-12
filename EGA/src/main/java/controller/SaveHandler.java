@@ -7,17 +7,19 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import lombok.Data;
 import model.GameData;
 
 import com.badlogic.gdx.Gdx;
 
+@Data
 public class SaveHandler {
 
 	public SaveHandler(){
 
 	}
-
-	public static GameData gd;
+	
+	private static GameData gd;
 
 	public static void save() {
 		try{
@@ -64,4 +66,13 @@ public class SaveHandler {
 		gd = new GameData();
 		save();
 	}
+	
+	public static GameData getGameData(){
+		return gd;
+	}
+	
+	public static void setGameData(GameData gameData){
+		gd = gameData;
+	}
+	
 }
