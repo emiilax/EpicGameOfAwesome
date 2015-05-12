@@ -1,6 +1,7 @@
 package event;
 
 import java.util.EventObject;
+
 import lombok.*;
 
 /**
@@ -24,6 +25,10 @@ public class TheEvent extends EventObject {
 	public TheEvent(Object source, String nameOfEvent) {
 		super(source);
 		this.nameOfEvent = nameOfEvent;
+	}
+	
+	public TheEvent(Object source, String nameOfEvent, int x, int y){
+		TheEvent(source, nameOfEvent);
 	}
 	
 

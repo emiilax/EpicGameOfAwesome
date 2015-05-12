@@ -19,7 +19,6 @@ public class MyInputProcessor extends InputAdapter{
 		}
 		if(k == Keys.UP){
 			MyInput.setKey(MyInput.BUTTON_JUMP, true);
-			
 		}
 		if(k == Keys.DOWN){
 			MyInput.setKey(MyInput.BUTTON_DOWN, true);
@@ -74,6 +73,7 @@ public class MyInputProcessor extends InputAdapter{
 	@Override
 	public boolean touchDown(int x, int y, int pointer, int button){
 		if((x > 460 && x < 581) && (y > 269 && y < 316)){
+			EventSupport.getInstance().fireNewEvent("menuItem", x, y);
 			EventSupport.getInstance().fireNewEvent("startLevel");
 		}
 		if((x > 460 && x < 811) && (y > 338 && y < 376)){
