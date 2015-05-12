@@ -161,9 +161,19 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	public void pause() {}
 
 	public void eventRecieved(TheEvent evt) {
-		if(evt.getNameOfEvent().equals("spikehit")){
-			setLevel(new Level(gsm, gsm.getCurrentLevel()));
-		}		
+		if(theLevel instanceof Level){	
+			if(evt.getNameOfEvent().equals("spikehit")){
+				setLevel(new Level(gsm, gsm.getCurrentLevel()));
+			}
+		}
+		if(theLevel instanceof MenuState){
+			if(evt.getNameOfEvent().equals("startLevel")){
+				setLevel(new Level(gsm, gsm.getCurrentLevel()));
+			}
+			if(evt.getNameOfEvent().equals("currentMenuItem0")){
+				((MenuState) theLevel).setCurrentItem(0);
+			}
+		}
 	}
 	public TiledMap getTiledMap(int i){
 		if(i==1){
