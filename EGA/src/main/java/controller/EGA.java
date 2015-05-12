@@ -48,43 +48,15 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	
 	public static Content res;
 	
-	// levels
-	private TiledMap level1;
-	private TiledMap level2;
-	private TiledMap level3;
-	//private Array<TiledMap> levels;
-	//end levels
+	private HashMap<Integer, TiledMap> maps;
+
 	private HashMap<Integer, Texture> finishedBgr;
 
 	public void create() {
 		
 		Gdx.input.setInputProcessor(new MyInputProcessor());
 		
-		res = new Content();
-		//load pictures, borde ligga i view
-		res.loadTexture("res/tiles/bunny.png", "bunny");
-		res.loadTexture("res/stars/star.png", "star");
-		res.loadTexture("res/tiles/hud.png", "hud");
-		res.loadTexture("res/characters/redball_small.png", "smallplayer");
-		res.loadTexture("res/characters/redball_big.png", "bigPlayer");
-		res.loadTexture("res/stars/bigStar.png", "bigStar");
-		res.loadTexture("res/door/openDoor.jpg", "openDoor");
-		res.loadTexture("res/door/closedDoor.jpg", "lockedDoor");
-		res.loadTexture("res/tiles/upSpikes_16x21.png", "upSpike");
-		res.loadTexture("res/tiles/downSpikes_16x21.png", "downSpike");
-		res.loadTexture("res/tiles/leftSpikes_21x16.png", "leftSpike");
-		res.loadTexture("res/tiles/rightSpikes_21x16.png", "rightSpike");
-		res.loadTexture("res/key/key-4.png", "key");
-		
-		//load levels
-		level1 = new TmxMapLoader().load("res/maps/testmap.tmx");
-		level2 = new TmxMapLoader().load("res/maps/testmap2.tmx");
-		level3 = new TmxMapLoader().load("res/maps/testmap.tmx");
-		//add levels to the array levels
-//		levels = new Array<TiledMap>();
-//		levels.add(level1);
-//		levels.add(level2);
-//		levels.add(level3);
+		createPictures();
 		
 		SaveHandler.load();
 		//SaveHandler.getGameData();
@@ -115,7 +87,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 
 	}
 	
-	public void setLevel(GameState state){ //borde denna inte heta ngt annat?
+	public void setLevel(GameState state){
 		theLevel = state;
 		gsm.setState(theLevel);
 	}
@@ -207,19 +179,63 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			}*/
 		}
 	}
-	public TiledMap getTiledMap(int i){
-		if(i==1){
-			return level1;
-		}
-		if(i==2){
-			return level2;
-		}
-		if(i==3){
-			return level3;
-		}
-		return null;
-//		return levels.get(i);
+	
+	/* 
+	 * @author Rebecka Reitmaier
+	 * creates the Pictures 
+	 * this is also in the new class Pictures in View
+	 */
+	private void createPictures(){
+		res = new Content();
+			
+		res.loadTexture("res/tiles/bunny.png", "bunny");
+		res.loadTexture("res/stars/star.png", "star");
+		res.loadTexture("res/tiles/hud.png", "hud");
+		res.loadTexture("res/characters/redball_small.png", "smallplayer");
+		res.loadTexture("res/characters/redball_big.png", "bigPlayer");
+		res.loadTexture("res/stars/bigStar.png", "bigStar");
+		res.loadTexture("res/door/openDoor.jpg", "openDoor");
+		res.loadTexture("res/door/closedDoor.jpg", "lockedDoor");
+		res.loadTexture("res/tiles/upSpikes_16x21.png", "upSpike");
+		res.loadTexture("res/tiles/downSpikes_16x21.png", "downSpike");
+		res.loadTexture("res/tiles/leftSpikes_21x16.png", "leftSpike");
+		res.loadTexture("res/tiles/rightSpikes_21x16.png", "rightSpike");
+		res.loadTexture("res/key/key-4.png", "key");
+		
+		createMaps();
+	
 	}
+	
+	/* 
+	 * @author Rebecka Reitmaier
+	 * creates the Maps to levels and puts them in the hashMap maps
+	 * this is also in the new class Pictures in View
+	 */
+
+	private void createMaps(){
+		TiledMap level1 = new TmxMapLoader().load("res/maps/testmap.tmx");
+		TiledMap level2 = new TmxMapLoader().load("res/maps/testmap2.tmx");
+		TiledMap level3 = new TmxMapLoader().load("res/maps/testmap.tmx");
+		
+		maps = new HashMap<Integer, TiledMap>();
+		maps.put(1, level1);
+		maps.put(2, level2);
+		maps.put(3, level3);
+		
+		}
+	
+	/*
+	 * @author Rebecka Reitmaier
+	 * getTiledMap is a method returns an object from the hashmap maps
+	 * OBS: currently only works with ints 1-3
+	 * 
+	 * @param int i, the map to the level you want
+	 * @return TiledMap
+	 */
+	public TiledMap getTiledMap(int i){
+		return maps.get(i);
+	}
+
 	
 	public void setLevelFinished(int i){
 		LevelFinished state = new LevelFinished(gsm, finishedBgr.get(i), i);
