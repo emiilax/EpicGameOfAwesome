@@ -5,6 +5,7 @@ import java.util.HashMap;
 import view.GameState;
 import view.Level;
 import view.LevelFinished;
+import view.LevelSelect;
 import view.MenuState;
 import lombok.Data;
 import model.Content;
@@ -51,6 +52,8 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	private HashMap<Integer, TiledMap> maps;
 
 	private HashMap<Integer, Texture> finishedBgr;
+	
+	private HashMap <Integer, Texture> levelBgr;
 
 	public void create() {
 		
@@ -67,6 +70,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		hudCam = new OrthographicCamera();
 		gsm = new GameStateManager(this);
 		initHashMap();
+		initLevelBgr();
 		
 		theLevel = new MenuState(gsm);
 		gsm.pushState(theLevel);
@@ -245,5 +249,15 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	private void initHashMap(){
 		finishedBgr = new HashMap<Integer, Texture>();
 		finishedBgr.put(1,  new Texture("res/menu/lol.jpg"));
+	}
+	
+	public void setLevelSelect(int i){
+		LevelSelect state = new LevelSelect(gsm, levelBgr.get(i));
+		setLevel(state);
+	}
+	
+	private void initLevelBgr(){
+		levelBgr = new HashMap<Integer, Texture>();
+		levelBgr.put(1,  new Texture("res/menu/domo.jpg"));
 	}
 }

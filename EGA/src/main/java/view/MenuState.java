@@ -128,6 +128,8 @@ public class MenuState extends GameState{
 		}
 		if (currentItem == 1){
 			System.out.println("Level select!");
+			gsm.getGame().setLevelSelect(1);
+			//gsm.getGame().setLevelFinished(1);
 		}
 		if (currentItem == 2){
 			System.out.println("Settings!");
