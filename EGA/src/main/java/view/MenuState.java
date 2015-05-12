@@ -137,6 +137,15 @@ public class MenuState extends GameState{
 			Gdx.app.exit();
 		}
 	}
+	
+	public void select(int x, int y){
+		if(x > menuItemPositions[currentItem].getX() 
+				&& y > menuItemPositions[currentItem].getY()
+				&& x < menuItemEndPositions[currentItem].getX() 
+				&& y < menuItemEndPositions[currentItem].getY()){
+			select();
+		}
+	}
 
 	@Override
 	public void update(float dt) {
@@ -218,7 +227,6 @@ public class MenuState extends GameState{
 	
 	public void setCurrentItem(int x, int y){
 		if(rendered){
-			System.out.println("xxx: " + menuItemPositions[1].getX());
 			for(int i = 0; i < menuItemPositions.length; i++){
 					if(x > menuItemPositions[i].getX() && y > menuItemPositions[i].getY()
 							&& x < menuItemEndPositions[i].getX() &&

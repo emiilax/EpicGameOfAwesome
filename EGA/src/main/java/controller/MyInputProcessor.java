@@ -72,7 +72,7 @@ public class MyInputProcessor extends InputAdapter{
 	
 	@Override
 	public boolean touchDown(int x, int y, int pointer, int button){
-		if((x > 460 && x < 581) && (y > 269 && y < 316)){
+		/*if((x > 460 && x < 581) && (y > 269 && y < 316)){
 			EventSupport.getInstance().fireNewEvent("menuItem", x, y);
 			EventSupport.getInstance().fireNewEvent("startLevel");
 		}
@@ -84,28 +84,15 @@ public class MyInputProcessor extends InputAdapter{
 		}
 		if((x > 460 && x < 568) && (y > 477 && y < 516)){
 			EventSupport.getInstance().fireNewEvent("quit");
-		}
+		}*/
+		EventSupport.getInstance().fireNewEvent("selectMenuItem", x, y);
 		
 		return true;
 	}
 	
 	@Override
 	public boolean mouseMoved(int x, int y){
-		
-		/*if((x > 460 && x < 581) && (y > 269 && y < 316)){
-			EventSupport.getInstance().fireNewEvent("currentMenuItem0");;
-		}
-		if((x > 460 && x < 811) && (y > 338 && y < 376)){
-			EventSupport.getInstance().fireNewEvent("currentMenuItem1");
-		}
-		if((x > 460 && x < 689) && (y > 374 && y < 457)){
-			EventSupport.getInstance().fireNewEvent("currentMenuItem2");
-		}
-		if((x > 460 && x < 568) && (y > 477 && y < 516)){
-			EventSupport.getInstance().fireNewEvent("currentMenuItem3");
-		}*/
 		EventSupport.getInstance().fireNewEvent("currentMenuItem", x, y);
-		
 		return true;
 	}
 
