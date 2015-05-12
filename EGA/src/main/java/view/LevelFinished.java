@@ -83,7 +83,7 @@ public class LevelFinished extends GameState {
 			title = "Nytt rekord! " + "\n" + "Din tid blev: " +  Float.toString(timePassed);
 		} else {
 			title = "Din tid blev: " + "\n" + Float.toString(timePassed) 
-					+ "\n" + "Din bästa tid: " + "\n" + Float.toString(gd.getTime(level));
+					+ "\n" + "Din bï¿½sta tid: " + "\n" + Float.toString(gd.getTime(level));
 		}
 		gd.addTime(level, timePassed);
 		SaveHandler.setGameData(gd);
@@ -109,9 +109,15 @@ public class LevelFinished extends GameState {
 	}
 	
 	private void select(){
+		if(currentItem == 0){
+			System.out.println("this is next level");
+			gsm.getGame().setLevel(new Level(gsm, gsm.getNextLevel()));
+		}
 		if(currentItem == 1){
+			System.out.println("this is the same level");
 			gsm.getGame().setLevel(new Level(gsm, gsm.getCurrentLevel()));
 		} else if(currentItem == 2){
+			System.out.println("this is menu");
 			gsm.getGame().setLevel(new MenuState(gsm));
 		}
 	}

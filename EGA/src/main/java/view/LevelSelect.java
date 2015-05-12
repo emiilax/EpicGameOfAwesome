@@ -97,14 +97,14 @@ public class LevelSelect extends GameState {
 	}
 	
 	private void select(){
-		if(currentItem1 == 1){ //this is the second lvl in menu
-			gsm.getGame().setLevel(new Level(gsm, gsm.getCurrentLevel()));
+		if(currentItem1 == 0){ //this is selected directly if enter is pressed to long
+			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(1)));
 			System.out.print("Select level 1");
 		}
-		if(currentItem1 == 2){
-			gsm.getGame().setLevel(new Level(gsm, gsm.getCurrentLevel()));
+		if(currentItem1 == 1){
+			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(2)));
 			System.out.print("Select level 2");
-		} else if(currentItem1 == 3){
+		} else if(currentItem1 == 2){
 			gsm.getGame().setLevel(new MenuState(gsm));
 			System.out.print("Menu");
 		}
