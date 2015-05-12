@@ -47,6 +47,8 @@ public class MenuState extends GameState{
 	private String menuItems[];
 
 	private GameStateManager gsm;
+	
+	private int[] menuItemPositions;
 
 
 	public MenuState(GameStateManager gsm) {
@@ -69,13 +71,15 @@ public class MenuState extends GameState{
 
 		font = gen.generateFont(menuFontSize);
 		subFont = gen.generateFont(subTitleFontSize);
-		
+
 		menuItems = new String[]{
 				"Play",
 				"Level Select",
 				"Settings",
 				"Quit"
 		};
+		
+		menuItemPositions = new int[menuItems.length-1];
 
 	}
 
@@ -132,6 +136,7 @@ public class MenuState extends GameState{
 	}
 
 	int titleHeight = 900; 
+	boolean firstTime = true;
 	@Override
 	public void render() {
 
@@ -157,12 +162,18 @@ public class MenuState extends GameState{
 			} else {
 				font.setColor(Color.WHITE);
 			}
+			int yPos = 450 - 70*i;
 			font.draw(
 					sb,
 					menuItems[i],
 					(EGA.V_WIDTH - width) / 2,
-					450 - 70 *i
+					yPos
 					);
+			menuItemPositions[i] = EGA.V_HEIGTH-yPos;
+			if(firstTime){
+				System.out.println(font.getXHeight());
+				firstTime = false;
+			}
 		}
 
 		sb.end();
@@ -182,6 +193,10 @@ public class MenuState extends GameState{
 	public void dispose() {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public int[] getMenuItemPositions(){
+		return menuItemPositions;
 	}
 
 }
