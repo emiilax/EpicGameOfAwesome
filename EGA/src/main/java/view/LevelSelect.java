@@ -65,7 +65,7 @@ public class LevelSelect extends GameState {
 		menuItems = new String[]{
 				"Level 1",
 				"Level 2",
-				"Level 3",
+				"Back",
 		};
 		
 		setTitle();

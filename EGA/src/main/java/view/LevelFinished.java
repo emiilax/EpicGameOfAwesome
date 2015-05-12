@@ -159,8 +159,7 @@ public class LevelFinished extends GameState {
 		}
 
 		sb.end();
-		
-		
+
 	}
 	
 	private void renderBackground(){
