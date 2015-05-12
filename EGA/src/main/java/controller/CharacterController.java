@@ -12,10 +12,10 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 @Data
-public class CharacterController {
+public class CharacterController extends EntityController{
 	
 	
-	private Body body;
+	//private Body body;
 	private PolygonShape shape;
 	private FixtureDef fDef;
 
@@ -30,20 +30,22 @@ public class CharacterController {
 	private float currentWidth;
 	private float currentHeigth;
 	
-	private CharacterModel theModel;
-	private CharacterView theView;
+	//private CharacterModel theModel;
+	//private CharacterView theView;
 	
 	
 	public CharacterController(CharacterModel chModel, CharacterView chView){
+		super(chModel, chView);
 		
+		/*
 		theModel = chModel;
 		theView  = chView;
 		
 		theModel.addObserver(chView);
-		
+		*/
 		setIsBig(false);
 		
-		theView.setTexture(isBig);
+		((CharacterView)getTheView()).setTexture(isBig);
 		
 		shape = new PolygonShape();
 		fDef = new FixtureDef();
@@ -52,14 +54,15 @@ public class CharacterController {
 		
 	}
 	
+	/*
 	public CharacterController(CharacterModel chModel, CharacterView chView, Body body){
-
+		super(chModel, chView);
 		theModel = chModel;
 		theView  = chView;
 		
 		theModel.addObserver(chView);
 		
-		this.body = body;
+		//this.body = body;
 		
 		setIsBig(false);
 		
@@ -70,17 +73,20 @@ public class CharacterController {
 		setFixtureDef(currentWidth, currentHeigth);
 		
 		
-	}
+	}*/
 	
+	/*
 	public void setSpriteBatch(SpriteBatch sb){
 		theView.setSpriteBatch(sb);
-	};
+	};*/
+	
 	
 	public void setBody(Body body){
 
-		this.body = body;
+		super.setBody(body);
 		
-		Body playerBody = this.getBody();
+		Body playerBody = getBody();
+		
 		playerBody.setLinearVelocity(xVelocity, yVelocity);
 		setFixtureDef(currentWidth, currentHeigth);
 	}
@@ -105,15 +111,6 @@ public class CharacterController {
 		setSensor(fDef, "foot");
 	}
 	
-	public void removeSensors(){
-		try{
-			this.body.getFixtureList().clear();
-		}catch(NullPointerException e){}
-	}
-	
-	public void setSensor(FixtureDef fdef, String userData){
-		body.createFixture(fdef).setUserData(userData);
-	}
 	
 	public void setIsBig(boolean truFal){
 		isBig = truFal;
@@ -141,7 +138,7 @@ public class CharacterController {
 		setIsBig(true);
 		setFixtureDef(currentWidth, currentHeigth);
 		
-		theView.setTexture(isBig);
+		((CharacterView)getTheView()).setTexture(isBig);
 		//setAnimation(sprites, 1 / 12f);
 	}
 
@@ -151,15 +148,15 @@ public class CharacterController {
 		setIsBig(false);
 		setFixtureDef(currentWidth, currentHeigth);
 		
-		theView.setTexture(isBig);
+		((CharacterView)getTheView()).setTexture(isBig);
 
 		//setTexture("small");
 		//setAnimation(sprites, 1 / 12f);
 	}
 	
-	public Vector2 getPosition(){
+	/*public Vector2 getPosition(){
 		return body.getPosition();
-	}
+	}*/
 	
 	public void setCurrentVelocity(){
 		Body playerBody = this.getBody();
@@ -179,29 +176,41 @@ public class CharacterController {
 		yVelocity = playerBody.getLinearVelocity().y;
 		
 		playerBody.setLinearVelocity(currentSpeed, yVelocity);
-		//theModel.setPosition(body.getPosition().x, body.getPosition().y);
+
 	}
 	
 	public void moveBackward(){
 		Body playerBody = this.getBody();
 		yVelocity = playerBody.getLinearVelocity().y;
 		playerBody.setLinearVelocity(-currentSpeed, yVelocity);
-		//theModel.setPosition(body.getPosition().x, body.getPosition().y);
+
 	}
 	
 	public void stop(){
 		Body playerBody = this.getBody();
 		yVelocity = playerBody.getLinearVelocity().y;
 		playerBody.setLinearVelocity(0, yVelocity);
-		//theModel.setPosition(body.getPosition().x, body.getPosition().y);
 	}
 	
+	/*
 	public void render(){
 		theModel.setPosition(body.getPosition().x, body.getPosition().y);
-	}
+	}*/
 	
+	/*
 	public void update(float dt){
 		theView.update(dt);
+	}*/
+	
+	/*
+	public void removeSensors(){
+		try{
+			this.body.getFixtureList().clear();
+		}catch(NullPointerException e){}
 	}
+	
+	public void setSensor(FixtureDef fdef, String userData){
+		body.createFixture(fdef).setUserData(userData);
+	}*/
 	
 }

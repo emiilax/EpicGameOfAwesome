@@ -1,11 +1,12 @@
 package event;
 
 import java.util.EventObject;
+
 import lombok.*;
 
 /**
  * 
- * @author emil axelsson
+ * @author Emil Axelsson
  * 
  * Class for the event that will be fired in EventSupport.
  */
@@ -14,6 +15,7 @@ public class TheEvent extends EventObject {
 	
 	/** Instacevariable that contains the name of event */
 	private String nameOfEvent;
+	private int x, y;
 	
 	/**
 	 * The constructor for the event
@@ -24,6 +26,12 @@ public class TheEvent extends EventObject {
 	public TheEvent(Object source, String nameOfEvent) {
 		super(source);
 		this.nameOfEvent = nameOfEvent;
+	}
+	
+	public TheEvent(Object source, String nameOfEvent, int x, int y){
+		this(source, nameOfEvent);
+		this.x = x;
+		this.y = y;
 	}
 	
 

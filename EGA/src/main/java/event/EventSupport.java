@@ -65,9 +65,15 @@ public class EventSupport {
 	 * @param nameOfEvent, the name of the event
 	 */
 	public void fireNewEvent(String nameOfEvent){
+		int x = -1;
+		int y = -1;
+		fireNewEvent(nameOfEvent, x, y);
+	}
+	
+	public void fireNewEvent(String nameOfEvent, int x, int y){
 		TheEvent event = null;
 		
-		event = new TheEvent(this, nameOfEvent);
+		event = new TheEvent(this, nameOfEvent, x, y);
 		
 		Iterator<TheChangeListener> i = theListeners.iterator();
 		
