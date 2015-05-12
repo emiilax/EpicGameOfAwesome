@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.Point;
+
 import lombok.Data;
 import model.MyInput;
 
@@ -47,6 +49,9 @@ public class MenuState extends GameState{
 	private String menuItems[];
 
 	private GameStateManager gsm;
+	
+	private Point[] menuItemPositions;
+	private Point[] menuItemEndPositions;
 
 
 	public MenuState(GameStateManager gsm) {
@@ -69,14 +74,17 @@ public class MenuState extends GameState{
 
 		font = gen.generateFont(menuFontSize);
 		subFont = gen.generateFont(subTitleFontSize);
-		
+
 		menuItems = new String[]{
 				"Play",
 				"Level Select",
 				"Settings",
 				"Quit"
 		};
-
+		
+		menuItemPositions = new Point[menuItems.length];
+		menuItemEndPositions = new Point[menuItems.length];
+		
 	}
 
 
@@ -132,6 +140,7 @@ public class MenuState extends GameState{
 	}
 
 	int titleHeight = 900; 
+	boolean firstTime = true;
 	@Override
 	public void render() {
 
@@ -157,12 +166,21 @@ public class MenuState extends GameState{
 			} else {
 				font.setColor(Color.WHITE);
 			}
+			
+			int yPos = 450 - 70*i;
+			int xPos = (int)(EGA.V_WIDTH - width) / 2;
 			font.draw(
 					sb,
 					menuItems[i],
-					(EGA.V_WIDTH - width) / 2,
-					450 - 70 *i
+					xPos,
+					yPos
 					);
+			menuItemPositions[i] = new Point(EGA.V_WIDTH-xPos,EGA.V_HEIGTH-yPos);
+			menuItemEndPositions[i] = new Point(EGA.V_WIDTH - xPos+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
+			if(firstTime){
+				System.out.println(font.getXHeight());
+				firstTime = false;
+			}
 		}
 
 		sb.end();
@@ -183,5 +201,14 @@ public class MenuState extends GameState{
 		// TODO Auto-generated method stub
 
 	}
+	
+	public Point[] getMenuItemPositions(){
+		return menuItemPositions;
+	}
+	
+	public Point[] getMenuItemEndPositions(){
+		return menuItemEndPositions;
+	}
+	
 
 }
