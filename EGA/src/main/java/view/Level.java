@@ -133,6 +133,9 @@ public class Level extends GameState{
 			
 			case MyInput.BUTTON_JUMP:  if(cl.isPlayerOnGround()) chc.jump();//playerJump();
 			break;
+			
+			case MyInput.BUTTON_RESTART: gsm.getGame().setLevel(new Level(gsm, gsm.getCurrentLevel()));
+			break;
 		}
 	}
 
