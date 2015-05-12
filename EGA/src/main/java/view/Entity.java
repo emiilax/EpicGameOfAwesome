@@ -19,7 +19,6 @@ import controller.Variables;
  * Abstract class which is the superclass for all
  * the sprites on the map. Character, stars etc;
  */
-
 @Data
 public abstract class Entity {
 	
@@ -105,8 +104,7 @@ public abstract class Entity {
 		
 		if(userData.equals("foot")){
 			System.out.println(body.getFixtureList().size);	
-		}
-		
+		}	
 	}
 	
 	public void removeSensors(){

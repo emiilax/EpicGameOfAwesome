@@ -6,7 +6,7 @@ import view.CharacterView;
 import lombok.Data;
 
 @Data
-public class CharacterModel extends Observable {
+public class CharacterModel extends EntityModel {
 	
 	private float xVelocity;
 	private float yVelocity;
@@ -16,21 +16,10 @@ public class CharacterModel extends Observable {
 	
 	private boolean isBig;
 	
-	private float xPosition;
-	private float yPosition;
+	//private float xPosition;
+	//private float yPosition;
 	
-	public CharacterModel(){
-		
-	}
-	
-	public void setPosition(float xPos, float yPos){
-		xPosition = xPos;
-		yPosition = yPos;
-		
-		
-		setChanged();
-		notifyObservers();
-	}
+	public CharacterModel(){}
 	
 	public void setVelocity(float xVel, float yVel){
 		xVelocity = xVel;
@@ -41,6 +30,17 @@ public class CharacterModel extends Observable {
 	}
 	
 	
+	
+	/*
+	public void setPosition(float xPos, float yPos){
+		xPosition = xPos;
+		yPosition = yPos;
+		
+		
+		setChanged();
+		notifyObservers();
+	}*/
+	/*
 	public static void main(String []args){
 		CharacterModel chm = new CharacterModel();
 		CharacterView chv = new CharacterView();
@@ -48,7 +48,7 @@ public class CharacterModel extends Observable {
 		chm.addObserver(chv);
 		
 		chm.setPosition(10, 10);
-	}
+	}*/
 
 	
 }

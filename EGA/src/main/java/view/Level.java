@@ -34,6 +34,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
+import controller.EntityController;
 import controller.CharacterController;
 import controller.Variables;
 import controller.EGA;
@@ -66,7 +67,7 @@ public class Level extends GameState{
 	private boolean isPaused;
 	
 	
-	private CharacterController chc;
+	private EntityController chc;
 	private CharacterModel chm;
 	private CharacterView chv;
 	
@@ -119,16 +120,16 @@ public class Level extends GameState{
 
 	public void handleInput(int i) {
 		switch(i){
-			case -1: playerStop(); chc.stop();
+			case -1: playerStop(); ((CharacterController)chc).stop();
 			break;
 			
-			case MyInput.BUTTON_FORWARD:  chc.moveForward();//playerMoveForward();
+			case MyInput.BUTTON_FORWARD:  ((CharacterController)chc).moveForward();//playerMoveForward();
 			break;
 			
-			case MyInput.BUTTON_BACKWARD:  chc.moveBackward();//playerMoveBackward();
+			case MyInput.BUTTON_BACKWARD:  ((CharacterController)chc).moveBackward();//playerMoveBackward();
 			break;
 			
-			case MyInput.BUTTON_JUMP:  if(cl.isPlayerOnGround()) chc.jump();//playerJump();
+			case MyInput.BUTTON_JUMP:  if(cl.isPlayerOnGround()) ((CharacterController)chc).jump();//playerJump();
 			break;
 
 			case MyInput.BUTTON_PAUSE: 
@@ -271,15 +272,15 @@ public class Level extends GameState{
 				world.destroyBody(b);
 
 				if(uData.equals("smallStar")){
-					chc.setIsBig(false);
+					((CharacterController)chc).setIsBig(false);
 					changePlayerBody();
 					//player.collectShrinkStar();
-					chc.collectShrinkStar();
+					((CharacterController)chc).collectShrinkStar();
 				} else {
-					chc.setIsBig(true);
+					((CharacterController)chc).setIsBig(true);
 					changePlayerBody();
 					//player.collectGrowStar();
-					chc.collectGrowStar();
+					((CharacterController)chc).collectGrowStar();
 				}
 			}
 		}
@@ -644,14 +645,14 @@ public class Level extends GameState{
 	 */
 	public void changePlayerBody(){
 		//player.setCurrentVelocity();
-		chc.setCurrentVelocity();
+		((CharacterController)chc).setCurrentVelocity();
 		
 		//Body pb = player.getBody();
 		Body pb = chc.getBody();
 		world.destroyBody(pb);
 		
 		BodyDef bdef = new BodyDef();
-		bdef.position.set(pb.getPosition().x , pb.getPosition().y+0.1f);
+		bdef.position.set(pb.getPosition().x , pb.getPosition().y);
 		
 		bdef.type = BodyType.DynamicBody;
 		Body body = world.createBody(bdef);

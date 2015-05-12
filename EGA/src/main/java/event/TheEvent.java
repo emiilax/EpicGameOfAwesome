@@ -5,7 +5,7 @@ import lombok.*;
 
 /**
  * 
- * @author emil axelsson
+ * @author Emil Axelsson
  * 
  * Class for the event that will be fired in EventSupport.
  */
