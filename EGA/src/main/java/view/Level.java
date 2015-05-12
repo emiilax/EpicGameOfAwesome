@@ -627,7 +627,7 @@ public class Level extends GameState{
 		world.destroyBody(pb);
 		
 		BodyDef bdef = new BodyDef();
-		bdef.position.set(pb.getPosition().x , pb.getPosition().y+0.1f);
+		bdef.position.set(pb.getPosition().x , pb.getPosition().y);
 		
 		bdef.type = BodyType.DynamicBody;
 		Body body = world.createBody(bdef);

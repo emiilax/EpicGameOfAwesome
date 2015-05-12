@@ -4,30 +4,24 @@ import lombok.Data;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.utils.Array;
 
 import controller.Variables;
 
-/**
- * 
- * @author 
- * 
- * Abstract class which is the superclass for all
- * the sprites on the map. Character, stars etc;
- */
 @Data
-public abstract class Entity {
-	
+public abstract class EntityView {
 	
 	private Animation animation;
 	private float width;
 	private float height;
-	private Body body;
-	private Array<Fixture> fixtures; 
+	
+
+	private float xPosition;
+	private float yPosition;
+	
+	private SpriteBatch sb;
 	
 	/**
 	 * Constructor for the abstract class. Initiate the body 
@@ -36,10 +30,8 @@ public abstract class Entity {
 	 * @param body, the body of the object 
 	 * 
 	 */
-	public Entity(Body body){
-		this.body = body;
+	public EntityView(){
 		animation = new Animation();
-		fixtures = body.getFixtureList();
 	}
 	
 	/**
@@ -49,7 +41,6 @@ public abstract class Entity {
 	 */
 	public void setAnimation(TextureRegion[] reg, float delay){
 		animation.setFrames(reg, delay);
-		
 		width = reg[0].getRegionWidth();
 		height = reg[0].getRegionHeight();
 	}
@@ -66,42 +57,18 @@ public abstract class Entity {
 	 * This method is looped in the level class. Moves the 
 	 * texture on the screen depending on where you have moved 
 	 * the body.
-	 * @param sb
+	 * @param sb, where it should draw
 	 */
-	public void render(SpriteBatch sb){
+	public void render(){
 		sb.begin();
 		sb.draw(animation.getFrame(), 
-				body.getPosition().x * Variables.PPM - width / 2,
-				body.getPosition().y * Variables.PPM - height / 2);
+				xPosition * Variables.PPM - width / 2,
+				 yPosition * Variables.PPM - height / 2);
 		sb.end();
 	}
 	
-	/**
-	 * 
-	 * @return the position of the body
-	 */
-	public Vector2 getPosition(){ 
-		return body.getPosition();
+	public void setSpriteBatch(SpriteBatch sb){
+		this.sb = sb;
 	}
 	
-	/**
-	 * Sets the sensor for the body. 
-	 * 
-	 * @param fdef, the FixtureDef that should be applyed 
-	 * @param userData, the name of the FixtureDef
-	 */
-	public void setSensor(FixtureDef fdef, String userData){
-		
-		body.createFixture(fdef).setUserData(userData);
-		
-		if(userData.equals("foot")){
-			System.out.println(body.getFixtureList().size);	
-		}
-		
-	}
-	
-	public void removeSensors(){
-		body.getFixtureList().clear();
-		
-	}
 }

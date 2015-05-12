@@ -12,30 +12,23 @@ import controller.EGA;
 import controller.Variables;
 import model.CharacterModel;
 
-public class CharacterView implements Observer{
+public class CharacterView extends EntityView implements Observer{
 	
 	private TextureRegion[] sprites;
-	
+	/*
 	private Animation animation;
 	private float width;
 	private float height;
-	
-	//private float xVelocity;
-	//private float yVelocity;
-	
-	//private float speed;
-	//private float force;
-	
-	//private boolean isBig;
 	
 	private float xPosition;
 	private float yPosition;
 	
 	private SpriteBatch sb;
-	
+	*/
 	private Texture texSmall = new Texture(Gdx.files.internal("res/characters/redball_small.png"));
 	private Texture texBig = new Texture(Gdx.files.internal("res/characters/redball_big.png"));
-
+	
+	/*
 	public CharacterView(){
 		animation = new Animation();
 	}
@@ -49,6 +42,7 @@ public class CharacterView implements Observer{
 	public void setSpriteBatch(SpriteBatch sb){
 		this.sb = sb;
 	}
+	*/
 	
 	public void setTexture(Boolean isBig){
 		if(!isBig){
@@ -78,6 +72,7 @@ public class CharacterView implements Observer{
 		}
 	}
 	
+	/*
 	public void setAnimation(TextureRegion[] reg, float delay){
 		animation.setFrames(reg, delay);
 		
@@ -96,14 +91,16 @@ public class CharacterView implements Observer{
 				yPosition * Variables.PPM - height / 2);
 		sb.end();
 	}
+	*/
 	
 	public void update(Observable o, Object arg) {
 		
 		if(o instanceof CharacterModel){
-			xPosition = ((CharacterModel)o).getXPosition();
-			yPosition = ((CharacterModel)o).getYPosition();
-			//System.out.println(xPosition + "; " + yPosition);
-			render(sb);
+			CharacterModel cm = (CharacterModel)o;
+			
+			super.setXPosition(cm.getXPosition());
+			super.setYPosition(cm.getYPosition());
+			render();
 		}
 	}
 	
