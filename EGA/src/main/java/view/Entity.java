@@ -104,8 +104,7 @@ public abstract class Entity {
 		
 		if(userData.equals("foot")){
 			System.out.println(body.getFixtureList().size);	
-		}
-		
+		}	
 	}
 	
 	public void removeSensors(){

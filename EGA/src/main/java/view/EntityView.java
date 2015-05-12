@@ -1,5 +1,7 @@
 package view;
 
+import java.util.Observer;
+
 import lombok.Data;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,7 +13,7 @@ import com.badlogic.gdx.utils.Array;
 import controller.Variables;
 
 @Data
-public abstract class EntityView {
+public abstract class EntityView implements Observer {
 	
 	private Animation animation;
 	private float width;
