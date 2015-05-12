@@ -52,6 +52,8 @@ public class MenuState extends GameState{
 	
 	private Point[] menuItemPositions;
 	private Point[] menuItemEndPositions;
+	
+	private boolean rendered;
 
 
 	public MenuState(GameStateManager gsm) {
@@ -85,6 +87,8 @@ public class MenuState extends GameState{
 		menuItemPositions = new Point[menuItems.length];
 		menuItemEndPositions = new Point[menuItems.length];
 		
+		
+		rendered = false;
 	}
 
 
@@ -133,6 +137,15 @@ public class MenuState extends GameState{
 			Gdx.app.exit();
 		}
 	}
+	
+	public void select(int x, int y){
+		if(x > menuItemPositions[currentItem].getX() 
+				&& y > menuItemPositions[currentItem].getY()
+				&& x < menuItemEndPositions[currentItem].getX() 
+				&& y < menuItemEndPositions[currentItem].getY()){
+			select();
+		}
+	}
 
 	@Override
 	public void update(float dt) {
@@ -175,8 +188,8 @@ public class MenuState extends GameState{
 					xPos,
 					yPos
 					);
-			menuItemPositions[i] = new Point(EGA.V_WIDTH-xPos,EGA.V_HEIGTH-yPos);
-			menuItemEndPositions[i] = new Point(EGA.V_WIDTH - xPos+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
+			menuItemPositions[i] = new Point(xPos,EGA.V_HEIGTH-yPos);
+			menuItemEndPositions[i] = new Point(xPos+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
 			if(firstTime){
 				System.out.println(font.getXHeight());
 				firstTime = false;
@@ -184,6 +197,8 @@ public class MenuState extends GameState{
 		}
 
 		sb.end();
+		
+		rendered = true;
 
 	}
 
@@ -210,5 +225,16 @@ public class MenuState extends GameState{
 		return menuItemEndPositions;
 	}
 	
+	public void setCurrentItem(int x, int y){
+		if(rendered){
+			for(int i = 0; i < menuItemPositions.length; i++){
+					if(x > menuItemPositions[i].getX() && y > menuItemPositions[i].getY()
+							&& x < menuItemEndPositions[i].getX() &&
+							y < menuItemEndPositions[i].getY()){
+						currentItem = i;
+					}
+			}	
+		}
+	}
 
 }

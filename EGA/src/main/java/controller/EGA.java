@@ -174,7 +174,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			}
 		}
 		if(theLevel instanceof MenuState){
-			if(evt.getNameOfEvent().equals("startLevel")){
+			/*if(evt.getNameOfEvent().equals("startLevel")){
 				setLevel(new Level(gsm, gsm.getCurrentLevel()));
 			}
 			if(evt.getNameOfEvent().equals("levelSelect")){
@@ -186,7 +186,13 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			if(evt.getNameOfEvent().equals("quit")){
 				SaveHandler.save();
 				Gdx.app.exit();
+			}*/
+			if(evt.getNameOfEvent().equals("selectMenuItem")){
+				((MenuState) theLevel).select(evt.getX(), evt.getY());
 			}
+			if(evt.getNameOfEvent().equals("currentMenuItem")){
+				((MenuState) theLevel).setCurrentItem(evt.getX(), evt.getY());
+			}/*
 			if(evt.getNameOfEvent().equals("currentMenuItem0")){
 				((MenuState) theLevel).setCurrentItem(0);
 			}
@@ -198,7 +204,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			}
 			if(evt.getNameOfEvent().equals("currentMenuItem3")){
 				((MenuState) theLevel).setCurrentItem(3);
-			}
+			}*/
 		}
 	}
 	public TiledMap getTiledMap(int i){
