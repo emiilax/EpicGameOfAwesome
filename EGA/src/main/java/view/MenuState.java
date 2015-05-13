@@ -129,9 +129,10 @@ public class MenuState extends GameState{
 			System.out.println("Level select!");
 			gsm.getGame().setLevelSelect(1);
 			//gsm.getGame().setLevelFinished(1);
+
 		}
 		if (currentItem == 2){
-			System.out.println("Settings!");
+			gsm.getGame().setLevel(new ChangeControllMenu(gsm));
 		}
 		if(currentItem == 3){
 			SaveHandler.save();
