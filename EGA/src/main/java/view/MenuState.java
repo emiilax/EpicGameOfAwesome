@@ -123,7 +123,7 @@ public class MenuState extends GameState{
 
 	private void select(){
 		if (currentItem == 0){
-			gsm.getGame().setLevel(new Level(gsm, gsm.getCurrentLevel()));
+			gsm.getGame().setLevel(new Level(gsm, gsm.getCurrentTiledMap()));
 		}
 		if (currentItem == 1){
 			System.out.println("Level select!");
@@ -132,7 +132,7 @@ public class MenuState extends GameState{
 
 		}
 		if (currentItem == 2){
-			gsm.getGame().setLevel(new ChangeControllMenu(gsm));
+			gsm.getGame().setLevel(new ChangeControlMenu(gsm));
 		}
 		if(currentItem == 3){
 			SaveHandler.save();
@@ -233,7 +233,7 @@ public class MenuState extends GameState{
 					if(x > menuItemPositions[i].getX() && y > menuItemPositions[i].getY()
 							&& x < menuItemEndPositions[i].getX() &&
 							y < menuItemEndPositions[i].getY()){
-						currentItem = i;
+							currentItem = i;
 					}
 			}	
 		}

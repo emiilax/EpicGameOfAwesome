@@ -73,21 +73,15 @@ public class MyContactListener implements ContactListener{
 			bodiesToRemove.add(fb.getBody());
 		}
 		if(fa.getUserData() != null && fa.getUserData().equals("openDoor")){
-			System.out.println("Ball in contact with the open-door!");
 			timer.stopTimer();
-			ega.setLevelFinished(1);
-			//gsm.getGame().setLevel(new Level(gsm, gsm.getNextLevel()));
+			ega.setLevelFinished(gsm.getCurrentLevel());
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("openDoor")){
-			System.out.println("Ball in contact with the open-door!");
 			timer.stopTimer();
-			ega.setLevelFinished(1);
-			//gsm.getGame().setLevel(new Level(gsm, gsm.getNextLevel())); //this or highscore
-
+			ega.setLevelFinished(gsm.getCurrentLevel());
 		}
 		
 		if(fa.getUserData() != null && fa.getUserData().equals("lockedDoor")){
-			System.out.println("Ball in contact with the locked-door!");
 			doorsToRemove.add(fa.getBody());
 			
 		}

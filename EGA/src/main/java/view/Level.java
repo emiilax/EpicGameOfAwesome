@@ -142,19 +142,13 @@ public class Level extends GameState{
 				}
 			break;
 			
-			case MyInput.BUTTON_RESTART: gsm.getGame().setLevel(new Level(gsm, gsm.getCurrentLevel()));
+			case MyInput.BUTTON_RESTART: gsm.getGame().setLevel(new Level(gsm, gsm.getCurrentTiledMap()));
 			break;
 		}
 	}
 
 	public void update(float dt) {
 		if(!isPaused){
-			if(MyInput.isPressed(MyInput.BUTTON_LEVEL1)){
-				renderNewLevel(1);
-			} else if (MyInput.isPressed(MyInput.BUTTON_LEVEL2)) {
-				renderNewLevel(2);
-			}
-			
 			//gsm.getGame().handleInput();
 			//player.handleInput(cl);
 	
