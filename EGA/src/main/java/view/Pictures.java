@@ -8,7 +8,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 /*
- * @author Rebecka Reitmaier, all in the project adds elements here
+ * @author Rebecka Reitmaier, all members add elements in this class
  * This class loads the pictures into the game
  */
 
