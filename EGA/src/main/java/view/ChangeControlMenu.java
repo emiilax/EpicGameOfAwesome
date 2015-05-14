@@ -79,9 +79,7 @@ public class ChangeControlMenu extends GameState {
 
 	@Override
 	public void handleInput(int i) {
-		if(changeMode){
-			changeButton();
-		} else {
+		if(!changeMode){
 			if(i == MyInput.BUTTON_JUMP){
 				if(currentItem > 0){
 					currentItem--;
@@ -95,12 +93,13 @@ public class ChangeControlMenu extends GameState {
 			} else if (i == MyInput.BUTTON_ENTER) { 
 				selectChange();
 			}
-		}
+		} else {changeButton(); }
 	}
 
 	private void changeButton(){
 		int key = MyInputProcessor.getPressed();
 		if(key != gd.enter){
+			System.out.println("entered");
 			switch(currentItem){
 			case 0: gd.enter = key; 
 			setCurrentButtons(currentItem, Keys.toString(gd.enter));
@@ -123,10 +122,13 @@ public class ChangeControlMenu extends GameState {
 			case 6: gd.restart = key; 
 			setCurrentButtons(currentItem, Keys.toString(gd.restart));
 			break;
+			case 7: gd.escape = key; 
+			setCurrentButtons(currentItem, Keys.toString(gd.escape));
+			break;
 			}
+			changeMode = false;
+			SaveHandler.save();
 		}
-		changeMode = false;
-		SaveHandler.save();
 	}
 
 
