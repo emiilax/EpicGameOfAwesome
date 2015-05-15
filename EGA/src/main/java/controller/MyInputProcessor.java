@@ -1,5 +1,6 @@
 package controller;
 
+import model.GameData;
 import model.MyInput;
 
 import com.badlogic.gdx.Input.Keys;
@@ -8,65 +9,67 @@ import com.badlogic.gdx.InputAdapter;
 import event.EventSupport;
 
 public class MyInputProcessor extends InputAdapter{
+	private static int pressed;
+	
 	
 	@Override
 	public boolean keyDown(int k){
-		if(k == Keys.RIGHT){
+		GameData gd = SaveHandler.getGameData();
+		if(k == gd.right){
 			MyInput.setKey(MyInput.BUTTON_FORWARD, true);
 		}
-		if(k == Keys.LEFT){
+		if(k == gd.left){
 			MyInput.setKey(MyInput.BUTTON_BACKWARD, true);
 		}
-		if(k == Keys.UP){
+		if(k == gd.up){
 			MyInput.setKey(MyInput.BUTTON_JUMP, true);
 		}
-		if(k == Keys.DOWN){
+		if(k == gd.down){
 			MyInput.setKey(MyInput.BUTTON_DOWN, true);
 		} 
-		if(k == Keys.NUM_1){
-			MyInput.setKey(MyInput.BUTTON_LEVEL1, true);
-		}
-		if(k == Keys.NUM_2){
-			MyInput.setKey(MyInput.BUTTON_LEVEL2, true);
-		}
-		if(k == Keys.ENTER){
+		if(k == gd.enter){
 			MyInput.setKey(MyInput.BUTTON_ENTER, true);
-		}if(k == Keys.R){
+		}if(k == gd.restart){
 			MyInput.setKey(MyInput.BUTTON_RESTART, true);
 		} 
-		if(k == Keys.P){
+		if(k == gd.escape){
+			MyInput.setKey(MyInput.BUTTON_ESCAPE, true);
+		}
+		if(k == gd.pause){
 			EventSupport.getInstance().fireNewEvent("pause");
 		}
-		
+		pressed = k;
 		return true;
+	}
+	
+	public static int getPressed(){
+		return pressed;
 	}
 	
 	@Override
 	public boolean keyUp(int k){
-		if(k == Keys.RIGHT){
+		GameData gd = SaveHandler.getGameData();
+		if(k == gd.right){
 			MyInput.setKey(MyInput.BUTTON_FORWARD, false);
 		}
-		if(k == Keys.LEFT){
+		if(k == gd.left){
 			MyInput.setKey(MyInput.BUTTON_BACKWARD, false);
 		}
-		if(k == Keys.UP){
+		if(k == gd.up){
 			MyInput.setKey(MyInput.BUTTON_JUMP, false);
 		}
-		if(k == Keys.DOWN){
+		if(k == gd.down){
 			MyInput.setKey(MyInput.BUTTON_DOWN, false);
 		} 
-		if(k == Keys.NUM_1){
-			MyInput.setKey(MyInput.BUTTON_LEVEL1, false);
-		}
-		if(k == Keys.NUM_2){
-			MyInput.setKey(MyInput.BUTTON_LEVEL2, false);
-		}
-		if(k == Keys.ENTER){
+		if(k == gd.enter){
 			MyInput.setKey(MyInput.BUTTON_ENTER, false);
 		}
-		if(k == Keys.R){
+		if(k == gd.restart){
 			MyInput.setKey(MyInput.BUTTON_RESTART, false);
 		} 
+		if(k == gd.escape){
+			MyInput.setKey(MyInput.BUTTON_ESCAPE, false);
+		}
 		return true;
 	}
 	

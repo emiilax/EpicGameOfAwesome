@@ -62,15 +62,19 @@ public class GameStateManager {
 		currentLevel = i;
 	}
 	
-	public TiledMap getNextLevel(){
+	public TiledMap getNextTiledMap(){
 		currentLevel++;
 		return game.getTiledMap(currentLevel);
 	}
-	public TiledMap getCurrentLevel(){
+	public TiledMap getCurrentTiledMap(){
 		return game.getTiledMap(currentLevel);
 	}
 	public TiledMap getLevel(int i){ // this is the exact same method as in EGA
 		return game.getTiledMap(i);
+	}
+	
+	public int getCurrentLevel(){
+		return currentLevel;
 	}
 	
 }

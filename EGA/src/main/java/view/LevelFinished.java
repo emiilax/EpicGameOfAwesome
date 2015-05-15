@@ -111,11 +111,11 @@ public class LevelFinished extends GameState {
 	private void select(){
 		if(currentItem == 0){
 			System.out.println("this is next level");
-			gsm.getGame().setLevel(new Level(gsm, gsm.getNextLevel()));
+			gsm.getGame().setLevel(new Level(gsm, gsm.getNextTiledMap()));
 		}
 		if(currentItem == 1){
 			System.out.println("this is the same level");
-			gsm.getGame().setLevel(new Level(gsm, gsm.getCurrentLevel()));
+			gsm.getGame().setLevel(new Level(gsm, gsm.getCurrentTiledMap()));
 		} else if(currentItem == 2){
 			System.out.println("this is menu");
 			gsm.getGame().setLevel(new MenuState(gsm));

@@ -30,41 +30,41 @@ import event.TheEvent;
 
 @Data
 public class EGA implements ApplicationListener, TheChangeListener{
-	
+
 	public static final String TITLE= "The game";
 	public static final int V_WIDTH = 1280;
 	public static final int V_HEIGTH = 720;
 	public static final int SCALE = 1;
 	public static final float STEP = 1/ 60f;
 	private float accum;
-	
+
 	//private SaveHandler saveHandler;
 	private GameData gameData;
-	
+
 	private SpriteBatch sb;
 	private OrthographicCamera cam;
 	private OrthographicCamera hudCam;
-	
+
 	private GameStateManager gsm;
 	private GameState theLevel;
-	
+
 	public static Content res;
-	
+
 	private HashMap<Integer, TiledMap> maps;
 
 	private HashMap<Integer, Texture> finishedBgr;
-	
+
 	private HashMap <Integer, Texture> levelBgr;
 
 	public void create() {
-		
+
 		Gdx.input.setInputProcessor(new MyInputProcessor());
-		
+
 		createPictures();
-		
+
 		SaveHandler.load();
 		//SaveHandler.getGameData();
-		
+
 		EventSupport.getInstance().addListner(this);
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();
@@ -72,15 +72,15 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		gsm = new GameStateManager(this);
 		initHashMap();
 		initLevelBgr();
-		
+
 		theLevel = new MenuState(gsm);
 		gsm.pushState(theLevel);
-		
+
 	}
-	
+
 	public void render() {
 		accum+=Gdx.graphics.getDeltaTime();
-		
+
 		////handleInput();
 		while (accum >= STEP){
 			accum -= STEP;
@@ -91,28 +91,28 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		}
 
 	}
-	
+
 	public void setLevel(GameState state){
 		theLevel = state;
 		gsm.setState(theLevel);
 	}
-	
+
 	/**
 	 * Handles the input from the user
 	 */
 	public void handleInput() {
-	
+
 		if(MyInput.isPressed(MyInput.BUTTON_JUMP)){
-			
+
 			theLevel.handleInput(MyInput.BUTTON_JUMP);
-		
+
 		}
 		if(MyInput.isPressed(MyInput.BUTTON_DOWN)){
 
 			theLevel.handleInput(MyInput.BUTTON_DOWN);
 
 		}
-		
+
 		if(MyInput.isDown(MyInput.BUTTON_FORWARD)){
 
 			theLevel.handleInput(MyInput.BUTTON_FORWARD);
@@ -120,7 +120,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		}else if(MyInput.isDown(MyInput.BUTTON_BACKWARD)){
 
 			theLevel.handleInput(MyInput.BUTTON_BACKWARD);
-			
+
 		}else if(MyInput.isDown(MyInput.BUTTON_ENTER)){
 
 			theLevel.handleInput(MyInput.BUTTON_ENTER);
@@ -129,13 +129,18 @@ public class EGA implements ApplicationListener, TheChangeListener{
 
 			theLevel.handleInput(MyInput.BUTTON_RESTART);
 
+		}else if(MyInput.isDown(MyInput.BUTTON_ESCAPE)){
+
+			theLevel.handleInput(MyInput.BUTTON_ESCAPE);
+
 		}else if(!MyInput.isDown(MyInput.BUTTON_FORWARD) || !MyInput.isDown(MyInput.BUTTON_BACKWARD)){
 
 			theLevel.handleInput(-1);
 
 		}
+		
 	}
-	
+
 	public void dispose() {}
 	public void resize(int arg0, int arg1) {}
 	public void resume() {}
@@ -144,7 +149,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	public void eventRecieved(TheEvent evt) {
 		if(theLevel instanceof Level){	
 			if(evt.getNameOfEvent().equals("spikehit")){
-				setLevel(new Level(gsm, gsm.getCurrentLevel()));
+				setLevel(new Level(gsm, gsm.getCurrentTiledMap()));
 			}
 			if(evt.getNameOfEvent().equals("pause")){
 				theLevel.handleInput(MyInput.BUTTON_PAUSE);
@@ -167,7 +172,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			}
 		}
 	}
-	
+
 	/* 
 	 * @author Rebecka Reitmaier
 	 * creates the Pictures 
@@ -175,7 +180,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	 */
 	private void createPictures(){
 		res = new Content();
-			
+
 		res.loadTexture("res/tiles/bunny.png", "bunny");
 		res.loadTexture("res/stars/star.png", "star");
 		res.loadTexture("res/tiles/hud.png", "hud");
@@ -189,11 +194,11 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		res.loadTexture("res/tiles/leftSpikes_21x16.png", "leftSpike");
 		res.loadTexture("res/tiles/rightSpikes_21x16.png", "rightSpike");
 		res.loadTexture("res/key/key-4.png", "key");
-		
+
 		createMaps();
-	
+
 	}
-	
+
 	/* 
 	 * @author Rebecka Reitmaier
 	 * creates the Maps to levels and puts them in the hashMap maps
@@ -204,14 +209,14 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		TiledMap level1 = new TmxMapLoader().load("res/maps/testmap.tmx");
 		TiledMap level2 = new TmxMapLoader().load("res/maps/testmap2.tmx");
 		TiledMap level3 = new TmxMapLoader().load("res/maps/testmap.tmx");
-		
+
 		maps = new HashMap<Integer, TiledMap>();
 		maps.put(1, level1);
 		maps.put(2, level2);
 		maps.put(3, level3);
-		
-		}
-	
+
+	}
+
 	/*
 	 * @author Rebecka Reitmaier
 	 * getTiledMap is a method returns an object from the hashmap maps
@@ -224,22 +229,25 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		return maps.get(i);
 	}
 
-	
+
 	public void setLevelFinished(int i){
 		LevelFinished state = new LevelFinished(gsm, finishedBgr.get(i), i);
 		setLevel(state);
 	}
-	
+
 	private void initHashMap(){
 		finishedBgr = new HashMap<Integer, Texture>();
 		finishedBgr.put(1,  new Texture("res/menu/lol.jpg"));
+		finishedBgr.put(2,  new Texture("res/menu/lol.jpg"));
+		finishedBgr.put(3,  new Texture("res/menu/lol.jpg"));
+		finishedBgr.put(4,  new Texture("res/menu/lol.jpg"));
 	}
-	
+
 	public void setLevelSelect(int i){
 		LevelSelect state = new LevelSelect(gsm, levelBgr.get(i));
 		setLevel(state);
 	}
-	
+
 	private void initLevelBgr(){
 		levelBgr = new HashMap<Integer, Texture>();
 		levelBgr.put(1,  new Texture("res/menu/domo.jpg"));
