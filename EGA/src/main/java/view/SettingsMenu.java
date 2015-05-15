@@ -18,7 +18,7 @@ import controller.EGA;
 import controller.GameStateManager;
 import controller.SaveHandler;
 
-public class SettingsMenu extends GameState {
+public class SettingsMenu extends GameState implements IMenu {
 	private SpriteBatch sb;
 	private BitmapFont titleFont;
 	private BitmapFont font;
@@ -106,7 +106,7 @@ public class SettingsMenu extends GameState {
 
 	private void select(){
 		if (currentItem == 0){
-			gsm.getGame().setLevel(new ChangeControllMenu(gsm));
+			gsm.getGame().setLevel(new ChangeControlMenu(gsm));
 		}
 		if (currentItem == 1){
 			gsm.getGame().setLevel(new MenuState(gsm));
@@ -202,7 +202,6 @@ public class SettingsMenu extends GameState {
 	
 	public void setCurrentItem(int x, int y){
 		if(rendered){
-			System.out.println(menuItemPositions[1]);
 			for(int i = 0; i < menuItemPositions.length; i++){
 					if(x > menuItemPositions[i].getX() && y > menuItemPositions[i].getY()
 							&& x < menuItemEndPositions[i].getX() &&

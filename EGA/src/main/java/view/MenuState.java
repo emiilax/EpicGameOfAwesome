@@ -27,7 +27,7 @@ import controller.GameStateManager;
 import controller.SaveHandler;
 
 @Data
-public class MenuState extends GameState{
+public class MenuState extends GameState implements IMenu{
 
 	private SpriteBatch sb;
 	private BitmapFont titleFont;

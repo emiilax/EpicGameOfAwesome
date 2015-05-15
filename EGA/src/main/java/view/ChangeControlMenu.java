@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.Point;
+
 import model.GameData;
 import model.MyInput;
 
@@ -19,7 +21,7 @@ import controller.GameStateManager;
 import controller.MyInputProcessor;
 import controller.SaveHandler;
 
-public class ChangeControlMenu extends GameState {
+public class ChangeControlMenu extends GameState implements IMenu{
 
 	private SpriteBatch sb;
 	private BitmapFont titleFont;
@@ -37,6 +39,13 @@ public class ChangeControlMenu extends GameState {
 	private String menuItems[];
 	private String currentButtons[];
 	private boolean changeMode = false;
+	
+	private Point[] menuItemPositions;
+	private Point[] menuItemEndPositions;
+	private Point[] buttonPositions;
+	private Point[] buttonEndPositions;
+	
+	private boolean rendered = false;
 
 	private GameData gd;
 
@@ -48,7 +57,7 @@ public class ChangeControlMenu extends GameState {
 		init();	
 	}
 
-	private void init(){
+	public void init(){
 
 		gd = SaveHandler.getGameData();
 		sb = new SpriteBatch();
@@ -74,6 +83,26 @@ public class ChangeControlMenu extends GameState {
 				""
 		};
 
+		menuItems = new String[]{
+				"Enter: ",
+				"Jump/Menu up: ",
+				"Menu down: ",
+				"Left: " ,
+				"Right: " ,
+				"Pause: " ,
+				"Restart: ",
+				"Escape: ",
+				"BACK"
+		};
+		
+		int length = menuItems.length;
+		menuItemPositions = new Point[length];
+		menuItemEndPositions = new Point[length];
+		buttonPositions = new Point[length];
+		buttonEndPositions = new Point[length];
+
+		rendered = false;
+		
 		currentItem = 0;
 	}
 
@@ -149,18 +178,6 @@ public class ChangeControlMenu extends GameState {
 	@Override
 	public void render() {
 
-		menuItems = new String[]{
-				"Enter: ",
-				"Jump/Menu up: ",
-				"Menu down: ",
-				"Left: " ,
-				"Right: " ,
-				"Pause: " ,
-				"Restart: ",
-				"Escape: ",
-				"BACK"
-		};
-
 		String[] buttons = getCurrentButtons();
 
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -184,20 +201,35 @@ public class ChangeControlMenu extends GameState {
 			} else {
 				font.setColor(Color.WHITE);
 			}
+			
+			int xPosMenuItem = (int) ((EGA.V_WIDTH - smallWidth) - (EGA.V_WIDTH)/2);
+			int yPosMenuItem = 450 - 50 *i;
+			
 			font.draw(
 					sb,
 					menuItems[i],
-					(EGA.V_WIDTH - smallWidth) - (EGA.V_WIDTH)/2,
-					450 - 50 *i
+					xPosMenuItem,
+					yPosMenuItem
 					);
+			
+			int xPosButton = (EGA.V_WIDTH - (EGA.V_WIDTH/2));
+			int yPosButton = 450 - 50 *i;
+			
 			font.draw(
 					sb,
 					buttons[i],
-					(EGA.V_WIDTH - (EGA.V_WIDTH/2)),
-					450 - 50 *i
+					xPosButton,
+					yPosButton
 					);
+			
+			menuItemPositions[i] = new Point(xPosMenuItem,EGA.V_HEIGTH-yPosMenuItem);
+			menuItemEndPositions[i] = new Point(xPosButton+(int)width, 
+					EGA.V_HEIGTH-yPosButton+menuFontSize);
+			
 		}
 		sb.end();
+		
+		rendered = true;
 
 	}
 
@@ -220,6 +252,40 @@ public class ChangeControlMenu extends GameState {
 		if(index < currentButtons.length){
 			currentButtons[index] = key;
 		}
+	}
+
+	public void select(int x, int y) {
+		if(rendered && x > menuItemPositions[currentItem].getX() 
+				&& y > menuItemPositions[currentItem].getY()
+				&& x < menuItemEndPositions[currentItem].getX() 
+				&& y < menuItemEndPositions[currentItem].getY()){
+			selectChange();
+		}
+		
+	}
+
+	public Point[] getMenuItemPositions() {
+		return menuItemPositions;
+	}
+
+	public Point[] getMenuItemEndPositions() {
+		return menuItemEndPositions;
+	}
+
+	public void setCurrentItem(int x, int y) {
+		if(rendered){
+			for(int i = 0; i < menuItemPositions.length; i++){
+					if(isHovered(x, y, i, menuItemPositions[i], menuItemEndPositions[i])){
+						currentItem = i;
+					}
+			}	
+		}		
+	}
+	
+	private boolean isHovered(int x, int y, int i, Point point, Point pointEnd){
+		return (x > point.getX() && y > point.getY()
+		&& x < pointEnd.getX() &&
+		y < pointEnd.getY());
 	}
 
 }

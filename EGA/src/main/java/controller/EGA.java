@@ -3,6 +3,7 @@ package controller;
 import java.util.HashMap;
 
 import view.GameState;
+import view.IMenu;
 import view.Level;
 import view.LevelFinished;
 import view.LevelSelect;
@@ -155,20 +156,12 @@ public class EGA implements ApplicationListener, TheChangeListener{
 				theLevel.handleInput(MyInput.BUTTON_PAUSE);
 			}
 		}
-		if(theLevel instanceof MenuState){
+		if(theLevel instanceof IMenu){
 			if(evt.getNameOfEvent().equals("selectMenuItem")){
-				((MenuState) theLevel).select(evt.getX(), evt.getY());
+				((IMenu) theLevel).select(evt.getX(), evt.getY());
 			}
 			if(evt.getNameOfEvent().equals("currentMenuItem")){
-				((MenuState) theLevel).setCurrentItem(evt.getX(), evt.getY());
-			}
-		}
-		if(theLevel instanceof SettingsMenu){
-			if(evt.getNameOfEvent().equals("selectMenuItem")){
-				((SettingsMenu) theLevel).select(evt.getX(), evt.getY());
-			}
-			if(evt.getNameOfEvent().equals("currentMenuItem")){
-				((SettingsMenu) theLevel).setCurrentItem(evt.getX(), evt.getY());
+				((IMenu) theLevel).setCurrentItem(evt.getX(), evt.getY());
 			}
 		}
 	}
