@@ -186,14 +186,6 @@ public class Level extends GameState{
 		//clear screen
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		// set camera to follow player
-		//cam.position.set(player.getPosition().x * PPM + Game.V_WIDTH / 4,
-		//	Game.V_HEIGTH / 2, 
-		//	0);
-
-		//we never move the cam?
-		//cam.update();
-
 		// draw tile map
 		tmr.setView(cam);
 		tmr.render();
@@ -208,15 +200,10 @@ public class Level extends GameState{
 		for(int i  = 0; i < stars.size; i++){
 			stars.get(i).render(sb);
 		}
-
-		//sb.setProjectionMatrix(hudCam.combined);
-		//hud.render(sb);
 		
 		for(Spike s: spikes){
 			s.render(sb);
 		}
-		
-		//door.render(sb);
 		
 		for(IDoor d: doors){
 			d.render(sb);
@@ -285,7 +272,6 @@ public class Level extends GameState{
 		Array<Body> bodies = cl.getKeysToRemove();
 
 		if(bodies.size > 0 ){
-			//String uData = bodies.get(0).getFixtureList().get(0).getUserData().toString();
 			for(int i = 0; i < bodies.size; i++){
 				Body b = bodies.get(i);
 				keys.removeValue((Key) b.getUserData(), true);
@@ -300,7 +286,6 @@ public class Level extends GameState{
 		Array<Body> bodies = cl.getDoorsToRemove();
 
 		if(bodies.size > 0 && doorIsOpen){
-			//String uData = bodies.get(0).getFixtureList().get(0).getUserData().toString();
 			for(int i = 0; i < bodies.size; i++){
 				Body b = bodies.get(i);
 				doors.removeValue((IDoor) b.getUserData(), true);
@@ -351,8 +336,6 @@ public class Level extends GameState{
 		bdef.position.set(100  / PPM, 45 / PPM);
 		bdef.type = BodyType.DynamicBody;
 		Body body = world.createBody(bdef);
-
-		//player = new Character(body);
 		
 		chc.setBody(body);
 		
@@ -375,10 +358,6 @@ public class Level extends GameState{
 		createLayer(layer, Variables.BIT_GROUND);
 		layer = (TiledMapTileLayer) tiledMap.getLayers().get("platform");
 		createLayer(layer, Variables.BIT_PLATFORM);
-
-		//MapLayer ml = tileMap.getLayers().get("thePlatforms");
-		//testCreateLayer(ml, Variables.BIT_PLATFORM);
-
 	}
 
 	public void testCreateLayer(MapLayer layer, short bits){
@@ -553,10 +532,8 @@ public class Level extends GameState{
 
 			IStar s;
 			if(isSmallStar){
-				//body.setUserData("smallstar");
 				s = new SmallStar(body);
 			} else {
-				//body.setUserData("bigstar");
 				s = new BigStar(body);
 			}
 			stars.add(s);

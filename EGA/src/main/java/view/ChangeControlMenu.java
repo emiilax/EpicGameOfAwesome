@@ -153,7 +153,6 @@ public class ChangeControlMenu extends GameState implements IMenu{
 			break;
 			}
 			changeMode = false;
-			MyInputProcessor.setActive(true);
 			SaveHandler.save();
 		}
 	}
@@ -165,7 +164,6 @@ public class ChangeControlMenu extends GameState implements IMenu{
 		}
 		setCurrentButtons(currentItem, "...");
 		changeMode = true;
-		MyInputProcessor.setActive(false);
 	}
 
 	@Override
