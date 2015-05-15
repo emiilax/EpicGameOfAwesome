@@ -23,6 +23,7 @@ public class ChangeControllMenu extends GameState {
 	private BitmapFont font;
 	private GlyphLayout layout = new GlyphLayout();
 
+	public static Texture backgroundTexture;
 	public static Sprite backgroundSprite;
 
 	private String title = "Settings";
@@ -39,6 +40,7 @@ public class ChangeControllMenu extends GameState {
 		super(gsm);
 		this.gsm = gsm;
 		init();	
+		loadTextures();
 	}
 
 	private void init(){
@@ -85,7 +87,16 @@ public class ChangeControllMenu extends GameState {
 		// TODO Auto-generated method stub
 
 	}
-
+	
+	private void loadTextures() {
+		backgroundTexture = new Texture("res/menu/emilsmamma.jpg");
+		backgroundSprite =new Sprite(backgroundTexture);
+	}
+	
+	public void renderBackground() {
+		backgroundSprite.draw(sb);
+	}
+	
 	@Override
 	public void render() {
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -94,7 +105,7 @@ public class ChangeControllMenu extends GameState {
 		sb.setProjectionMatrix(cam.combined);
 
 		sb.begin();
-		//renderBackground();
+		renderBackground();
 
 		layout.setText(titleFont, title);
 		float width = layout.width;
