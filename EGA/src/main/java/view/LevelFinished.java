@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.Point;
+
 import model.EGATimer;
 import model.GameData;
 import model.MyInput;
@@ -18,7 +20,7 @@ import controller.EGA;
 import controller.GameStateManager;
 import controller.SaveHandler;
 
-public class LevelFinished extends GameState {
+public class LevelFinished extends GameState implements IMenu{
 	
 	private SpriteBatch sb;
 	private BitmapFont titleFont;
@@ -37,6 +39,11 @@ public class LevelFinished extends GameState {
 	private int level;
 	private int currentItem;
 	private String menuItems[];
+	
+	private Point[] menuItemPositions;
+	private Point[] menuItemEndPositions;
+	
+	private boolean rendered = false;
 
 	private GameStateManager gsm;
 	private EGATimer timer;
@@ -72,6 +79,11 @@ public class LevelFinished extends GameState {
 		setTimeString();
 		
 		SaveHandler.save();
+		
+		menuItemPositions = new Point[menuItems.length];
+		menuItemEndPositions = new Point[menuItems.length];
+		
+		rendered = false;
 	}
 	
 	private void setTimeString(){
@@ -150,15 +162,24 @@ public class LevelFinished extends GameState {
 			} else {
 				font.setColor(Color.WHITE);
 			}
+			
+			int xPos = (int) ((EGA.V_WIDTH - width) / 2);
+			int yPos = 300 - 70 *i;
+			
+			menuItemPositions[i] = new Point(xPos,EGA.V_HEIGTH-yPos);
+			menuItemEndPositions[i] = new Point(xPos+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
+			
 			font.draw(
 					sb,
 					menuItems[i],
-					(EGA.V_WIDTH - width) / 2,
-					300 - 70 *i
+					xPos,
+					yPos
 					);
 		}
 
 		sb.end();
+		
+		rendered = true;
 
 	}
 	
@@ -170,6 +191,36 @@ public class LevelFinished extends GameState {
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
+		
+	}
+
+	public void select(int x, int y) {
+		if(rendered && x > menuItemPositions[currentItem].getX() 
+				&& y > menuItemPositions[currentItem].getY()
+				&& x < menuItemEndPositions[currentItem].getX() 
+				&& y < menuItemEndPositions[currentItem].getY()){
+			select();
+		}
+	}
+
+	public Point[] getMenuItemPositions() {
+		return menuItemPositions;
+	}
+
+	public Point[] getMenuItemEndPositions() {
+		return menuItemEndPositions;
+	}
+
+	public void setCurrentItem(int x, int y) {
+		if(rendered){
+			for(int i = 0; i < menuItemPositions.length; i++){
+					if(x > menuItemPositions[i].getX() && y > menuItemPositions[i].getY()
+							&& x < menuItemEndPositions[i].getX() &&
+							y < menuItemEndPositions[i].getY()){
+						currentItem = i;
+					}
+			}	
+		}
 		
 	}
 }

@@ -8,7 +8,6 @@ import java.awt.Point;
  * interface for menus
  */
 public interface IMenu {
-	public void init();
 	public void handleInput(int i);
 	public void select(int x, int y);
 	public void render();

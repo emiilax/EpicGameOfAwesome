@@ -10,6 +10,11 @@ import event.EventSupport;
 
 public class MyInputProcessor extends InputAdapter{
 	private static int pressed;
+	private static boolean active = true;
+	
+	public static void setActive(boolean act){
+		active = act;
+	}
 	
 	
 	@Override
@@ -75,15 +80,21 @@ public class MyInputProcessor extends InputAdapter{
 	
 	@Override
 	public boolean touchDown(int x, int y, int pointer, int button){
-		EventSupport.getInstance().fireNewEvent("selectMenuItem", x, y);
+		if(active){
+			EventSupport.getInstance().fireNewEvent("selectMenuItem", x, y);
 		
-		return true;
+			return true;
+		}
+		return false;
 	}
 	
 	@Override
 	public boolean mouseMoved(int x, int y){
-		EventSupport.getInstance().fireNewEvent("currentMenuItem", x, y);
-		return true;
+		if (active){
+			EventSupport.getInstance().fireNewEvent("currentMenuItem", x, y);
+			return true;
+		} 
+		return false;
 	}
 
 }

@@ -42,8 +42,8 @@ public class ChangeControlMenu extends GameState implements IMenu{
 	
 	private Point[] menuItemPositions;
 	private Point[] menuItemEndPositions;
-	private Point[] buttonPositions;
-	private Point[] buttonEndPositions;
+	
+	private boolean gotInput = false;
 	
 	private boolean rendered = false;
 
@@ -57,7 +57,7 @@ public class ChangeControlMenu extends GameState implements IMenu{
 		init();	
 	}
 
-	public void init(){
+	private void init(){
 
 		gd = SaveHandler.getGameData();
 		sb = new SpriteBatch();
@@ -98,9 +98,6 @@ public class ChangeControlMenu extends GameState implements IMenu{
 		int length = menuItems.length;
 		menuItemPositions = new Point[length];
 		menuItemEndPositions = new Point[length];
-		buttonPositions = new Point[length];
-		buttonEndPositions = new Point[length];
-
 		rendered = false;
 		
 		currentItem = 0;
@@ -118,11 +115,11 @@ public class ChangeControlMenu extends GameState implements IMenu{
 					currentItem++;
 				}
 			}else if (i == MyInput.BUTTON_ESCAPE){
-				gsm.getGame().setLevel(new MenuState(gsm));
+				gsm.getGame().setLevel(new SettingsMenu(gsm));
 			} else if (i == MyInput.BUTTON_ENTER) { 
 				selectChange();
 			}
-		} else {changeButton(); }
+		} else {changeButton();}
 	}
 
 	private void changeButton(){
@@ -156,6 +153,7 @@ public class ChangeControlMenu extends GameState implements IMenu{
 			break;
 			}
 			changeMode = false;
+			MyInputProcessor.setActive(true);
 			SaveHandler.save();
 		}
 	}
@@ -163,10 +161,11 @@ public class ChangeControlMenu extends GameState implements IMenu{
 
 	private void selectChange(){
 		if(currentItem == 8){
-			gsm.getGame().setLevel(new MenuState(gsm));
+			gsm.getGame().setLevel(new SettingsMenu(gsm));
 		}
 		setCurrentButtons(currentItem, "...");
 		changeMode = true;
+		MyInputProcessor.setActive(false);
 	}
 
 	@Override
@@ -261,6 +260,14 @@ public class ChangeControlMenu extends GameState implements IMenu{
 				&& y < menuItemEndPositions[currentItem].getY()){
 			selectChange();
 		}
+		
+	}
+	
+	private void waitForInput(){
+		while(!gotInput){
+			waitForInput();
+		}
+		changeButton();
 		
 	}
 

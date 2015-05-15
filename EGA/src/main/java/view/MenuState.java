@@ -63,7 +63,7 @@ public class MenuState extends GameState implements IMenu{
 		loadTextures();
 	}
 
-	public void init(){
+	private void init(){
 		sb = new SpriteBatch();
 
 
