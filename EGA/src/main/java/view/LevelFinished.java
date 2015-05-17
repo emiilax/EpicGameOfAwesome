@@ -92,10 +92,10 @@ public class LevelFinished extends GameState implements IMenu{
 		GameData gd = SaveHandler.getGameData();
 		
 		if(gd.isBetterTime(level, timePassed)){
-			title = "Nytt rekord! " + "\n" + "Din tid blev: " +  Float.toString(timePassed);
+			title = "New Record!" + "\n" + "Your time was: " +  Float.toString(timePassed);
 		} else {
-			title = "Din tid blev: " + "\n" + Float.toString(timePassed) 
-					+ "\n" + "Din b�sta tid: " + "\n" + Float.toString(gd.getTime(level));
+			title = "Your time: " + Float.toString(timePassed) 
+					+ "\n" + "Your best time: " + Float.toString(gd.getTime(level));
 		}
 		gd.addTime(level, timePassed);
 		SaveHandler.setGameData(gd);

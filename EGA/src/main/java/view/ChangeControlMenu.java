@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Point;
+import java.util.List;
 
 import model.GameData;
 import model.MyInput;
@@ -39,12 +40,12 @@ public class ChangeControlMenu extends GameState implements IMenu{
 	private String menuItems[];
 	private String currentButtons[];
 	private boolean changeMode = false;
-	
+
 	private Point[] menuItemPositions;
 	private Point[] menuItemEndPositions;
-	
+
 	private boolean gotInput = false;
-	
+
 	private boolean rendered = false;
 
 	private GameData gd;
@@ -94,12 +95,12 @@ public class ChangeControlMenu extends GameState implements IMenu{
 				"Escape: ",
 				"BACK"
 		};
-		
+
 		int length = menuItems.length;
 		menuItemPositions = new Point[length];
 		menuItemEndPositions = new Point[length];
 		rendered = false;
-		
+
 		currentItem = 0;
 	}
 
@@ -124,36 +125,41 @@ public class ChangeControlMenu extends GameState implements IMenu{
 
 	private void changeButton(){
 		int key = MyInputProcessor.getPressed();
+		List<Integer> keys = gd.getKeysList();
+		
 		if(key != gd.enter){
-			System.out.println("entered");
-			switch(currentItem){
-			case 0: gd.enter = key; 
-			setCurrentButtons(currentItem, Keys.toString(gd.enter));
-			break;
-			case 1: gd.up = key; 
-			setCurrentButtons(currentItem, Keys.toString(gd.up));
-			break;
-			case 2: gd.down = key; 
-			setCurrentButtons(currentItem, Keys.toString(gd.down));
-			break;
-			case 3: gd.left = key; 
-			setCurrentButtons(currentItem, Keys.toString(gd.left));
-			break;
-			case 4: gd.right = key; 
-			setCurrentButtons(currentItem, Keys.toString(gd.right));
-			break;
-			case 5: gd.pause = key; 
-			setCurrentButtons(currentItem, Keys.toString(gd.pause));
-			break;
-			case 6: gd.restart = key; 
-			setCurrentButtons(currentItem, Keys.toString(gd.restart));
-			break;
-			case 7: gd.escape = key; 
-			setCurrentButtons(currentItem, Keys.toString(gd.escape));
-			break;
+			//keys.remove(currentItem);
+			if(!keys.contains(key)){
+				switch(currentItem){
+				case 0: gd.enter = key; 
+				setCurrentButtons(currentItem, Keys.toString(gd.enter));
+				break;
+				case 1: gd.up = key; 
+				setCurrentButtons(currentItem, Keys.toString(gd.up));
+				break;
+				case 2: gd.down = key; 
+				setCurrentButtons(currentItem, Keys.toString(gd.down));
+				break;
+				case 3: gd.left = key; 
+				setCurrentButtons(currentItem, Keys.toString(gd.left));
+				break;
+				case 4: gd.right = key; 
+				setCurrentButtons(currentItem, Keys.toString(gd.right));
+				break;
+				case 5: gd.pause = key; 
+				setCurrentButtons(currentItem, Keys.toString(gd.pause));
+				break;
+				case 6: gd.restart = key; 
+				setCurrentButtons(currentItem, Keys.toString(gd.restart));
+				break;
+				case 7: gd.escape = key; 
+				setCurrentButtons(currentItem, Keys.toString(gd.escape));
+				break;
+				}
+				changeMode = false;
+				gd.updateList();
+				SaveHandler.save();
 			}
-			changeMode = false;
-			SaveHandler.save();
 		}
 	}
 
@@ -198,34 +204,34 @@ public class ChangeControlMenu extends GameState implements IMenu{
 			} else {
 				font.setColor(Color.WHITE);
 			}
-			
+
 			int xPosMenuItem = (int) ((EGA.V_WIDTH - smallWidth) - (EGA.V_WIDTH)/2);
 			int yPosMenuItem = 450 - 50 *i;
-			
+
 			font.draw(
 					sb,
 					menuItems[i],
 					xPosMenuItem,
 					yPosMenuItem
 					);
-			
+
 			int xPosButton = (EGA.V_WIDTH - (EGA.V_WIDTH/2));
 			int yPosButton = 450 - 50 *i;
-			
+
 			font.draw(
 					sb,
 					buttons[i],
 					xPosButton,
 					yPosButton
 					);
-			
+
 			menuItemPositions[i] = new Point(xPosMenuItem,EGA.V_HEIGTH-yPosMenuItem);
 			menuItemEndPositions[i] = new Point(xPosButton+(int)width, 
 					EGA.V_HEIGTH-yPosButton+menuFontSize);
-			
+
 		}
 		sb.end();
-		
+
 		rendered = true;
 
 	}
@@ -258,15 +264,15 @@ public class ChangeControlMenu extends GameState implements IMenu{
 				&& y < menuItemEndPositions[currentItem].getY()){
 			selectChange();
 		}
-		
+
 	}
-	
+
 	private void waitForInput(){
 		while(!gotInput){
 			waitForInput();
 		}
 		changeButton();
-		
+
 	}
 
 	public Point[] getMenuItemPositions() {
@@ -280,17 +286,17 @@ public class ChangeControlMenu extends GameState implements IMenu{
 	public void setCurrentItem(int x, int y) {
 		if(rendered){
 			for(int i = 0; i < menuItemPositions.length; i++){
-					if(isHovered(x, y, i, menuItemPositions[i], menuItemEndPositions[i])){
-						currentItem = i;
-					}
+				if(isHovered(x, y, i, menuItemPositions[i], menuItemEndPositions[i])){
+					currentItem = i;
+				}
 			}	
 		}		
 	}
-	
+
 	private boolean isHovered(int x, int y, int i, Point point, Point pointEnd){
 		return (x > point.getX() && y > point.getY()
-		&& x < pointEnd.getX() &&
-		y < pointEnd.getY());
+				&& x < pointEnd.getX() &&
+				y < pointEnd.getY());
 	}
 
 }
