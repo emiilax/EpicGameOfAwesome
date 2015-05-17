@@ -61,6 +61,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		Gdx.input.setInputProcessor(new MyInputProcessor());
 		
 		res = new Content();
+		
 		//load pictures, borde ligga i view
 		res.loadTexture("res/tiles/bunny.png", "bunny");
 		res.loadTexture("res/stars/star.png", "star");

@@ -11,76 +11,57 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
+/**
+ * 
+ * @author Emil Axelsson
+ *
+ * The controller class for the Character. Extends EntityController 
+ */
 @Data
 public class CharacterController extends EntityController{
 	
 	
-	//private Body body;
+
 	private PolygonShape shape;
 	private FixtureDef fDef;
-
-	private boolean isBig;
 	
+	/** A variable who tells whether its big or not */
+	private boolean isBig;
+
+	/** Variable who holds the velocity in the x direction */
 	private float xVelocity;
+	/** Variable who holds the velocity in the x direction */
 	private float yVelocity;
 	
+	/** Variable for the current jumpforce, depends on whether its big or not*/
 	private float currentJumpForce;
+	/** Variable for the current speed, depends on whether its big or not*/
 	private float currentSpeed;
 	
+	/** Variable for the current width of the character, depends on whether its big or not*/
 	private float currentWidth;
+	/** Variable for the current heigth of the character, depends on whether its big or not*/
 	private float currentHeigth;
 	
-	//private CharacterModel theModel;
-	//private CharacterView theView;
-	
-	
+	/**
+	 * Constructor who has a CharacterModel and CharacterView as inputs
+	 * @param chModel, the CharacterModel
+	 * @param chView, the CharacterView
+	 */
 	public CharacterController(CharacterModel chModel, CharacterView chView){
 		super(chModel, chView);
-		
-		/*
-		theModel = chModel;
-		theView  = chView;
-		
-		theModel.addObserver(chView);
-		*/
+
 		setIsBig(false);
 		
 		((CharacterView)getTheView()).setTexture(isBig);
 		
 		shape = new PolygonShape();
 		fDef = new FixtureDef();
-		
-		//setFixtureDef(currentWidth, currentHeigth);
-		
+	
 	}
+
 	
-	/*
-	public CharacterController(CharacterModel chModel, CharacterView chView, Body body){
-		super(chModel, chView);
-		theModel = chModel;
-		theView  = chView;
-		
-		theModel.addObserver(chView);
-		
-		//this.body = body;
-		
-		setIsBig(false);
-		
-		theView.setTexture(isBig);
-		shape = new PolygonShape();
-		fDef = new FixtureDef();
-		
-		setFixtureDef(currentWidth, currentHeigth);
-		
-		
-	}*/
-	
-	/*
-	public void setSpriteBatch(SpriteBatch sb){
-		theView.setSpriteBatch(sb);
-	};*/
-	
-	
+	@Override
 	public void setBody(Body body){
 
 		super.setBody(body);
@@ -90,6 +71,7 @@ public class CharacterController extends EntityController{
 		playerBody.setLinearVelocity(xVelocity, yVelocity);
 		setFixtureDef(currentWidth, currentHeigth);
 	}
+	
 	
 	public void setFixtureDef(float width, float heigth){
 		shape = new PolygonShape();
@@ -154,9 +136,6 @@ public class CharacterController extends EntityController{
 		//setAnimation(sprites, 1 / 12f);
 	}
 	
-	/*public Vector2 getPosition(){
-		return body.getPosition();
-	}*/
 	
 	public void setCurrentVelocity(){
 		Body playerBody = this.getBody();
@@ -186,31 +165,13 @@ public class CharacterController extends EntityController{
 
 	}
 	
+	/**
+	 * Method 
+	 */
 	public void stop(){
 		Body playerBody = this.getBody();
 		yVelocity = playerBody.getLinearVelocity().y;
 		playerBody.setLinearVelocity(0, yVelocity);
 	}
-	
-	/*
-	public void render(){
-		theModel.setPosition(body.getPosition().x, body.getPosition().y);
-	}*/
-	
-	/*
-	public void update(float dt){
-		theView.update(dt);
-	}*/
-	
-	/*
-	public void removeSensors(){
-		try{
-			this.body.getFixtureList().clear();
-		}catch(NullPointerException e){}
-	}
-	
-	public void setSensor(FixtureDef fdef, String userData){
-		body.createFixture(fdef).setUserData(userData);
-	}*/
-	
+
 }

@@ -1,5 +1,18 @@
 package model;
 
+import java.awt.AWTException;
+import java.awt.HeadlessException;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
+import javax.imageio.ImageIO;
+
 import view.OpenDoor;
 import view.GameState;
 import view.Key;
@@ -92,6 +105,7 @@ public class MyContactListener implements ContactListener{
 			
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("lockedDoor")){
+			
 			System.out.println("Ball in contact with the locked-door!");
 			doorsToRemove.add(fb.getBody());
 		}

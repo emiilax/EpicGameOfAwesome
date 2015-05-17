@@ -43,7 +43,7 @@ import controller.GameStateManager;
 @Data
 public class Level extends GameState{
 
-	private boolean debug = true;
+	private boolean debug = false;
 
 	private World world;
 	private Box2DDebugRenderer b2br;
@@ -470,6 +470,8 @@ public class Level extends GameState{
 		world.createBody(bdef).createFixture(fdef);
 
 	}
+	
+	
 
 	/**
 	 * Creates the stars on the map
@@ -486,6 +488,47 @@ public class Level extends GameState{
 		loopInStars(layer,false);
 
 	}
+	
+	
+	public void loopEntities(MapLayer layer){
+		String layerName = layer.getName();
+		BodyDef bdef = new BodyDef();
+		
+		for(MapObject mo: layer.getObjects()){
+			
+			bdef.type = BodyType.StaticBody;
+
+			float x = mo.getProperties().get("x", Float.class) / PPM;
+			float y = mo.getProperties().get("y", Float.class) / PPM;
+
+			bdef.position.set(x, y);
+
+			Body body = world.createBody(bdef);
+			switch(layerName){
+		
+			case "star":
+				SmallStar s = new SmallStar(body);
+				body.setUserData(s);
+				stars.add(s);
+			
+			case "bigStars":
+				BigStar b = new BigStar(body);
+				body.setUserData(b);
+				stars.add(b);
+				
+			case "lockedDoor":
+				LockedDoor ld = new LockedDoor(body, "lockedDoor");
+			
+			case "openDoor":
+				
+			}
+			
+			
+		}
+		
+	}
+	
+	
 	
 	private void createLockedDoors(){
 		// Create LockedDoors

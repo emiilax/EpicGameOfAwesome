@@ -21,6 +21,8 @@ public class MyInputProcessor extends InputAdapter{
 			MyInput.setKey(MyInput.BUTTON_JUMP, true);
 			
 		}
+		
+		Keys.toString(19);
 		if(k == Keys.DOWN){
 			MyInput.setKey(MyInput.BUTTON_DOWN, true);
 		} 
