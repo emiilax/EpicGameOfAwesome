@@ -20,7 +20,7 @@ import controller.EGA;
 import controller.GameStateManager;
 import controller.SaveHandler;
 
-public class LevelFinished extends GameState implements IMenu{
+public class LevelSelect extends GameState implements IMenu {
 	
 	private SpriteBatch sb;
 	private BitmapFont titleFont;
@@ -37,7 +37,7 @@ public class LevelFinished extends GameState implements IMenu{
 	private int titleFontSize = 50;
 	private int menuFontSize = 50;
 	private int level;
-	private int currentItem;
+	private int currentItem1;
 	private String menuItems[];
 	
 	private Point[] menuItemPositions;
@@ -48,11 +48,10 @@ public class LevelFinished extends GameState implements IMenu{
 	private GameStateManager gsm;
 	private EGATimer timer;
 	
-	public LevelFinished(GameStateManager gsm, Texture backgroundTexture, int level){
+	public LevelSelect(GameStateManager gsm, Texture backgroundTexture){
 		super(gsm);
 		this.gsm = gsm;
 		this.backgroundTexture = backgroundTexture;
-		this.level = level;
 	//	gd = SaveHandler.getGameData();
 		init();
 		
@@ -71,12 +70,12 @@ public class LevelFinished extends GameState implements IMenu{
 		font = gen.generateFont(menuFontSize);
 
 		menuItems = new String[]{
-				"Next Level",
-				"Replay",
-				"Main Menu",
+				"Level 1",
+				"Level 2",
+				"Back",
 		};
 		
-		setTimeString();
+		setTitle();
 		
 		SaveHandler.save();
 		
@@ -86,32 +85,21 @@ public class LevelFinished extends GameState implements IMenu{
 		rendered = false;
 	}
 	
-	private void setTimeString(){
-		timer = EGATimer.getTimer();
-		Float timePassed = timer.getTimePassed();
-		GameData gd = SaveHandler.getGameData();
-		
-		if(gd.isBetterTime(level, timePassed)){
-			title = "Nytt rekord! " + "\n" + "Din tid blev: " +  Float.toString(timePassed);
-		} else {
-			title = "Din tid blev: " + "\n" + Float.toString(timePassed) 
-					+ "\n" + "Din b�sta tid: " + "\n" + Float.toString(gd.getTime(level));
-		}
-		gd.addTime(level, timePassed);
-		SaveHandler.setGameData(gd);
+	private void setTitle(){
+		title = "This is Level Select!";
 	}
 
 	@Override
 	public void handleInput(int i) {
 		switch(i){
 		case MyInput.BUTTON_JUMP:
-			if(currentItem > 0){
-				currentItem --;
+			if(currentItem1 > 0){
+				currentItem1 --;
 			}
 			break;
 		case MyInput.BUTTON_DOWN:
-			if(currentItem < menuItems.length-1){
-				currentItem++;
+			if(currentItem1 < menuItems.length-1){
+				currentItem1++;
 			}
 			break;
 		case MyInput.BUTTON_ENTER:
@@ -121,16 +109,16 @@ public class LevelFinished extends GameState implements IMenu{
 	}
 	
 	private void select(){
-		if(currentItem == 0){
-			System.out.println("this is next level");
-			gsm.getGame().setLevel(new Level(gsm, gsm.getNextTiledMap()));
+		if(currentItem1 == 0){ //this is selected directly if enter is pressed to long
+			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(1)));
+			System.out.print("Select level 1");
 		}
-		if(currentItem == 1){
-			System.out.println("this is the same level");
-			gsm.getGame().setLevel(new Level(gsm, gsm.getCurrentTiledMap()));
-		} else if(currentItem == 2){
-			System.out.println("this is menu");
+		if(currentItem1 == 1){
+			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(2)));
+			System.out.print("Select level 2");
+		} else if(currentItem1 == 2){
 			gsm.getGame().setLevel(new MenuState(gsm));
+			System.out.print("Menu");
 		}
 	}
 
@@ -157,7 +145,7 @@ public class LevelFinished extends GameState implements IMenu{
 
 		for(int i = 0; i < menuItems.length; i++){
 			layout.setText(font, menuItems[i]);
-			if(currentItem == i){
+			if(currentItem1 == i){
 				font.setColor(Color.RED);
 			} else {
 				font.setColor(Color.WHITE);
@@ -176,11 +164,10 @@ public class LevelFinished extends GameState implements IMenu{
 					yPos
 					);
 		}
-
 		sb.end();
 		
 		rendered = true;
-
+		
 	}
 	
 	private void renderBackground(){
@@ -195,10 +182,10 @@ public class LevelFinished extends GameState implements IMenu{
 	}
 
 	public void select(int x, int y) {
-		if(rendered && x > menuItemPositions[currentItem].getX() 
-				&& y > menuItemPositions[currentItem].getY()
-				&& x < menuItemEndPositions[currentItem].getX() 
-				&& y < menuItemEndPositions[currentItem].getY()){
+		if(rendered && x > menuItemPositions[currentItem1].getX() 
+				&& y > menuItemPositions[currentItem1].getY()
+				&& x < menuItemEndPositions[currentItem1].getX() 
+				&& y < menuItemEndPositions[currentItem1].getY()){
 			select();
 		}
 	}
@@ -217,7 +204,7 @@ public class LevelFinished extends GameState implements IMenu{
 					if(x > menuItemPositions[i].getX() && y > menuItemPositions[i].getY()
 							&& x < menuItemEndPositions[i].getX() &&
 							y < menuItemEndPositions[i].getY()){
-						currentItem = i;
+						currentItem1 = i;
 					}
 			}	
 		}

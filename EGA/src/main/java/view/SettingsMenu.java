@@ -2,11 +2,9 @@ package view;
 
 import java.awt.Point;
 
-import lombok.Data;
 import model.MyInput;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,36 +12,25 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import controller.EGA;
 import controller.GameStateManager;
 import controller.SaveHandler;
 
-@Data
-public class MenuState extends GameState implements IMenu{
-
+public class SettingsMenu extends GameState implements IMenu {
 	private SpriteBatch sb;
 	private BitmapFont titleFont;
 	private BitmapFont font;
-	private BitmapFont subFont;
 	private GlyphLayout layout = new GlyphLayout();
 
 	public static Texture backgroundTexture;
 	public static Sprite backgroundSprite;
 
-	private final String title = "EGA";
-	private final String subTitle = "Epic Game Of Awesome";
-
-	private int titleFontSize = 150;
+	private final String title = "Settings";
+	
+	private int titleFontSize = 70;
 	private int menuFontSize = 50;
-	private int subTitleFontSize = 28;
 
 	private int currentItem;
 	private String menuItems[];
@@ -56,7 +43,7 @@ public class MenuState extends GameState implements IMenu{
 	private boolean rendered;
 
 
-	public MenuState(GameStateManager gsm) {
+	public SettingsMenu(GameStateManager gsm) {
 		super(gsm);
 		this.gsm = gsm;
 		init();
@@ -75,18 +62,14 @@ public class MenuState extends GameState implements IMenu{
 		titleFont.setColor(Color.WHITE);
 
 		font = gen.generateFont(menuFontSize);
-		subFont = gen.generateFont(subTitleFontSize);
 
 		menuItems = new String[]{
-				"Play",
-				"Level Select",
-				"Settings",
-				"Quit"
+				"CONTROLS! bitch",
+				"Back!"
 		};
 		
 		menuItemPositions = new Point[menuItems.length];
 		menuItemEndPositions = new Point[menuItems.length];
-		
 		
 		rendered = false;
 	}
@@ -123,25 +106,15 @@ public class MenuState extends GameState implements IMenu{
 
 	private void select(){
 		if (currentItem == 0){
-			gsm.getGame().setLevel(new Level(gsm, gsm.getCurrentTiledMap()));
+			gsm.getGame().setLevel(new ChangeControlMenu(gsm));
 		}
 		if (currentItem == 1){
-			System.out.println("Level select!");
-			gsm.getGame().setLevelSelect(1);
-			//gsm.getGame().setLevelFinished(1);
-
-		}
-		if (currentItem == 2){
-			gsm.getGame().setLevel(new SettingsMenu(gsm));
-		}
-		if(currentItem == 3){
-			SaveHandler.save();
-			Gdx.app.exit();
+			gsm.getGame().setLevel(new MenuState(gsm));
 		}
 	}
 	
 	public void select(int x, int y){
-		if(x > menuItemPositions[currentItem].getX() 
+		if(rendered && x > menuItemPositions[currentItem].getX() 
 				&& y > menuItemPositions[currentItem].getY()
 				&& x < menuItemEndPositions[currentItem].getX() 
 				&& y < menuItemEndPositions[currentItem].getY()){
@@ -210,7 +183,7 @@ public class MenuState extends GameState implements IMenu{
 			titleHeight -= 2;
 		} 
 		titleFont.draw(sb, title, (EGA.V_WIDTH-width) / 2, titleHeight);
-		subFont.draw(sb, subTitle, (EGA.V_WIDTH-width) / 2, titleHeight-120);
+		
 	}
 
 	@Override
@@ -233,10 +206,9 @@ public class MenuState extends GameState implements IMenu{
 					if(x > menuItemPositions[i].getX() && y > menuItemPositions[i].getY()
 							&& x < menuItemEndPositions[i].getX() &&
 							y < menuItemEndPositions[i].getY()){
-							currentItem = i;
+						currentItem = i;
 					}
 			}	
 		}
 	}
-
 }
