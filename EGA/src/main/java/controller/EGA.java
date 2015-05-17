@@ -125,11 +125,18 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		gsm.setState(theLevel);
 	}
 
+	GameState prevState = null;
 	/**
 	 * Handles the input from the user
 	 */
 	public void handleInput() {
-
+		
+		// Reset keys when theLevel changes
+		if(!(theLevel.equals(prevState))){
+			MyInput.setAllKeysFalse();
+		}
+		prevState = theLevel;
+		
 		if(MyInput.isPressed(MyInput.BUTTON_JUMP)){
 
 			theLevel.handleInput(MyInput.BUTTON_JUMP);
@@ -166,6 +173,8 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			theLevel.handleInput(-1);
 
 		}
+		
+		
 		
 	}
 

@@ -41,4 +41,10 @@ public class MyInput {
 		return keys[i] && !pkeys[i];
 	}		
 	
+	public static void setAllKeysFalse(){
+		for(int i = 0; i < keys.length; i++){
+			keys[i] = false;
+			pkeys[i] = false;
+		}
+	}
 }

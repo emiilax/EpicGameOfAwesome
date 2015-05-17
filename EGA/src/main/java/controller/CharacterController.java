@@ -60,7 +60,10 @@ public class CharacterController extends EntityController{
 	
 	}
 
-	
+	/**
+	 * Sets the body of the character. The current velocity 
+	 * is also applied to it
+	 */
 	@Override
 	public void setBody(Body body){
 
@@ -72,7 +75,11 @@ public class CharacterController extends EntityController{
 		setFixtureDef(currentWidth, currentHeigth);
 	}
 	
-	
+	/**
+	 * Sets the hitbox for the player.
+	 * @param width, the width of the hitbox
+	 * @param heigth, the heigth of the hitbox
+	 */
 	public void setFixtureDef(float width, float heigth){
 		shape = new PolygonShape();
 		fDef = new FixtureDef();
@@ -93,7 +100,9 @@ public class CharacterController extends EntityController{
 		setSensor(fDef, "foot");
 	}
 	
-	
+	/**
+	 * Sets the variables depending on if character is big or small
+	 */
 	public void setIsBig(boolean truFal){
 		isBig = truFal;
 		
@@ -113,6 +122,9 @@ public class CharacterController extends EntityController{
 		}
 	}
 	
+	/**
+	 * Method called when character collides with big-star
+	 */
 	public void collectGrowStar() { 
 		//Ta bort?
 		//numCrystals++; 
@@ -123,7 +135,10 @@ public class CharacterController extends EntityController{
 		((CharacterView)getTheView()).setTexture(isBig);
 		//setAnimation(sprites, 1 / 12f);
 	}
-
+	
+	/**
+	 * Method called when character collides with small-star
+	 */
 	public void collectShrinkStar() { 
 		//Ta bort?
 		//numCrystals++; 
@@ -136,7 +151,9 @@ public class CharacterController extends EntityController{
 		//setAnimation(sprites, 1 / 12f);
 	}
 	
-	
+	/**
+	 * Sets current speed of Character-body
+	 */
 	public void setCurrentVelocity(){
 		Body playerBody = this.getBody();
 		
@@ -144,11 +161,17 @@ public class CharacterController extends EntityController{
 		xVelocity = playerBody.getLinearVelocity().x;
 	}
 	
+	/**
+	 * Makes the Character-body jump
+	 */
 	public void jump(){
 		Body playerBody = this.getBody();
 		playerBody.applyForceToCenter(0, currentJumpForce, true);
 	}
 	
+	/**
+	 * Moves the Character-body forward
+	 */
 	public void moveForward(){
 		
 		Body playerBody = this.getBody();
@@ -158,6 +181,9 @@ public class CharacterController extends EntityController{
 
 	}
 	
+	/**
+	 * Moves the Character-body backwards
+	 */
 	public void moveBackward(){
 		Body playerBody = this.getBody();
 		yVelocity = playerBody.getLinearVelocity().y;
@@ -166,7 +192,7 @@ public class CharacterController extends EntityController{
 	}
 	
 	/**
-	 * Method 
+	 * Stops the Character-body from moving
 	 */
 	public void stop(){
 		Body playerBody = this.getBody();
