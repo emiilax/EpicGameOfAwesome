@@ -23,14 +23,21 @@ public class MyInputProcessor extends InputAdapter{
 		if(k == gd.right){
 			MyInput.setKey(MyInput.BUTTON_FORWARD, true);
 		}
+		
 		if(k == gd.left){
 			MyInput.setKey(MyInput.BUTTON_BACKWARD, true);
 		}
 		if(k == gd.up){
 			MyInput.setKey(MyInput.BUTTON_JUMP, true);
 		}
-		if(k == gd.down){
-			MyInput.setKey(MyInput.BUTTON_DOWN, true);
+
+		
+		Keys.toString(19);
+		if(k == Keys.DOWN){
+		
+			if(k == gd.down){
+				MyInput.setKey(MyInput.BUTTON_DOWN, true);
+			}
 		} 
 		if(k == gd.enter){
 			MyInput.setKey(MyInput.BUTTON_ENTER, true);

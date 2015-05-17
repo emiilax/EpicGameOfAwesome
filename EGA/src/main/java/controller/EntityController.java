@@ -8,6 +8,13 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import view.EntityView;
 import lombok.Data;
 import model.EntityModel;
+/**
+ * 
+ * @author Emil Axelsson
+ *
+ * Abstract controller super-class for all the
+ * entities. 
+ */
 
 @Data
 public abstract class EntityController {
@@ -15,9 +22,15 @@ public abstract class EntityController {
 	
 	private EntityModel theModel;
 	private EntityView theView;
-	
 	private Body body;
 	
+	/**
+	 * Constructor who has an EntityModel and an EntityView as inputs. 
+	 * The model- and view -subclasses extends these two superclasses
+	 * 
+	 * @param em, the EntityModel
+	 * @param ev, the entityView
+	 */
 	public EntityController(EntityModel em, EntityView ev){
 		
 		theModel = em;
@@ -27,19 +40,36 @@ public abstract class EntityController {
 		
 	}
 	
-	
+	/**
+	 * Is called in the level class. Updates the position in model. 
+	 */
 	public void render(){
-		theModel.setPosition(body.getPosition().x, body.getPosition().y);
+		theModel.setPosition(getPosition().x, getPosition().y);
 	}
 	
+	/**
+	 * Updates the view
+	 * 
+	 * @param dt, the update rate
+	 */
 	public void update(float dt){
 		theView.update(dt);
 	}
 	
+	/**
+	 * Returns the position of the position of the body
+	 * 
+	 * @return position of the body
+	 */
 	public Vector2 getPosition(){
 		return body.getPosition();
 	}
 	
+	/**
+	 * Sets the spritebatch where the view should be drawing
+	 * 
+	 * @param sb, the SpriteBatch
+	 */
 	public void setSpriteBatch(SpriteBatch sb){
 		theView.setSpriteBatch(sb);
 	};
@@ -61,6 +91,9 @@ public abstract class EntityController {
 		
 	}
 	
+	/**
+	 * Removes all the sensors and fixuredefs
+	 */
 	public void removeSensors(){
 		
 		body.getFixtureList().clear();

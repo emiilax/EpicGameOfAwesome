@@ -26,6 +26,7 @@ public class DesktopLauncher {
     	cfg.height = EGA.V_HEIGTH * EGA.SCALE;
     	GdxNativesLoader.load();
     	new LwjglApplication(new EGA(), cfg);
+    	
     	//GdxNativesLoader.load(); tror ej denna behövs /rebecka
     }
 }

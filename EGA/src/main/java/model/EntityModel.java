@@ -4,6 +4,11 @@ import java.util.Observable;
 
 import lombok.Data;
 
+/**
+ * 
+ * @author Emil Axelsson
+ *
+ */
 @Data
 public abstract class EntityModel extends Observable{
 	

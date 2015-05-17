@@ -60,7 +60,34 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	public void create() {
 
 		Gdx.input.setInputProcessor(new MyInputProcessor());
-
+		
+		res = new Content();
+		
+		//load pictures, borde ligga i view
+		/*res.loadTexture("res/tiles/bunny.png", "bunny");
+		res.loadTexture("res/stars/star.png", "star");
+		res.loadTexture("res/tiles/hud.png", "hud");
+		res.loadTexture("res/characters/redball_small.png", "smallplayer");
+		res.loadTexture("res/characters/redball_big.png", "bigPlayer");
+		res.loadTexture("res/stars/bigStar.png", "bigStar");
+		res.loadTexture("res/door/openDoor.jpg", "openDoor");
+		res.loadTexture("res/door/closedDoor.jpg", "lockedDoor");
+		res.loadTexture("res/tiles/upSpikes_16x21.png", "upSpike");
+		res.loadTexture("res/tiles/downSpikes_16x21.png", "downSpike");
+		res.loadTexture("res/tiles/leftSpikes_21x16.png", "leftSpike");
+		res.loadTexture("res/tiles/rightSpikes_21x16.png", "rightSpike");
+		res.loadTexture("res/key/key-4.png", "key");*/
+		
+		//load levels
+		//level1 = new TmxMapLoader().load("res/maps/testmap.tmx");
+		//level2 = new TmxMapLoader().load("res/maps/testmap2.tmx");
+		//level3 = new TmxMapLoader().load("res/maps/testmap.tmx");
+		//add levels to the array levels
+//		levels = new Array<TiledMap>();
+//		levels.add(level1);
+//		levels.add(level2);
+//		levels.add(level3);
+		
 		createPictures();
 
 		SaveHandler.load();
