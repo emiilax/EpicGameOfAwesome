@@ -1,7 +1,9 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.badlogic.gdx.Input.Keys;
 
@@ -26,11 +28,31 @@ public class GameData implements Serializable {
 	
 	
 	private HashMap<Integer, Float> times;
+	
+	private List<Integer> keys;
 
 	public GameData(){
 		times = new HashMap<Integer, Float>();
+		keys = new ArrayList<Integer>();
+		updateList();
+	}
+	
+	public void updateList(){
+		keys.clear();
+		keys.add(enter);
+		keys.add(up);
+		keys.add(down);
+		keys.add(left);
+		keys.add(right);
+		keys.add(pause);
+		keys.add(restart);
+		keys.add(escape);
 	}
 
+	public List<Integer> getKeysList(){
+		return keys;
+	}
+	
 	public void addTime(int level, Float time){
 		if(isBetterTime(level, time)){
 			times.put(level, time);
@@ -39,7 +61,7 @@ public class GameData implements Serializable {
 
 	public boolean isBetterTime(int level, Float time){
 		if(times.containsKey(level)){
-			return times.get(level) > time;
+			return times.get(level).equals(time)|| times.get(level)> time;
 		} else {
 			return true;
 		}
