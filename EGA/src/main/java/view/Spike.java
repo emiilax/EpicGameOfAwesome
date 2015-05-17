@@ -68,11 +68,6 @@ public class Spike extends Entity{
 		}
 	}
 	
-	private Vector2[] spikeVectors(Vector2 v1, Vector2 v2, Vector2 v3){
-		Vector2[] vertices = {v1, v2, v3};
-		return vertices;
-	}
-	
 	private Vector2[] spikeVectors(Vector2 v1, Vector2 v2, Vector2 v3, float deg){
 		v1.rotate(deg);
 		v2.rotate(deg);

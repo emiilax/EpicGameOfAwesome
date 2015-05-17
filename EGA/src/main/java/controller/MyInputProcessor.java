@@ -10,6 +10,11 @@ import event.EventSupport;
 
 public class MyInputProcessor extends InputAdapter{
 	private static int pressed;
+	private static boolean active = true;
+	
+	public static void setActive(boolean act){
+		active = act;
+	}
 	
 	
 	@Override
@@ -75,28 +80,21 @@ public class MyInputProcessor extends InputAdapter{
 	
 	@Override
 	public boolean touchDown(int x, int y, int pointer, int button){
-		/*if((x > 460 && x < 581) && (y > 269 && y < 316)){
-			EventSupport.getInstance().fireNewEvent("menuItem", x, y);
-			EventSupport.getInstance().fireNewEvent("startLevel");
-		}
-		if((x > 460 && x < 811) && (y > 338 && y < 376)){
-			EventSupport.getInstance().fireNewEvent("levelSelect");
-		}
-		if((x > 460 && x < 689) && (y > 374 && y < 457)){
-			EventSupport.getInstance().fireNewEvent("setting");
-		}
-		if((x > 460 && x < 568) && (y > 477 && y < 516)){
-			EventSupport.getInstance().fireNewEvent("quit");
-		}*/
-		EventSupport.getInstance().fireNewEvent("selectMenuItem", x, y);
+		if(active){
+			EventSupport.getInstance().fireNewEvent("selectMenuItem", x, y);
 		
-		return true;
+			return true;
+		}
+		return false;
 	}
 	
 	@Override
 	public boolean mouseMoved(int x, int y){
-		EventSupport.getInstance().fireNewEvent("currentMenuItem", x, y);
-		return true;
+		if (active){
+			EventSupport.getInstance().fireNewEvent("currentMenuItem", x, y);
+			return true;
+		} 
+		return false;
 	}
 
 }

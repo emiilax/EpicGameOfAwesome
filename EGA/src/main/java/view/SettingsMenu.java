@@ -2,8 +2,6 @@ package view;
 
 import java.awt.Point;
 
-import model.EGATimer;
-import model.GameData;
 import model.MyInput;
 
 import com.badlogic.gdx.Gdx;
@@ -20,8 +18,7 @@ import controller.EGA;
 import controller.GameStateManager;
 import controller.SaveHandler;
 
-public class LevelSelect extends GameState implements IMenu {
-	
+public class SettingsMenu extends GameState implements IMenu {
 	private SpriteBatch sb;
 	private BitmapFont titleFont;
 	private BitmapFont font;
@@ -30,36 +27,33 @@ public class LevelSelect extends GameState implements IMenu {
 	public static Texture backgroundTexture;
 	public static Sprite backgroundSprite;
 
-	private String title;
+	private final String title = "Settings";
 	
-	//private GameData gd;
-
-	private int titleFontSize = 50;
+	private int titleFontSize = 70;
 	private int menuFontSize = 50;
-	private int level;
-	private int currentItem1;
+
+	private int currentItem;
 	private String menuItems[];
+
+	private GameStateManager gsm;
 	
 	private Point[] menuItemPositions;
 	private Point[] menuItemEndPositions;
 	
-	private boolean rendered = false;
+	private boolean rendered;
 
-	private GameStateManager gsm;
-	private EGATimer timer;
-	
-	public LevelSelect(GameStateManager gsm, Texture backgroundTexture){
+
+	public SettingsMenu(GameStateManager gsm) {
 		super(gsm);
 		this.gsm = gsm;
-		this.backgroundTexture = backgroundTexture;
-	//	gd = SaveHandler.getGameData();
 		init();
-		
+		loadTextures();
 	}
-	
+
 	private void init(){
 		sb = new SpriteBatch();
-		
+
+
 		FreeTypeFontGenerator gen = new FreeTypeFontGenerator(
 				Gdx.files.internal("res/fonts/orbitron-black.otf")
 				);
@@ -70,36 +64,38 @@ public class LevelSelect extends GameState implements IMenu {
 		font = gen.generateFont(menuFontSize);
 
 		menuItems = new String[]{
-				"Level 1",
-				"Level 2",
-				"Back",
+				"CONTROLS! bitch",
+				"Back!"
 		};
-		
-		setTitle();
-		
-		SaveHandler.save();
 		
 		menuItemPositions = new Point[menuItems.length];
 		menuItemEndPositions = new Point[menuItems.length];
 		
 		rendered = false;
 	}
-	
-	private void setTitle(){
-		title = "This is Level Select!";
+
+
+	private void loadTextures() {
+		backgroundTexture = new Texture("res/menu/emilsmamma.jpg");
+		backgroundSprite =new Sprite(backgroundTexture);
 	}
+
+	public void renderBackground() {
+		backgroundSprite.draw(sb);
+	}
+
 
 	@Override
 	public void handleInput(int i) {
 		switch(i){
 		case MyInput.BUTTON_JUMP:
-			if(currentItem1 > 0){
-				currentItem1 --;
+			if(currentItem > 0){
+				currentItem --;
 			}
 			break;
 		case MyInput.BUTTON_DOWN:
-			if(currentItem1 < menuItems.length-1){
-				currentItem1++;
+			if(currentItem < menuItems.length-1){
+				currentItem++;
 			}
 			break;
 		case MyInput.BUTTON_ENTER:
@@ -107,107 +103,112 @@ public class LevelSelect extends GameState implements IMenu {
 			break;
 		}
 	}
-	
+
 	private void select(){
-		if(currentItem1 == 0){ //this is selected directly if enter is pressed to long
-			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(1)));
-			System.out.print("Select level 1");
+		if (currentItem == 0){
+			gsm.getGame().setLevel(new ChangeControlMenu(gsm));
 		}
-		if(currentItem1 == 1){
-			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(2)));
-			System.out.print("Select level 2");
-		} else if(currentItem1 == 2){
+		if (currentItem == 1){
 			gsm.getGame().setLevel(new MenuState(gsm));
-			System.out.print("Menu");
+		}
+	}
+	
+	public void select(int x, int y){
+		if(rendered && x > menuItemPositions[currentItem].getX() 
+				&& y > menuItemPositions[currentItem].getY()
+				&& x < menuItemEndPositions[currentItem].getX() 
+				&& y < menuItemEndPositions[currentItem].getY()){
+			select();
 		}
 	}
 
 	@Override
 	public void update(float dt) {
-		// TODO Auto-generated method stub
-		
+		//handleInput();
 	}
 
+	int titleHeight = 900; 
+	boolean firstTime = true;
 	@Override
 	public void render() {
+
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 		cam.update();
+
 		sb.setProjectionMatrix(cam.combined);
-		
+
 		sb.begin();
+
 		renderBackground();
-		
+
 		layout.setText(titleFont, title);
 		float width = layout.width;
 
-		titleFont.draw(sb, title, (EGA.V_WIDTH-width) / 2, 600);
+		animateTitle(width);
 
 		for(int i = 0; i < menuItems.length; i++){
 			layout.setText(font, menuItems[i]);
-			if(currentItem1 == i){
+			if(currentItem == i){
 				font.setColor(Color.RED);
 			} else {
 				font.setColor(Color.WHITE);
 			}
 			
-			int xPos = (int) ((EGA.V_WIDTH - width) / 2);
-			int yPos = 300 - 70 *i;
-			
-			menuItemPositions[i] = new Point(xPos,EGA.V_HEIGTH-yPos);
-			menuItemEndPositions[i] = new Point(xPos+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
-			
+			int yPos = 450 - 70*i;
+			int xPos = (int)(EGA.V_WIDTH - width) / 2;
 			font.draw(
 					sb,
 					menuItems[i],
 					xPos,
 					yPos
 					);
+			menuItemPositions[i] = new Point(xPos,EGA.V_HEIGTH-yPos);
+			menuItemEndPositions[i] = new Point(xPos+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
+			if(firstTime){
+				System.out.println(font.getXHeight());
+				firstTime = false;
+			}
 		}
+
 		sb.end();
 		
 		rendered = true;
-		
+
 	}
-	
-	private void renderBackground(){
-		backgroundSprite = new Sprite(backgroundTexture);
-		backgroundSprite.draw(sb);
+
+
+	private void animateTitle(Float width){	
+		if(titleHeight > 650){
+			titleHeight -= 2;
+		} 
+		titleFont.draw(sb, title, (EGA.V_WIDTH-width) / 2, titleHeight);
+		
 	}
 
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		
-	}
 
-	public void select(int x, int y) {
-		if(rendered && x > menuItemPositions[currentItem1].getX() 
-				&& y > menuItemPositions[currentItem1].getY()
-				&& x < menuItemEndPositions[currentItem1].getX() 
-				&& y < menuItemEndPositions[currentItem1].getY()){
-			select();
-		}
 	}
-
-	public Point[] getMenuItemPositions() {
+	
+	public Point[] getMenuItemPositions(){
 		return menuItemPositions;
 	}
-
-	public Point[] getMenuItemEndPositions() {
+	
+	public Point[] getMenuItemEndPositions(){
 		return menuItemEndPositions;
 	}
-
-	public void setCurrentItem(int x, int y) {
+	
+	public void setCurrentItem(int x, int y){
 		if(rendered){
 			for(int i = 0; i < menuItemPositions.length; i++){
 					if(x > menuItemPositions[i].getX() && y > menuItemPositions[i].getY()
 							&& x < menuItemEndPositions[i].getX() &&
 							y < menuItemEndPositions[i].getY()){
-						currentItem1 = i;
+						currentItem = i;
 					}
 			}	
 		}
-		
 	}
 }

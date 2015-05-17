@@ -27,7 +27,7 @@ import controller.GameStateManager;
 import controller.SaveHandler;
 
 @Data
-public class MenuState extends GameState{
+public class MenuState extends GameState implements IMenu{
 
 	private SpriteBatch sb;
 	private BitmapFont titleFont;
@@ -63,7 +63,7 @@ public class MenuState extends GameState{
 		loadTextures();
 	}
 
-	public void init(){
+	private void init(){
 		sb = new SpriteBatch();
 
 
@@ -132,7 +132,7 @@ public class MenuState extends GameState{
 
 		}
 		if (currentItem == 2){
-			gsm.getGame().setLevel(new ChangeControlMenu(gsm));
+			gsm.getGame().setLevel(new SettingsMenu(gsm));
 		}
 		if(currentItem == 3){
 			SaveHandler.save();
