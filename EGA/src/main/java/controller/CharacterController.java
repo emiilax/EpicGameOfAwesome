@@ -57,7 +57,7 @@ public class CharacterController extends EntityController{
 		
 		shape = new PolygonShape();
 		fDef = new FixtureDef();
-	
+		
 	}
 
 	/**
@@ -73,6 +73,7 @@ public class CharacterController extends EntityController{
 		
 		playerBody.setLinearVelocity(xVelocity, yVelocity);
 		setFixtureDef(currentWidth, currentHeigth);
+		//EGA.res.getSound("forward").stop();
 	}
 	
 	/**
@@ -128,7 +129,7 @@ public class CharacterController extends EntityController{
 	public void collectGrowStar() { 
 		//Ta bort?
 		//numCrystals++; 
-		
+		EGA.res.getSound("grow").play();
 		setIsBig(true);
 		setFixtureDef(currentWidth, currentHeigth);
 		
@@ -165,6 +166,7 @@ public class CharacterController extends EntityController{
 	 * Makes the Character-body jump
 	 */
 	public void jump(){
+		EGA.res.getSound("jump").play();
 		Body playerBody = this.getBody();
 		playerBody.applyForceToCenter(0, currentJumpForce, true);
 	}
@@ -172,7 +174,9 @@ public class CharacterController extends EntityController{
 	/**
 	 * Moves the Character-body forward
 	 */
+	int i = 1;
 	public void moveForward(){
+		
 		
 		Body playerBody = this.getBody();
 		yVelocity = playerBody.getLinearVelocity().y;
