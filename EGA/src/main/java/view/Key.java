@@ -34,8 +34,8 @@ public class Key extends Entity{
 			
 			setSensor(fdef, "key");
 			
-			Texture tex = EGA.res.getTexture("key");
-			TextureRegion[] sprites = TextureRegion.split(tex,  50,  50)[0];
+			Texture tex = EGA.res.getTexture("key"); //view 
+			TextureRegion[] sprites = TextureRegion.split(tex,  50,  50)[0];//view 
 			
 			setAnimation(sprites, 1/ 12f);
 			

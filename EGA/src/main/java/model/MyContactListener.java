@@ -114,11 +114,11 @@ public class MyContactListener implements ContactListener{
 			contactWithSpike();
 		}
 		if(fa.getUserData() != null && fa.getUserData().equals("key")){
-			keysToRemove.add(fa.getBody());
+			//keysToRemove.add(fa.getBody());
 			System.out.print("in contact with key");
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("key")){
-			keysToRemove.add(fb.getBody());
+			//keysToRemove.add(fb.getBody());
 			System.out.print("in contact with key");
 		}
 	}

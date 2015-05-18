@@ -19,27 +19,29 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
  */
 @Data
 public class CharacterController extends EntityController{
-	
-	
 
 	private PolygonShape shape;
+	
 	private FixtureDef fDef;
 	
-	/** A variable who tells whether its big or not */
+	/** A variable who tells whether the character is big or not */
 	private boolean isBig;
 
 	/** Variable who holds the velocity in the x direction */
 	private float xVelocity;
+	
 	/** Variable who holds the velocity in the x direction */
 	private float yVelocity;
 	
 	/** Variable for the current jumpforce, depends on whether its big or not*/
 	private float currentJumpForce;
+	
 	/** Variable for the current speed, depends on whether its big or not*/
 	private float currentSpeed;
 	
 	/** Variable for the current width of the character, depends on whether its big or not*/
 	private float currentWidth;
+	
 	/** Variable for the current heigth of the character, depends on whether its big or not*/
 	private float currentHeigth;
 	
@@ -49,6 +51,7 @@ public class CharacterController extends EntityController{
 	 * @param chView, the CharacterView
 	 */
 	public CharacterController(CharacterModel chModel, CharacterView chView){
+		
 		super(chModel, chView);
 
 		setIsBig(false);

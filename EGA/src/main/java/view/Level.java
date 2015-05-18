@@ -2,10 +2,10 @@ package view;
 
 import static controller.Variables.PPM;
 import lombok.Data;
-
 import view.Spike.spikeOrientation;
 import model.CharacterModel;
 import model.EGATimer;
+import model.EntityModel;
 import model.MyContactListener;
 import model.MyInput;
 
@@ -36,6 +36,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
 import controller.EntityController;
 import controller.CharacterController;
+import controller.KeyController;
 import controller.Variables;
 import controller.EGA;
 import controller.GameStateManager;
@@ -43,7 +44,7 @@ import controller.GameStateManager;
 @Data
 public class Level extends GameState{
 
-	private boolean debug = false;
+	private boolean debug = true;
 
 	private World world;
 	private Box2DDebugRenderer b2br;
@@ -66,13 +67,16 @@ public class Level extends GameState{
 	private boolean doorIsOpen;
 	private boolean isPaused;
 	
-	
+	//MVC Character 
 	private EntityController chc;
 	private CharacterModel chm;
 	private CharacterView chv;
 	
-
-
+	//MVC Key
+	private KeyController kc;
+	private EntityModel km;
+	private KeyView kv;
+	
 	//public Level(GameStateManager gsm){
 		public Level(GameStateManager gsm, TiledMap tiledMap){
 
@@ -95,7 +99,10 @@ public class Level extends GameState{
 		keys = new Array<Key>();
 		
 		chc = new CharacterController(new CharacterModel(), new CharacterView());
-		chc.setSpriteBatch(sb);
+		chc.setSpriteBatch(sb); //set this in constructor 
+		kc = new KeyController(new EntityModel(), new KeyView());
+		kc.setSpriteBatch(sb); //set this in contructor
+		//door controller 
 		
 		createEntities();
 
@@ -112,9 +119,6 @@ public class Level extends GameState{
 		//go through all the cells in the layer;
 
 		// kinematic body, ex. a moving platform
-		
-		
-		
 
 	}
 
@@ -162,6 +166,8 @@ public class Level extends GameState{
 			
 			chc.update(dt);
 			
+			kc.update(dt);
+			
 			for(IStar s: stars){
 				s.update(dt);
 			}
@@ -174,9 +180,9 @@ public class Level extends GameState{
 				d.update(dt);
 			}
 			
-			for(Key k: keys){
-				k.update(dt);
-			}
+//			for(Key k: keys){
+//				k.update(dt);
+//			}
 	}
 	
 	}
@@ -195,6 +201,7 @@ public class Level extends GameState{
 		//player.render(sb);
 		
 		chc.render();
+		kc.render();
 
 		// draw crystals
 		for(int i  = 0; i < stars.size; i++){
@@ -528,11 +535,11 @@ public class Level extends GameState{
 				bdef.position.set(x, y);
 				
 				Body body = world.createBody(bdef);
-				
-				Key key = new Key(body);
-				keys.add(key);
-
-				body.setUserData(key);
+				body.setUserData(kc);
+				kc.setBody(body);
+				//Key key = new Key(body); is not needed with mvc
+				//keys.add(kc); //change so that keys take in keycontroller
+			
 				
 			}
 		}
