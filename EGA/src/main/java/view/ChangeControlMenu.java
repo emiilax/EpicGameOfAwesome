@@ -47,7 +47,7 @@ public class ChangeControlMenu extends GameState implements IMenu{
 	private boolean gotInput = false;
 
 	private boolean rendered = false;
-
+	private String latestRemoved;
 	private GameData gd;
 
 	private GameStateManager gsm;
@@ -73,7 +73,6 @@ public class ChangeControlMenu extends GameState implements IMenu{
 		font = gen.generateFont(menuFontSize);
 
 		currentButtons = new String[]{
-				Keys.toString(gd.enter),
 				Keys.toString(gd.up),
 				Keys.toString(gd.down),
 				Keys.toString(gd.left),
@@ -85,7 +84,6 @@ public class ChangeControlMenu extends GameState implements IMenu{
 		};
 
 		menuItems = new String[]{
-				"Enter: ",
 				"Jump/Menu up: ",
 				"Menu down: ",
 				"Left: " ,
@@ -126,46 +124,42 @@ public class ChangeControlMenu extends GameState implements IMenu{
 	private void changeButton(){
 		int key = MyInputProcessor.getPressed();
 		List<Integer> keys = gd.getKeysList();
-		
-		if(key != gd.enter){
-			//keys.remove(currentItem);
-			if(!keys.contains(key)){
-				switch(currentItem){
-				case 0: gd.enter = key; 
-				setCurrentButtons(currentItem, Keys.toString(gd.enter));
-				break;
-				case 1: gd.up = key; 
-				setCurrentButtons(currentItem, Keys.toString(gd.up));
-				break;
-				case 2: gd.down = key; 
-				setCurrentButtons(currentItem, Keys.toString(gd.down));
-				break;
-				case 3: gd.left = key; 
-				setCurrentButtons(currentItem, Keys.toString(gd.left));
-				break;
-				case 4: gd.right = key; 
-				setCurrentButtons(currentItem, Keys.toString(gd.right));
-				break;
-				case 5: gd.pause = key; 
-				setCurrentButtons(currentItem, Keys.toString(gd.pause));
-				break;
-				case 6: gd.restart = key; 
-				setCurrentButtons(currentItem, Keys.toString(gd.restart));
-				break;
-				case 7: gd.escape = key; 
-				setCurrentButtons(currentItem, Keys.toString(gd.escape));
-				break;
-				}
-				changeMode = false;
-				gd.updateList();
-				SaveHandler.save();
+		if(keys.contains(Keys.valueOf(latestRemoved))){
+			keys.remove(keys.indexOf(Keys.valueOf(latestRemoved)));
+		}
+		if(!keys.contains(key)){
+			switch(currentItem){
+			case 0: gd.up = key; 
+			setCurrentButtons(currentItem, Keys.toString(gd.up));
+			break;
+			case 1: gd.down = key; 
+			setCurrentButtons(currentItem, Keys.toString(gd.down));
+			break;
+			case 2: gd.left = key; 
+			setCurrentButtons(currentItem, Keys.toString(gd.left));
+			break;
+			case 3: gd.right = key; 
+			setCurrentButtons(currentItem, Keys.toString(gd.right));
+			break;
+			case 4: gd.pause = key; 
+			setCurrentButtons(currentItem, Keys.toString(gd.pause));
+			break;
+			case 5: gd.restart = key; 
+			setCurrentButtons(currentItem, Keys.toString(gd.restart));
+			break;
+			case 6: gd.escape = key; 
+			setCurrentButtons(currentItem, Keys.toString(gd.escape));
+			break;
 			}
+			changeMode = false;
+			gd.updateList();
+			SaveHandler.save();
 		}
 	}
 
 
 	private void selectChange(){
-		if(currentItem == 8){
+		if(currentItem == 7){
 			gsm.getGame().setLevel(new SettingsMenu(gsm));
 		}
 		setCurrentButtons(currentItem, "...");
@@ -253,6 +247,7 @@ public class ChangeControlMenu extends GameState implements IMenu{
 
 	private void setCurrentButtons(int index, String key){
 		if(index < currentButtons.length){
+			latestRemoved = currentButtons[index];
 			currentButtons[index] = key;
 		}
 	}

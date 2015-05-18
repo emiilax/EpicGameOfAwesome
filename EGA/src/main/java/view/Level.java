@@ -148,6 +148,9 @@ public class Level extends GameState{
 			
 			case MyInput.BUTTON_RESTART: gsm.getGame().setLevel(new Level(gsm, gsm.getCurrentTiledMap()));
 			break;
+			
+			case MyInput.BUTTON_ESCAPE: gsm.getGame().setLevel(new MenuState(gsm));
+			break;
 		}
 	}
 
