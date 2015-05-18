@@ -31,30 +31,29 @@ public class LevelSelect extends GameState implements IMenu {
 	public static Sprite backgroundSprite;
 
 	private String title;
-	
-	//private GameData gd;
 
 	private int titleFontSize = 50;
 	private int menuFontSize = 50;
-	private int level;
-	private int currentItem1;
-	private String menuItems[];
-	
-	private Point[] menuItemPositions;
-	private Point[] menuItemEndPositions;
-	
+
 	private boolean rendered = false;
 
+
+	private int currentRow = 0;
+	private int currentCol = 0;
+	
+	private Point [][] menuItemPositions;
+	private Point [][] menuItemEndPositions;
+	
+	private String menuItems [][];
+
+
 	private GameStateManager gsm;
-	private EGATimer timer;
 	
 	public LevelSelect(GameStateManager gsm, Texture backgroundTexture){
 		super(gsm);
 		this.gsm = gsm;
 		this.backgroundTexture = backgroundTexture;
-	//	gd = SaveHandler.getGameData();
 		init();
-		
 	}
 	
 	private void init(){
@@ -69,39 +68,55 @@ public class LevelSelect extends GameState implements IMenu {
 
 		font = gen.generateFont(menuFontSize);
 
-		menuItems = new String[]{
-				"Level 1",
-				"Level 2",
-				"Back",
+		menuItems = new String[][]{
+				{"Level 1", "Level 2", "Level 3"}, //row 0 
+				{"Level 4", "Level 5", "Level 6"}, //row 1
+
 		};
 		
 		setTitle();
 		
 		SaveHandler.save();
 		
-		menuItemPositions = new Point[menuItems.length];
-		menuItemEndPositions = new Point[menuItems.length];
+		menuItemPositions = new Point[menuItems.length][menuItems[0].length];
+		menuItemEndPositions = new Point[menuItems.length][menuItems[0].length];
 		
 		rendered = false;
 	}
 	
 	private void setTitle(){
-		title = "This is Level Select!";
+		title = "Choose level to play";
 	}
 
 	@Override
 	public void handleInput(int i) {
 		switch(i){
-		case MyInput.BUTTON_JUMP:
-			if(currentItem1 > 0){
-				currentItem1 --;
-			}
-			break;
-		case MyInput.BUTTON_DOWN:
-			if(currentItem1 < menuItems.length-1){
-				currentItem1++;
-			}
-			break;
+//		case MyInput.BUTTON_JUMP:
+//			if(currentRow > 0){
+//				currentRow --;
+//			}
+//			break;
+//		case MyInput.BUTTON_DOWN:
+//			if(currentRow < 1){ //needs to be changed if amount of rows is changed
+//				currentRow++;
+//			}
+//			break;
+		case MyInput.BUTTON_BACKWARD:
+			if(currentCol > 0){
+				if(currentCol == 0){
+					currentRow ++;
+				}else{
+					currentCol --;
+				}
+				
+			}break;
+		case MyInput.BUTTON_FORWARD:
+			if(currentCol < 3){
+				if(currentCol == 2){
+					currentRow ++;
+				}
+				currentCol ++;
+			}break;
 		case MyInput.BUTTON_ENTER:
 			select();
 			break;
@@ -109,16 +124,10 @@ public class LevelSelect extends GameState implements IMenu {
 	}
 	
 	private void select(){
-		if(currentItem1 == 0){ //this is selected directly if enter is pressed to long
+		String lvl = menuItems[currentRow][currentCol];
+		if(lvl == "Level 1"){
+			System.out.print("this is Level 1");
 			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(1)));
-			System.out.print("Select level 1");
-		}
-		if(currentItem1 == 1){
-			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(2)));
-			System.out.print("Select level 2");
-		} else if(currentItem1 == 2){
-			gsm.getGame().setLevel(new MenuState(gsm));
-			System.out.print("Menu");
 		}
 	}
 
@@ -143,27 +152,61 @@ public class LevelSelect extends GameState implements IMenu {
 
 		titleFont.draw(sb, title, (EGA.V_WIDTH-width) / 2, 600);
 
-		for(int i = 0; i < menuItems.length; i++){
-			layout.setText(font, menuItems[i]);
-			if(currentItem1 == i){
-				font.setColor(Color.RED);
-			} else {
-				font.setColor(Color.WHITE);
+		int x = menuItems[0].length;
+		
+		for (int row = 0; row < menuItems.length; row++){
+			for (int col = 0; col < x; col++){
+				layout.setText(font, menuItems[row][col]);
+				
+				int yPos = 350 - 180*row;
+				
+				if(currentRow == row && currentCol == col){
+					font.setColor(Color.RED);
+					System.out.print(menuItems[row][col]);
+				}else{
+					font.setColor(Color.WHITE);
+				}
+				
+				
+				
+				if(col == 0){
+					int xPos0 = (int) (EGA.V_WIDTH - width - 7*70);
+					font.draw(
+							sb,
+							menuItems[row][col],
+							xPos0,
+							yPos
+							);
+					
+					menuItemPositions[row][col] = new Point(xPos0,EGA.V_HEIGTH-yPos);
+					menuItemEndPositions[row][col] = new Point(xPos0+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
+				}				
+				if(col == 1){
+					int xPos1 = (int) (EGA.V_WIDTH - width - 2*70 );
+					font.draw(
+							sb,
+							menuItems[row][col],
+							xPos1,
+							yPos
+							);
+					menuItemPositions[row][col] = new Point(xPos1,EGA.V_HEIGTH-yPos);
+					menuItemEndPositions[row][col] = new Point(xPos1+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
+				}
+				if(col == 2){
+					int xPos2 = (int) (EGA.V_WIDTH - width + 3*70);
+					font.draw(
+							sb,
+							menuItems[row][col],
+							xPos2,
+							yPos
+							);
+					menuItemPositions[row][col] = new Point(xPos2,EGA.V_HEIGTH-yPos);
+					menuItemEndPositions[row][col] = new Point(xPos2+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
+				}
 			}
-			
-			int xPos = (int) ((EGA.V_WIDTH - width) / 2);
-			int yPos = 300 - 70 *i;
-			
-			menuItemPositions[i] = new Point(xPos,EGA.V_HEIGTH-yPos);
-			menuItemEndPositions[i] = new Point(xPos+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
-			
-			font.draw(
-					sb,
-					menuItems[i],
-					xPos,
-					yPos
-					);
+
 		}
+		
 		sb.end();
 		
 		rendered = true;
@@ -182,30 +225,33 @@ public class LevelSelect extends GameState implements IMenu {
 	}
 
 	public void select(int x, int y) {
-		if(rendered && x > menuItemPositions[currentItem1].getX() 
-				&& y > menuItemPositions[currentItem1].getY()
-				&& x < menuItemEndPositions[currentItem1].getX() 
-				&& y < menuItemEndPositions[currentItem1].getY()){
+		if(rendered && x > menuItemPositions[currentRow][currentCol].getX() 
+				&& y > menuItemPositions[currentRow][currentCol].getY()
+				&& x < menuItemEndPositions[currentRow][currentCol].getX() 
+				&& y < menuItemEndPositions[currentRow][currentCol].getY()){
 			select();
 		}
 	}
 
 	public Point[] getMenuItemPositions() {
-		return menuItemPositions;
+		return null;
 	}
 
 	public Point[] getMenuItemEndPositions() {
-		return menuItemEndPositions;
+		return null;
 	}
 
 	public void setCurrentItem(int x, int y) {
 		if(rendered){
-			for(int i = 0; i < menuItemPositions.length; i++){
-					if(x > menuItemPositions[i].getX() && y > menuItemPositions[i].getY()
-							&& x < menuItemEndPositions[i].getX() &&
-							y < menuItemEndPositions[i].getY()){
-						currentItem1 = i;
+			for(int i = 0; i < menuItemPositions[0].length; i++){
+				for(int j = 0; j < menuItemPositions.length; i++){
+					if(x > menuItemPositions[i][j].getX() && y > menuItemPositions[i][j].getY()
+							&& x < menuItemEndPositions[i][j].getX() &&
+							y < menuItemEndPositions[i][j].getY()){
+						currentRow = i;
+						currentCol = j;
 					}
+				}
 			}	
 		}
 		
