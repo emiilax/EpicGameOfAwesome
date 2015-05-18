@@ -41,6 +41,9 @@ public class LevelSelect extends GameState implements IMenu {
 	private int currentRow = 0;
 	private int currentCol = 0;
 	
+	private Point [][] menuItemPositions;
+	private Point [][] menuItemEndPositions;
+	
 	private String menuItems [][];
 
 
@@ -75,8 +78,8 @@ public class LevelSelect extends GameState implements IMenu {
 		
 		SaveHandler.save();
 		
-		//menuItemPositions = new Point[menuItems.length];
-		//menuItemEndPositions = new Point[menuItems.length];
+		menuItemPositions = new Point[menuItems.length][menuItems[0].length];
+		menuItemEndPositions = new Point[menuItems.length][menuItems[0].length];
 		
 		rendered = false;
 	}
@@ -155,6 +158,8 @@ public class LevelSelect extends GameState implements IMenu {
 			for (int col = 0; col < x; col++){
 				layout.setText(font, menuItems[row][col]);
 				
+				int yPos = 350 - 180*row;
+				
 				if(currentRow == row && currentCol == col){
 					font.setColor(Color.RED);
 					System.out.print(menuItems[row][col]);
@@ -162,44 +167,43 @@ public class LevelSelect extends GameState implements IMenu {
 					font.setColor(Color.WHITE);
 				}
 				
+				
+				
 				if(col == 0){
+					int xPos0 = (int) (EGA.V_WIDTH - width - 7*70);
 					font.draw(
 							sb,
 							menuItems[row][col],
-							(EGA.V_WIDTH - width - 7*70),
-							350 - 180* row
+							xPos0,
+							yPos
 							);
+					
+					menuItemPositions[row][col] = new Point(xPos0,EGA.V_HEIGTH-yPos);
+					menuItemEndPositions[row][col] = new Point(xPos0+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
 				}				
 				if(col == 1){
+					int xPos1 = (int) (EGA.V_WIDTH - width - 2*70 );
 					font.draw(
 							sb,
 							menuItems[row][col],
-							(EGA.V_WIDTH - width - 2*70 ),
-							350 - 180* row
+							xPos1,
+							yPos
 							);
+					menuItemPositions[row][col] = new Point(xPos1,EGA.V_HEIGTH-yPos);
+					menuItemEndPositions[row][col] = new Point(xPos1+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
 				}
 				if(col == 2){
+					int xPos2 = (int) (EGA.V_WIDTH - width + 3*70);
 					font.draw(
 							sb,
 							menuItems[row][col],
-							(EGA.V_WIDTH - width + 3*70),
-							350 - 180* row
+							xPos2,
+							yPos
 							);
+					menuItemPositions[row][col] = new Point(xPos2,EGA.V_HEIGTH-yPos);
+					menuItemEndPositions[row][col] = new Point(xPos2+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
 				}
 			}
-
-//			int xPos = (int) ((EGA.V_WIDTH - width) / 2);
-//			int yPos = 300 - 70 *i;
-//			
-//			menuItemPositions[i] = new Point(xPos,EGA.V_HEIGTH-yPos);
-//			menuItemEndPositions[i] = new Point(xPos+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
-//			
-//			font.draw(
-//					sb,
-//					menuItems[i],
-//					xPos,
-//					yPos
-//					);
 
 		}
 		
@@ -221,12 +225,12 @@ public class LevelSelect extends GameState implements IMenu {
 	}
 
 	public void select(int x, int y) {
-//		if(rendered && x > menuItemPositions[currentItem1].getX() 
-//				&& y > menuItemPositions[currentItem1].getY()
-//				&& x < menuItemEndPositions[currentItem1].getX() 
-//				&& y < menuItemEndPositions[currentItem1].getY()){
-//			select();
-//		}
+		if(rendered && x > menuItemPositions[currentRow][currentCol].getX() 
+				&& y > menuItemPositions[currentRow][currentCol].getY()
+				&& x < menuItemEndPositions[currentRow][currentCol].getX() 
+				&& y < menuItemEndPositions[currentRow][currentCol].getY()){
+			select();
+		}
 	}
 
 	public Point[] getMenuItemPositions() {
@@ -238,15 +242,18 @@ public class LevelSelect extends GameState implements IMenu {
 	}
 
 	public void setCurrentItem(int x, int y) {
-//		if(rendered){
-//			for(int i = 0; i < menuItemPositions.length; i++){
-//					if(x > menuItemPositions[i].getX() && y > menuItemPositions[i].getY()
-//							&& x < menuItemEndPositions[i].getX() &&
-//							y < menuItemEndPositions[i].getY()){
-//						currentItem1 = i;
-//					}
-//			}	
-//		}
-//		
+		if(rendered){
+			for(int i = 0; i < menuItemPositions[0].length; i++){
+				for(int j = 0; j < menuItemPositions.length; i++){
+					if(x > menuItemPositions[i][j].getX() && y > menuItemPositions[i][j].getY()
+							&& x < menuItemEndPositions[i][j].getX() &&
+							y < menuItemEndPositions[i][j].getY()){
+						currentRow = i;
+						currentCol = j;
+					}
+				}
+			}	
+		}
+		
 	}
 }
