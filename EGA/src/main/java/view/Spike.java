@@ -45,11 +45,13 @@ public class Spike extends Entity{
 		setAnimation(Arrays.copyOfRange(sprites, spikeStyle,  spikeStyle+1), 0/ 12f);
 		
 	}
-
+	//View
 	protected enum spikeOrientation{
 		UP, DOWN, RIGHT, LEFT
 	}
 	
+	
+	//Controller
 	private Vector2[] setSpikeShape(spikeOrientation ori){
 		Vector2 v1 = new Vector2(-8f/PPM, -10f/PPM); 
 		Vector2 v2 = new Vector2(0.0f/PPM, 10f/PPM);
@@ -68,6 +70,7 @@ public class Spike extends Entity{
 		}
 	}
 	
+	//Controller
 	private Vector2[] spikeVectors(Vector2 v1, Vector2 v2, Vector2 v3, float deg){
 		v1.rotate(deg);
 		v2.rotate(deg);
@@ -76,6 +79,7 @@ public class Spike extends Entity{
 		return vertices;
 	}
 	
+	//view
 	private TextureRegion[] getTextureRegion(spikeOrientation ori){
 		switch(ori){
 		case UP:
@@ -90,9 +94,4 @@ public class Spike extends Entity{
 			return TextureRegion.split(EGA.res.getTexture("upSpike"),  16,  21)[0];
 		}
 	}
-	
-	public void render(SpriteBatch sb){
-		renderWithRotation(sb, 90f);
-	}
-	
 }

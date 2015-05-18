@@ -16,34 +16,17 @@ import model.EntityModel;
 public class CharacterView extends EntityView{
 	
 	private TextureRegion[] sprites;
-
-	
-	private Texture texSmall = new Texture(Gdx.files.internal("res/characters/redball_small.png"));
-	private Texture texBig = new Texture(Gdx.files.internal("res/characters/redball_big.png"));
-	
 	
 	public void setTexture(Boolean isBig){
 		if(!isBig){
 			Texture tex;
-			try{
-				tex = EGA.res.getTexture("smallplayer");
-			}catch(Exception e){
-				tex = texSmall;
-			} 
+			tex = EGA.res.getTexture("smallplayer");
 			
 			sprites = TextureRegion.split(tex, 20, 20)[0];
 			setAnimation(sprites, 1/12f);
 		}else {
-			//removeSensors();
-			//setFixtureDef(17.5f, 17.5f);
-			
 			Texture tex;
-			try{
-				tex = EGA.res.getTexture("bigPlayer");
-			}catch(Exception e){
-				tex = texBig;
-			} 
-			//Texture tex = EGA.res.getTexture("bigPlayer");
+			tex = EGA.res.getTexture("bigPlayer");
 			sprites = TextureRegion.split(tex, 35, 35)[0];
 			setAnimation(sprites, 1/12f);
 		}
