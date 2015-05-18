@@ -29,26 +29,4 @@ public class CharacterModel extends EntityModel {
 		notifyObservers();
 	}
 	
-	
-	
-	/*
-	public void setPosition(float xPos, float yPos){
-		xPosition = xPos;
-		yPosition = yPos;
-		
-		
-		setChanged();
-		notifyObservers();
-	}*/
-	/*
-	public static void main(String []args){
-		CharacterModel chm = new CharacterModel();
-		CharacterView chv = new CharacterView();
-		
-		chm.addObserver(chv);
-		
-		chm.setPosition(10, 10);
-	}*/
-
-	
 }

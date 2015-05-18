@@ -121,21 +121,18 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	}
 
 	public void setLevel(GameState state){
+		MyInput.setAllKeysFalse();
 		theLevel = state;
 		gsm.setState(theLevel);
 	}
 
 	GameState prevState = null;
+	
 	/**
 	 * Handles the input from the user
 	 */
 	public void handleInput() {
 		
-		// Reset keys when theLevel changes
-		if(!(theLevel.equals(prevState))){
-			MyInput.setAllKeysFalse();
-		}
-		prevState = theLevel;
 		
 		if(MyInput.isPressed(MyInput.BUTTON_JUMP)){
 
@@ -202,7 +199,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		}
 	}
 
-	/* 
+	/** 
 	 * @author Rebecka Reitmaier
 	 * creates the Pictures 
 	 * this is also in the new class Pictures in View
