@@ -11,19 +11,19 @@ import event.EventSupport;
 public class MyInputProcessor extends InputAdapter{
 	private static int pressed;
 	private static boolean active = true;
-	
+
 	public static void setActive(boolean act){
 		active = act;
 	}
-	
-	
+
+
 	@Override
 	public boolean keyDown(int k){
 		GameData gd = SaveHandler.getGameData();
 		if(k == gd.right){
 			MyInput.setKey(MyInput.BUTTON_FORWARD, true);
 		}
-		
+
 		if(k == gd.left){
 			MyInput.setKey(MyInput.BUTTON_BACKWARD, true);
 		}
@@ -31,14 +31,10 @@ public class MyInputProcessor extends InputAdapter{
 			MyInput.setKey(MyInput.BUTTON_JUMP, true);
 		}
 
-		
-		Keys.toString(19);
-		if(k == Keys.DOWN){
-		
-			if(k == gd.down){
-				MyInput.setKey(MyInput.BUTTON_DOWN, true);
-			}
-		} 
+		if(k == gd.down){
+			MyInput.setKey(MyInput.BUTTON_DOWN, true);
+		}
+
 		if(k == gd.enter){
 			MyInput.setKey(MyInput.BUTTON_ENTER, true);
 		}if(k == gd.restart){
@@ -53,11 +49,11 @@ public class MyInputProcessor extends InputAdapter{
 		pressed = k;
 		return true;
 	}
-	
+
 	public static int getPressed(){
 		return pressed;
 	}
-	
+
 	@Override
 	public boolean keyUp(int k){
 		GameData gd = SaveHandler.getGameData();
@@ -84,17 +80,17 @@ public class MyInputProcessor extends InputAdapter{
 		}
 		return true;
 	}
-	
+
 	@Override
 	public boolean touchDown(int x, int y, int pointer, int button){
 		if(active){
 			EventSupport.getInstance().fireNewEvent("selectMenuItem", x, y);
-		
+
 			return true;
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean mouseMoved(int x, int y){
 		if (active){
