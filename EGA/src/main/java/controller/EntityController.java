@@ -66,6 +66,23 @@ public abstract class EntityController {
 	}
 	
 	/**
+	 * Returns the X value of this bodies position
+	 * 
+	 * @return X value of the bodies position as a float
+	 */
+	public float getXPosition(){
+		return body.getPosition().x;
+	}
+	
+	/**
+	 * Returns the Y value of this bodies position
+	 * 
+	 * @return Y value of the bodies position as a float
+	 */
+	public float getYPosition(){
+		return body.getPosition().y;
+	}
+	/**
 	 * Sets the spritebatch where the view should be drawing
 	 * 
 	 * @param sb, the SpriteBatch

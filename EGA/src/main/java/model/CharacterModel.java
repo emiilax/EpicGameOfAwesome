@@ -16,9 +16,6 @@ public class CharacterModel extends EntityModel {
 	
 	private boolean isBig;
 	
-	//private float xPosition;
-	//private float yPosition;
-	
 	public CharacterModel(){}
 	
 	public void setVelocity(float xVel, float yVel){

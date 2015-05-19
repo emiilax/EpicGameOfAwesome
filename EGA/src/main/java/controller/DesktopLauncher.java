@@ -1,10 +1,8 @@
 package controller;
 
+import lombok.Data;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-
-import lombok.Data;
-
 
 /**
  * Hello world!

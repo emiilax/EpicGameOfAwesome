@@ -116,7 +116,7 @@ public class CharacterController extends EntityController{
 			currentHeigth = 17.5f;
 			
 			currentJumpForce = 350;
-			currentSpeed = 1.5f;
+			currentSpeed = 1.3f;
 		} else{
 			currentWidth = 10f;
 			currentHeigth = 10f;
@@ -173,13 +173,13 @@ public class CharacterController extends EntityController{
 	 * Moves the Character-body forward
 	 */
 	int i = 1;
-	public void moveForward(){
-		
+	public void moveForward(){	
 		
 		Body playerBody = this.getBody();
 		yVelocity = playerBody.getLinearVelocity().y;
 		
 		playerBody.setLinearVelocity(currentSpeed, yVelocity);
+		
 
 	}
 	

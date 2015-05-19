@@ -203,7 +203,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		res.loadTexture("res/tiles/hud.png", "hud");
 		res.loadTexture("res/characters/redball_small.png", "smallplayer");
 		res.loadTexture("res/characters/redball_big.png", "bigPlayer");
-		res.loadTexture("res/stars/bigStar.png", "bigStar");
+		res.loadTexture("res/stars/bigBigStar.png", "bigStar");
 		res.loadTexture("res/door/openDoor.jpg", "openDoor");
 		res.loadTexture("res/door/closedDoor.jpg", "lockedDoor");
 		res.loadTexture("res/tiles/upSpikes_16x21.png", "upSpike");
@@ -221,7 +221,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	 */
 
 	private void createMaps(){
-		TiledMap level1 = new TmxMapLoader().load("res/maps/testmap.tmx");
+		TiledMap level1 = new TmxMapLoader().load("res/maps/level1.tmx");
 		TiledMap level2 = new TmxMapLoader().load("res/maps/testmap2.tmx");
 		TiledMap level3 = new TmxMapLoader().load("res/maps/testmap.tmx");
 
