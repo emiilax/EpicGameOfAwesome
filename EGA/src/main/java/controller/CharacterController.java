@@ -178,13 +178,13 @@ public class CharacterController extends EntityController{
 	 * Moves the Character-body forward
 	 */
 	int i = 1;
-	public void moveForward(){
-		
+	public void moveForward(){	
 		
 		Body playerBody = this.getBody();
 		yVelocity = playerBody.getLinearVelocity().y;
 		
 		playerBody.setLinearVelocity(currentSpeed, yVelocity);
+		
 
 	}
 	
