@@ -31,8 +31,8 @@ public class CharacterView extends EntityView{
 				tex = texSmall;
 			} 
 			
-			sprites = TextureRegion.split(tex, 20, 20)[0];
-			setAnimation(sprites, 1/12f);
+			sprites = TextureRegion.split(tex, 40, 80)[0];
+			setAnimation(sprites, 1/8f);
 		}else {
 			//removeSensors();
 			//setFixtureDef(17.5f, 17.5f);
