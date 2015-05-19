@@ -50,7 +50,9 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	private GameState theLevel;
 
 	public static Content res;
-
+	
+	
+	
 	private HashMap<Integer, TiledMap> maps;
 
 	private HashMap<Integer, Texture> finishedBgr;
@@ -88,6 +90,14 @@ public class EGA implements ApplicationListener, TheChangeListener{
 //		levels.add(level2);
 //		levels.add(level3);
 		
+		res.loadSound("res/sound/jump_sound.wav", "jump");
+		
+		res.loadSound("res/sound/sound_forward.wav", "forward");
+		
+		res.loadSound("res/sound/eriksmamma.wav", "grow");
+		
+		//res.getSound("jump").play();
+		
 		createPictures();
 
 		SaveHandler.load();
@@ -108,7 +118,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 
 	public void render() {
 		accum+=Gdx.graphics.getDeltaTime();
-
+		//res.getSound("jump").play();
 		////handleInput();
 		while (accum >= STEP){
 			accum -= STEP;
@@ -123,10 +133,11 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	public void setLevel(GameState state){
 		MyInput.setAllKeysFalse();
 		theLevel = state;
+		
 		gsm.setState(theLevel);
 	}
 
-	GameState prevState = null;
+
 	
 	/**
 	 * Handles the input from the user
@@ -135,9 +146,9 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		
 		
 		if(MyInput.isPressed(MyInput.BUTTON_JUMP)){
-
+				 
 			theLevel.handleInput(MyInput.BUTTON_JUMP);
-
+			
 		}
 		if(MyInput.isPressed(MyInput.BUTTON_DOWN)){
 
@@ -205,7 +216,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	 * this is also in the new class Pictures in View
 	 */
 	private void createPictures(){
-		res = new Content();
+		//res = new Content();
 
 		res.loadTexture("res/tiles/bunny.png", "bunny");
 		res.loadTexture("res/stars/star.png", "star");
