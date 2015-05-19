@@ -1,14 +1,8 @@
 package controller;
 
 import lombok.Data;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.jogl.JoglApplication;
-import com.badlogic.gdx.backends.jogl.JoglApplicationConfiguration;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.badlogic.gdx.utils.GdxNativesLoader;
-import com.badlogic.gdx.graphics.GL20;
 /**
  * Hello world!
  *
