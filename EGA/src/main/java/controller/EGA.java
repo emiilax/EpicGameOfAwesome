@@ -60,49 +60,17 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	private HashMap <Integer, Texture> levelBgr;
 
 	public void create() {
-
+		System.out.println("create");
 		Gdx.input.setInputProcessor(new MyInputProcessor());
 		
 		res = new Content();
 		
-		//load pictures, borde ligga i view
-		/*res.loadTexture("res/tiles/bunny.png", "bunny");
-		res.loadTexture("res/stars/star.png", "star");
-		res.loadTexture("res/tiles/hud.png", "hud");
-		res.loadTexture("res/characters/redball_small.png", "smallplayer");
-		res.loadTexture("res/characters/redball_big.png", "bigPlayer");
-		res.loadTexture("res/stars/bigStar.png", "bigStar");
-		res.loadTexture("res/door/openDoor.jpg", "openDoor");
-		res.loadTexture("res/door/closedDoor.jpg", "lockedDoor");
-		res.loadTexture("res/tiles/upSpikes_16x21.png", "upSpike");
-		res.loadTexture("res/tiles/downSpikes_16x21.png", "downSpike");
-		res.loadTexture("res/tiles/leftSpikes_21x16.png", "leftSpike");
-		res.loadTexture("res/tiles/rightSpikes_21x16.png", "rightSpike");
-		res.loadTexture("res/key/key-4.png", "key");*/
-		
-		//load levels
-		//level1 = new TmxMapLoader().load("res/maps/testmap.tmx");
-		//level2 = new TmxMapLoader().load("res/maps/testmap2.tmx");
-		//level3 = new TmxMapLoader().load("res/maps/testmap.tmx");
-		//add levels to the array levels
-//		levels = new Array<TiledMap>();
-//		levels.add(level1);
-//		levels.add(level2);
-//		levels.add(level3);
-		
-		res.loadSound("res/sound/jump_sound.wav", "jump");
-		
-		res.loadSound("res/sound/sound_forward.wav", "forward");
-		
-		res.loadSound("res/sound/eriksmamma.wav", "grow");
-		
-		//res.getSound("jump").play();
-		
+		loadSounds();
 		createPictures();
-
+		createMaps();
+		
 		SaveHandler.load();
-		//SaveHandler.getGameData();
-
+		
 		EventSupport.getInstance().addListner(this);
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();
@@ -118,8 +86,6 @@ public class EGA implements ApplicationListener, TheChangeListener{
 
 	public void render() {
 		accum+=Gdx.graphics.getDeltaTime();
-		//res.getSound("jump").play();
-		////handleInput();
 		while (accum >= STEP){
 			accum -= STEP;
 			gsm.update(STEP);
@@ -209,6 +175,20 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			}
 		}
 	}
+	
+	/**
+	 * Loads the sounds that will be usd in 
+	 * the game
+	 */
+	public void loadSounds(){
+		res.loadSound("res/sound/sound_mariojump.wav", "jump");
+		res.loadSound("res/sound/sound_forward.wav", "forward");
+		res.loadSound("res/sound/eriksmamma.wav", "grow");
+		res.loadSound("res/sound/sound_ta-da.wav", "finish");
+		res.loadSound("res/sound/sound_shrink.wav", "shrink");
+		res.loadSound("res/sound/sound_unlockdoor.wav", "unlock");
+		//res.loadSound("res/sound/sound_collectkey.wav", "collectkey");
+	}
 
 	/** 
 	 * @author Rebecka Reitmaier
@@ -232,11 +212,9 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		res.loadTexture("res/tiles/rightSpikes_21x16.png", "rightSpike");
 		res.loadTexture("res/key/key-4.png", "key");
 
-		createMaps();
-
 	}
 
-	/* 
+	/** 
 	 * @author Rebecka Reitmaier
 	 * creates the Maps to levels and puts them in the hashMap maps
 	 * this is also in the new class Pictures in View
@@ -254,7 +232,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 
 	}
 
-	/*
+	/**
 	 * @author Rebecka Reitmaier
 	 * getTiledMap is a method returns an object from the hashmap maps
 	 * OBS: currently only works with ints 1-3

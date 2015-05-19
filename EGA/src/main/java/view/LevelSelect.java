@@ -132,10 +132,7 @@ public class LevelSelect extends GameState implements IMenu {
 	}
 
 	@Override
-	public void update(float dt) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void update(float dt) {}
 
 	@Override
 	public void render() {
@@ -219,10 +216,7 @@ public class LevelSelect extends GameState implements IMenu {
 	}
 
 	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void dispose() {}
 
 	public void select(int x, int y) {
 		if(rendered && x > menuItemPositions[currentRow][currentCol].getX() 
