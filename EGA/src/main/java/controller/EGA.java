@@ -187,7 +187,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		res.loadSound("res/sound/sound_ta-da.wav", "finish");
 		res.loadSound("res/sound/sound_shrink.wav", "shrink");
 		res.loadSound("res/sound/sound_unlockdoor.wav", "unlock");
-		//res.loadSound("res/sound/sound_collectkey.wav", "collectkey");
+		res.loadSound("res/sound/sound_collectkey.wav", "collectkey");
 	}
 
 	/** 

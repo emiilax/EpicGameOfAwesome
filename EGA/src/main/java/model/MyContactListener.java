@@ -120,13 +120,13 @@ public class MyContactListener implements ContactListener{
 		if(fa.getUserData() != null && fa.getUserData().equals("key")){
 			keysToRemove.add(fa.getBody());
 			System.out.println("jao");
-			//EGA.res.getSound("collectkey").play();
+			EGA.res.getSound("collectkey").play();
 			//System.out.print("in contact with key");
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("key")){
 			keysToRemove.add(fb.getBody());
 			System.out.println("jao");
-			//EGA.res.getSound("collectkey").play();
+			EGA.res.getSound("collectkey").play();
 			//System.out.print("in contact with key");
 		}
 	}
