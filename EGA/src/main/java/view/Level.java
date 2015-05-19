@@ -54,13 +54,13 @@ public class Level extends GameState{
 	private float tilesize;
 	private OrthogonalTiledMapRenderer tmr;
 	private GameStateManager gsm;
-	private HUD hud;
+
 	//Entities
 	private Character player;
 	private Array<IStar> stars;
 	private Array<Spike> spikes;
 	private Array <IDoor> doors;
-	private Array <Key> keys;
+	private Array <KeyController> keys;
 
 	//end Entities 
 	private EGATimer timer;
@@ -96,7 +96,7 @@ public class Level extends GameState{
 		stars = new Array<IStar>();
 		doors = new Array <IDoor>();
 		spikes = new Array<Spike>();
-		keys = new Array<Key>();
+		keys = new Array<KeyController>();
 		
 		chc = new CharacterController(new CharacterModel(), new CharacterView());
 		chc.setSpriteBatch(sb); //set this in constructor 
@@ -111,7 +111,6 @@ public class Level extends GameState{
 		b2dCam.setToOrtho(false, EGA.V_WIDTH / PPM, EGA.V_HEIGTH / PPM);
 
 		// set up HUD
-		hud = new HUD(player);
 		
 		timer = EGATimer.getTimer();
 		timer.startTimer();
@@ -218,9 +217,9 @@ public class Level extends GameState{
 		for(IDoor d: doors){
 			d.render(sb);
 		}
-		for(Key k: keys){
+		/*for(KeyController k: keys){
 			k.render(sb);
-		}
+		}*/
 
 		if(debug){
 			b2br.render(world, b2dCam.combined);
@@ -284,7 +283,7 @@ public class Level extends GameState{
 		if(bodies.size > 0 ){
 			for(int i = 0; i < bodies.size; i++){
 				Body b = bodies.get(i);
-				keys.removeValue((Key) b.getUserData(), true);
+				keys.removeValue((KeyController)b.getUserData(), true);
 				world.destroyBody(b);
 			}
 			setDoorIsOpen(true);
@@ -301,6 +300,7 @@ public class Level extends GameState{
 				doors.removeValue((IDoor) b.getUserData(), true);
 				world.destroyBody(b);
 				
+				EGA.res.getSound("unlock").play();
 				createOpenDoors();
 
 //				if(uData.equals("closedDoor")){

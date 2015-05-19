@@ -45,7 +45,8 @@ public class KeyController extends EntityController{
 		super.setBody(body);
 		setFixtureDef();
 		em.setPosition(body.getPosition().x, body.getPosition().y);
-		//em.setPosition(body.getPosition().x, body.getPosition().y);
+
+		
 	}
 	
 	/**

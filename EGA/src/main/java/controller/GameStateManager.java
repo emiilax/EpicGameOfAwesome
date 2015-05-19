@@ -43,7 +43,7 @@ public class GameStateManager {
 	
 	public void pushState(GameState state){
 		gameStates.push(state);
-		//gameStates.push(getState(state));
+
 	}
 	
 	public void popState(){
