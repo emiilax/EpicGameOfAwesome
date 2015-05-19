@@ -43,6 +43,7 @@ public class Character extends Entity {
 	
 	private float currentJumpForce;
 	private float currentSpeed;
+	private boolean isInAir = false;
 	
 	
 	public Character(Body body) {
@@ -168,6 +169,8 @@ public class Character extends Entity {
 	}
 	
 	public void jump(){
+		
+		
 		Body playerBody = this.getBody();
 		playerBody.applyForceToCenter(0, currentJumpForce, true);
 	}

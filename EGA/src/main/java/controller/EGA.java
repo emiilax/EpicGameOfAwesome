@@ -232,7 +232,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	 */
 
 	private void createMaps(){
-		TiledMap level1 = new TmxMapLoader().load("res/maps/testmap.tmx");
+		TiledMap level1 = new TmxMapLoader().load("res/maps/level1.tmx");
 		TiledMap level2 = new TmxMapLoader().load("res/maps/testmap2.tmx");
 		TiledMap level3 = new TmxMapLoader().load("res/maps/testmap.tmx");
 

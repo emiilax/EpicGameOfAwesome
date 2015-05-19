@@ -112,7 +112,7 @@ public class CharacterController extends EntityController{
 			currentHeigth = 17.5f;
 			
 			currentJumpForce = 350;
-			currentSpeed = 1.5f;
+			currentSpeed = 1.3f;
 		} else{
 			currentWidth = 10f;
 			currentHeigth = 10f;
@@ -165,6 +165,7 @@ public class CharacterController extends EntityController{
 	 * Makes the Character-body jump
 	 */
 	public void jump(){
+		
 		Body playerBody = this.getBody();
 		playerBody.applyForceToCenter(0, currentJumpForce, true);
 	}
