@@ -11,15 +11,17 @@ import lombok.Data;
  */
 @Data
 public class EntityModel extends Observable{
+<<<<<<< HEAD
 	
+=======
+>>>>>>> master
 	
 	private float xPosition;
 	private float yPosition;
 	
 	public void setPosition(float xPos, float yPos){
 		xPosition = xPos;
-		yPosition = yPos;
-		
+		yPosition = yPos;	
 		
 		setChanged();
 		notifyObservers();
