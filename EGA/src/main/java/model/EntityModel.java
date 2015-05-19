@@ -11,10 +11,6 @@ import lombok.Data;
  */
 @Data
 public class EntityModel extends Observable{
-<<<<<<< HEAD
-	
-=======
->>>>>>> master
 	
 	private float xPosition;
 	private float yPosition;

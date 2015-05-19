@@ -25,7 +25,6 @@ public class SpikeController extends EntityController {
 		super(em, sv);
 		
 		currentOri = ori;
-		((SpikeView)getTheView()).setTexture(currentOri);
 		
 		shape = new PolygonShape();
 		fDef = new FixtureDef();

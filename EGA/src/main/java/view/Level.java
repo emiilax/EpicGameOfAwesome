@@ -2,11 +2,7 @@ package view;
 
 import static controller.Variables.PPM;
 import lombok.Data;
-<<<<<<< HEAD
 import controller.SpikeController.spikeOrientation;
-=======
-import view.Spike.spikeOrientation;
->>>>>>> master
 import model.CharacterModel;
 import model.EGATimer;
 import model.EntityModel;
@@ -40,11 +36,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
 import controller.EntityController;
 import controller.CharacterController;
-<<<<<<< HEAD
 import controller.SpikeController;
-=======
 import controller.KeyController;
->>>>>>> master
 import controller.Variables;
 import controller.EGA;
 import controller.GameStateManager;

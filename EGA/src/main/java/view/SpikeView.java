@@ -5,6 +5,7 @@ import java.util.Observable;
 
 import controller.SpikeController.spikeOrientation;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import controller.EGA;
@@ -15,7 +16,11 @@ public class SpikeView extends EntityView {
 	private int spikeStyle = 1;
 	
 	public SpikeView(){
-		setTexture();
+	this(spikeOrientation.UP);
+	}
+	
+	public SpikeView(spikeOrientation ori){
+		setTexture(ori);
 	}
 	
 	public void setTexture(spikeOrientation ori){
@@ -42,9 +47,9 @@ public class SpikeView extends EntityView {
 
 	public void update(Observable o, Object arg) {
 		if(o instanceof EntityModel){		
-			EntityModel cm = (EntityModel)o;
-			setXPosition(cm.getXPosition());
-			setYPosition(cm.getYPosition());
+			EntityModel em = (EntityModel)o;
+			setXPosition(em.getXPosition());
+			setYPosition(em.getYPosition());
 			render();
 		}		
 	}
