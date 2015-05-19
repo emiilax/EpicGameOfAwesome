@@ -4,7 +4,12 @@ import static org.junit.Assert.*;
 import model.CharacterModel;
 
 import org.junit.Test;
-
+/**
+ * Test class for CharacterModel
+ * 
+ * @author Hampus Rönström
+ *
+ */
 public class TestCharacterModel {
 
 	@Test

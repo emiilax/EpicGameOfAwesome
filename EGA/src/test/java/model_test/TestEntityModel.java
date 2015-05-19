@@ -4,7 +4,12 @@ import static org.junit.Assert.*;
 import model.EntityModel;
 
 import org.junit.Test;
-
+/**
+ * Test class for EntityModel
+ * 
+ * @author Hampus Rönström
+ *
+ */
 public class TestEntityModel {
 	
 	@Test
