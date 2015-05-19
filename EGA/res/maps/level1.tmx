@@ -30,9 +30,12 @@
  <tileset firstgid="19" name="leftSpikes" tilewidth="21" tileheight="16">
   <image source="../tiles/leftSpikes_21x16.png" width="84" height="16"/>
  </tileset>
+ <tileset firstgid="23" name="skybackground" tilewidth="1280" tileheight="720">
+  <image source="../tiles/skybackground.jpg" width="1280" height="720"/>
+ </tileset>
  <layer name="background" width="40" height="23">
   <data encoding="base64" compression="zlib">
-   eJztwzENAAAMA6DWv+ldNbAbEpqkqqqq+jwH63sDlw==
+   eJztzgEJAAAIA7C3sH9TeQoRtgRLAAAAqLkOPLcrIAAY
   </data>
  </layer>
  <layer name="ground" width="40" height="23">
@@ -51,18 +54,18 @@
   </object>
  </objectgroup>
  <objectgroup name="bigStars">
-  <object id="187" x="496" y="686">
+  <object id="187" x="496" y="670">
    <ellipse/>
   </object>
  </objectgroup>
  <objectgroup name="openDoor">
-  <object id="212" gid="6" x="1189.67" y="698.333"/>
+  <object id="212" gid="6" x="1191" y="675.666"/>
  </objectgroup>
  <objectgroup name="key">
-  <object id="210" gid="4" x="845.667" y="681"/>
+  <object id="210" gid="4" x="861.667" y="683.667"/>
  </objectgroup>
  <objectgroup name="lockedDoor">
-  <object id="211" gid="5" x="1193.67" y="699.667"/>
+  <object id="211" gid="5" x="1192.34" y="677"/>
  </objectgroup>
  <objectgroup name="upSpikes">
   <object id="175" gid="10" x="335.545" y="704.061"/>

@@ -20,6 +20,7 @@ target/
 .*.swp
 .DS_STORE
 .sav
+highScores.sav
 
 .gradle/
 build/
