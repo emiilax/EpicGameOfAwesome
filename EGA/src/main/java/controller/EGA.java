@@ -90,11 +90,12 @@ public class EGA implements ApplicationListener, TheChangeListener{
 //		levels.add(level2);
 //		levels.add(level3);
 		
-		res.loadSound("res/sound/jump_sound.wav", "jump");
-		
+		res.loadSound("res/sound/sound_mariojump.wav", "jump");
 		res.loadSound("res/sound/sound_forward.wav", "forward");
-		
 		res.loadSound("res/sound/eriksmamma.wav", "grow");
+		res.loadSound("res/sound/sound_ta-da.wav", "finish");
+		res.loadSound("res/sound/sound_shrink.wav", "shrink");
+		res.loadSound("res/sound/sound_unlockdoor.wav", "unlock");
 		
 		//res.getSound("jump").play();
 		

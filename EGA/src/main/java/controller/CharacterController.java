@@ -132,7 +132,7 @@ public class CharacterController extends EntityController{
 	public void collectGrowStar() { 
 		//Ta bort?
 		//numCrystals++; 
-		EGA.res.getSound("grow").play();
+		//EGA.res.getSound("grow").play();
 		setIsBig(true);
 		setFixtureDef(currentWidth, currentHeigth);
 		
@@ -148,6 +148,7 @@ public class CharacterController extends EntityController{
 		//numCrystals++; 
 		setIsBig(false);
 		setFixtureDef(currentWidth, currentHeigth);
+		EGA.res.getSound("shrink").play();
 		
 		((CharacterView)getTheView()).setTexture(isBig);
 
