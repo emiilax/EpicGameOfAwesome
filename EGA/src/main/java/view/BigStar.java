@@ -32,7 +32,7 @@ public class BigStar extends Entity implements IStar{
 		
 		
 		Texture tex = EGA.res.getTexture("bigStar");
-		TextureRegion[] sprites = TextureRegion.split(tex,  32,  32)[0];
+		TextureRegion[] sprites = TextureRegion.split(tex,  44,  42)[0];
 		
 		setAnimation(sprites, 1/ 12f);
 	}

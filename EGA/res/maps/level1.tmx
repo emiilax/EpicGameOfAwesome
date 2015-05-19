@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="32" tileheight="32" nextobjectid="213">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="32" tileheight="32" nextobjectid="215">
  <tileset firstgid="1" name="whiteblock" tilewidth="32" tileheight="32">
   <image source="../tiles/whiteblock.png" width="32" height="32"/>
  </tileset>
@@ -42,7 +42,7 @@
  </layer>
  <layer name="platform" width="40" height="23">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApGwSgYvoAZDY+CkQPwxflgSAvoaXOwpVVmNBqXGLXsoUQfepgNJvfROvwGGwAA8bgAWA==
+   eJxjYBgFo2AUjIJRMApGwSgYnoAZCx4FIwvgivPBkhawpdHBlFaR3cKMRYxadlCqFxdNDUAN9+FjDzcAAPKoAFU=
   </data>
  </layer>
  <objectgroup name="stars">
@@ -78,6 +78,8 @@
   <object id="207" gid="10" x="673.394" y="576.637"/>
   <object id="208" gid="10" x="689.333" y="576.667"/>
   <object id="209" gid="10" x="720.333" y="576"/>
+  <object id="213" gid="10" x="767" y="576.333"/>
+  <object id="214" gid="10" x="783" y="576"/>
  </objectgroup>
  <objectgroup name="leftSpikes"/>
  <objectgroup name="rightSpikes"/>
