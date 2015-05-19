@@ -15,6 +15,7 @@ public static void main( String[] args ) {
     	cfg.height = EGA.V_HEIGTH * EGA.SCALE;
     	GdxNativesLoader.load();
     	new LwjglApplication(new EGA(), cfg);
+    	
     	GdxNativesLoader.load();
     }
 }

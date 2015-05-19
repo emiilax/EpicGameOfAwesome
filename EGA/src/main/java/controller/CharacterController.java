@@ -130,30 +130,24 @@ public class CharacterController extends EntityController{
 	 * Method called when character collides with big-star
 	 */
 	public void collectGrowStar() { 
-		//Ta bort?
-		//numCrystals++; 
+	
 		//EGA.res.getSound("grow").play();
 		setIsBig(true);
 		setFixtureDef(currentWidth, currentHeigth);
 		
 		((CharacterView)getTheView()).setTexture(isBig);
-		//setAnimation(sprites, 1 / 12f);
 	}
 	
 	/**
 	 * Method called when character collides with small-star
 	 */
 	public void collectShrinkStar() { 
-		//Ta bort?
-		//numCrystals++; 
 		setIsBig(false);
 		setFixtureDef(currentWidth, currentHeigth);
 		EGA.res.getSound("shrink").play();
 		
 		((CharacterView)getTheView()).setTexture(isBig);
 
-		//setTexture("small");
-		//setAnimation(sprites, 1 / 12f);
 	}
 	
 	/**
