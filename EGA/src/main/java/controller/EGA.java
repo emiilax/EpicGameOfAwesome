@@ -28,21 +28,37 @@ import event.EventSupport;
 import event.TheChangeListener;
 import event.TheEvent;
 
-
+/**
+ * Creates the application and load all the 
+ * necessary contents.
+ * This class controls the inputs from  the user
+ */
 @Data
 public class EGA implements ApplicationListener, TheChangeListener{
-
-	public static final String TITLE= "The game";
+	
+	/** The name that will be shown in the game frame */
+	public static final String TITLE= "Epic Game of Awesome";
+	
+	/** The width of the game */
 	public static final int V_WIDTH = 1280;
+	/** The heigth of the game */
 	public static final int V_HEIGTH = 720;
+	
+	/** How the game should be scaled (normally 1) */
 	public static final int SCALE = 1;
+	
+	/** In which rate the game should be updated*/
 	public static final float STEP = 1/ 60f;
+	/** Used to keep a steady updating-rate*/
 	private float accum;
 
-	//private SaveHandler saveHandler;
+	/** Keep the info on keys etc.*/
 	private GameData gameData;
-
+	
+	/** The spritebatch that are used to draw on screen*/
 	private SpriteBatch sb;
+	
+	/** The camera */
 	private OrthographicCamera cam;
 	private OrthographicCamera hudCam;
 
@@ -60,7 +76,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	private HashMap <Integer, Texture> levelBgr;
 
 	public void create() {
-		System.out.println("create");
+		
 		Gdx.input.setInputProcessor(new MyInputProcessor());
 		
 		res = new Content();
@@ -187,7 +203,8 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		res.loadSound("res/sound/sound_ta-da.wav", "finish");
 		res.loadSound("res/sound/sound_shrink.wav", "shrink");
 		res.loadSound("res/sound/sound_unlockdoor.wav", "unlock");
-		//res.loadSound("res/sound/sound_collectkey.wav", "collectkey");
+		res.loadSound("res/sound/sound_collectkey.wav", "collectkey");
+		res.loadSound("res/sound/sound_oflyt.wav", "fail");
 	}
 
 	/** 
