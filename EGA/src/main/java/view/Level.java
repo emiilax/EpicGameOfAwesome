@@ -60,7 +60,6 @@ public class Level extends GameState{
 	//Entities
 	private Character player;
 	private Array<StarController> stars;
-	//private Array<Spike> spikes;
 	private Array<IDoor> doors;
 	private Array<SpikeController> spikes;
 	private Array<KeyController> keys;
