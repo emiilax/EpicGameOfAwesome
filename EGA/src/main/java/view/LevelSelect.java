@@ -265,9 +265,5 @@ public class LevelSelect extends GameState implements IMenu {
 				}
 			}
 		}
-<<<<<<< HEAD
-
-=======
->>>>>>> fuckingMouseInMenusAgain
 	}
 }

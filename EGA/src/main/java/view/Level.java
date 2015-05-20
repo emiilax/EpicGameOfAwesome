@@ -148,8 +148,9 @@ public class Level extends GameState{
 				}else{
 					//game.setTheLevel(m.getTheGame());
 					isPaused = false;
-					timer.resumeTimer();
-				}
+					resumeTimer();
+				} // vi borde kunna ta bort en hel del av det här iom att man aldrig är i level 
+				  // när isPaused är true...
 			break;
 			
 			case MyInput.BUTTON_RESTART: gsm.getGame().setLevel(new Level(gsm, gsm.getCurrentTiledMap()));
@@ -162,6 +163,10 @@ public class Level extends GameState{
 	
 	public void setIsPaused(boolean b){
 		isPaused = false;
+	}
+	
+	public void resumeTimer(){
+		timer.resumeTimer();
 	}
 
 	public void update(float dt) {

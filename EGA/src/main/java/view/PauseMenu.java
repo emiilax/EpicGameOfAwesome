@@ -119,8 +119,7 @@ public class PauseMenu extends GameState implements IMenu{
 			break;
 		
 		case MyInput.BUTTON_PAUSE:
-			((Level)theGame).setIsPaused(false);
-			EventSupport.getInstance().fireNewEvent("resumegame", theGame);
+			unpauseTheGame();
 			break;
 		}	
 	}
@@ -128,8 +127,7 @@ public class PauseMenu extends GameState implements IMenu{
 	private void select(){
 		if (currentItem == 0){
 			// resume
-			((Level)theGame).setIsPaused(false);
-			gsm.getGame().setLevel(theGame);
+			unpauseTheGame();
 			
 		}
 		if (currentItem == 1){
@@ -145,6 +143,13 @@ public class PauseMenu extends GameState implements IMenu{
 			gsm.getGame().setLevel(new MenuState(gsm));
 			//Gdx.app.exit();
 		}
+	}
+	
+	public void unpauseTheGame(){
+		Level game = (Level)theGame;
+		game.setIsPaused(false);
+		game.resumeTimer();
+		EventSupport.getInstance().fireNewEvent("resumegame", theGame);
 	}
 	
 	public void select(int x, int y){
