@@ -104,7 +104,6 @@ public class SettingsMenu extends GameState implements IMenu {
 		case MyInput.BUTTON_ESCAPE:
 			gsm.getGame().setLevel(new MenuState(gsm));
 			break;
-		
 		}
 	}
 

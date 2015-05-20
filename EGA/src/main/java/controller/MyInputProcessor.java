@@ -92,7 +92,6 @@ public class MyInputProcessor extends InputAdapter{
 	public boolean touchDown(int x, int y, int pointer, int button){
 		if(active){
 			EventSupport.getInstance().fireNewEvent("selectMenuItem", x, y);
-
 			return true;
 		}
 		return false;
@@ -106,5 +105,4 @@ public class MyInputProcessor extends InputAdapter{
 		} 
 		return false;
 	}
-
 }
