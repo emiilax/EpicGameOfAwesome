@@ -125,7 +125,7 @@ public class SettingsMenu extends GameState implements IMenu {
 			gsm.getGame().setLevel(new ChangeControlMenu(gsm));
 		}
 		if (currentItem == 1){
-			resetControls();
+			resetAll();
 		}
 		if (currentItem == 2){
 			if(curGame != null){
@@ -145,9 +145,13 @@ public class SettingsMenu extends GameState implements IMenu {
 			select();
 		}
 	}
-
-	public void resetControls(){
-		
+	/**
+	 * Method for 
+	 * 
+	 * @author Hampus Rönström
+	 */
+	public void resetAll(){
+		SaveHandler.init();
 	}
 	@Override
 	public void update(float dt) {
