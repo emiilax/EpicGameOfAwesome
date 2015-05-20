@@ -99,11 +99,7 @@ public abstract class EntityController {
 	 * @param userData, the name of the FixtureDef
 	 */
 	public void setSensor(FixtureDef fdef, String userData){
-		
 		body.createFixture(fdef).setUserData(userData);
-		
-		
-		
 	}
 	
 	/**
@@ -113,5 +109,9 @@ public abstract class EntityController {
 		
 		body.getFixtureList().clear();
 		
+	}
+	
+	public void setRender(boolean b){
+		theView.setRender(b);
 	}
 }
