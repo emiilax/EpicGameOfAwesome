@@ -102,7 +102,7 @@ public class MyContactListener implements ContactListener{
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("lockedDoor")){
 			
-			System.out.println("Ball in contact with the locked-door!");
+			
 			doorsToRemove.add(fb.getBody());
 		}
 		
@@ -118,12 +118,12 @@ public class MyContactListener implements ContactListener{
 		if(fa.getUserData() != null && fa.getUserData().equals("key")){
 			keysToRemove.add(fa.getBody());
 		
-			//System.out.print("in contact with key");
+			
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("key")){
 			keysToRemove.add(fb.getBody());
 			EGA.res.getSound("collectkey").play();
-			//System.out.print("in contact with key");
+			
 		}
 	}
 	

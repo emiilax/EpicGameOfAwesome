@@ -44,7 +44,9 @@ public class MyInputProcessor extends InputAdapter{
 			MyInput.setKey(MyInput.BUTTON_ESCAPE, true);
 		}
 		if(k == gd.pause){
-			EventSupport.getInstance().fireNewEvent("pause");
+			
+			MyInput.setKey(MyInput.BUTTON_PAUSE, true);
+			//EventSupport.getInstance().fireNewEvent("pause");
 		}
 		pressed = k;
 		return true;
@@ -77,6 +79,11 @@ public class MyInputProcessor extends InputAdapter{
 		} 
 		if(k == gd.escape){
 			MyInput.setKey(MyInput.BUTTON_ESCAPE, false);
+		}
+		if(k == gd.pause){
+			
+			MyInput.setKey(MyInput.BUTTON_PAUSE, false);
+			//EventSupport.getInstance().fireNewEvent("pause");
 		}
 		return true;
 	}

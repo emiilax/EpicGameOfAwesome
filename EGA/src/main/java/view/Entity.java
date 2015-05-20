@@ -101,10 +101,7 @@ public abstract class Entity {
 	public void setSensor(FixtureDef fdef, String userData){
 		
 		body.createFixture(fdef).setUserData(userData);
-		
-		if(userData.equals("foot")){
-			System.out.println(body.getFixtureList().size);	
-		}	
+			
 	}
 	
 	public void removeSensors(){

@@ -102,9 +102,7 @@ public abstract class EntityController {
 		
 		body.createFixture(fdef).setUserData(userData);
 		
-		if(userData.equals("foot")){
-			System.out.println(body.getFixtureList().size);	
-		}
+		
 		
 	}
 	
