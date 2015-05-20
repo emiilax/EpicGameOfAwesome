@@ -44,7 +44,7 @@ import controller.GameStateManager;
 @Data
 public class Level extends GameState{
 
-	private boolean debug = false;
+	private boolean debug = true;
 
 	private World world;
 	private Box2DDebugRenderer b2br;

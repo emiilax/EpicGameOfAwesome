@@ -126,7 +126,7 @@ public class LevelSelect extends GameState implements IMenu {
 	private void select(){
 		String lvl = menuItems[currentRow][currentCol];
 		if(lvl == "Level 1"){
-			System.out.print("this is Level 1");
+			
 			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(1)));
 		}
 	}
@@ -159,7 +159,7 @@ public class LevelSelect extends GameState implements IMenu {
 				
 				if(currentRow == row && currentCol == col){
 					font.setColor(Color.RED);
-					System.out.print(menuItems[row][col]);
+					
 				}else{
 					font.setColor(Color.WHITE);
 				}

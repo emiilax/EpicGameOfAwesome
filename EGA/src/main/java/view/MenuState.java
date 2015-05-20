@@ -127,7 +127,7 @@ public class MenuState extends GameState implements IMenu{
 			gsm.getGame().setLevel(new Level(gsm, gsm.getCurrentTiledMap()));
 		}
 		if (currentItem == 1){
-			System.out.println("Level select!");
+			
 			gsm.getGame().setLevel(new LevelSelect(gsm, backgroundTexture));
 			//gsm.getGame().setLevelSelect(1);
 			//gsm.getGame().setLevelFinished(1);
@@ -195,7 +195,7 @@ public class MenuState extends GameState implements IMenu{
 			menuItemPositions[i] = new Point(xPos,EGA.V_HEIGTH-yPos);
 			menuItemEndPositions[i] = new Point(xPos+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
 			if(firstTime){
-				System.out.println(font.getXHeight());
+				
 				firstTime = false;
 			}
 		}
