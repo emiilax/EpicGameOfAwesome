@@ -2,7 +2,7 @@ package view;
 
 import java.awt.Point;
 
-/*
+/**
  * @author Hampus Rönström
  * 
  * interface for menus

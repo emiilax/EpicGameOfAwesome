@@ -38,6 +38,7 @@ import controller.EntityController;
 import controller.CharacterController;
 import controller.SpikeController;
 import controller.KeyController;
+import controller.StarController;
 import controller.Variables;
 import controller.EGA;
 import controller.GameStateManager;
@@ -58,7 +59,7 @@ public class Level extends GameState{
 	
 	//Entities
 	private Character player;
-	private Array<IStar> stars;
+	private Array<StarController> stars;
 	//private Array<Spike> spikes;
 	private Array <IDoor> doors;
 	private Array<SpikeController> spikes;
@@ -96,7 +97,7 @@ public class Level extends GameState{
 		world.setContactListener(cl);
 		b2br = new Box2DDebugRenderer();
 
-		stars = new Array<IStar>();
+		stars = new Array<StarController>();
 		doors = new Array <IDoor>();
 		spikes = new Array<SpikeController>();
 		keys = new Array<KeyController>();
@@ -148,8 +149,9 @@ public class Level extends GameState{
 				}else{
 					//game.setTheLevel(m.getTheGame());
 					isPaused = false;
-					timer.resumeTimer();
-				}
+					resumeTimer();
+				} // vi borde kunna ta bort en hel del av det här iom att man aldrig är i level 
+				  // när isPaused är true...
 			break;
 			
 			case MyInput.BUTTON_RESTART: gsm.getGame().setLevel(new Level(gsm, gsm.getCurrentTiledMap()));
@@ -162,6 +164,10 @@ public class Level extends GameState{
 	
 	public void setIsPaused(boolean b){
 		isPaused = false;
+	}
+	
+	public void resumeTimer(){
+		timer.resumeTimer();
 	}
 
 	public void update(float dt) {
@@ -181,7 +187,7 @@ public class Level extends GameState{
 			
 			kc.update(dt);
 			
-			for(IStar s: stars){
+			for(StarController s: stars){
 				s.update(dt);
 			}
 			
@@ -216,8 +222,8 @@ public class Level extends GameState{
 		chc.render();
 		kc.render();
 
-		for(int i  = 0; i < stars.size; i++){
-			stars.get(i).render(sb);
+		for(StarController s: stars){
+			s.render();
 		}
 		
 		for(SpikeController s: spikes){
@@ -265,7 +271,7 @@ public class Level extends GameState{
 			String uData = bodies.get(0).getFixtureList().get(0).getUserData().toString();
 			for(int i = 0; i < bodies.size; i++){
 				Body b = bodies.get(i);
-				stars.removeValue((IStar) b.getUserData(), true);
+				stars.removeValue((StarController)b.getUserData(), true);
 				world.destroyBody(b);
 
 				if(uData.equals("smallStar")){
@@ -576,14 +582,12 @@ public class Level extends GameState{
 
 			Body body = world.createBody(bdef);
 
-			IStar s;
-			if(isSmallStar){
-				s = new SmallStar(body);
-			} else {
-				s = new BigStar(body);
-			}
-			stars.add(s);
+			StarController s;
+			s = new StarController(new EntityModel(), new StarView(!isSmallStar));
+			s.setSpriteBatch(sb);
+			s.setBody(body);
 			body.setUserData(s);
+			stars.add(s);
 
 		}	
 	}
