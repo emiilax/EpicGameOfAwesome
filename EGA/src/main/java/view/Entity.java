@@ -75,15 +75,6 @@ public abstract class Entity {
 				body.getPosition().y * Variables.PPM - height / 2);
 		sb.end();
 	}
-	
-	public void renderWithRotation(SpriteBatch sb, float rot){
-		sb.begin();
-		sb.draw(animation.getFrame(), 
-				body.getPosition().x * Variables.PPM - width / 2,
-				body.getPosition().y * Variables.PPM - height / 2);
-		sb.end();
-	}
-	
 	/**
 	 * 
 	 * @return the position of the body

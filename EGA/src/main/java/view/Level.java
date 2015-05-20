@@ -2,7 +2,7 @@ package view;
 
 import static controller.Variables.PPM;
 import lombok.Data;
-import view.Spike.spikeOrientation;
+import controller.SpikeController.spikeOrientation;
 import model.CharacterModel;
 import model.EGATimer;
 import model.EntityModel;
@@ -36,6 +36,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
 import controller.EntityController;
 import controller.CharacterController;
+import controller.SpikeController;
 import controller.KeyController;
 import controller.Variables;
 import controller.EGA;
@@ -54,12 +55,13 @@ public class Level extends GameState{
 	private float tilesize;
 	private OrthogonalTiledMapRenderer tmr;
 	private GameStateManager gsm;
-
+	
 	//Entities
 	private Character player;
 	private Array<IStar> stars;
-	private Array<Spike> spikes;
+	//private Array<Spike> spikes;
 	private Array <IDoor> doors;
+	private Array<SpikeController> spikes;
 	private Array <KeyController> keys;
 
 	//end Entities 
@@ -71,6 +73,7 @@ public class Level extends GameState{
 	private EntityController chc;
 	private CharacterModel chm;
 	private CharacterView chv;
+	private SpikeController spc;
 	
 	//MVC Key
 	private KeyController kc;
@@ -95,7 +98,7 @@ public class Level extends GameState{
 
 		stars = new Array<IStar>();
 		doors = new Array <IDoor>();
-		spikes = new Array<Spike>();
+		spikes = new Array<SpikeController>();
 		keys = new Array<KeyController>();
 		
 		chc = new CharacterController(new CharacterModel(), new CharacterView());
@@ -182,7 +185,7 @@ public class Level extends GameState{
 				s.update(dt);
 			}
 			
-			for(Spike s: spikes){
+			for(SpikeController s: spikes){
 				s.update(dt);
 			}
 			
@@ -213,21 +216,17 @@ public class Level extends GameState{
 		chc.render();
 		kc.render();
 
-		// draw crystals
 		for(int i  = 0; i < stars.size; i++){
 			stars.get(i).render(sb);
 		}
 		
-		for(Spike s: spikes){
-			s.render(sb);
+		for(SpikeController s: spikes){
+			s.render();
 		}
 		
 		for(IDoor d: doors){
 			d.render(sb);
 		}
-		/*for(KeyController k: keys){
-			k.render(sb);
-		}*/
 
 		if(debug){
 			b2br.render(world, b2dCam.combined);
@@ -324,18 +323,9 @@ public class Level extends GameState{
 	
 // 	CREATE METHODS --------------------------------------------------------------
 	public void createEntities(){
-
 		createPlayer();
-
 		createTiles();
-
-		createStars();
-
-		createSpikes();
-
-		createLockedDoors();
-		
-		createKey();
+		createMapObjects();
 	}
 	
 	public void createMapObjects(){
@@ -658,10 +648,12 @@ public class Level extends GameState{
 		
 			Body body = world.createBody(bdef);
 			
-			Spike s;
-			s = new Spike(body, ori);
-			spikes.add(s);
+			SpikeController s;
+			s = new SpikeController(new EntityModel(), new SpikeView(), ori);
+			s.setSpriteBatch(sb);
+			s.setBody(body);
 			body.setUserData(s);
+			spikes.add(s);
 			
 		}	
 	}
