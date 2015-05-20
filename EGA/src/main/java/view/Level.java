@@ -585,8 +585,8 @@ public class Level extends GameState{
 			StarController s;
 			s = new StarController(new EntityModel(), new StarView(!isSmallStar));
 			s.setSpriteBatch(sb);
-			body.setUserData(s);
 			s.setBody(body);
+			body.setUserData(s);
 			
 			stars.add(s);
 
