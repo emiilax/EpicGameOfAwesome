@@ -120,7 +120,8 @@ public class Level extends GameState{
 		// kinematic body, ex. a moving platform
 
 	}
-
+		
+	PauseMenu m;
 	public void handleInput(int i) {
 		switch(i){
 			case -1: playerStop(); ((CharacterController)chc).stop();
@@ -137,9 +138,12 @@ public class Level extends GameState{
 
 			case MyInput.BUTTON_PAUSE: 
 				if(!isPaused){
+					m = new PauseMenu(gsm, this); 
+					game.setLevel(m);
 					isPaused = true;
 					timer.stopTimer();
 				}else{
+					//game.setTheLevel(m.getTheGame());
 					isPaused = false;
 					timer.resumeTimer();
 				}
@@ -151,6 +155,10 @@ public class Level extends GameState{
 			case MyInput.BUTTON_ESCAPE: gsm.getGame().setLevel(new MenuState(gsm));
 			break;
 		}
+	}
+	
+	public void setIsPaused(boolean b){
+		isPaused = false;
 	}
 
 	public void update(float dt) {
@@ -473,12 +481,14 @@ public class Level extends GameState{
 	}
 	
 	
-	public void loopEntities(MapLayer layer){
+	public void loopEntities(MapLayer layer, EntityController e){
+		
 		String layerName = layer.getName();
 		BodyDef bdef = new BodyDef();
 		
+		EntityController theController = e;
+		
 		for(MapObject mo: layer.getObjects()){
-			
 			bdef.type = BodyType.StaticBody;
 
 			float x = mo.getProperties().get("x", Float.class) / PPM;
@@ -487,26 +497,18 @@ public class Level extends GameState{
 			bdef.position.set(x, y);
 
 			Body body = world.createBody(bdef);
-			switch(layerName){
-		
-			case "star":
-				SmallStar s = new SmallStar(body);
-				body.setUserData(s);
-				stars.add(s);
 			
-			case "bigStars":
-				BigStar b = new BigStar(body);
-				body.setUserData(b);
-				stars.add(b);
-				
-			case "lockedDoor":
-				LockedDoor ld = new LockedDoor(body, "lockedDoor");
+			try {
+				theController = e.getClass().newInstance();
 			
-			case "openDoor":
-				
-			}
+			} catch (InstantiationException e1) {e1.printStackTrace();
+			} catch (IllegalAccessException e1) {e1.printStackTrace();}
 			
+			// put in an array with all the entities
 			
+			theController.setBody(body);
+			
+			body.setUserData(theController);
 		}
 		
 	}
@@ -526,8 +528,9 @@ public class Level extends GameState{
 	
 	private void createKey(){
 		BodyDef bdef = new BodyDef();
+		
 		MapLayer layer = tiledMap.getLayers().get("key");
-			
+
 			for(MapObject mo: layer.getObjects()){
 
 				bdef.type = BodyType.StaticBody;

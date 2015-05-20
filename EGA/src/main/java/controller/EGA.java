@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import view.GameState;
 import view.IMenu;
@@ -8,6 +9,7 @@ import view.Level;
 import view.LevelFinished;
 import view.LevelSelect;
 import view.MenuState;
+import view.PauseMenu;
 import view.SettingsMenu;
 import lombok.Data;
 import model.Content;
@@ -61,20 +63,29 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	/** The camera */
 	private OrthographicCamera cam;
 	private OrthographicCamera hudCam;
-
+	
+	/** Manages the gamestates */
 	private GameStateManager gsm;
+	
+	/** The current gamestate */
 	private GameState theLevel;
-
+	
+	/** Keeps all the pictures and sounds*/ 
 	public static Content res;
 	
 	
+	/** Map with maps */
+	private Map<Integer, TiledMap> maps;
 	
-	private HashMap<Integer, TiledMap> maps;
-
-	private HashMap<Integer, Texture> finishedBgr;
-
-	private HashMap <Integer, Texture> levelBgr;
-
+	/** Map with menu backgrounds */
+	private Map<Integer, Texture> finishedBgr;
+	
+	/** Map with level backgrounds */
+	private Map <Integer, Texture> levelBgr;
+	
+	/**
+	 * Setups the parts necarrary for the game.
+	 */
 	public void create() {
 		
 		Gdx.input.setInputProcessor(new MyInputProcessor());
@@ -99,7 +110,11 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		gsm.pushState(theLevel);
 
 	}
-
+	
+	/**
+	 * This method is looped continuously. Updates the input and 
+	 * handles it.
+	 */
 	public void render() {
 		accum+=Gdx.graphics.getDeltaTime();
 		while (accum >= STEP){
@@ -111,7 +126,11 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		}
 
 	}
-
+	
+	/**
+	 * 
+	 * @param state
+	 */
 	public void setLevel(GameState state){
 		MyInput.setAllKeysFalse();
 		theLevel = state;
@@ -141,6 +160,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		if(MyInput.isDown(MyInput.BUTTON_FORWARD)){
 
 			theLevel.handleInput(MyInput.BUTTON_FORWARD);
+			
 
 		}else if(MyInput.isDown(MyInput.BUTTON_BACKWARD)){
 
@@ -162,6 +182,10 @@ public class EGA implements ApplicationListener, TheChangeListener{
 
 			theLevel.handleInput(-1);
 
+		}
+		
+		if(MyInput.isDown(MyInput.BUTTON_PAUSE)){
+			theLevel.handleInput(MyInput.BUTTON_PAUSE);
 		}
 		
 		
@@ -189,7 +213,13 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			if(evt.getNameOfEvent().equals("currentMenuItem")){
 				((IMenu) theLevel).setCurrentItem(evt.getX(), evt.getY());
 			}
+			
+			if(evt.getNameOfEvent().equals("resumegame")){
+				setLevel(evt.getGame());
+			}
 		}
+		
+		
 	}
 	
 	/**
@@ -221,8 +251,8 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		res.loadTexture("res/characters/redball_small.png", "smallplayer");
 		res.loadTexture("res/characters/redball_big.png", "bigPlayer");
 		res.loadTexture("res/stars/bigBigStar.png", "bigStar");
-		res.loadTexture("res/door/openDoor.png", "openDoor");
-		res.loadTexture("res/door/closedDoor.png", "lockedDoor");
+		res.loadTexture("res/door/openDoor.jpg", "openDoor");
+		res.loadTexture("res/door/closedDoor.jpg", "lockedDoor");
 		res.loadTexture("res/tiles/upSpikes_16x21.png", "upSpike");
 		res.loadTexture("res/tiles/downSpikes_16x21.png", "downSpike");
 		res.loadTexture("res/tiles/leftSpikes_21x16.png", "leftSpike");

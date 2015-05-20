@@ -15,6 +15,8 @@ import controller.EGA;
 
 public class SmallStar extends Entity implements  IStar{
 	
+	
+	
 	public SmallStar(Body body) {
 		super(body);
 		
