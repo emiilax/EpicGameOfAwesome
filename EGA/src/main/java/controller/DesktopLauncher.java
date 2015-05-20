@@ -1,15 +1,6 @@
 package controller;
 
 import lombok.Data;
-<<<<<<< HEAD
-
-import com.badlogic.gdx.Gdx;
-/* why cant i import? Do i need the imports?
-import com.badlogic.gdx.backends.jogl.JoglApplication;
-import com.badlogic.gdx.backends.jogl.JoglApplicationConfiguration;
-*/
-=======
->>>>>>> master
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 

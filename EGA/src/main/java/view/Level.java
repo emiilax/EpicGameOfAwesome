@@ -55,23 +55,14 @@ public class Level extends GameState{
 	private float tilesize;
 	private OrthogonalTiledMapRenderer tmr;
 	private GameStateManager gsm;
-<<<<<<< HEAD
-	private HUD hud;
 	
-=======
-
->>>>>>> master
 	//Entities
 	private Character player;
 	private Array<IStar> stars;
 	//private Array<Spike> spikes;
 	private Array <IDoor> doors;
-<<<<<<< HEAD
-	private Array <Key> keys;
 	private Array<SpikeController> spikes;
-=======
 	private Array <KeyController> keys;
->>>>>>> master
 
 	//end Entities 
 	private EGATimer timer;
@@ -107,13 +98,8 @@ public class Level extends GameState{
 
 		stars = new Array<IStar>();
 		doors = new Array <IDoor>();
-<<<<<<< HEAD
 		spikes = new Array<SpikeController>();
-		keys = new Array<Key>();
-=======
-		spikes = new Array<Spike>();
 		keys = new Array<KeyController>();
->>>>>>> master
 		
 		chc = new CharacterController(new CharacterModel(), new CharacterView());
 		chc.setSpriteBatch(sb); //set this in constructor 
@@ -241,9 +227,6 @@ public class Level extends GameState{
 		for(IDoor d: doors){
 			d.render(sb);
 		}
-		/*for(KeyController k: keys){
-			k.render(sb);
-		}*/
 
 		if(debug){
 			b2br.render(world, b2dCam.combined);
@@ -670,6 +653,7 @@ public class Level extends GameState{
 			s.setSpriteBatch(sb);
 			s.setBody(body);
 			body.setUserData(s);
+			spikes.add(s);
 			
 		}	
 	}

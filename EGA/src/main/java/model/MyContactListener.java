@@ -107,18 +107,10 @@ public class MyContactListener implements ContactListener{
 		}
 		
 		if(fa.getUserData() != null && fa.getUserData().equals("spike")){
-<<<<<<< HEAD
-=======
-		
->>>>>>> master
 			contactWithSpike();
 		}
 		
 		if(fb.getUserData() != null && fb.getUserData().equals("spike")){
-<<<<<<< HEAD
-=======
-			
->>>>>>> master
 			contactWithSpike();
 		}
 		if(fa.getUserData() != null && fa.getUserData().equals("key")){
