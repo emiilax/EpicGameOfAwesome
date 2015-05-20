@@ -251,19 +251,23 @@ public class LevelSelect extends GameState implements IMenu {
 		return null;
 	}
 
-	public void setCurrentItem(int x, int y) {
+	public void setCurrentItem(int x, int y) {		
 		if(rendered){
-			for(int i = 0; i < menuItemPositions[0].length; i++){
-				for(int j = 0; j < menuItemPositions.length; i++){
-					if(x > menuItemPositions[i][j].getX() && y > menuItemPositions[i][j].getY()
-							&& x < menuItemEndPositions[i][j].getX() &&
-							y < menuItemEndPositions[i][j].getY()){
+			for(int i = 0; i < menuItemPositions.length; i++){
+				for(int j= 0; j < menuItemPositions[0].length; j++){
+					if(x > menuItemPositions[i][j].getX() 
+							&& y > menuItemPositions[i][j].getY()
+							&& x < menuItemEndPositions[i][j].getX()
+							&& y < menuItemEndPositions[i][j].getY()){
 						currentRow = i;
 						currentCol = j;
 					}
 				}
-			}	
+			}
 		}
+<<<<<<< HEAD
 
+=======
+>>>>>>> fuckingMouseInMenusAgain
 	}
 }
