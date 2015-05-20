@@ -138,7 +138,7 @@ public class PauseMenu extends GameState implements IMenu{
 
 		}
 		if (currentItem == 2){
-			gsm.getGame().setLevel(new SettingsMenu(gsm));
+			gsm.getGame().setLevel(new SettingsMenu(gsm, this));
 		}
 		if(currentItem == 3){
 			SaveHandler.save();
@@ -179,8 +179,8 @@ public class PauseMenu extends GameState implements IMenu{
 		layout.setText(titleFont, title);
 		float width = layout.width;
 
-		animateTitle(width);
-
+		//animateTitle(width);
+		titleFont.draw(sb, title, (EGA.V_WIDTH-width) / 2, 650);
 		for(int i = 0; i < menuItems.length; i++){
 			layout.setText(font, menuItems[i]);
 			if(currentItem == i){
@@ -200,7 +200,7 @@ public class PauseMenu extends GameState implements IMenu{
 			menuItemPositions[i] = new Point(xPos,EGA.V_HEIGTH-yPos);
 			menuItemEndPositions[i] = new Point(xPos+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
 			if(firstTime){
-				System.out.println(font.getXHeight());
+				
 				firstTime = false;
 			}
 		}
@@ -213,9 +213,9 @@ public class PauseMenu extends GameState implements IMenu{
 
 
 	private void animateTitle(Float width){	
-		if(titleHeight > 650){
+		/*if(titleHeight > 650){
 			titleHeight -= 2;
-		} 
+		} */
 		titleFont.draw(sb, title, (EGA.V_WIDTH-width) / 2, titleHeight);
 		//subFont.draw(sb, subTitle, (EGA.V_WIDTH-width) / 2, titleHeight-120);
 	}

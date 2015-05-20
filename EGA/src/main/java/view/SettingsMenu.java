@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Point;
 
+import lombok.Data;
 import model.MyInput;
 
 import com.badlogic.gdx.Gdx;
@@ -18,6 +19,7 @@ import controller.EGA;
 import controller.GameStateManager;
 import controller.SaveHandler;
 
+@Data
 public class SettingsMenu extends GameState implements IMenu {
 	private SpriteBatch sb;
 	private BitmapFont titleFont;
@@ -41,11 +43,21 @@ public class SettingsMenu extends GameState implements IMenu {
 	private Point[] menuItemEndPositions;
 	
 	private boolean rendered;
-
+	
+	private GameState curGame;
 
 	public SettingsMenu(GameStateManager gsm) {
 		super(gsm);
 		this.gsm = gsm;
+		init();
+		loadTextures();
+	}
+	
+	public SettingsMenu(GameStateManager gsm, GameState curGame){
+		super(gsm);
+		this.gsm = gsm;
+		this.curGame = curGame;
+		
 		init();
 		loadTextures();
 	}
@@ -109,7 +121,13 @@ public class SettingsMenu extends GameState implements IMenu {
 			gsm.getGame().setLevel(new ChangeControlMenu(gsm));
 		}
 		if (currentItem == 1){
-			gsm.getGame().setLevel(new MenuState(gsm));
+			if(curGame != null){
+			
+				gsm.getGame().setLevel(curGame);
+			}else{
+				gsm.getGame().setLevel(new MenuState(gsm));
+			}
+			
 		}
 	}
 	
@@ -166,7 +184,7 @@ public class SettingsMenu extends GameState implements IMenu {
 			menuItemPositions[i] = new Point(xPos,EGA.V_HEIGTH-yPos);
 			menuItemEndPositions[i] = new Point(xPos+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
 			if(firstTime){
-				System.out.println(font.getXHeight());
+				
 				firstTime = false;
 			}
 		}
