@@ -5,15 +5,18 @@ import java.util.Observable;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import lombok.Data;
 import model.EntityModel;
 import controller.EGA;
 import controller.SpikeController.spikeOrientation;
 
+@Data
 public class StarView extends EntityView {
 
 	private boolean isBig;
 
 	public StarView(boolean isBig){
+		super();
 		this.isBig = isBig;
 		setTexture();
 	}

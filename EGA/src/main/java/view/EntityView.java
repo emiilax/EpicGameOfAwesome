@@ -35,7 +35,6 @@ public abstract class EntityView implements Observer {
 	 */
 	public EntityView(){
 		animation = new Animation();
-		
 		render = true;
 	}
 	

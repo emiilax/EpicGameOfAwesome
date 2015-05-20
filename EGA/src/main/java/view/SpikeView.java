@@ -9,17 +9,22 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import controller.EGA;
+import lombok.Data;
 import model.EntityModel;
 
+@Data
 public class SpikeView extends EntityView {
 	
 	private int spikeStyle = 1;
 	
+	private spikeOrientation spikeOr;
+	
 	public SpikeView(){
-	this(spikeOrientation.UP);
+		this(spikeOrientation.UP);
 	}
 	
 	public SpikeView(spikeOrientation ori){
+		spikeOr = ori;
 		setTexture(ori);
 	}
 	

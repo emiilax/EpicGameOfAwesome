@@ -61,10 +61,11 @@ public class Level extends GameState{
 	private Character player;
 	private Array<StarController> stars;
 	//private Array<Spike> spikes;
-	private Array <IDoor> doors;
+	private Array<IDoor> doors;
 	private Array<SpikeController> spikes;
-	private Array <KeyController> keys;
-
+	private Array<KeyController> keys;
+	private Array<EntityController> entities;
+	
 	//end Entities 
 	private EGATimer timer;
 	private boolean doorIsOpen;
@@ -80,6 +81,9 @@ public class Level extends GameState{
 	private KeyController kc;
 	private EntityModel km;
 	private KeyView kv;
+	
+	
+	
 	
 	//public Level(GameStateManager gsm){
 		public Level(GameStateManager gsm, TiledMap tiledMap){
@@ -102,11 +106,14 @@ public class Level extends GameState{
 		spikes = new Array<SpikeController>();
 		keys = new Array<KeyController>();
 		
+		entities = new Array<EntityController>(); 
+		
 		chc = new CharacterController(new CharacterModel(), new CharacterView());
 		chc.setSpriteBatch(sb); //set this in constructor 
 		kc = new KeyController(new EntityModel(), new KeyView());
 		kc.setSpriteBatch(sb); //set this in contructor
 		//door controller 
+		
 		
 		createEntities();
 
@@ -128,7 +135,7 @@ public class Level extends GameState{
 	PauseMenu m;
 	public void handleInput(int i) {
 		switch(i){
-			case -1: playerStop(); ((CharacterController)chc).stop();
+			case -1: ((CharacterController)chc).stop();
 			break;
 			
 			case MyInput.BUTTON_FORWARD:  ((CharacterController)chc).moveForward();//playerMoveForward();
@@ -172,24 +179,23 @@ public class Level extends GameState{
 
 	public void update(float dt) {
 		if(!isPaused){
-			//gsm.getGame().handleInput();
-			//player.handleInput(cl);
 	
 			world.step(dt, 6, 2);
-	
-			removeStars();
-			removeKeys();
+			
+			removeEntities();
+			//removeStars();
+			//removeKeys();
 			removeDoors();
 			
-			//player.update(dt);
 			
 			chc.update(dt);
 			
 			kc.update(dt);
 			
-			for(StarController s: stars){
-				s.update(dt);
+			for(EntityController ec: entities){
+				ec.update(dt);
 			}
+
 			
 			for(SpikeController s: spikes){
 				s.update(dt);
@@ -198,10 +204,7 @@ public class Level extends GameState{
 			for(IDoor d: doors){
 				d.update(dt);
 			}
-			
-//			for(Key k: keys){
-//				k.update(dt);
-//			}
+
 	}
 	
 	}
@@ -220,15 +223,18 @@ public class Level extends GameState{
 		//player.render(sb);
 		
 		chc.render();
-		kc.render();
+		//kc.render();
 
-		for(StarController s: stars){
+		for(EntityController ec: entities){
+			ec.render();
+		}
+		/*for(StarController s: stars){
 			s.render();
 		}
 		
 		for(SpikeController s: spikes){
 			s.render();
-		}
+		}*/
 		
 		for(IDoor d: doors){
 			d.render(sb);
@@ -261,48 +267,45 @@ public class Level extends GameState{
 
 	public void dispose() {}
 
-	/**
-	 * Removes the stars that have been collected
-	 */
-	public void removeStars(){
+	public void removeEntities(){
 		Array<Body> bodies = cl.getBodiesToRemove();
-
-		if(bodies.size > 0){
-			String uData = bodies.get(0).getFixtureList().get(0).getUserData().toString();
-			for(int i = 0; i < bodies.size; i++){
-				Body b = bodies.get(i);
-				stars.removeValue((StarController)b.getUserData(), true);
-				world.destroyBody(b);
-
-				if(uData.equals("smallStar")){
-					((CharacterController)chc).setIsBig(false);
-					changePlayerBody();
-					//player.collectShrinkStar();
-					((CharacterController)chc).collectShrinkStar();
-				} else {
-					((CharacterController)chc).setIsBig(true);
-					changePlayerBody();
-					//player.collectGrowStar();
-					((CharacterController)chc).collectGrowStar();
+		
+		if(bodies.size >0){
+			for(Body b: bodies){
+				//entities.removeValue((EntityController)b.getUserData(), true);
+				
+				if(b.getUserData() instanceof StarController){
+					collectedStar((StarController)b.getUserData());
+					
 				}
+				
+				if(b.getUserData() instanceof KeyController) setDoorIsOpen(true);
+				
+				System.out.println("remove");
+				entities.removeValue((EntityController)b.getUserData(), true);
+				world.destroyBody(b);
 			}
 		}
+		
 		bodies.clear();
 	}
 	
-	public void removeKeys(){
-		Array<Body> bodies = cl.getKeysToRemove();
-
-		if(bodies.size > 0 ){
-			for(int i = 0; i < bodies.size; i++){
-				Body b = bodies.get(i);
-				keys.removeValue((KeyController)b.getUserData(), true);
-				world.destroyBody(b);
-			}
-			setDoorIsOpen(true);
+	public void collectedStar(StarController s){
+		if(!s.isBig()){
+			((CharacterController)chc).setIsBig(false);
+			changePlayerBody();
+			//player.collectShrinkStar();
+			((CharacterController)chc).collectShrinkStar();
+		}else{
+			((CharacterController)chc).setIsBig(true);
+			changePlayerBody();
+			//player.collectGrowStar();
+			((CharacterController)chc).collectGrowStar();
 		}
-		bodies.clear();
 	}
+	
+	
+	
 	
 	public void removeDoors(){
 		Array<Body> bodies = cl.getDoorsToRemove();
@@ -316,12 +319,6 @@ public class Level extends GameState{
 				EGA.res.getSound("unlock").play();
 				createOpenDoors();
 
-//				if(uData.equals("closedDoor")){
-//					createOpenDoors();
-//				} else {
-//					// new level or highscore
-//					//this can be in myContactListener too, which it is now				
-//				}
 			}
 		}
 		bodies.clear();
@@ -335,7 +332,8 @@ public class Level extends GameState{
 	}
 	
 	public void createMapObjects(){
-		createStars();
+		//createStars();
+		createEntitiestest();
 		createSpikes();
 		createLockedDoors();
 		createKey();
@@ -468,45 +466,72 @@ public class Level extends GameState{
 		
 		//Create small stars
 		MapLayer layer = tiledMap.getLayers().get("stars");
-		loopInStars(layer,true);
+		loopEntity(layer, new StarController(new EntityModel(), new StarView(false)));
 
 		// Create the big stars
 		layer = tiledMap.getLayers().get("bigStars");
-		loopInStars(layer,false);
+		loopEntity(layer, new StarController(new EntityModel(), new StarView(true)));
 
 	}
 	
-	
-	public void loopEntities(MapLayer layer, EntityController e){
-		
-		String layerName = layer.getName();
+	public Body createBody(MapObject mo){
 		BodyDef bdef = new BodyDef();
 		
-		EntityController theController = e;
-		
+		bdef.type = BodyType.StaticBody;
+
+		float x = mo.getProperties().get("x", Float.class) / PPM;
+		float y = mo.getProperties().get("y", Float.class) / PPM;
+
+		bdef.position.set(x, y);
+
+		return world.createBody(bdef);
+	}
+	
+	public void loopEntity(MapLayer layer, EntityController ec){
 		for(MapObject mo: layer.getObjects()){
-			bdef.type = BodyType.StaticBody;
-
-			float x = mo.getProperties().get("x", Float.class) / PPM;
-			float y = mo.getProperties().get("y", Float.class) / PPM;
-
-			bdef.position.set(x, y);
-
-			Body body = world.createBody(bdef);
-			
-			try {
-				theController = e.getClass().newInstance();
-			
-			} catch (InstantiationException e1) {e1.printStackTrace();
-			} catch (IllegalAccessException e1) {e1.printStackTrace();}
-			
-			// put in an array with all the entities
-			
-			theController.setBody(body);
-			
-			body.setUserData(theController);
-		}
+			EntityController theController = null;
 		
+			if(ec instanceof StarController){
+				boolean isBig = ((StarController)ec).isBig();
+				theController = new StarController(new EntityModel(), new StarView(isBig));
+			} 
+			if(ec instanceof KeyController){
+				theController = new KeyController(new EntityModel(), new KeyView());
+			}
+			if(ec instanceof SpikeController){
+				spikeOrientation ori = ((SpikeController)ec).getSpikeOrientation();
+				theController = new SpikeController(new EntityModel(), new SpikeView(ori));
+			}
+			
+			Body body = null;
+			BodyDef bdef = new BodyDef();
+			
+			if(!(ec instanceof SpikeController)){
+				body = createBody(mo);
+			}else{
+				bdef.type = BodyType.StaticBody;
+
+				float x = (mo.getProperties().get("x", Float.class)+10) / PPM;
+				float y = (mo.getProperties().get("y", Float.class)+10) / PPM;
+				
+				bdef.position.set(x, y);
+			
+				body = world.createBody(bdef);
+			}
+			
+			theController.setSpriteBatch(sb);
+			theController.setBody(body);
+			body.setUserData(theController);
+			entities.add(theController);
+			
+		}
+	}
+	
+	public void createEntitiestest(){
+		
+		createStars();
+		createSpikes();
+		createKey();
 	}
 	
 	
@@ -523,44 +548,113 @@ public class Level extends GameState{
 	}
 	
 	private void createKey(){
-		BodyDef bdef = new BodyDef();
-		
+	
 		MapLayer layer = tiledMap.getLayers().get("key");
-
-			for(MapObject mo: layer.getObjects()){
-
-				bdef.type = BodyType.StaticBody;
-
-				float x = mo.getProperties().get("x", Float.class) / PPM;
-				float y = mo.getProperties().get("y", Float.class) / PPM;
-
-				bdef.position.set(x, y);
-				
-				Body body = world.createBody(bdef);
-				body.setUserData(kc);
-				kc.setBody(body);
-				//Key key = new Key(body); is not needed with mvc
-				//keys.add(kc); //change so that keys take in keycontroller
-			
-				
-			}
-		}
+		Body body = createBody(layer.getObjects().get(0));
+		body.setUserData(kc);
+		kc.setBody(body);
+		entities.add(kc);
+	}
+	
+	
 	private void createSpikes(){
 		//Create spikes
 		MapLayer layer = tiledMap.getLayers().get("upSpikes");
-		loopInSpikes(layer, spikeOrientation.UP);	
+		loopEntity(layer, new SpikeController(new EntityModel(), new SpikeView(spikeOrientation.UP)));
 		
 		layer = tiledMap.getLayers().get("downSpikes");
-		loopInSpikes(layer, spikeOrientation.DOWN);
+		loopEntity(layer, new SpikeController(new EntityModel(), new SpikeView(spikeOrientation.DOWN)));
 		
 		layer = tiledMap.getLayers().get("leftSpikes");
-		loopInSpikes(layer, spikeOrientation.LEFT);
+		loopEntity(layer, new SpikeController(new EntityModel(), new SpikeView(spikeOrientation.LEFT)));
 		
 		layer = tiledMap.getLayers().get("rightSpikes");
-		loopInSpikes(layer, spikeOrientation.RIGHT);
 	}
 	
 	// END CREATE METHODS ----------------------------------------------------
+	
+	
+	private void loopInDoors(MapLayer layer, String texString){
+		BodyDef bdef = new BodyDef();
+
+		for(MapObject mo: layer.getObjects()){
+
+			bdef.type = BodyType.StaticBody;
+
+			float x = mo.getProperties().get("x", Float.class) / PPM;
+			float y = mo.getProperties().get("y", Float.class) / PPM;
+
+			bdef.position.set(x, y);
+
+			Body body = world.createBody(bdef);
+
+			IDoor id;
+			if(texString.equals("openDoor")){
+				id = new OpenDoor(body, "openDoor");
+				
+				doors.add(id);
+				body.setUserData(id);
+			} else{
+				id = new LockedDoor(body, "lockedDoor");
+				
+				doors.add(id);
+				body.setUserData(id);
+			}	
+		}	
+	}
+	
+	
+	/**
+	 * Used when character is growing or shrinking.
+	 * The method destroys the existing body and replace
+	 * it with a new.
+	 */
+	public void changePlayerBody(){
+		((CharacterController)chc).setCurrentVelocity();
+
+		Body pb = chc.getBody();
+		world.destroyBody(pb);
+		
+		BodyDef bdef = new BodyDef();
+		bdef.position.set(pb.getPosition().x , pb.getPosition().y);
+		
+		bdef.type = BodyType.DynamicBody;
+		Body body = world.createBody(bdef);
+
+		chc.setBody(body);
+		body.setUserData(player);
+	}
+
+	private void setDoorIsOpen(boolean b){
+		doorIsOpen = b;
+	}
+//	public void addDoor(OpenDoor door){
+//		doors.add(door);
+//	}
+	
+	/*
+	private void loopInSpikes(MapLayer layer, spikeOrientation ori){
+		BodyDef bdef = new BodyDef();
+		for(MapObject mo: layer.getObjects()){
+
+			bdef.type = BodyType.StaticBody;
+
+			float x = (mo.getProperties().get("x", Float.class)+10) / PPM;
+			float y = (mo.getProperties().get("y", Float.class)+10) / PPM;
+			
+			bdef.position.set(x, y);
+		
+			Body body = world.createBody(bdef);
+			
+			SpikeController s;
+			s = new SpikeController(new EntityModel(), new SpikeView(), ori);
+			s.setSpriteBatch(sb);
+			s.setBody(body);
+			body.setUserData(s);
+			//spikes.add(s);
+			entities.add(s);
+		}	
+	}*/
 	
 	/**
 	 * Used to loop in the stars to the map. A help
@@ -568,7 +662,7 @@ public class Level extends GameState{
 	 * @param layer, the layer that should be filled
 	 * @param isSmallStar, boolean that says if its a small or big star
 	 */
-	private void loopInStars(MapLayer layer, boolean isSmallStar){
+	/*private void loopInStars(MapLayer layer, boolean isSmallStar){
 		BodyDef bdef = new BodyDef();
 
 		for(MapObject mo: layer.getObjects()){
@@ -588,38 +682,14 @@ public class Level extends GameState{
 			body.setUserData(s);
 			s.setBody(body);
 			
-			stars.add(s);
+			entities.add(s);
+			//stars.add(s);
 
 		}	
-	}
-	private void loopInDoors(MapLayer layer, String texString){
-		BodyDef bdef = new BodyDef();
-
-		for(MapObject mo: layer.getObjects()){
-
-			bdef.type = BodyType.StaticBody;
-
-			float x = mo.getProperties().get("x", Float.class) / PPM;
-			float y = mo.getProperties().get("y", Float.class) / PPM;
-
-			bdef.position.set(x, y);
-
-			Body body = world.createBody(bdef);
-
-			IDoor id;
-			if(texString.equals("openDoor")){
-				id = new OpenDoor(body, "openDoor");
-				doors.add(id);
-				body.setUserData(id);
-			} else{
-				id = new LockedDoor(body, "lockedDoor");
-				doors.add(id);
-				body.setUserData(id);
-			}	
-		}	
-	}
-	
 		
+	}*/
+	
+	/*	
 	public void playerJump(){
 		if(cl.isPlayerOnGround()){
 			
@@ -638,57 +708,49 @@ public class Level extends GameState{
 	public void playerStop(){
 		//player.stop();
 	}
+	*/
 	
-	
-	private void loopInSpikes(MapLayer layer, spikeOrientation ori){
-		BodyDef bdef = new BodyDef();
-		for(MapObject mo: layer.getObjects()){
-
-			bdef.type = BodyType.StaticBody;
-
-			float x = (mo.getProperties().get("x", Float.class)+10) / PPM;
-			float y = (mo.getProperties().get("y", Float.class)+10) / PPM;
-			
-			bdef.position.set(x, y);
-		
-			Body body = world.createBody(bdef);
-			
-			SpikeController s;
-			s = new SpikeController(new EntityModel(), new SpikeView(), ori);
-			s.setSpriteBatch(sb);
-			s.setBody(body);
-			body.setUserData(s);
-			spikes.add(s);
-			
-		}	
-	}
 	/**
-	 * Used when character is growing or shrinking.
-	 * The method destroys the existing body and replace
-	 * it with a new.
+	 * Removes the stars that have been collected
 	 */
-	public void changePlayerBody(){
-		//player.setCurrentVelocity();
-		((CharacterController)chc).setCurrentVelocity();
-		
-		//Body pb = player.getBody();
-		Body pb = chc.getBody();
-		world.destroyBody(pb);
-		
-		BodyDef bdef = new BodyDef();
-		bdef.position.set(pb.getPosition().x , pb.getPosition().y);
-		
-		bdef.type = BodyType.DynamicBody;
-		Body body = world.createBody(bdef);
-		//player.setBody(body);
-		chc.setBody(body);
-		body.setUserData(player);
-	}
+	/*
+	public void removeStars(){
+		Array<Body> bodies = cl.getBodiesToRemove();
 
-	private void setDoorIsOpen(boolean b){
-		doorIsOpen = b;
-	}
-//	public void addDoor(OpenDoor door){
-//		doors.add(door);
-//	}
+		if(bodies.size > 0){
+			String uData = bodies.get(0).getFixtureList().get(0).getUserData().toString();
+			for(int i = 0; i < bodies.size; i++){
+				Body b = bodies.get(i);
+				entities.removeValue((EntityController)b.getUserData(), true);
+				world.destroyBody(b);
+				System.out.println(kc.getTheView().toString());
+				if(uData.equals("smallStar")){
+					((CharacterController)chc).setIsBig(false);
+					changePlayerBody();
+					//player.collectShrinkStar();
+					((CharacterController)chc).collectShrinkStar();
+				} else {
+					((CharacterController)chc).setIsBig(true);
+					changePlayerBody();
+					//player.collectGrowStar();
+					((CharacterController)chc).collectGrowStar();
+				}
+			}
+		}
+		bodies.clear();
+	}*/
+	/*
+	public void removeKeys(){
+		Array<Body> bodies = cl.getKeysToRemove();
+
+		if(bodies.size > 0 ){
+			for(int i = 0; i < bodies.size; i++){
+				Body b = bodies.get(i);
+				keys.removeValue((KeyController)b.getUserData(), true);
+				world.destroyBody(b);
+			}
+			setDoorIsOpen(true);
+		}
+		bodies.clear();
+	}*/
 }
