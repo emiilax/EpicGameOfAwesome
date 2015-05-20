@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import view.GameState;
 import view.IMenu;
@@ -8,6 +9,7 @@ import view.Level;
 import view.LevelFinished;
 import view.LevelSelect;
 import view.MenuState;
+import view.PauseMenu;
 import view.SettingsMenu;
 import lombok.Data;
 import model.Content;
@@ -28,81 +30,74 @@ import event.EventSupport;
 import event.TheChangeListener;
 import event.TheEvent;
 
-
+/**
+ * Creates the application and load all the 
+ * necessary contents.
+ * This class controls the inputs from  the user
+ */
 @Data
 public class EGA implements ApplicationListener, TheChangeListener{
-
-	public static final String TITLE= "The game";
+	
+	/** The name that will be shown in the game frame */
+	public static final String TITLE= "Epic Game of Awesome";
+	
+	/** The width of the game */
 	public static final int V_WIDTH = 1280;
+	/** The heigth of the game */
 	public static final int V_HEIGTH = 720;
+	
+	/** How the game should be scaled (normally 1) */
 	public static final int SCALE = 1;
+	
+	/** In which rate the game should be updated*/
 	public static final float STEP = 1/ 60f;
+	/** Used to keep a steady updating-rate*/
 	private float accum;
 
-	//private SaveHandler saveHandler;
+	/** Keep the info on keys etc.*/
 	private GameData gameData;
-
+	
+	/** The spritebatch that are used to draw on screen*/
 	private SpriteBatch sb;
+	
+	/** The camera */
 	private OrthographicCamera cam;
 	private OrthographicCamera hudCam;
-
+	
+	/** Manages the gamestates */
 	private GameStateManager gsm;
+	
+	/** The current gamestate */
 	private GameState theLevel;
-
+	
+	/** Keeps all the pictures and sounds*/ 
 	public static Content res;
 	
 	
+	/** Map with maps */
+	private Map<Integer, TiledMap> maps;
 	
-	private HashMap<Integer, TiledMap> maps;
-
-	private HashMap<Integer, Texture> finishedBgr;
-
-	private HashMap <Integer, Texture> levelBgr;
-
+	/** Map with menu backgrounds */
+	private Map<Integer, Texture> finishedBgr;
+	
+	/** Map with level backgrounds */
+	private Map <Integer, Texture> levelBgr;
+	
+	/**
+	 * Setups the parts necarrary for the game.
+	 */
 	public void create() {
-
+		
 		Gdx.input.setInputProcessor(new MyInputProcessor());
 		
 		res = new Content();
 		
-		//load pictures, borde ligga i view
-		/*res.loadTexture("res/tiles/bunny.png", "bunny");
-		res.loadTexture("res/stars/star.png", "star");
-		res.loadTexture("res/tiles/hud.png", "hud");
-		res.loadTexture("res/characters/redball_small.png", "smallplayer");
-		res.loadTexture("res/characters/redball_big.png", "bigPlayer");
-		res.loadTexture("res/stars/bigStar.png", "bigStar");
-		res.loadTexture("res/door/openDoor.jpg", "openDoor");
-		res.loadTexture("res/door/closedDoor.jpg", "lockedDoor");
-		res.loadTexture("res/tiles/upSpikes_16x21.png", "upSpike");
-		res.loadTexture("res/tiles/downSpikes_16x21.png", "downSpike");
-		res.loadTexture("res/tiles/leftSpikes_21x16.png", "leftSpike");
-		res.loadTexture("res/tiles/rightSpikes_21x16.png", "rightSpike");
-		res.loadTexture("res/key/key-4.png", "key");*/
-		
-		//load levels
-		//level1 = new TmxMapLoader().load("res/maps/testmap.tmx");
-		//level2 = new TmxMapLoader().load("res/maps/testmap2.tmx");
-		//level3 = new TmxMapLoader().load("res/maps/testmap.tmx");
-		//add levels to the array levels
-//		levels = new Array<TiledMap>();
-//		levels.add(level1);
-//		levels.add(level2);
-//		levels.add(level3);
-		
-		res.loadSound("res/sound/jump_sound.wav", "jump");
-		
-		res.loadSound("res/sound/sound_forward.wav", "forward");
-		
-		res.loadSound("res/sound/eriksmamma.wav", "grow");
-		
-		//res.getSound("jump").play();
-		
+		loadSounds();
 		createPictures();
-
+		createMaps();
+		
 		SaveHandler.load();
-		//SaveHandler.getGameData();
-
+		
 		EventSupport.getInstance().addListner(this);
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();
@@ -115,11 +110,13 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		gsm.pushState(theLevel);
 
 	}
-
+	
+	/**
+	 * This method is looped continuously. Updates the input and 
+	 * handles it.
+	 */
 	public void render() {
 		accum+=Gdx.graphics.getDeltaTime();
-		//res.getSound("jump").play();
-		////handleInput();
 		while (accum >= STEP){
 			accum -= STEP;
 			gsm.update(STEP);
@@ -129,7 +126,11 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		}
 
 	}
-
+	
+	/**
+	 * 
+	 * @param state
+	 */
 	public void setLevel(GameState state){
 		MyInput.setAllKeysFalse();
 		theLevel = state;
@@ -159,6 +160,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		if(MyInput.isDown(MyInput.BUTTON_FORWARD)){
 
 			theLevel.handleInput(MyInput.BUTTON_FORWARD);
+			
 
 		}else if(MyInput.isDown(MyInput.BUTTON_BACKWARD)){
 
@@ -180,6 +182,10 @@ public class EGA implements ApplicationListener, TheChangeListener{
 
 			theLevel.handleInput(-1);
 
+		}
+		
+		if(MyInput.isDown(MyInput.BUTTON_PAUSE)){
+			theLevel.handleInput(MyInput.BUTTON_PAUSE);
 		}
 		
 		
@@ -207,7 +213,28 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			if(evt.getNameOfEvent().equals("currentMenuItem")){
 				((IMenu) theLevel).setCurrentItem(evt.getX(), evt.getY());
 			}
+			
+			if(evt.getNameOfEvent().equals("resumegame")){
+				setLevel(evt.getGame());
+			}
 		}
+		
+		
+	}
+	
+	/**
+	 * Loads the sounds that will be usd in 
+	 * the game
+	 */
+	public void loadSounds(){
+		res.loadSound("res/sound/sound_mariojump.wav", "jump");
+		res.loadSound("res/sound/sound_forward.wav", "forward");
+		res.loadSound("res/sound/eriksmamma.wav", "grow");
+		res.loadSound("res/sound/sound_ta-da.wav", "finish");
+		res.loadSound("res/sound/sound_shrink.wav", "shrink");
+		res.loadSound("res/sound/sound_unlockdoor.wav", "unlock");
+		res.loadSound("res/sound/sound_collectkey.wav", "collectkey");
+		res.loadSound("res/sound/sound_oflyt.wav", "fail");
 	}
 
 	/** 
@@ -221,29 +248,27 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		res.loadTexture("res/tiles/bunny.png", "bunny");
 		res.loadTexture("res/stars/star.png", "star");
 		res.loadTexture("res/tiles/hud.png", "hud");
-		res.loadTexture("res/characters/redball_small.png", "smallplayer");
+		res.loadTexture("res/characters/eriksCharacter.png", "smallplayer");
 		res.loadTexture("res/characters/redball_big.png", "bigPlayer");
-		res.loadTexture("res/stars/bigStar.png", "bigStar");
+		res.loadTexture("res/stars/bigBigStar.png", "bigStar");
 		res.loadTexture("res/door/openDoor.jpg", "openDoor");
 		res.loadTexture("res/door/closedDoor.jpg", "lockedDoor");
 		res.loadTexture("res/tiles/upSpikes_16x21.png", "upSpike");
 		res.loadTexture("res/tiles/downSpikes_16x21.png", "downSpike");
 		res.loadTexture("res/tiles/leftSpikes_21x16.png", "leftSpike");
 		res.loadTexture("res/tiles/rightSpikes_21x16.png", "rightSpike");
-		res.loadTexture("res/key/key-4.png", "key");
-
-		createMaps();
+		res.loadTexture("res/key/7key.png", "key");
 
 	}
 
-	/* 
+	/** 
 	 * @author Rebecka Reitmaier
 	 * creates the Maps to levels and puts them in the hashMap maps
 	 * this is also in the new class Pictures in View
 	 */
 
 	private void createMaps(){
-		TiledMap level1 = new TmxMapLoader().load("res/maps/testmap.tmx");
+		TiledMap level1 = new TmxMapLoader().load("res/maps/level1.tmx");
 		TiledMap level2 = new TmxMapLoader().load("res/maps/testmap2.tmx");
 		TiledMap level3 = new TmxMapLoader().load("res/maps/testmap.tmx");
 
@@ -254,7 +279,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 
 	}
 
-	/*
+	/**
 	 * @author Rebecka Reitmaier
 	 * getTiledMap is a method returns an object from the hashmap maps
 	 * OBS: currently only works with ints 1-3

@@ -29,6 +29,6 @@ public class KeyView extends EntityView {
 		tex = EGA.res.getTexture("key"); 
 		TextureRegion[] sprites = TextureRegion.split(tex,  50,  50)[0];
 		
-		setAnimation(sprites, 1/ 12f);
+		setAnimation(sprites, 1/ 6f);
 	}
 }

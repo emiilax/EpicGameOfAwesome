@@ -15,6 +15,8 @@ import controller.EGA;
 
 public class SmallStar extends Entity implements  IStar{
 	
+	
+	
 	public SmallStar(Body body) {
 		super(body);
 		
@@ -32,7 +34,7 @@ public class SmallStar extends Entity implements  IStar{
 		setSensor(fdef, "smallStar");
 		
 		Texture tex = EGA.res.getTexture("star");
-		TextureRegion[] sprites = TextureRegion.split(tex,  16,  16)[0];
+		TextureRegion[] sprites = TextureRegion.split(tex,  18,  17)[0];
 		
 		setAnimation(sprites, 1/ 12f);
 		

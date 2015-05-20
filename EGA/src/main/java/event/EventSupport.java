@@ -3,6 +3,8 @@ package event;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import view.GameState;
 /**
  * 
  * @author emil axelsson
@@ -74,6 +76,18 @@ public class EventSupport {
 		TheEvent event = null;
 		
 		event = new TheEvent(this, nameOfEvent, x, y);
+		
+		Iterator<TheChangeListener> i = theListeners.iterator();
+		
+		while(i.hasNext()){
+			((TheChangeListener) i.next()).eventRecieved(event);
+		}
+	}
+	
+	public void fireNewEvent(String nameOfEvent, GameState game){
+		TheEvent event = null;
+		
+		event = new TheEvent(this, nameOfEvent, game);
 		
 		Iterator<TheChangeListener> i = theListeners.iterator();
 		

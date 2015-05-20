@@ -87,10 +87,12 @@ public class MyContactListener implements ContactListener{
 		}
 		if(fa.getUserData() != null && fa.getUserData().equals("openDoor")){
 			timer.stopTimer();
+			EGA.res.getSound("finish").play();
 			ega.setLevelFinished(gsm.getCurrentLevel());
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("openDoor")){
 			timer.stopTimer();
+			EGA.res.getSound("finish").play();
 			ega.setLevelFinished(gsm.getCurrentLevel());
 		}
 		
@@ -100,28 +102,39 @@ public class MyContactListener implements ContactListener{
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("lockedDoor")){
 			
-			System.out.println("Ball in contact with the locked-door!");
+			
 			doorsToRemove.add(fb.getBody());
 		}
 		
 		if(fa.getUserData() != null && fa.getUserData().equals("spike")){
+<<<<<<< HEAD
+=======
+		
+>>>>>>> master
 			contactWithSpike();
 		}
 		
 		if(fb.getUserData() != null && fb.getUserData().equals("spike")){
+<<<<<<< HEAD
+=======
+			
+>>>>>>> master
 			contactWithSpike();
 		}
 		if(fa.getUserData() != null && fa.getUserData().equals("key")){
-			//keysToRemove.add(fa.getBody());
-			System.out.print("in contact with key");
+			keysToRemove.add(fa.getBody());
+		
+			
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("key")){
-			//keysToRemove.add(fb.getBody());
-			System.out.print("in contact with key");
+			keysToRemove.add(fb.getBody());
+			EGA.res.getSound("collectkey").play();
+			
 		}
 	}
 	
 	public void contactWithSpike(){
+		EGA.res.getSound("fail").play();
 		EventSupport.getInstance().fireNewEvent("spikehit");
 	}
 	

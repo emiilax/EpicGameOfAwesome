@@ -93,7 +93,8 @@ public class MenuState extends GameState implements IMenu{
 
 
 	private void loadTextures() {
-		backgroundTexture = new Texture("res/menu/emilsmamma.jpg");
+		//backgroundTexture = new Texture("res/menu/emilsmamma.jpg");
+		backgroundTexture = new Texture("res/menu/skybackground_menu.jpg");
 		backgroundSprite =new Sprite(backgroundTexture);
 	}
 

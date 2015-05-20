@@ -1,18 +1,20 @@
 package controller;
 
 import lombok.Data;
+<<<<<<< HEAD
 
 import com.badlogic.gdx.Gdx;
 /* why cant i import? Do i need the imports?
 import com.badlogic.gdx.backends.jogl.JoglApplication;
 import com.badlogic.gdx.backends.jogl.JoglApplicationConfiguration;
 */
+=======
+>>>>>>> master
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.badlogic.gdx.utils.GdxNativesLoader;
-import com.badlogic.gdx.graphics.GL20;
+
 /**
- * Hello world!
+ * Launches the application
  *
  */
 
@@ -30,11 +32,8 @@ public class DesktopLauncher {
     	cfg.width = EGA.V_WIDTH * EGA.SCALE;
     	cfg.height = EGA.V_HEIGTH * EGA.SCALE;
     	
-    	//LwjglApplicationConfiguration.disableAudio = false;
-    	//GdxNativesLoader.load();
     	
     	new LwjglApplication(new EGA(), cfg);
     	
-    	//GdxNativesLoader.load(); tror ej denna behövs /rebecka
     }
 }

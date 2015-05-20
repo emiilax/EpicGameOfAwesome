@@ -2,6 +2,7 @@ package event;
 
 import java.util.EventObject;
 
+import view.GameState;
 import lombok.*;
 
 /**
@@ -16,7 +17,7 @@ public class TheEvent extends EventObject {
 	/** Instacevariable that contains the name of event */
 	private String nameOfEvent;
 	private int x, y;
-	
+	private GameState game;
 	/**
 	 * The constructor for the event
 	 * 
@@ -32,6 +33,11 @@ public class TheEvent extends EventObject {
 		this(source, nameOfEvent);
 		this.x = x;
 		this.y = y;
+	}
+	
+	public TheEvent(Object source, String nameOfEvent, GameState game){
+		this(source, nameOfEvent);
+		this.game = game;
 	}
 	
 

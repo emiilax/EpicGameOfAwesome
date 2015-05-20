@@ -33,19 +33,6 @@ public class Content {
 		if(tex != null) tex.dispose();
 	}
 	
-	/*
-	public void loadSound(String path) {
-		int slashIndex = path.lastIndexOf('/');
-		String key;
-		if(slashIndex == -1) {
-			key = path.substring(0, path.lastIndexOf('.'));
-		}
-		else {
-			key = path.substring(slashIndex + 1, path.lastIndexOf('.'));
-		}
-		loadSound(path, key);
-	}*/
-	
 	public void loadSound(String path, String key) {
 		Sound sound = Gdx.audio.newSound(Gdx.files.internal(path));
 		sounds.put(key, sound);
