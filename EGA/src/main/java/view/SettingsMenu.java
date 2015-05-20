@@ -31,7 +31,7 @@ public class SettingsMenu extends GameState implements IMenu {
 
 	private final String title = "Settings";
 	
-	private int titleFontSize = 70;
+	private int titleFontSize = 150;
 	private int menuFontSize = 50;
 
 	private int currentItem;
@@ -77,6 +77,7 @@ public class SettingsMenu extends GameState implements IMenu {
 
 		menuItems = new String[]{
 				"CONTROLS! bitch",
+				"Reseta alla saker",
 				"Back!"
 		};
 		
@@ -88,7 +89,7 @@ public class SettingsMenu extends GameState implements IMenu {
 
 
 	private void loadTextures() {
-		backgroundTexture = new Texture("res/menu/emilsmamma.jpg");
+		backgroundTexture = new Texture("res/menu/skybackground_menu.jpg");
 		backgroundSprite =new Sprite(backgroundTexture);
 	}
 
@@ -124,13 +125,15 @@ public class SettingsMenu extends GameState implements IMenu {
 			gsm.getGame().setLevel(new ChangeControlMenu(gsm));
 		}
 		if (currentItem == 1){
+			resetControls();
+		}
+		if (currentItem == 2){
 			if(curGame != null){
 			
 				gsm.getGame().setLevel(curGame);
 			}else{
 				gsm.getGame().setLevel(new MenuState(gsm));
 			}
-			
 		}
 	}
 	
@@ -143,6 +146,9 @@ public class SettingsMenu extends GameState implements IMenu {
 		}
 	}
 
+	public void resetControls(){
+		
+	}
 	@Override
 	public void update(float dt) {
 		//handleInput();
@@ -166,8 +172,8 @@ public class SettingsMenu extends GameState implements IMenu {
 		layout.setText(titleFont, title);
 		float width = layout.width;
 
-		animateTitle(width);
-
+		titleFont.draw(sb, title, (EGA.V_WIDTH-width) / 2, 650);
+		
 		for(int i = 0; i < menuItems.length; i++){
 			layout.setText(font, menuItems[i]);
 			if(currentItem == i){
@@ -196,15 +202,6 @@ public class SettingsMenu extends GameState implements IMenu {
 		
 		rendered = true;
 
-	}
-
-
-	private void animateTitle(Float width){	
-		if(titleHeight > 650){
-			titleHeight -= 2;
-		} 
-		titleFont.draw(sb, title, (EGA.V_WIDTH-width) / 2, titleHeight);
-		
 	}
 
 	@Override
