@@ -113,13 +113,19 @@ public class MyContactListener implements ContactListener{
 		if(fb.getUserData() != null && fb.getUserData().equals("spike")){
 			contactWithSpike();
 		}
+		
+		//private boolean removeKey = false;
 		if(fa.getUserData() != null && fa.getUserData().equals("key")){
+			
+			System.out.println(fa.getBody().getUserData().toString());
 			keysToRemove.add(fa.getBody());
 		
 			
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("key")){
+			
 			keysToRemove.add(fb.getBody());
+		
 			EGA.res.getSound("collectkey").play();
 			
 		}
