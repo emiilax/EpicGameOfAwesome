@@ -51,15 +51,12 @@ public class SettingsMenu extends GameState implements IMenu {
 		this.gsm = gsm;
 		init();
 		loadTextures();
+		this.curGame = null;
 	}
 	
 	public SettingsMenu(GameStateManager gsm, GameState curGame){
-		super(gsm);
-		this.gsm = gsm;
+		this(gsm);
 		this.curGame = curGame;
-		
-		init();
-		loadTextures();
 	}
 
 	private void init(){
@@ -114,7 +111,12 @@ public class SettingsMenu extends GameState implements IMenu {
 			select();
 			break;
 		case MyInput.BUTTON_ESCAPE:
-			gsm.getGame().setLevel(new MenuState(gsm));
+			if(curGame != null){
+				
+				gsm.getGame().setLevel(new PauseMenu(gsm, curGame));
+			}else{
+				gsm.getGame().setLevel(new MenuState(gsm));
+			}
 			break;
 		}
 	}
@@ -125,8 +127,8 @@ public class SettingsMenu extends GameState implements IMenu {
 		}
 		if (currentItem == 1){
 			if(curGame != null){
-			
-				gsm.getGame().setLevel(curGame);
+				
+				gsm.getGame().setLevel(new PauseMenu(gsm, curGame));
 			}else{
 				gsm.getGame().setLevel(new MenuState(gsm));
 			}

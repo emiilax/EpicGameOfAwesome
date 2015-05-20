@@ -136,7 +136,7 @@ public class PauseMenu extends GameState implements IMenu{
 
 		}
 		if (currentItem == 2){
-			gsm.getGame().setLevel(new SettingsMenu(gsm, this));
+			gsm.getGame().setLevel(new SettingsMenu(gsm, theGame));
 		}
 		if(currentItem == 3){
 			SaveHandler.save();
