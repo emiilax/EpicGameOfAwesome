@@ -37,18 +37,18 @@ import event.TheEvent;
  */
 @Data
 public class EGA implements ApplicationListener, TheChangeListener{
-	
+
 	/** The name that will be shown in the game frame */
 	public static final String TITLE= "Epic Game of Awesome";
-	
+
 	/** The width of the game */
 	public static final int V_WIDTH = 1280;
 	/** The heigth of the game */
 	public static final int V_HEIGTH = 720;
-	
+
 	/** How the game should be scaled (normally 1) */
 	public static final int SCALE = 1;
-	
+
 	/** In which rate the game should be updated*/
 	public static final float STEP = 1/ 60f;
 	/** Used to keep a steady updating-rate*/
@@ -56,48 +56,48 @@ public class EGA implements ApplicationListener, TheChangeListener{
 
 	/** Keep the info on keys etc.*/
 	private GameData gameData;
-	
+
 	/** The spritebatch that are used to draw on screen*/
 	private SpriteBatch sb;
-	
+
 	/** The camera */
 	private OrthographicCamera cam;
 	private OrthographicCamera hudCam;
-	
+
 	/** Manages the gamestates */
 	private GameStateManager gsm;
-	
+
 	/** The current gamestate */
 	private GameState theLevel;
-	
+
 	/** Keeps all the pictures and sounds*/ 
 	public static Content res;
-	
-	
+
+
 	/** Map with maps */
 	private Map<Integer, TiledMap> maps;
-	
+
 	/** Map with menu backgrounds */
 	private Map<Integer, Texture> finishedBgr;
-	
+
 	/** Map with level backgrounds */
 	private Map <Integer, Texture> levelBgr;
-	
+
 	/**
 	 * Setups the parts necarrary for the game.
 	 */
 	public void create() {
-		
+
 		Gdx.input.setInputProcessor(new MyInputProcessor());
-		
+
 		res = new Content();
-		
+
 		loadSounds();
 		createPictures();
 		createMaps();
-		
+
 		SaveHandler.load();
-		
+
 		EventSupport.getInstance().addListner(this);
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();
@@ -110,7 +110,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		gsm.pushState(theLevel);
 
 	}
-	
+
 	/**
 	 * This method is looped continuously. Updates the input and 
 	 * handles it.
@@ -126,7 +126,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		}
 
 	}
-	
+
 	/**
 	 * 
 	 * @param state
@@ -134,39 +134,47 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	public void setLevel(GameState state){
 		MyInput.setAllKeysFalse();
 		theLevel = state;
-		
+
 		gsm.setState(theLevel);
 	}
 
 
-	
+
 	/**
 	 * Handles the input from the user
 	 */
 	public void handleInput() {
-		
-		
+
+
 		if(MyInput.isPressed(MyInput.BUTTON_JUMP)){
-				 
+
 			theLevel.handleInput(MyInput.BUTTON_JUMP);
-			
+
 		}
 		if(MyInput.isPressed(MyInput.BUTTON_DOWN)){
 
 			theLevel.handleInput(MyInput.BUTTON_DOWN);
 
 		}
+		
+		if(theLevel instanceof Level){
+			if(MyInput.isDown(MyInput.BUTTON_FORWARD)){
+				theLevel.handleInput(MyInput.BUTTON_FORWARD);
+			} else if(MyInput.isDown(MyInput.BUTTON_BACKWARD)){
+				theLevel.handleInput(MyInput.BUTTON_BACKWARD);
+			} else if(!MyInput.isDown(MyInput.BUTTON_FORWARD) || !MyInput.isDown(MyInput.BUTTON_BACKWARD)){
+				theLevel.handleInput(-1);
+			}
+		} else {
+			if(MyInput.isPressed(MyInput.BUTTON_FORWARD)){
+				theLevel.handleInput(MyInput.BUTTON_FORWARD);
+			}
+			if(MyInput.isPressed(MyInput.BUTTON_BACKWARD)){
+				theLevel.handleInput(MyInput.BUTTON_BACKWARD);
+			}
+		}
 
-		if(MyInput.isDown(MyInput.BUTTON_FORWARD)){
-
-			theLevel.handleInput(MyInput.BUTTON_FORWARD);
-			
-
-		}else if(MyInput.isDown(MyInput.BUTTON_BACKWARD)){
-
-			theLevel.handleInput(MyInput.BUTTON_BACKWARD);
-
-		}else if(MyInput.isDown(MyInput.BUTTON_ENTER)){
+		if(MyInput.isDown(MyInput.BUTTON_ENTER)){
 
 			theLevel.handleInput(MyInput.BUTTON_ENTER);
 
@@ -178,18 +186,14 @@ public class EGA implements ApplicationListener, TheChangeListener{
 
 			theLevel.handleInput(MyInput.BUTTON_ESCAPE);
 
-		}else if(!MyInput.isDown(MyInput.BUTTON_FORWARD) || !MyInput.isDown(MyInput.BUTTON_BACKWARD)){
-
-			theLevel.handleInput(-1);
-
 		}
-		
+
 		if(MyInput.isDown(MyInput.BUTTON_PAUSE)){
 			theLevel.handleInput(MyInput.BUTTON_PAUSE);
 		}
-		
-		
-		
+
+
+
 	}
 
 	public void dispose() {}
@@ -213,15 +217,15 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			if(evt.getNameOfEvent().equals("currentMenuItem")){
 				((IMenu) theLevel).setCurrentItem(evt.getX(), evt.getY());
 			}
-			
+
 			if(evt.getNameOfEvent().equals("resumegame")){
 				setLevel(evt.getGame());
 			}
 		}
-		
-		
+
+
 	}
-	
+
 	/**
 	 * Loads the sounds that will be usd in 
 	 * the game

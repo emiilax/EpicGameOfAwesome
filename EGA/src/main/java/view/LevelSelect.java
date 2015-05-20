@@ -21,7 +21,7 @@ import controller.GameStateManager;
 import controller.SaveHandler;
 
 public class LevelSelect extends GameState implements IMenu {
-	
+
 	private SpriteBatch sb;
 	private BitmapFont titleFont;
 	private BitmapFont font;
@@ -40,25 +40,25 @@ public class LevelSelect extends GameState implements IMenu {
 
 	private int currentRow = 0;
 	private int currentCol = 0;
-	
+
 	private Point [][] menuItemPositions;
 	private Point [][] menuItemEndPositions;
-	
+
 	private String menuItems [][];
 
 
 	private GameStateManager gsm;
-	
+
 	public LevelSelect(GameStateManager gsm, Texture backgroundTexture){
 		super(gsm);
 		this.gsm = gsm;
 		this.backgroundTexture = backgroundTexture;
 		init();
 	}
-	
+
 	private void init(){
 		sb = new SpriteBatch();
-		
+
 		FreeTypeFontGenerator gen = new FreeTypeFontGenerator(
 				Gdx.files.internal("res/fonts/orbitron-black.otf")
 				);
@@ -73,17 +73,17 @@ public class LevelSelect extends GameState implements IMenu {
 				{"Level 4", "Level 5", "Level 6"}, //row 1
 
 		};
-		
+
 		setTitle();
-		
+
 		SaveHandler.save();
-		
+
 		menuItemPositions = new Point[menuItems.length][menuItems[0].length];
 		menuItemEndPositions = new Point[menuItems.length][menuItems[0].length];
-		
+
 		rendered = false;
 	}
-	
+
 	private void setTitle(){
 		title = "Choose level to play";
 	}
@@ -91,38 +91,54 @@ public class LevelSelect extends GameState implements IMenu {
 	@Override
 	public void handleInput(int i) {
 		switch(i){
-//		case MyInput.BUTTON_JUMP:
-//			if(currentRow > 0){
-//				currentRow --;
-//			}
-//			break;
-//		case MyInput.BUTTON_DOWN:
-//			if(currentRow < 1){ //needs to be changed if amount of rows is changed
-//				currentRow++;
-//			}
-//			break;
+		case MyInput.BUTTON_JUMP:
+			if(currentRow == 1){
+				currentRow --;
+			}
+			break;
+		case MyInput.BUTTON_DOWN:
+			if(currentRow == 0){ //needs to be changed if amount of rows is changed
+				currentRow++;
+			}
+			break;
 		case MyInput.BUTTON_BACKWARD:
-			if(currentCol > 0){
-				if(currentCol == 0){
-					currentRow ++;
-				}else{
-					currentCol --;
+			if(currentCol == 0){
+				if(currentRow == 1){
+					currentCol = 2;
+					currentRow = 0;
+				} else {
+					currentCol = 2;
+					currentRow = 1;
 				}
-				
-			}break;
+			} else {
+				currentCol--;
+			}
+			break;
+
 		case MyInput.BUTTON_FORWARD:
-			if(currentCol < 3){
-				if(currentCol == 2){
-					currentRow ++;
+			if(currentCol == 2){
+				if(currentRow == 1){
+					currentCol = 0;
+					currentRow = 0;
+				} else {
+					currentCol = 0;
+					currentRow = 1;
 				}
-				currentCol ++;
-			}break;
+			} else {
+				currentCol++;
+			}
+			break;
 		case MyInput.BUTTON_ENTER:
 			select();
 			break;
+		case MyInput.BUTTON_ESCAPE:
+			gsm.getGame().setLevel(new MenuState(gsm));
+			break;
 		}
+
 	}
-	
+
+
 	private void select(){
 		String lvl = menuItems[currentRow][currentCol];
 		if(lvl == "Level 1"){
@@ -137,35 +153,35 @@ public class LevelSelect extends GameState implements IMenu {
 	@Override
 	public void render() {
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 		cam.update();
 		sb.setProjectionMatrix(cam.combined);
-		
+
 		sb.begin();
 		renderBackground();
-		
+
 		layout.setText(titleFont, title);
 		float width = layout.width;
 
 		titleFont.draw(sb, title, (EGA.V_WIDTH-width) / 2, 600);
 
 		int x = menuItems[0].length;
-		
+
 		for (int row = 0; row < menuItems.length; row++){
 			for (int col = 0; col < x; col++){
 				layout.setText(font, menuItems[row][col]);
-				
+
 				int yPos = 350 - 180*row;
-				
+
 				if(currentRow == row && currentCol == col){
 					font.setColor(Color.RED);
 					System.out.print(menuItems[row][col]);
 				}else{
 					font.setColor(Color.WHITE);
 				}
-				
-				
-				
+
+
+
 				if(col == 0){
 					int xPos0 = (int) (EGA.V_WIDTH - width - 7*70);
 					font.draw(
@@ -174,7 +190,7 @@ public class LevelSelect extends GameState implements IMenu {
 							xPos0,
 							yPos
 							);
-					
+
 					menuItemPositions[row][col] = new Point(xPos0,EGA.V_HEIGTH-yPos);
 					menuItemEndPositions[row][col] = new Point(xPos0+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
 				}				
@@ -203,13 +219,13 @@ public class LevelSelect extends GameState implements IMenu {
 			}
 
 		}
-		
+
 		sb.end();
-		
+
 		rendered = true;
-		
+
 	}
-	
+
 	private void renderBackground(){
 		backgroundSprite = new Sprite(backgroundTexture);
 		backgroundSprite.draw(sb);
@@ -248,6 +264,6 @@ public class LevelSelect extends GameState implements IMenu {
 				}
 			}	
 		}
-		
+
 	}
 }
