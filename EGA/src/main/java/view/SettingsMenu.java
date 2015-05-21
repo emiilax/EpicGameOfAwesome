@@ -111,28 +111,17 @@ public class SettingsMenu extends GameState implements IMenu {
 			select();
 			break;
 		case MyInput.BUTTON_ESCAPE:
-			if(curGame != null){
-				
-				gsm.getGame().setLevel(new PauseMenu(gsm, curGame));
-			}else{
-				gsm.getGame().setLevel(new MenuState(gsm));
-			}
+			backMenu();
 			break;
 		}
 	}
 
 	private void select(){
 		if (currentItem == 0){
-			gsm.getGame().setLevel(new ChangeControlMenu(gsm));
+			gsm.getGame().setLevel(new ChangeControlMenu(gsm, this));
 		}
 		if (currentItem == 1){
-			if(curGame != null){
-				
-				gsm.getGame().setLevel(new PauseMenu(gsm, curGame));
-			}else{
-				gsm.getGame().setLevel(new MenuState(gsm));
-			}
-			
+			backMenu();			
 		}
 	}
 	
@@ -207,6 +196,14 @@ public class SettingsMenu extends GameState implements IMenu {
 		} 
 		titleFont.draw(sb, title, (EGA.V_WIDTH-width) / 2, titleHeight);
 		
+	}
+	
+	private void backMenu(){
+		if(curGame != null){
+			gsm.getGame().setLevel(curGame);
+		}else{
+			gsm.getGame().setLevel(new MenuState(gsm));
+		}
 	}
 
 	@Override

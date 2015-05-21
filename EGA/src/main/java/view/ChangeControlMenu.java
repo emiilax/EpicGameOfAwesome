@@ -121,12 +121,7 @@ public class ChangeControlMenu extends GameState implements IMenu{
 					currentItem++;
 				}
 			}else if (i == MyInput.BUTTON_ESCAPE){
-				if(curGame != null){
-					gsm.getGame().setLevel(new SettingsMenu(gsm, curGame));
-				}else{
-					gsm.getGame().setLevel(new SettingsMenu(gsm));
-				}
-				
+				menuBack();				
 			} else if (i == MyInput.BUTTON_ENTER) { 
 				selectChange();
 			}
@@ -172,11 +167,7 @@ public class ChangeControlMenu extends GameState implements IMenu{
 
 	private void selectChange(){
 		if(currentItem == 7){
-			if(curGame != null){
-				gsm.getGame().setLevel(new SettingsMenu(gsm, curGame));
-			}else{
-				gsm.getGame().setLevel(new SettingsMenu(gsm));
-			}
+			menuBack();
 		}
 		setCurrentButtons(currentItem, "...");
 		changeMode = true;
@@ -277,7 +268,17 @@ public class ChangeControlMenu extends GameState implements IMenu{
 		}
 
 	}
-
+	
+	private void menuBack(){
+		if(curGame != null){
+			gsm.getGame().setLevel(curGame);
+		}else{
+			gsm.getGame().setLevel(new SettingsMenu(gsm));
+		}
+	}
+	
+	
+	//Delete this though
 	private void waitForInput(){
 		while(!gotInput){
 			waitForInput();
