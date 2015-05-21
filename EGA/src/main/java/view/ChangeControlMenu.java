@@ -276,16 +276,6 @@ public class ChangeControlMenu extends GameState implements IMenu{
 			gsm.getGame().setLevel(new SettingsMenu(gsm));
 		}
 	}
-	
-	
-	//Delete this though
-	private void waitForInput(){
-		while(!gotInput){
-			waitForInput();
-		}
-		changeButton();
-
-	}
 
 	public Point[] getMenuItemPositions() {
 		return menuItemPositions;
