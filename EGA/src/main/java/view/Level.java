@@ -462,8 +462,7 @@ public class Level extends GameState{
 	 * Creates the stars on the map
 	 */
 	private void createStars(){
-		//BodyDef bdef = new BodyDef();
-		
+
 		//Create small stars
 		MapLayer layer = tiledMap.getLayers().get("stars");
 		loopEntity(layer, new StarController(new EntityModel(), new StarView(false)));
@@ -488,6 +487,7 @@ public class Level extends GameState{
 	}
 	
 	public void loopEntity(MapLayer layer, EntityController ec){
+		
 		for(MapObject mo: layer.getObjects()){
 			EntityController theController = null;
 		
@@ -569,11 +569,45 @@ public class Level extends GameState{
 		loopEntity(layer, new SpikeController(new EntityModel(), new SpikeView(spikeOrientation.LEFT)));
 		
 		layer = tiledMap.getLayers().get("rightSpikes");
+		loopEntity(layer, new SpikeController(new EntityModel(), new SpikeView(spikeOrientation.RIGHT)));
 	}
 	
 	// END CREATE METHODS ----------------------------------------------------
 	
-	
+//<<<<<<< HEAD
+//	/**
+//	 * Used to loop in the stars to the map. A help
+//	 * method to createStars();
+//	 * @param layer, the layer that should be filled
+//	 * @param isSmallStar, boolean that says if its a small or big star
+//	 */
+//	private void loopInStars(MapLayer layer, boolean isSmallStar){
+//		BodyDef bdef = new BodyDef();
+//
+//		for(MapObject mo: layer.getObjects()){
+//
+//			bdef.type = BodyType.StaticBody;
+//
+//			float x = mo.getProperties().get("x", Float.class) / PPM;
+//			float y = mo.getProperties().get("y", Float.class) / PPM;
+//
+//			bdef.position.set(x, y);
+//
+//			Body body = world.createBody(bdef);
+//
+//			StarController s;
+//			s = new StarController(new EntityModel(), new StarView(!isSmallStar));
+//			s.setSpriteBatch(sb);
+//			s.setBody(body);
+//			body.setUserData(s);
+//			
+//			stars.add(s);
+//
+//		}	
+//	}
+//=======
+//	
+//>>>>>>> 02e959b4dc0574452724d6e6adcf4d9e15e8deed
 	private void loopInDoors(MapLayer layer, String texString){
 		BodyDef bdef = new BodyDef();
 
