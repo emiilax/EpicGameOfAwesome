@@ -186,10 +186,10 @@ public class EGA implements ApplicationListener, TheChangeListener{
 
 			theLevel.handleInput(MyInput.BUTTON_ESCAPE);
 
-		}
-
-		if(MyInput.isDown(MyInput.BUTTON_PAUSE)){
+		}else if(MyInput.isDown(MyInput.BUTTON_PAUSE)){
 			theLevel.handleInput(MyInput.BUTTON_PAUSE);
+		}else {
+			theLevel.handleInput(-1);
 		}
 
 

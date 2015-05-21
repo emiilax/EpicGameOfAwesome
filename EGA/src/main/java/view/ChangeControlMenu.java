@@ -127,9 +127,11 @@ public class ChangeControlMenu extends GameState implements IMenu{
 		if(keys.contains(Keys.valueOf(latestRemoved))){
 			keys.remove(keys.indexOf(Keys.valueOf(latestRemoved)));
 		}
-		if(!keys.contains(key)){
+		System.out.println(currentItem);
+		if(!(keys.contains(key))){
 			switch(currentItem){
-			case 0: gd.up = key; 
+			case 0: gd.up = key;
+			System.out.println(Keys.toString(gd.up));
 			setCurrentButtons(currentItem, Keys.toString(gd.up));
 			break;
 			case 1: gd.down = key; 

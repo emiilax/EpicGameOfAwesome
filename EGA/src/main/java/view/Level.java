@@ -466,11 +466,11 @@ public class Level extends GameState{
 		
 		//Create small stars
 		MapLayer layer = tiledMap.getLayers().get("stars");
-		loopEntity(layer, new StarController(new EntityModel(), new StarView(false)));
+		loopEntity(layer, new StarController(new EntityModel(), new StarView(false), false));
 
 		// Create the big stars
 		layer = tiledMap.getLayers().get("bigStars");
-		loopEntity(layer, new StarController(new EntityModel(), new StarView(true)));
+		loopEntity(layer, new StarController(new EntityModel(), new StarView(true),true));
 
 	}
 	
@@ -493,7 +493,7 @@ public class Level extends GameState{
 		
 			if(ec instanceof StarController){
 				boolean isBig = ((StarController)ec).isBig();
-				theController = new StarController(new EntityModel(), new StarView(isBig));
+				theController = new StarController(new EntityModel(), new StarView(isBig),isBig);
 			} 
 			if(ec instanceof KeyController){
 				theController = new KeyController(new EntityModel(), new KeyView());
