@@ -18,7 +18,7 @@ public class SpikeController extends EntityController {
 	private spikeOrientation currentOri;
 
 	public SpikeController(EntityModel em, SpikeView sv) {
-		this(em, sv, spikeOrientation.UP);
+		this(em, sv, sv.getSpikeOr());
 	} 
 	
 	public SpikeController(EntityModel em, SpikeView sv, spikeOrientation ori){
@@ -50,6 +50,10 @@ public class SpikeController extends EntityController {
 		fDef.filter.maskBits = Variables.BIT_PLAYER;
 		
 		setSensor(fDef, "spike");
+	}
+	
+	public spikeOrientation getSpikeOrientation(){
+		return ((SpikeView)super.getTheView()).getSpikeOr();
 	}
 	
 	public enum spikeOrientation{

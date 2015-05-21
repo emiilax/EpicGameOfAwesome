@@ -201,5 +201,9 @@ public class CharacterController extends EntityController{
 		yVelocity = playerBody.getLinearVelocity().y;
 		playerBody.setLinearVelocity(0, yVelocity);
 	}
+	
+	public void setRender(){
+		
+	}
 
 }

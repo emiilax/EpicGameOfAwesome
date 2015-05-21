@@ -19,6 +19,7 @@ public abstract class EntityView implements Observer {
 	private float width;
 	private float height;
 	
+	private boolean render;
 
 	private float xPosition;
 	private float yPosition;
@@ -34,6 +35,7 @@ public abstract class EntityView implements Observer {
 	 */
 	public EntityView(){
 		animation = new Animation();
+		render = true;
 	}
 	
 	/**
@@ -62,11 +64,14 @@ public abstract class EntityView implements Observer {
 	 * @param sb, where it should draw
 	 */
 	public void render(){
-		sb.begin();
-		sb.draw(animation.getFrame(), 
-				xPosition * Variables.PPM - width / 2,
-				 yPosition * Variables.PPM - height / 2);
-		sb.end();
+		if(render){
+			sb.begin();
+			sb.draw(animation.getFrame(), 
+					xPosition * Variables.PPM - width / 2,
+					 yPosition * Variables.PPM - height / 2);
+			sb.end();
+		}
+		
 	}
 	
 	public void setSpriteBatch(SpriteBatch sb){

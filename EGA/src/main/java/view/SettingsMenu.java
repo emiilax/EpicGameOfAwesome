@@ -51,15 +51,12 @@ public class SettingsMenu extends GameState implements IMenu {
 		this.gsm = gsm;
 		init();
 		loadTextures();
+		this.curGame = null;
 	}
 	
 	public SettingsMenu(GameStateManager gsm, GameState curGame){
-		super(gsm);
-		this.gsm = gsm;
+		this(gsm);
 		this.curGame = curGame;
-		
-		init();
-		loadTextures();
 	}
 
 	private void init(){
@@ -115,25 +112,20 @@ public class SettingsMenu extends GameState implements IMenu {
 			select();
 			break;
 		case MyInput.BUTTON_ESCAPE:
-			gsm.getGame().setLevel(new MenuState(gsm));
+			backMenu();
 			break;
 		}
 	}
 
 	private void select(){
 		if (currentItem == 0){
-			gsm.getGame().setLevel(new ChangeControlMenu(gsm));
+			gsm.getGame().setLevel(new ChangeControlMenu(gsm, this));
 		}
 		if (currentItem == 1){
 			resetAll();
 		}
 		if (currentItem == 2){
-			if(curGame != null){
-			
-				gsm.getGame().setLevel(curGame);
-			}else{
-				gsm.getGame().setLevel(new MenuState(gsm));
-			}
+			backMenu();			
 		}
 	}
 	
@@ -145,11 +137,7 @@ public class SettingsMenu extends GameState implements IMenu {
 			select();
 		}
 	}
-	/**
-	 * Method for 
-	 * 
-	 * @author Hampus Rönström
-	 */
+	
 	public void resetAll(){
 		SaveHandler.init();
 	}
@@ -206,6 +194,14 @@ public class SettingsMenu extends GameState implements IMenu {
 		
 		rendered = true;
 
+	}
+	
+	private void backMenu(){
+		if(curGame != null){
+			gsm.getGame().setLevel(curGame);
+		}else{
+			gsm.getGame().setLevel(new MenuState(gsm));
+		}
 	}
 
 	@Override
