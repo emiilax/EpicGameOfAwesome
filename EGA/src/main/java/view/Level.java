@@ -60,7 +60,6 @@ public class Level extends GameState{
 	//Entities
 	private Character player;
 	private Array<StarController> stars;
-	//private Array<Spike> spikes;
 	private Array<IDoor> doors;
 	private Array<SpikeController> spikes;
 	private Array<KeyController> keys;
@@ -272,7 +271,6 @@ public class Level extends GameState{
 		
 		if(bodies.size >0){
 			for(Body b: bodies){
-				//entities.removeValue((EntityController)b.getUserData(), true);
 				
 				if(b.getUserData() instanceof StarController){
 					collectedStar((StarController)b.getUserData());
@@ -280,8 +278,6 @@ public class Level extends GameState{
 				}
 				
 				if(b.getUserData() instanceof KeyController) setDoorIsOpen(true);
-				
-				System.out.println("remove");
 				entities.removeValue((EntityController)b.getUserData(), true);
 				world.destroyBody(b);
 			}
