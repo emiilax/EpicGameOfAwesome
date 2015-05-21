@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.Event;
 import controller.EGA;
 import controller.GameStateManager;
 import controller.SaveHandler;
+import controller.Variables;
 import event.EventSupport;
 
 @Data
@@ -27,7 +28,6 @@ public class PauseMenu extends GameState implements IMenu{
 	private SpriteBatch sb;
 	private BitmapFont titleFont;
 	private BitmapFont font;
-	private BitmapFont subFont;
 	private GlyphLayout layout = new GlyphLayout();
 
 	public static Texture backgroundTexture;
@@ -36,9 +36,8 @@ public class PauseMenu extends GameState implements IMenu{
 	private final String title = "Pause";
 	//private final String subTitle = "()";
 
-	private int titleFontSize = 150;
-	private int menuFontSize = 50;
-	private int subTitleFontSize = 28;
+	private int titleFontSize = Variables.subMenuTitleSize;
+	private int menuFontSize = Variables.subMenuItemSize;
 
 	private int currentItem;
 	private String menuItems[];
@@ -72,7 +71,6 @@ public class PauseMenu extends GameState implements IMenu{
 		titleFont.setColor(Color.WHITE);
 
 		font = gen.generateFont(menuFontSize);
-		subFont = gen.generateFont(subTitleFontSize);
 
 		menuItems = new String[]{
 				"Resume",
@@ -195,7 +193,7 @@ public class PauseMenu extends GameState implements IMenu{
 			}
 			
 			int yPos = 450 - 70*i;
-			int xPos = (int)(EGA.V_WIDTH - width) / 2;
+			int xPos = (int)(EGA.V_WIDTH - Variables.menuItemX) / 2;
 			font.draw(
 					sb,
 					menuItems[i],
@@ -203,7 +201,7 @@ public class PauseMenu extends GameState implements IMenu{
 					yPos
 					);
 			menuItemPositions[i] = new Point(xPos,EGA.V_HEIGTH-yPos);
-			menuItemEndPositions[i] = new Point(xPos+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
+			menuItemEndPositions[i] = new Point(xPos+(int)Variables.menuItemX, EGA.V_HEIGTH-yPos+menuFontSize);
 			if(firstTime){
 				
 				firstTime = false;

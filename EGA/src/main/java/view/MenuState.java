@@ -25,6 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import controller.EGA;
 import controller.GameStateManager;
 import controller.SaveHandler;
+import controller.Variables;
 
 @Data
 public class MenuState extends GameState implements IMenu{
@@ -41,8 +42,8 @@ public class MenuState extends GameState implements IMenu{
 	private final String title = "EGA";
 	private final String subTitle = "Epic Game Of Awesome";
 
-	private int titleFontSize = 150;
-	private int menuFontSize = 50;
+	private int titleFontSize = Variables.mainMenuTitleSize;
+	private int menuFontSize = Variables.mainMenuItemSize;
 	private int subTitleFontSize = 28;
 
 	private int currentItem;
@@ -185,7 +186,7 @@ public class MenuState extends GameState implements IMenu{
 			}
 			
 			int yPos = 450 - 70*i;
-			int xPos = (int)(EGA.V_WIDTH - width) / 2;
+			int xPos = (int)(EGA.V_WIDTH - 365) / 2;
 			font.draw(
 					sb,
 					menuItems[i],

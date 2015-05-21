@@ -21,6 +21,7 @@ import controller.EGA;
 import controller.GameStateManager;
 import controller.MyInputProcessor;
 import controller.SaveHandler;
+import controller.Variables;
 
 public class ChangeControlMenu extends GameState implements IMenu{
 
@@ -33,7 +34,7 @@ public class ChangeControlMenu extends GameState implements IMenu{
 
 	private String title = "Settings";
 
-	private int titleFontSize = 70;
+	private int titleFontSize = Variables.subMenuTitleSize;
 	private int menuFontSize = 30;
 
 	private int currentItem;

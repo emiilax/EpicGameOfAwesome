@@ -19,6 +19,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import controller.EGA;
 import controller.GameStateManager;
 import controller.SaveHandler;
+import controller.Variables;
 
 public class LevelSelect extends GameState implements IMenu {
 
@@ -32,8 +33,8 @@ public class LevelSelect extends GameState implements IMenu {
 
 	private String title;
 
-	private int titleFontSize = 50;
-	private int menuFontSize = 50;
+	private int titleFontSize = Variables.subMenuTitleSize;
+	private int menuFontSize = Variables.subMenuItemSize;
 
 	private boolean rendered = false;
 
@@ -207,7 +208,7 @@ public class LevelSelect extends GameState implements IMenu {
 
 
 				if(col == 0){
-					int xPos0 = (int) (EGA.V_WIDTH - width - 7*70);
+					int xPos0 = (int) (EGA.V_WIDTH - Variables.menuItemX - 7*70);
 					font.draw(
 							sb,
 							menuItems[row][col],
@@ -216,10 +217,10 @@ public class LevelSelect extends GameState implements IMenu {
 							);
 
 					menuItemPositions[row][col] = new Point(xPos0,EGA.V_HEIGTH-yPos);
-					menuItemEndPositions[row][col] = new Point(xPos0+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
+					menuItemEndPositions[row][col] = new Point(xPos0+(int)Variables.menuItemX, EGA.V_HEIGTH-yPos+menuFontSize);
 				}				
 				if(col == 1){
-					int xPos1 = (int) (EGA.V_WIDTH - width - 2*70 );
+					int xPos1 = (int) (EGA.V_WIDTH - Variables.menuItemX - 2*70 );
 					font.draw(
 							sb,
 							menuItems[row][col],
@@ -227,10 +228,10 @@ public class LevelSelect extends GameState implements IMenu {
 							yPos
 							);
 					menuItemPositions[row][col] = new Point(xPos1,EGA.V_HEIGTH-yPos);
-					menuItemEndPositions[row][col] = new Point(xPos1+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
+					menuItemEndPositions[row][col] = new Point(xPos1+(int)Variables.menuItemX, EGA.V_HEIGTH-yPos+menuFontSize);
 				}
 				if(col == 2){
-					int xPos2 = (int) (EGA.V_WIDTH - width + 3*70);
+					int xPos2 = (int) (EGA.V_WIDTH - Variables.menuItemX + 3*70);
 					font.draw(
 							sb,
 							menuItems[row][col],
@@ -238,7 +239,7 @@ public class LevelSelect extends GameState implements IMenu {
 							yPos
 							);
 					menuItemPositions[row][col] = new Point(xPos2,EGA.V_HEIGTH-yPos);
-					menuItemEndPositions[row][col] = new Point(xPos2+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
+					menuItemEndPositions[row][col] = new Point(xPos2+(int)Variables.menuItemX, EGA.V_HEIGTH-yPos+menuFontSize);
 				}
 			}
 

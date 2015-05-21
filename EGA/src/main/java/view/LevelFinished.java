@@ -19,6 +19,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import controller.EGA;
 import controller.GameStateManager;
 import controller.SaveHandler;
+import controller.Variables;
 
 public class LevelFinished extends GameState implements IMenu{
 	
@@ -34,8 +35,8 @@ public class LevelFinished extends GameState implements IMenu{
 	
 	//private GameData gd;
 
-	private int titleFontSize = 50;
-	private int menuFontSize = 50;
+	private int titleFontSize = Variables.subMenuTitleSize;
+	private int menuFontSize = Variables.subMenuItemSize;
 	private int level;
 	private int currentItem;
 	private String menuItems[];

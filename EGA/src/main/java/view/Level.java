@@ -271,18 +271,14 @@ public class Level extends GameState{
 		
 		if(bodies.size >0){
 			for(Body b: bodies){
-				
 				if(b.getUserData() instanceof StarController){
-					collectedStar((StarController)b.getUserData());
-					
+					collectedStar((StarController)b.getUserData());	
 				}
-				
 				if(b.getUserData() instanceof KeyController) setDoorIsOpen(true);
 				entities.removeValue((EntityController)b.getUserData(), true);
 				world.destroyBody(b);
 			}
 		}
-		
 		bodies.clear();
 	}
 	
@@ -290,12 +286,10 @@ public class Level extends GameState{
 		if(!s.isBig()){
 			((CharacterController)chc).setIsBig(false);
 			changePlayerBody();
-			//player.collectShrinkStar();
 			((CharacterController)chc).collectShrinkStar();
 		}else{
 			((CharacterController)chc).setIsBig(true);
 			changePlayerBody();
-			//player.collectGrowStar();
 			((CharacterController)chc).collectGrowStar();
 		}
 	}

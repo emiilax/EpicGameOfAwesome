@@ -18,6 +18,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import controller.EGA;
 import controller.GameStateManager;
 import controller.SaveHandler;
+import controller.Variables;
 
 @Data
 public class SettingsMenu extends GameState implements IMenu {
@@ -31,8 +32,8 @@ public class SettingsMenu extends GameState implements IMenu {
 
 	private final String title = "Settings";
 	
-	private int titleFontSize = 150;
-	private int menuFontSize = 50;
+	private int titleFontSize = Variables.subMenuTitleSize;
+	private int menuFontSize = Variables.subMenuItemSize;
 
 	private int currentItem;
 	private String menuItems[];
@@ -73,9 +74,9 @@ public class SettingsMenu extends GameState implements IMenu {
 		font = gen.generateFont(menuFontSize);
 
 		menuItems = new String[]{
-				"CONTROLS! bitch",
-				"Reseta alla saker",
-				"Back!"
+				"Controls",
+				"Reset all",
+				"Back"
 		};
 		
 		menuItemPositions = new Point[menuItems.length];
@@ -175,7 +176,7 @@ public class SettingsMenu extends GameState implements IMenu {
 			}
 			
 			int yPos = 450 - 70*i;
-			int xPos = (int)(EGA.V_WIDTH - width) / 2;
+			int xPos = (int)(EGA.V_WIDTH - Variables.menuItemX) / 2;
 			font.draw(
 					sb,
 					menuItems[i],

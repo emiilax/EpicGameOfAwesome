@@ -3,6 +3,11 @@ package controller;
 public class Variables {
 	//  pixel per meter ratio
 	public static final float PPM = 100;
+	public static final int menuItemX = 365;
+	public static final int mainMenuTitleSize = 150;
+	public static final int subMenuTitleSize = 80;
+	public static final int mainMenuItemSize = 50;
+	public static final int subMenuItemSize = mainMenuItemSize;
 	
 	public static final int nbOfLevels = 3;
 	
