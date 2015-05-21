@@ -118,13 +118,13 @@ public class MyContactListener implements ContactListener{
 		if(fa.getUserData() != null && fa.getUserData().equals("key")){
 			
 			System.out.println(fa.getBody().getUserData().toString());
-			keysToRemove.add(fa.getBody());
+			bodiesToRemove.add(fa.getBody());
 		
 			
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("key")){
 			
-			keysToRemove.add(fb.getBody());
+			bodiesToRemove.add(fb.getBody());
 		
 			EGA.res.getSound("collectkey").play();
 			

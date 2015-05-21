@@ -21,18 +21,21 @@ public class GameStateManager {
 	public static final int MENU = 123123;
 	public static final int PLAY = 912837;
 	
-	private int currentLevel = 1;
+	private int currentLevel;
 	
 	public GameStateManager(EGA game){
 		
 		this.game = game;
 		gameStates = new Stack<GameState>();
+		currentLevel = 1;
 	}
 	
 	private GameState getState(int state){
 	
 		if(state == MENU) return new MenuState(this);
-		if(state == PLAY) return new Level(this, game.getTiledMap(currentLevel));
+		if(state == PLAY) {
+			return new Level(this, game.getTiledMap(currentLevel));
+		}
 		return null;
 	}
 	

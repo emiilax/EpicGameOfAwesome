@@ -47,4 +47,12 @@ public class StarController extends EntityController {
 
 		setSensor(fdef, "smallStar");
 	}
+	
+	public boolean isBig(){
+		return ((StarView)super.getTheView()).isBig();
+	}
+	
+	public void setRender(boolean b){
+		super.setRender(b);
+	}
 }
