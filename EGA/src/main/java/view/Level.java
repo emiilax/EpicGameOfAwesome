@@ -260,12 +260,11 @@ public class Level extends GameState{
 			for(Body b: bodies){
 				//entities.removeValue((EntityController)b.getUserData(), true);
 				
-				if(b.getUserData() instanceof StarController){
-					collectedStar((StarController)b.getUserData());
-					
-				}
+				if(b.getUserData() instanceof StarController) collectedStar((StarController)b.getUserData());
 				
 				if(b.getUserData() instanceof KeyController) setDoorIsOpen(true);
+				
+				if(b.getUserData() instanceof LockedDoorController) createOpenDoor();
 				
 				System.out.println("remove");
 				entities.removeValue((EntityController)b.getUserData(), true);
@@ -614,5 +613,8 @@ public class Level extends GameState{
 
 	private void setDoorIsOpen(boolean b){
 		doorIsOpen = b;
+	}
+	public Boolean getDoorIsOpen(){
+		return doorIsOpen;
 	}
 }
