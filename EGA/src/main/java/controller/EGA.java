@@ -9,8 +9,8 @@ import view.Level;
 import view.LevelFinished;
 import view.LevelSelect;
 import view.MenuState;
-import view.PauseMenu;
 import view.SettingsMenu;
+import view.menus.PauseMenu;
 import lombok.Data;
 import model.Content;
 import model.GameData;
@@ -91,7 +91,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	public void create() {
 
 		Gdx.input.setInputProcessor(new MyInputProcessor());
-
+		
 		res = new Content();
 
 		loadSounds();

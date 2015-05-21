@@ -1,7 +1,7 @@
 package model_test;
 
 import static org.junit.Assert.*;
-import model.CharacterModel;
+import model.entities.CharacterModel;
 
 import org.junit.Test;
 /**

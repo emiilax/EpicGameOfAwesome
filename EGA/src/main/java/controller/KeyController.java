@@ -9,9 +9,10 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
-import model.EntityModel;
-import view.EntityView;
+import controller.entities.EntityController;
+import model.entities.EntityModel;
 import view.KeyView;
+import view.entities.EntityView;
 
 /**
  * 

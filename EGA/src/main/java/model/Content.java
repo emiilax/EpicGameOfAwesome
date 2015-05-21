@@ -8,6 +8,8 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
+import controller.Variables;
+
 public class Content {
 	
 	private Map<String, Texture> textures;
@@ -36,6 +38,10 @@ public class Content {
 	public void loadSound(String path, String key) {
 		Sound sound = Gdx.audio.newSound(Gdx.files.internal(path));
 		sounds.put(key, sound);
+	}
+	
+	public void playSound(String key){
+		sounds.get(key).play(Variables.music_volume);
 	}
 	
 	public Sound getSound(String key) {

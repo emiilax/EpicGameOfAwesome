@@ -1,13 +1,16 @@
 package view;
 
 import static controller.Variables.PPM;
+import view.entities.CharacterView;
+import view.menus.PauseMenu;
 import lombok.Data;
 import controller.SpikeController.spikeOrientation;
-import model.CharacterModel;
+import controller.entities.CharacterController;
+import controller.entities.EntityController;
 import model.EGATimer;
-import model.EntityModel;
-import model.MyContactListener;
 import model.MyInput;
+import model.entities.CharacterModel;
+import model.entities.EntityModel;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -30,9 +33,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
-import controller.EntityController;
-import controller.CharacterController;
 import controller.LockedDoorController;
+import controller.MyContactListener;
 import controller.OpenDoorController;
 import controller.SpikeController;
 import controller.KeyController;

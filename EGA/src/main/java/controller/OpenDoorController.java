@@ -1,7 +1,7 @@
 package controller;
 
 import static controller.Variables.PPM;
-import model.EntityModel;
+import model.entities.EntityModel;
 import view.KeyView;
 import view.LockedDoorView;
 import view.OpenDoorView;
@@ -9,6 +9,8 @@ import view.OpenDoorView;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+
+import controller.entities.EntityController;
 
 /**
  * 

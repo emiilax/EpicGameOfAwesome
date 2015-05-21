@@ -2,13 +2,14 @@ package view;
 
 import java.util.Observable;
 
+import view.entities.EntityView;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import controller.EGA;
-import model.CharacterModel;
-import model.EntityModel;
+import model.entities.CharacterModel;
+import model.entities.EntityModel;
 
 /**
  * 

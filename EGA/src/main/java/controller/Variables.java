@@ -20,5 +20,8 @@ public class Variables {
 	public static final short BIT_SPIKE = 64;
 	public static final short BIT_DOOR = 128;
 	
+	// Soundcontrol
+	public static float music_volume = 1;
+	
 	
 }

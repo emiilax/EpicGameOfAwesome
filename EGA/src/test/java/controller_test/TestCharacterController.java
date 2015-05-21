@@ -1,12 +1,12 @@
 package controller_test;
 
 import static org.junit.Assert.*;
-import model.CharacterModel;
+import model.entities.CharacterModel;
 
 import org.junit.Test;
 
-import view.CharacterView;
-import controller.CharacterController;
+import view.entities.CharacterView;
+import controller.entities.CharacterController;
 /**
  * Test class for CharacterController
  * 

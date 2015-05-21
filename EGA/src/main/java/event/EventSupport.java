@@ -34,7 +34,7 @@ public class EventSupport {
 	 * 
 	 * @return the instance
 	 */
-	public static EventSupport getInstance(){
+	public synchronized static EventSupport getInstance(){
 		if(instance == null){
 			instance = new EventSupport();
 		}

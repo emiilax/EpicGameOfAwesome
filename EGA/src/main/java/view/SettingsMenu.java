@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Point;
 
+import view.menus.PauseMenu;
 import lombok.Data;
 import model.MyInput;
 
@@ -46,6 +47,8 @@ public class SettingsMenu extends GameState implements IMenu {
 	private boolean rendered;
 
 	private GameState curGame;
+	
+	private int volume;
 
 	public SettingsMenu(GameStateManager gsm) {
 		super(gsm);
@@ -53,6 +56,7 @@ public class SettingsMenu extends GameState implements IMenu {
 		init();
 		loadTextures();
 		this.curGame = null;
+		volume = (int) (Variables.music_volume * 100);
 	}
 
 	public SettingsMenu(GameStateManager gsm, GameState curGame){
@@ -75,6 +79,7 @@ public class SettingsMenu extends GameState implements IMenu {
 
 		menuItems = new String[]{
 				"Controls",
+				"Volume    :",
 				"Reset all",
 				"Dev mode",
 				"Back"
@@ -123,10 +128,13 @@ public class SettingsMenu extends GameState implements IMenu {
 		if (currentItem == 0){
 			gsm.getGame().setLevel(new ChangeControlMenu(gsm, this));
 		}
-		if (currentItem == 1){
-			resetAll();
+		if(currentItem == 1){
+			changeVolume();
 		}
 		if (currentItem == 2){
+			resetAll();
+		}
+		if (currentItem == 3){
 			if(curGame instanceof PauseMenu){
 				Level curLevel = (Level)((PauseMenu) curGame).getTheGame();
 				curLevel.toggleDebug();
@@ -134,9 +142,13 @@ public class SettingsMenu extends GameState implements IMenu {
 				gsm.getGame().toggleDebug();
 			}
 		}
-		if (currentItem == 3){
+		if (currentItem == 4){
 			backMenu();			
 		}
+	}
+	
+	public void changeVolume(){
+		
 	}
 
 	public void select(int x, int y){
