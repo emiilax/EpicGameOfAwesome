@@ -9,6 +9,7 @@ import model.EntityModel;
 import model.MyContactListener;
 import model.MyInput;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -114,6 +115,7 @@ public class Level extends GameState{
 		kc.setSpriteBatch(sb); //set this in contructor
 		//door controller 
 		
+		debug = gsm.getGame().getDebug();
 		
 		createEntities();
 
@@ -130,6 +132,12 @@ public class Level extends GameState{
 
 		// kinematic body, ex. a moving platform
 
+	}
+		
+	public void toggleDebug(){
+		EGA game = gsm.getGame();
+		game.toggleDebug();
+		debug = game.getDebug(); 
 	}
 		
 	PauseMenu m;
@@ -662,6 +670,7 @@ public class Level extends GameState{
 	private void setDoorIsOpen(boolean b){
 		doorIsOpen = b;
 	}
+
 //	public void addDoor(OpenDoor door){
 //		doors.add(door);
 //	}
