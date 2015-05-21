@@ -31,7 +31,7 @@ public class SettingsMenu extends GameState implements IMenu {
 	public static Sprite backgroundSprite;
 
 	private final String title = "Settings";
-	
+
 	private int titleFontSize = Variables.subMenuTitleSize;
 	private int menuFontSize = Variables.subMenuItemSize;
 
@@ -39,12 +39,12 @@ public class SettingsMenu extends GameState implements IMenu {
 	private String menuItems[];
 
 	private GameStateManager gsm;
-	
+
 	private Point[] menuItemPositions;
 	private Point[] menuItemEndPositions;
-	
+
 	private boolean rendered;
-	
+
 	private GameState curGame;
 
 	public SettingsMenu(GameStateManager gsm) {
@@ -54,7 +54,7 @@ public class SettingsMenu extends GameState implements IMenu {
 		loadTextures();
 		this.curGame = null;
 	}
-	
+
 	public SettingsMenu(GameStateManager gsm, GameState curGame){
 		this(gsm);
 		this.curGame = curGame;
@@ -76,12 +76,13 @@ public class SettingsMenu extends GameState implements IMenu {
 		menuItems = new String[]{
 				"Controls",
 				"Reset all",
+				"Dev mode",
 				"Back"
 		};
-		
+
 		menuItemPositions = new Point[menuItems.length];
 		menuItemEndPositions = new Point[menuItems.length];
-		
+
 		rendered = false;
 	}
 
@@ -126,10 +127,18 @@ public class SettingsMenu extends GameState implements IMenu {
 			resetAll();
 		}
 		if (currentItem == 2){
+			if(curGame instanceof PauseMenu){
+				Level curLevel = (Level)((PauseMenu) curGame).getTheGame();
+				curLevel.toggleDebug();
+			} else {
+				gsm.getGame().toggleDebug();
+			}
+		}
+		if (currentItem == 3){
 			backMenu();			
 		}
 	}
-	
+
 	public void select(int x, int y){
 		if(rendered && x > menuItemPositions[currentItem].getX() 
 				&& y > menuItemPositions[currentItem].getY()
@@ -138,7 +147,7 @@ public class SettingsMenu extends GameState implements IMenu {
 			select();
 		}
 	}
-	
+
 	public void resetAll(){
 		SaveHandler.init();
 	}
@@ -166,7 +175,7 @@ public class SettingsMenu extends GameState implements IMenu {
 		float width = layout.width;
 
 		titleFont.draw(sb, title, (EGA.V_WIDTH-width) / 2, 650);
-		
+
 		for(int i = 0; i < menuItems.length; i++){
 			layout.setText(font, menuItems[i]);
 			if(currentItem == i){
@@ -174,7 +183,7 @@ public class SettingsMenu extends GameState implements IMenu {
 			} else {
 				font.setColor(Color.WHITE);
 			}
-			
+
 			int yPos = 450 - 70*i;
 			int xPos = (int)(EGA.V_WIDTH - Variables.menuItemX) / 2;
 			font.draw(
@@ -186,17 +195,17 @@ public class SettingsMenu extends GameState implements IMenu {
 			menuItemPositions[i] = new Point(xPos,EGA.V_HEIGTH-yPos);
 			menuItemEndPositions[i] = new Point(xPos+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
 			if(firstTime){
-				
+
 				firstTime = false;
 			}
 		}
 
 		sb.end();
-		
+
 		rendered = true;
 
 	}
-	
+
 	private void backMenu(){
 		if(curGame != null){
 			gsm.getGame().setLevel(curGame);
@@ -210,23 +219,23 @@ public class SettingsMenu extends GameState implements IMenu {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	public Point[] getMenuItemPositions(){
 		return menuItemPositions;
 	}
-	
+
 	public Point[] getMenuItemEndPositions(){
 		return menuItemEndPositions;
 	}
-	
+
 	public void setCurrentItem(int x, int y){
 		if(rendered){
 			for(int i = 0; i < menuItemPositions.length; i++){
-					if(x > menuItemPositions[i].getX() && y > menuItemPositions[i].getY()
-							&& x < menuItemEndPositions[i].getX() &&
-							y < menuItemEndPositions[i].getY()){
-						currentItem = i;
-					}
+				if(x > menuItemPositions[i].getX() && y > menuItemPositions[i].getY()
+						&& x < menuItemEndPositions[i].getX() &&
+						y < menuItemEndPositions[i].getY()){
+					currentItem = i;
+				}
 			}	
 		}
 	}

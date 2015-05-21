@@ -83,6 +83,8 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	/** Map with level backgrounds */
 	private Map <Integer, Texture> levelBgr;
 
+	private Boolean debug = false; 
+	
 	/**
 	 * Setups the parts necarrary for the game.
 	 */
@@ -109,6 +111,14 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		theLevel = new MenuState(gsm);
 		gsm.pushState(theLevel);
 
+	}
+	
+	public void toggleDebug(){
+		debug = !debug;
+	}
+	
+	public Boolean isDebug(){
+		return debug;
 	}
 
 	/**
@@ -189,11 +199,8 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		}else if(MyInput.isDown(MyInput.BUTTON_PAUSE)){
 			theLevel.handleInput(MyInput.BUTTON_PAUSE);
 		}else {
-			theLevel.handleInput(-1);
+			theLevel.handleInput(-2);
 		}
-
-
-
 	}
 
 	public void dispose() {}

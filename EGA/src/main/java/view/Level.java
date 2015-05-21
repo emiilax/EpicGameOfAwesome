@@ -9,6 +9,7 @@ import model.EntityModel;
 import model.MyContactListener;
 import model.MyInput;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -53,7 +54,7 @@ public class Level extends GameState{
 	private float tilesize;
 	private OrthogonalTiledMapRenderer tmr;
 	private GameStateManager gsm;
-	
+
 	//Entities
 	private Character player;
 	private Array<StarController> stars;
@@ -63,42 +64,42 @@ public class Level extends GameState{
 	private Array<SpikeController> spikes;
 	private Array<KeyController> keys;
 	private Array<EntityController> entities;
-	
+
 	//end Entities 
 	private EGATimer timer;
 	private boolean doorIsOpen;
 	private boolean isPaused;
-	
+
 	//MVC Character 
 	private EntityController chc;
 	private CharacterModel chm;
 	private CharacterView chv;
 	private SpikeController spc;
-	
+
 	//MVC Key
 	private KeyController kc;
 	private EntityModel km;
 	private KeyView kv;
-	
+
 	//MVC Doors
 	private LockedDoorController ldc;
 	private LockedDoorView ldv;
 	private EntityModel ldm;
-	
+
 	private OpenDoorController odc;
 	private OpenDoorView odv;
 	private EntityModel odm;
-	
-	
-	
+
+
+
 	//public Level(GameStateManager gsm){
-		public Level(GameStateManager gsm, TiledMap tiledMap){
+	public Level(GameStateManager gsm, TiledMap tiledMap){
 
 		super(gsm);
-		
+
 		this.gsm = gsm;
 		this.tiledMap = tiledMap;
-		
+
 		doorIsOpen = false;
 		isPaused = false;
 		// set up box2d stuff
@@ -111,9 +112,9 @@ public class Level extends GameState{
 		doors = new Array <IDoor>();
 		spikes = new Array<SpikeController>();
 		keys = new Array<KeyController>();
-		
+
 		entities = new Array<EntityController>(); 
-		
+
 		//create controllers for the game and set the spritebatch
 		chc = new CharacterController(new CharacterModel(), new CharacterView());
 		chc.setSpriteBatch(sb);
@@ -124,6 +125,8 @@ public class Level extends GameState{
 		odc = new OpenDoorController(new EntityModel(), new OpenDoorView());
 		odc.setSpriteBatch(sb);
 		
+		debug = gsm.getGame().getDebug();
+
 		createEntities();
 		// set up box2d cam
 		b2dCam = new OrthographicCamera();
@@ -134,57 +137,63 @@ public class Level extends GameState{
 
 
 	}
-		
+
+	public void toggleDebug(){
+		EGA game = gsm.getGame();
+		game.toggleDebug();
+		debug = game.getDebug(); 
+	}
+
 	PauseMenu m;
 	public void handleInput(int i) {
 		switch(i){
-			case -1: ((CharacterController)chc).stop();
-			break;
-			
-			case MyInput.BUTTON_FORWARD:  ((CharacterController)chc).moveForward();//playerMoveForward();
-			break;
-			
-			case MyInput.BUTTON_BACKWARD:  ((CharacterController)chc).moveBackward();//playerMoveBackward();
-			break;
-			
-			case MyInput.BUTTON_JUMP:  if(cl.isPlayerOnGround()) ((CharacterController)chc).jump();//playerJump();
+		case -1: ((CharacterController)chc).stop();
+		break;
+
+		case MyInput.BUTTON_FORWARD:  ((CharacterController)chc).moveForward();//playerMoveForward();
+		break;
+
+		case MyInput.BUTTON_BACKWARD:  ((CharacterController)chc).moveBackward();//playerMoveBackward();
+		break;
+
+		case MyInput.BUTTON_JUMP:  if(cl.isPlayerOnGround()) ((CharacterController)chc).jump();//playerJump();
+		break;
+
+		case MyInput.BUTTON_PAUSE: 
+			if(!isPaused){
+				m = new PauseMenu(gsm, this); 
+				game.setLevel(m);
+				isPaused = true;
+				timer.stopTimer();
+			}else{
+				//game.setTheLevel(m.getTheGame());
+				isPaused = false;
+				resumeTimer();
+			} // vi borde kunna ta bort en hel del av det här iom att man aldrig är i level 
+			// när isPaused är true...
 			break;
 
-			case MyInput.BUTTON_PAUSE: 
-				if(!isPaused){
-					m = new PauseMenu(gsm, this); 
-					game.setLevel(m);
-					isPaused = true;
-					timer.stopTimer();
-				}else{
-					//game.setTheLevel(m.getTheGame());
-					isPaused = false;
-					resumeTimer();
-				} // vi borde kunna ta bort en hel del av det här iom att man aldrig är i level 
-				  // när isPaused är true...
-			break;
-			
-			case MyInput.BUTTON_RESTART: gsm.getGame().setLevel(new Level(gsm, gsm.getCurrentTiledMap()));
-			break;
-			
-			case MyInput.BUTTON_ESCAPE: gsm.getGame().setLevel(new MenuState(gsm));
-			break;
+		case MyInput.BUTTON_RESTART: gsm.getGame().setLevel(new Level(gsm, gsm.getCurrentTiledMap()));
+		break;
+
+		case MyInput.BUTTON_ESCAPE: gsm.getGame().setLevel(new MenuState(gsm));
+		break;
 		}
 	}
-	
+
 	public void setIsPaused(boolean b){
 		isPaused = false;
 	}
-	
+
 	public void resumeTimer(){
 		timer.resumeTimer();
 	}
 
 	public void update(float dt) {
 		if(!isPaused){
-	
+
 			world.step(dt, 6, 2);
-			
+
 			removeEntities();
 
 			//update controllers
@@ -192,7 +201,7 @@ public class Level extends GameState{
 			odc.update(dt);	
 			chc.update(dt);
 			kc.update(dt);
-			
+
 			for(EntityController ec: entities){
 				ec.update(dt);
 			}
@@ -200,8 +209,8 @@ public class Level extends GameState{
 				s.update(dt);
 			}
 
-	}
-	
+		}
+
 	}
 
 	public void render() {
@@ -216,7 +225,7 @@ public class Level extends GameState{
 		// draw player 
 		sb.setProjectionMatrix(cam.combined);
 		//player.render(sb);
-		
+
 		chc.render();
 		//kc.render();
 
@@ -227,15 +236,15 @@ public class Level extends GameState{
 		if(debug){
 			b2br.render(world, b2dCam.combined);
 		}
-		
+
 	}
-	
+
 	public void resetLevel(){
 		createMapObjects();
 	}
 
 	public void renderNewLevel(int Level){
-		
+
 		createPlayer();
 
 		createTiles();
@@ -245,9 +254,9 @@ public class Level extends GameState{
 		createLockedDoor();
 
 		createSpikes();
-		
+
 		createKey();
-		
+
 		//createEntities(); 
 	}
 
@@ -255,24 +264,24 @@ public class Level extends GameState{
 
 	public void removeEntities(){
 		Array<Body> bodies = cl.getBodiesToRemove();
-		
+
 		if(bodies.size >0){
 			for(Body b: bodies){
 				//entities.removeValue((EntityController)b.getUserData(), true);
-				
+
 				if(b.getUserData() instanceof StarController) collectedStar((StarController)b.getUserData());
-				
+
 				if(b.getUserData() instanceof KeyController) setDoorIsOpen(true);
-				
+
 				if(b.getUserData() instanceof LockedDoorController) createOpenDoor();
-				
+
 				entities.removeValue((EntityController)b.getUserData(), true);
 				world.destroyBody(b);
 			}
 		}
 		bodies.clear();
 	}
-	
+
 	public void collectedStar(StarController s){
 		if(!s.isBig()){
 			((CharacterController)chc).setIsBig(false);
@@ -284,10 +293,10 @@ public class Level extends GameState{
 			((CharacterController)chc).collectGrowStar();
 		}
 	}
-	
-	
-	
-	
+
+
+
+
 	public void removeDoors(){
 		Array<Body> bodies = cl.getDoorsToRemove();
 
@@ -296,7 +305,7 @@ public class Level extends GameState{
 				Body b = bodies.get(i);
 				doors.removeValue((IDoor) b.getUserData(), true);
 				world.destroyBody(b);
-				
+
 				EGA.res.getSound("unlock").play();
 				createOpenDoor();
 
@@ -304,22 +313,22 @@ public class Level extends GameState{
 		}
 		bodies.clear();
 	}
-	
-// 	CREATE METHODS --------------------------------------------------------------
+
+	// 	CREATE METHODS --------------------------------------------------------------
 	public void createEntities(){
 		createPlayer();
 		createTiles();
 		createMapObjects();
 	}
-	
+
 	public void createMapObjects(){
-		
+
 		createStars();
 		createSpikes();
 		createKey();
 		createLockedDoor();
 	}
-	
+
 	/**
 	 * Creates the character
 	 */
@@ -329,12 +338,12 @@ public class Level extends GameState{
 		bdef.position.set(100  / PPM, 45 / PPM);
 		bdef.type = BodyType.DynamicBody;
 		Body body = world.createBody(bdef);
-		
+
 		chc.setBody(body);
-		
+
 		body.setUserData(player);
 	}
-	
+
 	/**
 	 * Create the tiles of the map (ground and platforms) 
 	 * @param level, what level that should be loaded
@@ -451,10 +460,10 @@ public class Level extends GameState{
 		loopEntity(layer, new StarController(new EntityModel(), new StarView(true),true));
 
 	}
-	
+
 	public Body createBody(MapObject mo){
 		BodyDef bdef = new BodyDef();
-		
+
 		bdef.type = BodyType.StaticBody;
 
 		float x = mo.getProperties().get("x", Float.class) / PPM;
@@ -464,12 +473,12 @@ public class Level extends GameState{
 
 		return world.createBody(bdef);
 	}
-	
+
 	public void loopEntity(MapLayer layer, EntityController ec){
-		
+
 		for(MapObject mo: layer.getObjects()){
 			EntityController theController = null;
-		
+
 			if(ec instanceof StarController){
 				boolean isBig = ((StarController)ec).isBig();
 				theController = new StarController(new EntityModel(), new StarView(isBig),isBig);
@@ -487,10 +496,10 @@ public class Level extends GameState{
 				spikeOrientation ori = ((SpikeController)ec).getSpikeOrientation();
 				theController = new SpikeController(new EntityModel(), new SpikeView(ori));
 			}
-			
+
 			Body body = null;
 			BodyDef bdef = new BodyDef();
-			
+
 			if(!(ec instanceof SpikeController)){
 				body = createBody(mo);
 			}else{
@@ -498,22 +507,22 @@ public class Level extends GameState{
 
 				float x = (mo.getProperties().get("x", Float.class)+10) / PPM;
 				float y = (mo.getProperties().get("y", Float.class)+10) / PPM;
-				
+
 				bdef.position.set(x, y);
-			
+
 				body = world.createBody(bdef);
 			}
-			
+
 			theController.setSpriteBatch(sb);
 			theController.setBody(body);
 			body.setUserData(theController);
 			entities.add(theController);
-			
+
 		}
 	}
-	
+
 	private void createLockedDoor(){
-		
+
 		MapLayer layer = tiledMap.getLayers().get("lockedDoor");
 		Body body = createBody(layer.getObjects().get(0));
 		body.setUserData(ldc);
@@ -521,52 +530,52 @@ public class Level extends GameState{
 		entities.add(ldc);
 	}
 	private void createOpenDoor(){
-		
+
 		MapLayer layer = tiledMap.getLayers().get("openDoor");
 		Body body = createBody(layer.getObjects().get(0));
 		body.setUserData(odc);
 		odc.setBody(body);
 		entities.add(odc);
 	}
-	
+
 	private void createKey(){
-		
+
 		MapLayer layer = tiledMap.getLayers().get("key");
 		Body body = createBody(layer.getObjects().get(0));
 		body.setUserData(kc);
 		kc.setBody(body);
 		entities.add(kc);
 	}
-	
-	
+
+
 	private void createSpikes(){
 		//Create spikes
 		MapLayer layer = tiledMap.getLayers().get("upSpikes");
 		loopEntity(layer, new SpikeController(new EntityModel(), new SpikeView(spikeOrientation.UP)));
-		
+
 		layer = tiledMap.getLayers().get("downSpikes");
 		loopEntity(layer, new SpikeController(new EntityModel(), new SpikeView(spikeOrientation.DOWN)));
-		
+
 		layer = tiledMap.getLayers().get("leftSpikes");
 		loopEntity(layer, new SpikeController(new EntityModel(), new SpikeView(spikeOrientation.LEFT)));
-		
+
 		layer = tiledMap.getLayers().get("rightSpikes");
 		loopEntity(layer, new SpikeController(new EntityModel(), new SpikeView(spikeOrientation.RIGHT)));
 	}
-	
-	// END CREATE METHODS ----------------------------------------------------
-	
 
-//			StarController s;
-//			s = new StarController(new EntityModel(), new StarView(!isSmallStar));
-//			s.setSpriteBatch(sb);
-//			s.setBody(body);
-//			body.setUserData(s);
-//			
-//			stars.add(s);
-//
-//		}	
-//	}
+	// END CREATE METHODS ----------------------------------------------------
+
+
+	//			StarController s;
+	//			s = new StarController(new EntityModel(), new StarView(!isSmallStar));
+	//			s.setSpriteBatch(sb);
+	//			s.setBody(body);
+	//			body.setUserData(s);
+	//			
+	//			stars.add(s);
+	//
+	//		}	
+	//	}
 	private void loopInDoors(MapLayer layer, String texString){
 		BodyDef bdef = new BodyDef();
 
@@ -584,19 +593,19 @@ public class Level extends GameState{
 			IDoor id;
 			if(texString.equals("openDoor")){
 				id = new OpenDoor(body, "openDoor");
-				
+
 				doors.add(id);
 				body.setUserData(id);
 			} else{
 				id = new LockedDoor(body, "lockedDoor");
-				
+
 				doors.add(id);
 				body.setUserData(id);
 			}	
 		}	
 	}
-	
-	
+
+
 	/**
 	 * Used when character is growing or shrinking.
 	 * The method destroys the existing body and replace
@@ -607,10 +616,10 @@ public class Level extends GameState{
 
 		Body pb = chc.getBody();
 		world.destroyBody(pb);
-		
+
 		BodyDef bdef = new BodyDef();
 		bdef.position.set(pb.getPosition().x , pb.getPosition().y);
-		
+
 		bdef.type = BodyType.DynamicBody;
 		Body body = world.createBody(bdef);
 
@@ -621,7 +630,90 @@ public class Level extends GameState{
 	private void setDoorIsOpen(boolean b){
 		doorIsOpen = b;
 	}
+
 	public Boolean getDoorIsOpen(){
 		return doorIsOpen;
 	}
 }
+//	public void addDoor(OpenDoor door){
+//		doors.add(door);
+//	}
+
+/*
+	private void loopInSpikes(MapLayer layer, spikeOrientation ori){
+		BodyDef bdef = new BodyDef();
+		for(MapObject mo: layer.getObjects()){
+
+			bdef.type = BodyType.StaticBody;
+
+			float x = (mo.getProperties().get("x", Float.class)+10) / PPM;
+			float y = (mo.getProperties().get("y", Float.class)+10) / PPM;
+
+			bdef.position.set(x, y);
+
+			Body body = world.createBody(bdef);
+
+			SpikeController s;
+			s = new SpikeController(new EntityModel(), new SpikeView(), ori);
+			s.setSpriteBatch(sb);
+			s.setBody(body);
+			body.setUserData(s);
+			//spikes.add(s);
+			entities.add(s);
+		}	
+	}*/
+
+/**
+ * Used to loop in the stars to the map. A help
+ * method to createStars();
+ * @param layer, the layer that should be filled
+ * @param isSmallStar, boolean that says if its a small or big star
+ */
+/*private void loopInStars(MapLayer layer, boolean isSmallStar){
+		BodyDef bdef = new BodyDef();
+
+		for(MapObject mo: layer.getObjects()){
+
+			bdef.type = BodyType.StaticBody;
+
+			float x = mo.getProperties().get("x", Float.class) / PPM;
+			float y = mo.getProperties().get("y", Float.class) / PPM;
+
+			bdef.position.set(x, y);
+
+			Body body = world.createBody(bdef);
+
+			StarController s;
+			s = new StarController(new EntityModel(), new StarView(!isSmallStar));
+			s.setSpriteBatch(sb);
+			body.setUserData(s);
+			s.setBody(body);
+
+			entities.add(s);
+			//stars.add(s);
+
+		}	
+
+	}*/
+
+/*	
+	public void playerJump(){
+		if(cl.isPlayerOnGround()){
+
+			//player.jump();
+		}
+	}
+
+	public void playerMoveForward(){
+		//player.moveForward();
+	}
+
+	public void playerMoveBackward(){
+		//player.moveBackward();
+	}
+
+	public void playerStop(){
+		//player.stop();
+>>>>>>> erik
+	}
+}*/
