@@ -13,9 +13,9 @@ import java.io.ObjectOutputStream;
 
 import javax.imageio.ImageIO;
 
-import view.OpenDoor;
+
 import view.GameState;
-import view.Key;
+
 import view.Level;
 import lombok.Data;
 
