@@ -37,8 +37,7 @@ public class KeyController extends EntityController{
 		
 	}	
 	/**
-	 * Sets the body of the character. The current velocity 
-	 * is also applied to it
+	 * Sets the body of the Key. 
 	 */
 	@Override
 	public void setBody(Body body){
