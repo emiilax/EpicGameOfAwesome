@@ -462,8 +462,7 @@ public class Level extends GameState{
 	 * Creates the stars on the map
 	 */
 	private void createStars(){
-		//BodyDef bdef = new BodyDef();
-		
+
 		//Create small stars
 		MapLayer layer = tiledMap.getLayers().get("stars");
 		loopEntity(layer, new StarController(new EntityModel(), new StarView(false)));
@@ -488,6 +487,7 @@ public class Level extends GameState{
 	}
 	
 	public void loopEntity(MapLayer layer, EntityController ec){
+		
 		for(MapObject mo: layer.getObjects()){
 			EntityController theController = null;
 		
@@ -569,6 +569,7 @@ public class Level extends GameState{
 		loopEntity(layer, new SpikeController(new EntityModel(), new SpikeView(spikeOrientation.LEFT)));
 		
 		layer = tiledMap.getLayers().get("rightSpikes");
+		loopEntity(layer, new SpikeController(new EntityModel(), new SpikeView(spikeOrientation.RIGHT)));
 	}
 	
 	// END CREATE METHODS ----------------------------------------------------
