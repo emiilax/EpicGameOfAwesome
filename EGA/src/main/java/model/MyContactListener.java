@@ -97,13 +97,19 @@ public class MyContactListener implements ContactListener{
 		}
 		
 		if(fa.getUserData() != null && fa.getUserData().equals("lockedDoor")){
-			doorsToRemove.add(fa.getBody());
+			//doorsToRemove.add(fa.getBody());
+			if(lvl.getDoorIsOpen() == true){
+				bodiesToRemove.add(fa.getBody());
+			}
+
 			
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("lockedDoor")){
-			
-			
-			doorsToRemove.add(fb.getBody());
+			//doorsToRemove.add(fb.getBody());
+			if(lvl.getDoorIsOpen() == true){
+				bodiesToRemove.add(fb.getBody());
+			}
+		
 		}
 		
 		if(fa.getUserData() != null && fa.getUserData().equals("spike")){

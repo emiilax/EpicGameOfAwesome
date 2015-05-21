@@ -37,6 +37,10 @@ public class LockedDoor extends Entity implements IDoor {
 			fdef.filter.maskBits = Variables.BIT_PLAYER;
 			
 			setSensor(fdef, texString);
+			
+			
+			
+			
 			this.texture = EGA.res.getTexture(texString);
 			
 			TextureRegion[] sprites = TextureRegion.split(this.texture,  50,  50)[0];

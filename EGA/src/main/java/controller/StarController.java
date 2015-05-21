@@ -17,14 +17,16 @@ public class StarController extends EntityController {
 
 	private CircleShape cshape;
 	private FixtureDef fdef;
-	
-	public StarController(EntityModel em, StarView sv){
+	private boolean isBig;
+
+	public StarController(EntityModel em, StarView sv, boolean isBig){
 		super(em, sv);
 
 		cshape = new CircleShape();
 		fdef = new FixtureDef();
-		
-		
+		this.isBig = isBig;
+
+
 
 	}
 
@@ -32,26 +34,40 @@ public class StarController extends EntityController {
 		super.setBody(body);
 		super.getTheModel().setPosition(body.getPosition().x, body.getPosition().y);
 		setFixtureDef();
-		
+
 	}
 
 	public void setFixtureDef(){
-		
-		cshape.setRadius(8 / PPM);
 
-		fdef.shape = cshape;
-		fdef.isSensor = true;
+		if(isBig){
+			cshape.setRadius(22 / PPM);
 
-		fdef.filter.categoryBits = Variables.BIT_STAR;
-		fdef.filter.maskBits = Variables.BIT_PLAYER;
+			fdef.shape = cshape;
+			fdef.isSensor = true;
 
-		setSensor(fdef, "smallStar");
+			fdef.filter.categoryBits = Variables.BIT_STAR;
+			fdef.filter.maskBits = Variables.BIT_PLAYER;
+
+			setSensor(fdef, "bigStar");
+
+		} else {
+
+			cshape.setRadius(8 / PPM);
+
+			fdef.shape = cshape;
+			fdef.isSensor = true;
+
+			fdef.filter.categoryBits = Variables.BIT_STAR;
+			fdef.filter.maskBits = Variables.BIT_PLAYER;
+
+			setSensor(fdef, "smallStar");
+		}
 	}
-	
+
 	public boolean isBig(){
-		return ((StarView)super.getTheView()).isBig();
+		return isBig;
 	}
-	
+
 	public void setRender(boolean b){
 		super.setRender(b);
 	}
