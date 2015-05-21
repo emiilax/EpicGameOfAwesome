@@ -37,6 +37,7 @@ public class SettingsMenu extends GameState implements IMenu {
 
 	private int currentItem;
 	private String menuItems[];
+	private String debugStatus;
 
 	private GameStateManager gsm;
 
@@ -72,13 +73,15 @@ public class SettingsMenu extends GameState implements IMenu {
 		titleFont.setColor(Color.WHITE);
 
 		font = gen.generateFont(menuFontSize);
-
+		
 		menuItems = new String[]{
 				"Controls",
 				"Reset all",
-				"Dev mode",
+				"Dev mode: " + debugStatus,
 				"Back"
 		};
+		
+		setDebugStatus();
 
 		menuItemPositions = new Point[menuItems.length];
 		menuItemEndPositions = new Point[menuItems.length];
@@ -133,6 +136,8 @@ public class SettingsMenu extends GameState implements IMenu {
 			} else {
 				gsm.getGame().toggleDebug();
 			}
+			
+			setDebugStatus();
 		}
 		if (currentItem == 3){
 			backMenu();			
@@ -214,6 +219,10 @@ public class SettingsMenu extends GameState implements IMenu {
 		}
 	}
 
+	private void setDebugStatus(){
+		debugStatus = gsm.getGame().getDebugStatus();
+		menuItems[2] = "Dev mode: " + debugStatus;
+	}
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
