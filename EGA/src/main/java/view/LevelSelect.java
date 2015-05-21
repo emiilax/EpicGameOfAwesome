@@ -186,9 +186,10 @@ public class LevelSelect extends GameState implements IMenu {
 		renderBackground();
 
 		layout.setText(titleFont, title);
-		float width = layout.width;
+		float width = Variables.menuItemX + 240;
+		float widthLay = layout.width;
 
-		titleFont.draw(sb, title, (EGA.V_WIDTH-width) / 2, 600);
+		titleFont.draw(sb, title, (EGA.V_WIDTH-widthLay) / 2, 600);
 
 		int x = menuItems[0].length;
 
@@ -208,7 +209,7 @@ public class LevelSelect extends GameState implements IMenu {
 
 
 				if(col == 0){
-					int xPos0 = (int) (EGA.V_WIDTH - Variables.menuItemX - 7*70);
+					int xPos0 = (int) (EGA.V_WIDTH - width - 7*70);
 					font.draw(
 							sb,
 							menuItems[row][col],
@@ -217,10 +218,10 @@ public class LevelSelect extends GameState implements IMenu {
 							);
 
 					menuItemPositions[row][col] = new Point(xPos0,EGA.V_HEIGTH-yPos);
-					menuItemEndPositions[row][col] = new Point(xPos0+(int)Variables.menuItemX, EGA.V_HEIGTH-yPos+menuFontSize);
+					menuItemEndPositions[row][col] = new Point(xPos0+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
 				}				
 				if(col == 1){
-					int xPos1 = (int) (EGA.V_WIDTH - Variables.menuItemX - 2*70 );
+					int xPos1 = (int) (EGA.V_WIDTH - width- 2*70 );
 					font.draw(
 							sb,
 							menuItems[row][col],
@@ -228,10 +229,10 @@ public class LevelSelect extends GameState implements IMenu {
 							yPos
 							);
 					menuItemPositions[row][col] = new Point(xPos1,EGA.V_HEIGTH-yPos);
-					menuItemEndPositions[row][col] = new Point(xPos1+(int)Variables.menuItemX, EGA.V_HEIGTH-yPos+menuFontSize);
+					menuItemEndPositions[row][col] = new Point(xPos1+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
 				}
 				if(col == 2){
-					int xPos2 = (int) (EGA.V_WIDTH - Variables.menuItemX + 3*70);
+					int xPos2 = (int) (EGA.V_WIDTH - width + 3*70);
 					font.draw(
 							sb,
 							menuItems[row][col],
@@ -239,7 +240,7 @@ public class LevelSelect extends GameState implements IMenu {
 							yPos
 							);
 					menuItemPositions[row][col] = new Point(xPos2,EGA.V_HEIGTH-yPos);
-					menuItemEndPositions[row][col] = new Point(xPos2+(int)Variables.menuItemX, EGA.V_HEIGTH-yPos+menuFontSize);
+					menuItemEndPositions[row][col] = new Point(xPos2+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
 				}
 			}
 
