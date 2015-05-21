@@ -118,8 +118,8 @@ public class CharacterController extends EntityController{
 			currentJumpForce = 350;
 			currentSpeed = 1.3f;
 		} else{
-			currentWidth = 10f;
-			currentHeigth = 10f;
+			currentWidth = 20f;
+			currentHeigth = 38f;
 			
 			currentJumpForce = 250;
 			currentSpeed = 2f;

@@ -48,6 +48,11 @@ public class SettingsMenu extends GameState implements IMenu {
 
 	private GameState curGame;
 
+	private String volume;
+	private int vol;
+	
+	private float fVol;
+
 	public SettingsMenu(GameStateManager gsm) {
 		super(gsm);
 		this.gsm = gsm;
@@ -73,20 +78,63 @@ public class SettingsMenu extends GameState implements IMenu {
 		titleFont.setColor(Color.WHITE);
 
 		font = gen.generateFont(menuFontSize);
-		
+
+		vol = 3;
+		volume = "III";
+		fVol = SaveHandler.getGameData().getSoundVolume();
+		System.out.println("kom igen" + fVol);
+
 		menuItems = new String[]{
-				"Controls",
+				"Control",
 				"Reset all",
 				"Dev mode: " + debugStatus,
+				"Volume: " + volume,
 				"Back"
 		};
-		
+
+
 		setDebugStatus();
 
 		menuItemPositions = new Point[menuItems.length];
 		menuItemEndPositions = new Point[menuItems.length];
 
 		rendered = false;
+	}
+
+	private void incrementVolume(){
+		if(vol < 6){
+			vol++;
+			chooseVolume();
+			fVol += 0.20f;
+		}	
+	}
+
+	private void decrementVolume(){
+		if(vol >= 0){
+			vol--;
+			chooseVolume();
+			fVol -= 0.20f;
+		}
+	}
+
+	private void chooseVolume(){
+		switch(vol){
+		case 0: volume = "";
+		break;
+		case 1: volume ="I";
+		break;
+		case 2: volume ="II";
+		break;
+		case 3: volume ="III";
+		break;
+		case 4: volume ="IIII";
+		break;
+		case 5: volume ="IIIII";
+		break;
+		}
+		updateVolumeStatus();
+		System.out.println("huh?" + fVol);
+		SaveHandler.getGameData().setVolume(fVol);
 	}
 
 
@@ -119,6 +167,16 @@ public class SettingsMenu extends GameState implements IMenu {
 		case MyInput.BUTTON_ESCAPE:
 			backMenu();
 			break;
+		case MyInput.BUTTON_FORWARD:
+			if(currentItem == 3){
+				incrementVolume();
+			}
+			break;
+		case MyInput.BUTTON_BACKWARD:
+			if(currentItem == 3){
+				decrementVolume();
+			}
+			break;
 		}
 	}
 
@@ -136,7 +194,7 @@ public class SettingsMenu extends GameState implements IMenu {
 			} else {
 				gsm.getGame().toggleDebug();
 			}
-			
+
 			setDebugStatus();
 		}
 		if (currentItem == 3){
@@ -200,7 +258,6 @@ public class SettingsMenu extends GameState implements IMenu {
 			menuItemPositions[i] = new Point(xPos,EGA.V_HEIGTH-yPos);
 			menuItemEndPositions[i] = new Point(xPos+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
 			if(firstTime){
-
 				firstTime = false;
 			}
 		}
@@ -223,6 +280,11 @@ public class SettingsMenu extends GameState implements IMenu {
 		debugStatus = gsm.getGame().getDebugStatus();
 		menuItems[2] = "Dev mode: " + debugStatus;
 	}
+
+	private void updateVolumeStatus(){
+		menuItems[3] = "Volume: " + volume;
+	}
+
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
