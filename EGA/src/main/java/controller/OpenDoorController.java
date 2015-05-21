@@ -24,8 +24,8 @@ public class OpenDoorController extends EntityController{
 		private OpenDoorView odv;
 		private EntityModel em;
 		
-		public OpenDoorController(EntityModel em, KeyView kv) {
-			super(em, kv);
+		public OpenDoorController(EntityModel em, OpenDoorView odv) {
+			super(em, odv);
 			
 			shape = new PolygonShape();
 			fDef = new FixtureDef();

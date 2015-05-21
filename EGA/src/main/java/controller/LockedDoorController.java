@@ -20,11 +20,11 @@ public class LockedDoorController extends EntityController{
 		
 		private PolygonShape shape;
 		private FixtureDef fDef;
-		private LockedDoorView kv;
+		private LockedDoorView ldv;
 		private EntityModel em;
 		
-		public LockedDoorController(EntityModel em, KeyView kv) {
-			super(em, kv);
+		public LockedDoorController(EntityModel em, LockedDoorView ldv) {
+			super(em, ldv);
 			
 			shape = new PolygonShape();
 			fDef = new FixtureDef();
