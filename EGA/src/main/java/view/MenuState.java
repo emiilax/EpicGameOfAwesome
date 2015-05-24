@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Point;
 
+import view.menus.LevelSelect;
 import lombok.Data;
 import model.MyInput;
 

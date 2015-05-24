@@ -2,11 +2,17 @@ package view;
 
 import static controller.Variables.PPM;
 import view.entities.CharacterView;
+import view.entities.KeyView;
+import view.entities.LockedDoorView;
+import view.entities.OpenDoorView;
 import view.menus.PauseMenu;
 import lombok.Data;
 import controller.SpikeController.spikeOrientation;
 import controller.entities.CharacterController;
 import controller.entities.EntityController;
+import controller.entities.KeyController;
+import controller.entities.LockedDoorController;
+import controller.entities.OpenDoorController;
 import model.EGATimer;
 import model.MyInput;
 import model.entities.CharacterModel;
@@ -33,11 +39,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
-import controller.LockedDoorController;
 import controller.MyContactListener;
-import controller.OpenDoorController;
 import controller.SpikeController;
-import controller.KeyController;
 import controller.StarController;
 import controller.Variables;
 import controller.EGA;
@@ -60,7 +63,7 @@ public class Level extends GameState{
 	//Entities
 	private Character player;
 	private Array<StarController> stars;
-	private Array<IDoor> doors;
+	//private Array<IDoor> doors;
 	private Array<LockedDoorController> lockedDoor;
 	private Array<OpenDoorController> openDoor;
 	private Array<SpikeController> spikes;
@@ -111,7 +114,7 @@ public class Level extends GameState{
 		b2br = new Box2DDebugRenderer();
 
 		stars = new Array<StarController>();
-		doors = new Array <IDoor>();
+		//doors = new Array <IDoor>();
 		spikes = new Array<SpikeController>();
 		keys = new Array<KeyController>();
 
@@ -299,22 +302,22 @@ public class Level extends GameState{
 
 
 
-	public void removeDoors(){
-		Array<Body> bodies = cl.getDoorsToRemove();
-
-		if(bodies.size > 0 && doorIsOpen){
-			for(int i = 0; i < bodies.size; i++){
-				Body b = bodies.get(i);
-				doors.removeValue((IDoor) b.getUserData(), true);
-				world.destroyBody(b);
-
-				EGA.res.getSound("unlock").play();
-				createOpenDoor();
-
-			}
-		}
-		bodies.clear();
-	}
+//	public void removeDoors(){
+//		Array<Body> bodies = cl.getDoorsToRemove();
+//
+//		if(bodies.size > 0 && doorIsOpen){
+//			for(int i = 0; i < bodies.size; i++){
+//				Body b = bodies.get(i);
+//				doors.removeValue( (IDoor) b.getUserData(), true); 
+//				world.destroyBody(b);
+//
+//				EGA.res.getSound("unlock").play();
+//				createOpenDoor();
+//
+//			}
+//		}
+//		bodies.clear();
+//	}
 
 	// 	CREATE METHODS --------------------------------------------------------------
 	public void createEntities(){

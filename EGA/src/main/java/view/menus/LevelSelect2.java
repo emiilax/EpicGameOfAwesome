@@ -1,7 +1,11 @@
-package view;
+package view.menus;
 
 import java.awt.Point;
 
+import view.GameState;
+import view.IMenu;
+import view.Level;
+import view.MenuState;
 import model.EGATimer;
 import model.GameData;
 import model.MyInput;
