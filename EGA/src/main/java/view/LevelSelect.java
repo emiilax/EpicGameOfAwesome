@@ -72,6 +72,7 @@ public class LevelSelect extends GameState implements IMenu {
 		menuItems = new String[][]{
 				{"Level 1", "Level 2", "Level 3"}, //row 0 
 				{"Level 4", "Level 5", "Level 6"}, //row 1
+				{"<--", "Back", "-->"}, 
 
 		};
 
