@@ -21,7 +21,7 @@ import controller.GameStateManager;
 import controller.SaveHandler;
 import controller.Variables;
 
-public class LevelSelect extends GameState implements IMenu {
+public class LevelSelect2 extends GameState implements IMenu {
 
 	private SpriteBatch sb;
 	private BitmapFont titleFont;
@@ -51,7 +51,7 @@ public class LevelSelect extends GameState implements IMenu {
 
 	private GameStateManager gsm;
 
-	public LevelSelect(GameStateManager gsm, Texture backgroundTexture){
+	public LevelSelect2(GameStateManager gsm, Texture backgroundTexture){
 		super(gsm);
 		this.gsm = gsm;
 		backGround = backgroundTexture;
@@ -72,8 +72,8 @@ public class LevelSelect extends GameState implements IMenu {
 		font = gen.generateFont(menuFontSize);
 
 		menuItems = new String[][]{
-				{"Level 1", "Level 2", "Level 3"}, //row 0 
-				{"Level 4", "Level 5", "Level 6"}, //row 1
+				{"Level 7", "Level 8", "Level 9"}, //row 0 
+				{"Level 10", "Level 11", "Level 12"}, //row 1
 				{"<--", "Back", "-->"}, 
 
 		};
@@ -94,33 +94,33 @@ public class LevelSelect extends GameState implements IMenu {
 
 	private void select(){
 		String element = menuItems[currentRow][currentCol];
-		if(element == "Level 1"){
+		if(element == "Level 7"){
 			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(1)));
 			gsm.setCurrentLevel(1);
 		}
-		if(element == "Level 2"){
+		if(element == "Level 8"){
 			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(2)));
 			gsm.setCurrentLevel(2);
 		}
-		if(element == "Level 3"){
+		if(element == "Level 9"){
 			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(3)));
 			gsm.setCurrentLevel(3);
 		}
-		if(element == "Level 4"){
+		if(element == "Level 10"){
 			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(4)));
 			gsm.setCurrentLevel(4);
 		}
-		if(element == "Level 5"){
+		if(element == "Level 11"){
 			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(5)));
 			gsm.setCurrentLevel(5);
 		}
-		if(element == "Level 6"){
+		if(element == "Level 12"){
 			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(6)));
 			gsm.setCurrentLevel(6);
 		}
 		if(element == "<--" || element == "-->"){
 			//switch menu
-			//gsm.getGame().setLevel(new LevelSelect2(gsm, backGround));
+			//gsm.getGame().setLevel(new LevelSelect(gsm, backGround));
 		}
 		if(element == "Back"){
 			gsm.getGame().setLevel(new MenuState(gsm));
