@@ -21,6 +21,15 @@ import controller.GameStateManager;
 import controller.SaveHandler;
 import controller.Variables;
 
+/**
+ * 
+ * @author Rebecka Reitmaier
+ * This GameState is used to choose the level for the game.
+ * 
+ * @param gsm, GameStateManeger
+ * @param backGroundTexture, Texture  
+ */
+
 public class LevelSelect extends GameState implements IMenu {
 
 	private SpriteBatch sb;
