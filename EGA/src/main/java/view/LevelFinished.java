@@ -35,7 +35,7 @@ public class LevelFinished extends GameState implements IMenu{
 	
 	//private GameData gd;
 
-	private int titleFontSize = Variables.subMenuTitleSize;
+	private int titleFontSize = Variables.subMenuTitleSize - 20;
 	private int menuFontSize = Variables.subMenuItemSize;
 	private int level;
 	private int currentItem;

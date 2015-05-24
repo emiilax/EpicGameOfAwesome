@@ -62,7 +62,7 @@ public class TestGameData {
 		
 		float time = tester.getTime(0);
 		
-		assertTrue(time > 0);		
+		assertFalse(time > 0);		
 	}
 
 }

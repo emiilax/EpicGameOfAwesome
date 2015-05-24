@@ -120,6 +120,14 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	public Boolean isDebug(){
 		return debug;
 	}
+	
+	public String getDebugStatus(){
+		if(debug){
+			return "on";
+		}else{
+			return "off";
+		}
+	}
 
 	/**
 	 * This method is looped continuously. Updates the input and 
