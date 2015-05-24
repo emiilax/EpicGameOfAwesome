@@ -79,10 +79,7 @@ public class SettingsMenu extends GameState implements IMenu {
 
 		font = gen.generateFont(menuFontSize);
 
-		vol = 3;
-		volume = "III";
-		fVol = SaveHandler.getGameData().getSoundVolume();
-		System.out.println("kom igen" + fVol);
+		setVolume();
 
 		menuItems = new String[]{
 				"Control",
@@ -100,43 +97,43 @@ public class SettingsMenu extends GameState implements IMenu {
 
 		rendered = false;
 	}
+	
+	private void setVolume(){
+		fVol = SaveHandler.getGameData().getSoundVolume();
+		if(fVol < 0.2f){
+			volume = "";
+		}else if(fVol < 0.4f){
+			volume = "I";
+		}else if(fVol < 0.6f){
+			volume = "II";
+		}else if(fVol < 0.8f){
+			volume = "III";
+		}else if(fVol < 1.0f){
+			volume = "IIII";
+		} else if(fVol == 1.0f){
+			volume = "IIIII";
+		}
+	}
 
 	private void incrementVolume(){
-		if(vol < 6){
-			vol++;
-			chooseVolume();
+		if(fVol < 1.0f){
 			fVol += 0.20f;
+			SaveHandler.getGameData().setVolume(fVol);
+			setVolume();
+			updateVolumeStatus();
+			SaveHandler.save();
 		}	
 	}
 
 	private void decrementVolume(){
-		if(vol >= 0){
-			vol--;
-			chooseVolume();
+		if(fVol > 0.0f){
 			fVol -= 0.20f;
+			SaveHandler.getGameData().setVolume(fVol);
+			setVolume();
+			updateVolumeStatus();
+			SaveHandler.save();
 		}
 	}
-
-	private void chooseVolume(){
-		switch(vol){
-		case 0: volume = "";
-		break;
-		case 1: volume ="I";
-		break;
-		case 2: volume ="II";
-		break;
-		case 3: volume ="III";
-		break;
-		case 4: volume ="IIII";
-		break;
-		case 5: volume ="IIIII";
-		break;
-		}
-		updateVolumeStatus();
-		System.out.println("huh?" + fVol);
-		SaveHandler.getGameData().setVolume(fVol);
-	}
-
 
 	private void loadTextures() {
 		backgroundTexture = new Texture("res/menu/skybackground_menu.jpg");
@@ -197,7 +194,7 @@ public class SettingsMenu extends GameState implements IMenu {
 
 			setDebugStatus();
 		}
-		if (currentItem == 3){
+		if (currentItem == 4){
 			backMenu();			
 		}
 	}

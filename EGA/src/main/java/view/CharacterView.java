@@ -27,7 +27,7 @@ public class CharacterView extends EntityView{
 		}else {
 			Texture tex;
 			tex = EGA.res.getTexture("bigPlayer");
-			sprites = TextureRegion.split(tex, 35, 35)[0];
+			sprites = TextureRegion.split(tex, 60, 60)[0];
 			setAnimation(sprites, 1/12f);
 		}
 	}
