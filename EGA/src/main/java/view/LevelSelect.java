@@ -90,57 +90,6 @@ public class LevelSelect extends GameState implements IMenu {
 		title = "Choose level to play";
 	}
 
-	@Override
-	public void handleInput(int i) {
-		switch(i){
-		case MyInput.BUTTON_JUMP:
-			if(currentRow == 1){
-				currentRow --;
-			}
-			break;
-		case MyInput.BUTTON_DOWN:
-			if(currentRow == 0){ //needs to be changed if amount of rows is changed
-				currentRow++;
-			}
-			break;
-		case MyInput.BUTTON_BACKWARD:
-			if(currentCol == 0){
-				if(currentRow == 1){
-					currentCol = 2;
-					currentRow = 0;
-				} else {
-					currentCol = 2;
-					currentRow = 1;
-				}
-			} else {
-				currentCol--;
-			}
-			break;
-
-		case MyInput.BUTTON_FORWARD:
-			if(currentCol == 2){
-				if(currentRow == 1){
-					currentCol = 0;
-					currentRow = 0;
-				} else {
-					currentCol = 0;
-					currentRow = 1;
-				}
-			} else {
-				currentCol++;
-			}
-			break;
-		case MyInput.BUTTON_ENTER:
-			select();
-			break;
-		case MyInput.BUTTON_ESCAPE:
-			gsm.getGame().setLevel(new MenuState(gsm));
-			break;
-		}
-
-	}
-
-
 	private void select(){
 		String lvl = menuItems[currentRow][currentCol];
 		if(lvl == "Level 1"){
@@ -172,10 +121,64 @@ public class LevelSelect extends GameState implements IMenu {
 		 */
 		
 	}
+	
+	@Override
+	public void handleInput(int i) {
+		switch(i){
+		case MyInput.BUTTON_JUMP:
+			if(currentRow > 0){
+				currentRow --;
+			}
+			break;
+		case MyInput.BUTTON_DOWN:
+			if(currentRow < 2){ 
+				currentRow++;
+			}
+			break;
+		case MyInput.BUTTON_BACKWARD:
+			if(currentCol == 0){
+				if(currentRow == 0){
+					currentCol = 2;
+					currentRow = 2;
+				}else{
+					currentCol = 2;
+					currentRow = currentRow - 1;
+				}
+			} else {
+				currentCol--;
+			}
+			break;
+
+		case MyInput.BUTTON_FORWARD:
+			if(currentCol == 2){
+				if(currentRow == 2){
+					currentCol = 0;
+					currentRow = 0;
+				} else {
+					currentCol = 0;
+					currentRow = currentRow +1;
+				}
+			} else {
+				currentCol++;
+			}
+			break;
+		case MyInput.BUTTON_ENTER:
+			select();
+			break;
+		case MyInput.BUTTON_ESCAPE:
+			gsm.getGame().setLevel(new MenuState(gsm));
+			break;
+		}
+
+	}
 
 	@Override
 	public void update(float dt) {}
 
+	
+	/**
+	 * this method sets the color and draw the letters in the menu
+	 */
 	@Override
 	public void render() {
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -196,19 +199,21 @@ public class LevelSelect extends GameState implements IMenu {
 
 		for (int row = 0; row < menuItems.length; row++){
 			for (int col = 0; col < x; col++){
+				
 				layout.setText(font, menuItems[row][col]);
 
-				int yPos = 350 - 180*row;
-
+				int yPos = 400 - 100*row;
+				
+				//set color on letters
 				if(currentRow == row && currentCol == col){
 					font.setColor(Color.RED);
 					
 				}else{
 					font.setColor(Color.WHITE);
 				}
+				//end set color on letters 
 
-
-
+				//draw letters
 				if(col == 0){
 					int xPos0 = (int) (EGA.V_WIDTH - width - 7*70);
 					font.draw(
@@ -220,7 +225,8 @@ public class LevelSelect extends GameState implements IMenu {
 
 					menuItemPositions[row][col] = new Point(xPos0,EGA.V_HEIGTH-yPos);
 					menuItemEndPositions[row][col] = new Point(xPos0+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
-				}				
+				}	
+				
 				if(col == 1){
 					int xPos1 = (int) (EGA.V_WIDTH - width- 2*70 );
 					font.draw(
@@ -243,6 +249,7 @@ public class LevelSelect extends GameState implements IMenu {
 					menuItemPositions[row][col] = new Point(xPos2,EGA.V_HEIGTH-yPos);
 					menuItemEndPositions[row][col] = new Point(xPos2+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
 				}
+				//end draw letters
 			}
 
 		}
