@@ -273,11 +273,7 @@ public class ChangeControlMenu extends GameState implements IMenu{
 	}
 	
 	private void menuBack(){
-		if(curGame != null){
-			gsm.getGame().setLevel(curGame);
-		}else{
-			gsm.getGame().setLevel(new SettingsMenu(gsm));
-		}
+		gsm.popState();	
 	}
 
 	public Point[] getMenuItemPositions() {

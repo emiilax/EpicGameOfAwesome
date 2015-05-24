@@ -133,7 +133,7 @@ public class LevelSelect extends GameState implements IMenu {
 			select();
 			break;
 		case MyInput.BUTTON_ESCAPE:
-			gsm.getGame().setLevel(new MenuState(gsm));
+			gsm.setState(new MenuState(gsm));
 			break;
 		}
 
@@ -143,27 +143,27 @@ public class LevelSelect extends GameState implements IMenu {
 	private void select(){
 		String lvl = menuItems[currentRow][currentCol];
 		if(lvl == "Level 1"){
-			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(1)));
+			gsm.setState(new Level(gsm, gsm.getLevel(1)));
 			gsm.setCurrentLevel(1);
 		}
 		if(lvl == "Level 2"){
-			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(2)));
+			gsm.setState(new Level(gsm, gsm.getLevel(2)));
 			gsm.setCurrentLevel(2);
 		}
 		if(lvl == "Level 3"){
-			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(3)));
+			gsm.setState(new Level(gsm, gsm.getLevel(3)));
 			gsm.setCurrentLevel(3);
 		}
 		if(lvl == "Level 4"){
-			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(4)));
+			gsm.setState(new Level(gsm, gsm.getLevel(4)));
 			gsm.setCurrentLevel(4);
 		}
 		if(lvl == "Level 5"){
-			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(5)));
+			gsm.setState(new Level(gsm, gsm.getLevel(5)));
 			gsm.setCurrentLevel(5);
 		}
 		if(lvl == "Level 6"){
-			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(6)));
+			gsm.setState(new Level(gsm, gsm.getLevel(6)));
 			gsm.setCurrentLevel(6);
 		}
 		/*

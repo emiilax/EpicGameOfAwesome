@@ -163,8 +163,9 @@ public class Level extends GameState{
 
 		case MyInput.BUTTON_PAUSE: 
 			if(!isPaused){
-				m = new PauseMenu(gsm, this); 
-				game.setLevel(m);
+				m = new PauseMenu(gsm);
+				gsm.pushState(m);
+				//game.setLevel(m);
 				isPaused = true;
 				timer.stopTimer();
 			}else{
@@ -175,10 +176,10 @@ public class Level extends GameState{
 			// när isPaused är true...
 			break;
 
-		case MyInput.BUTTON_RESTART: gsm.getGame().setLevel(new Level(gsm, gsm.getCurrentTiledMap()));
+		case MyInput.BUTTON_RESTART: gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
 		break;
 
-		case MyInput.BUTTON_ESCAPE: gsm.getGame().setLevel(new MenuState(gsm));
+		case MyInput.BUTTON_ESCAPE: gsm.setState(new MenuState(gsm));
 		break;
 		}
 	}
@@ -192,6 +193,12 @@ public class Level extends GameState{
 	}
 
 	public void update(float dt) {
+		
+		if(isPaused){
+			isPaused = false;
+			resumeTimer();
+		}
+		
 		if(!isPaused){
 
 			world.step(dt, 6, 2);

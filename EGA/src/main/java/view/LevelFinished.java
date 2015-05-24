@@ -124,14 +124,14 @@ public class LevelFinished extends GameState implements IMenu{
 	private void select(){
 		if(currentItem == 0){
 			
-			gsm.getGame().setLevel(new Level(gsm, gsm.getNextTiledMap()));
+			gsm.setState(new Level(gsm, gsm.getNextTiledMap()));
 		}
 		if(currentItem == 1){
 		
-			gsm.getGame().setLevel(new Level(gsm, gsm.getCurrentTiledMap()));
+			gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
 		} else if(currentItem == 2){
 		
-			gsm.getGame().setLevel(new MenuState(gsm));
+			gsm.setState(new MenuState(gsm));
 		}
 	}
 

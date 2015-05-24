@@ -186,7 +186,7 @@ public class SettingsMenu extends GameState implements IMenu {
 
 	private void select(){
 		if (currentItem == 0){
-			gsm.getGame().setLevel(new ChangeControlMenu(gsm, this));
+			gsm.pushState(new ChangeControlMenu(gsm, this));
 		}
 		if(currentItem == 1){
 			changeVolume();
@@ -280,11 +280,9 @@ public class SettingsMenu extends GameState implements IMenu {
 	}
 
 	private void backMenu(){
-		if(curGame != null){
-			gsm.getGame().setLevel(curGame);
-		}else{
-			gsm.getGame().setLevel(new MenuState(gsm));
-		}
+		gsm.popState();
+		
+		
 	}
 
 	private void setDebugStatus(){
