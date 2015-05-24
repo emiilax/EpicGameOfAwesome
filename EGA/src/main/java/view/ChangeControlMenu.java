@@ -30,7 +30,8 @@ public class ChangeControlMenu extends GameState implements IMenu{
 	private BitmapFont font;
 	private GlyphLayout layout = new GlyphLayout();
 
-	public static Sprite backgroundSprite;
+	private Sprite backgroundSprite;
+	private Texture backgroundTexture; 
 
 	private String title = "Settings";
 
@@ -58,6 +59,7 @@ public class ChangeControlMenu extends GameState implements IMenu{
 		super(gsm);
 		this.gsm = gsm;
 		init();	
+		loadTextures();
 		this.curGame = null;
 	}
 	
@@ -181,6 +183,15 @@ public class ChangeControlMenu extends GameState implements IMenu{
 		// TODO Auto-generated method stub
 
 	}
+	
+	private void loadTextures() {
+		backgroundTexture = new Texture("res/menu/skybackground_menu.jpg");
+		backgroundSprite =new Sprite(backgroundTexture);
+	}
+
+	public void renderBackground() {
+		backgroundSprite.draw(sb);
+	}
 
 	@Override
 	public void render() {
@@ -193,7 +204,7 @@ public class ChangeControlMenu extends GameState implements IMenu{
 		sb.setProjectionMatrix(cam.combined);
 
 		sb.begin();
-		//renderBackground();
+		renderBackground();
 
 		layout.setText(titleFont, title);
 		float width = layout.width;

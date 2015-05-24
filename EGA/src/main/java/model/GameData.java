@@ -41,12 +41,11 @@ public class GameData implements Serializable {
 	public float getVolume(){
 		return soundVolume;
 	}
-	
+
 	public void setVolume(float f){
 		if(f <= 1f && f >= 0){
 			soundVolume = f;
 		}
-		System.out.println(soundVolume);
 	}
 
 	public void updateList(){
