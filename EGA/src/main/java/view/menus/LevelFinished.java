@@ -1,7 +1,9 @@
-package view;
+package view.menus;
 
 import java.awt.Point;
 
+import view.IMenu;
+import view.Level;
 import model.EGATimer;
 import model.GameData;
 import model.MyInput;
@@ -17,9 +19,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import controller.EGA;
+import controller.GameState;
 import controller.GameStateManager;
 import controller.SaveHandler;
 import controller.Variables;
+import controller.menus.MenuState;
 
 public class LevelFinished extends GameState implements IMenu{
 	
@@ -28,8 +32,8 @@ public class LevelFinished extends GameState implements IMenu{
 	private BitmapFont font;
 	private GlyphLayout layout = new GlyphLayout();
 
-	public static Texture backgroundTexture;
-	public static Sprite backgroundSprite;
+	private static Texture backgroundTexture;
+	private static Sprite backgroundSprite;
 
 	private String title;
 	

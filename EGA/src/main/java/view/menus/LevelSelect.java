@@ -2,10 +2,8 @@ package view.menus;
 
 import java.awt.Point;
 
-import view.GameState;
 import view.IMenu;
 import view.Level;
-import view.MenuState;
 import model.EGATimer;
 import model.GameData;
 import model.MyInput;
@@ -21,9 +19,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import controller.EGA;
+import controller.GameState;
 import controller.GameStateManager;
 import controller.SaveHandler;
 import controller.Variables;
+import controller.menus.MenuState;
 
 /**
  * 
@@ -59,16 +59,15 @@ public class LevelSelect extends GameState implements IMenu {
 	private Point [][] menuItemEndPositions;
 
 	private String menuItems [][];
-	
-	private Texture backGround;
 
 	private GameStateManager gsm;
+	private Texture background;
 
-	public LevelSelect(GameStateManager gsm, Texture backgroundTexture){
+	public LevelSelect(GameStateManager gsm){
 		super(gsm);
 		this.gsm = gsm;
-		backGround = backgroundTexture;
-		LevelSelect.backgroundTexture = backgroundTexture;
+		background = new Texture("res/menu/domo.jpg");
+		this.backgroundTexture = background;
 		init();
 	}
 
@@ -132,9 +131,8 @@ public class LevelSelect extends GameState implements IMenu {
 			gsm.setCurrentLevel(6);
 		}
 		if(element == "<--" || element == "-->"){
-			//switch menu
-			//gsm.getGame().setLevel(new LevelSelect2(gsm, backGround));
-			gsm.pushState(new LevelSelect2(gsm, backGround));
+			// switch String array 
+			System.out.println("this is -->");
 		}
 		if(element == "Back"){
 			//gsm.getGame().setLevel(new MenuState(gsm));
@@ -146,6 +144,7 @@ public class LevelSelect extends GameState implements IMenu {
 		 */
 		
 	}
+
 	
 	@Override
 	public void handleInput(int i) {
@@ -203,43 +202,7 @@ public class LevelSelect extends GameState implements IMenu {
 
 	}
 
-//<<<<<<< HEAD:EGA/src/main/java/view/menus/LevelSelect.java
-//=======
-//
-//	private void select(){
-//		String lvl = menuItems[currentRow][currentCol];
-//		if(lvl == "Level 1"){
-//			gsm.setState(new Level(gsm, gsm.getLevel(1)));
-//			gsm.setCurrentLevel(1);
-//		}
-//		if(lvl == "Level 2"){
-//			gsm.setState(new Level(gsm, gsm.getLevel(2)));
-//			gsm.setCurrentLevel(2);
-//		}
-//		if(lvl == "Level 3"){
-//			gsm.setState(new Level(gsm, gsm.getLevel(3)));
-//			gsm.setCurrentLevel(3);
-//		}
-//		if(lvl == "Level 4"){
-//			gsm.setState(new Level(gsm, gsm.getLevel(4)));
-//			gsm.setCurrentLevel(4);
-//		}
-//		if(lvl == "Level 5"){
-//			gsm.setState(new Level(gsm, gsm.getLevel(5)));
-//			gsm.setCurrentLevel(5);
-//		}
-//		if(lvl == "Level 6"){
-//			gsm.setState(new Level(gsm, gsm.getLevel(6)));
-//			gsm.setCurrentLevel(6);
-//		}
-//		/*
-//		 * add more if-states if you add more levels
-//		 */
-//		
-//	}
-//
-//>>>>>>> 6842d6836a675278a4d68f5d34709eba64bbd656:EGA/src/main/java/view/LevelSelect.java
-//	@Override
+	@Override
 	public void update(float dt) {}
 
 	

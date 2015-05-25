@@ -5,6 +5,7 @@ import view.entities.CharacterView;
 import view.entities.KeyView;
 import view.entities.LockedDoorView;
 import view.entities.OpenDoorView;
+import view.entities.StarView;
 import view.menus.PauseMenu;
 import lombok.Data;
 import controller.SpikeController.spikeOrientation;
@@ -13,6 +14,7 @@ import controller.entities.EntityController;
 import controller.entities.KeyController;
 import controller.entities.LockedDoorController;
 import controller.entities.OpenDoorController;
+import controller.entities.StarController;
 import model.EGATimer;
 import model.MyInput;
 import model.entities.CharacterModel;
@@ -41,9 +43,11 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
 import controller.MyContactListener;
 
+import controller.entities.OpenDoorController;
+import controller.GameState;
+
 import controller.SaveHandler;
 import controller.SpikeController;
-import controller.StarController;
 import controller.Variables;
 import controller.EGA;
 import controller.GameStateManager;
@@ -151,7 +155,6 @@ public class Level extends GameState{
 		debug = game.getDebug(); 
 	}
 
-	PauseMenu m;
 	public void handleInput(int i) {
 		switch(i){
 		case -1: ((CharacterController)chc).stop();
@@ -169,7 +172,6 @@ public class Level extends GameState{
 		// Pause
 		case MyInput.BUTTON_PAUSE: 
 			if(!isPaused){
-				m = new PauseMenu(gsm);
 				gsm.pushState(new PauseMenu(gsm));
 				//game.setLevel(m);
 				System.out.println("paus");
@@ -407,6 +409,10 @@ public class Level extends GameState{
 		}
 	}
 	// Get rid of this eventually! use the method above instead
+	
+	
+	
+	
 	public void createLayer(TiledMapTileLayer layer, short bits){
 
 		BodyDef bdef = new BodyDef();

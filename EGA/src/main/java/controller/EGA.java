@@ -3,13 +3,11 @@ package controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import view.GameState;
 import view.IMenu;
 import view.Level;
-import view.LevelFinished;
-import view.MenuState;
-import view.SettingsMenu;
+import view.menus.LevelFinished;
 import view.menus.LevelSelect;
+import view.menus.LevelFinished;
 import view.menus.PauseMenu;
 import lombok.Data;
 import model.Content;
@@ -26,6 +24,8 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
+import controller.menus.MenuState;
+import controller.menus.SettingsMenu;
 import event.EventSupport;
 import event.TheChangeListener;
 import event.TheEvent;
@@ -330,13 +330,14 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		finishedBgr.put(3,  new Texture("res/menu/lol.jpg"));
 		finishedBgr.put(4,  new Texture("res/menu/lol.jpg"));
 	}
-
+	
+	/*
 	public void setLevelSelect(int i){
 		LevelSelect state = new LevelSelect(gsm, levelBgr.get(i));
 		gsm.setState(state);
 		
 	}
-
+	*/
 	private void initLevelBgr(){
 		levelBgr = new HashMap<Integer, Texture>();
 		levelBgr.put(1,  new Texture("res/menu/domo.jpg"));

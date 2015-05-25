@@ -6,9 +6,8 @@ import java.util.Stack;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
-import view.GameState;
+import controller.menus.MenuState;
 import view.Level;
-import view.MenuState;
 import view.menus.PauseMenu;
 import lombok.Data;
 
@@ -42,7 +41,7 @@ public class GameStateManager {
 	}
 	
 	public void setState(GameState state){
-		popState();
+		gameStates.clear();
 		game.setTheLevel(state);
 		pushState(state);
 		
