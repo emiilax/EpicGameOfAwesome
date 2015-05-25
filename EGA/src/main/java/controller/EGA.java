@@ -323,7 +323,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		gsm.setState(state);
 	}
 
-	private void initHashMap(){
+	private void initHashMap(){ //behövs denna klass??
 		finishedBgr = new HashMap<Integer, Texture>();
 		finishedBgr.put(1,  new Texture("res/menu/lol.jpg"));
 		finishedBgr.put(2,  new Texture("res/menu/lol.jpg"));
@@ -331,13 +331,6 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		finishedBgr.put(4,  new Texture("res/menu/lol.jpg"));
 	}
 	
-	/*
-	public void setLevelSelect(int i){
-		LevelSelect state = new LevelSelect(gsm, levelBgr.get(i));
-		gsm.setState(state);
-		
-	}
-	*/
 	private void initLevelBgr(){
 		levelBgr = new HashMap<Integer, Texture>();
 		levelBgr.put(1,  new Texture("res/menu/domo.jpg"));

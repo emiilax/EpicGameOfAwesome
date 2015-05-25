@@ -66,7 +66,7 @@ public class LevelSelect extends GameState implements IMenu {
 	public LevelSelect(GameStateManager gsm){
 		super(gsm);
 		this.gsm = gsm;
-		background = new Texture("res/menu/domo.jpg");
+		background = new Texture("res/menu/skybackground_menu.jpg");
 		this.backgroundTexture = background;
 		init();
 	}
