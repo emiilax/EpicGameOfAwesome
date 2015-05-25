@@ -179,9 +179,10 @@ public class Level extends GameState{
 		break;
 		
 		// Pause
-		case MyInput.BUTTON_ESCAPE: gsm.pushState(new PauseMenu(gsm));
-									isPaused = true;
-									timer.stopTimer();
+		case MyInput.BUTTON_ESCAPE: 
+			gsm.pushState(new PauseMenu(gsm));
+			isPaused = true;
+			timer.stopTimer();
 			//gsm.setState(new MenuState(gsm));
 		break;
 		}
@@ -370,6 +371,7 @@ public class Level extends GameState{
 
 		layer = (TiledMapTileLayer) tiledMap.getLayers().get("ground");	
 		createLayer(layer, Variables.BIT_GROUND);
+		
 		layer = (TiledMapTileLayer) tiledMap.getLayers().get("platform");
 		createLayer(layer, Variables.BIT_PLATFORM);
 	}

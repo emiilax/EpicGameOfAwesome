@@ -45,9 +45,12 @@ public class Content {
 	public Sound getSound(String key) {
 		return sounds.get(key);
 	}
+	
+	
 	public void playSound(String key){
 		sounds.get(key).play(SaveHandler.getGameData().getSoundVolume());
 	}
+	
 	
 	public void removeSound(String key) {
 		Sound sound = sounds.get(key);

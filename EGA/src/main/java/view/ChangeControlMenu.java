@@ -60,6 +60,7 @@ public class ChangeControlMenu extends GameState implements IMenu{
 		this.gsm = gsm;
 		init();	
 		loadTextures();
+
 	}
 	
 
