@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Point;
 
+import view.menus.ChangeControlMenu;
 import view.menus.PauseMenu;
 import lombok.Data;
 import model.MyInput;
