@@ -5,7 +5,6 @@ import java.awt.Point;
 import view.GameState;
 import view.IMenu;
 import view.Level;
-import view.MenuState;
 import view.SettingsMenu;
 import lombok.Data;
 import model.MyInput;
@@ -25,6 +24,7 @@ import controller.EGA;
 import controller.GameStateManager;
 import controller.SaveHandler;
 import controller.Variables;
+import controller.menus.MenuState;
 import event.EventSupport;
 
 @Data

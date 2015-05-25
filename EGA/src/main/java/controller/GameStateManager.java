@@ -6,9 +6,9 @@ import java.util.Stack;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
+import controller.menus.MenuState;
 import view.GameState;
 import view.Level;
-import view.MenuState;
 import view.menus.PauseMenu;
 import lombok.Data;
 
