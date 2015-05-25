@@ -42,7 +42,7 @@ public class GameStateManager {
 	}
 	
 	public void setState(GameState state){
-		popState();
+		gameStates.clear();
 		game.setTheLevel(state);
 		pushState(state);
 		

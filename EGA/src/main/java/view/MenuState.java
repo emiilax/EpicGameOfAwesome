@@ -126,15 +126,11 @@ public class MenuState extends GameState implements IMenu{
 
 	private void select(){
 		if (currentItem == 0){
-			//gsm.getGame().setLevel(new Level(gsm, gsm.getCurrentTiledMap()));
 			gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
 		}
 		if (currentItem == 1){
 			
 			gsm.pushState(new LevelSelect(gsm, backgroundTexture));
-			//gsm.getGame().setLevelSelect(1);
-			//gsm.getGame().setLevelFinished(1);
-
 		}
 		if (currentItem == 2){
 			gsm.pushState(new SettingsMenu(gsm));

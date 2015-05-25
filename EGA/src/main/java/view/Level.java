@@ -40,11 +40,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
 import controller.MyContactListener;
-<<<<<<< HEAD
-=======
-import controller.OpenDoorController;
 import controller.SaveHandler;
->>>>>>> 6842d6836a675278a4d68f5d34709eba64bbd656
 import controller.SpikeController;
 import controller.StarController;
 import controller.Variables;
@@ -154,7 +150,6 @@ public class Level extends GameState{
 		debug = game.getDebug(); 
 	}
 
-	PauseMenu m;
 	public void handleInput(int i) {
 		switch(i){
 		case -1: ((CharacterController)chc).stop();
@@ -172,7 +167,6 @@ public class Level extends GameState{
 		// Pause
 		case MyInput.BUTTON_PAUSE: 
 			if(!isPaused){
-				m = new PauseMenu(gsm);
 				gsm.pushState(new PauseMenu(gsm));
 				//game.setLevel(m);
 				System.out.println("paus");

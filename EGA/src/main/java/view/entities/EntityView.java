@@ -2,7 +2,6 @@ package view.entities;
 
 import java.util.Observer;
 
-import view.Animation;
 import lombok.Data;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
