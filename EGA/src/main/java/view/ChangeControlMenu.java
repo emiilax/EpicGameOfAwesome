@@ -53,20 +53,16 @@ public class ChangeControlMenu extends GameState implements IMenu{
 	private GameData gd;
 
 	private GameStateManager gsm;
-	private GameState curGame;
+
 	
 	public ChangeControlMenu(GameStateManager gsm){
 		super(gsm);
 		this.gsm = gsm;
 		init();	
 		loadTextures();
-		this.curGame = null;
+
 	}
 	
-	public ChangeControlMenu(GameStateManager gsm, GameState curGame){
-		this(gsm);
-		this.curGame = curGame;
-	}
 
 	private void init(){
 
@@ -284,11 +280,7 @@ public class ChangeControlMenu extends GameState implements IMenu{
 	}
 	
 	private void menuBack(){
-		if(curGame != null){
-			gsm.getGame().setLevel(curGame);
-		}else{
-			gsm.getGame().setLevel(new SettingsMenu(gsm));
-		}
+		gsm.popState();	
 	}
 
 	public Point[] getMenuItemPositions() {

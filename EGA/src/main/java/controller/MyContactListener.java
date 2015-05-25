@@ -129,14 +129,17 @@ public class MyContactListener implements ContactListener{
 			
 			bodiesToRemove.add(fb.getBody());
 		
-			EGA.res.getSound("collectkey").play();
+			//EGA.res.getSound("collectkey").play();
+			EGA.res.playSound("collectkey");
 			
 		}
 	}
 	
 	public void contactWithSpike(){
-		EGA.res.getSound("fail").play();
-		EventSupport.getInstance().fireNewEvent("spikehit");
+		//EGA.res.getSound("fail").play();
+		EGA.res.playSound("fail");
+		gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
+		//EventSupport.getInstance().fireNewEvent("spikehit");
 	}
 	
 	// called when two fixures no longer collide

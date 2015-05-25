@@ -56,9 +56,8 @@ public class PauseMenu extends GameState implements IMenu{
 	public GameState theGame;
 
 
-	public PauseMenu(GameStateManager gsm, GameState currentGame) {
+	public PauseMenu(GameStateManager gsm) {
 		super(gsm);
-		theGame = currentGame;
 		this.gsm = gsm;
 		init();
 		loadTextures();
@@ -135,24 +134,23 @@ public class PauseMenu extends GameState implements IMenu{
 		}
 		if (currentItem == 1){
 			// restart level
-			gsm.getGame().setLevel(new Level(gsm, gsm.getCurrentTiledMap()));
+			gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
 
 		}
 		if (currentItem == 2){
-			gsm.getGame().setLevel(new SettingsMenu(gsm, this));
+			gsm.pushState(new SettingsMenu(gsm));
+			//gsm.getGame().setLevel(new SettingsMenu(gsm, this));
 		}
 		if(currentItem == 3){
 			SaveHandler.save();
-			gsm.getGame().setLevel(new MenuState(gsm));
+			gsm.setState(new MenuState(gsm));
 			//Gdx.app.exit();
 		}
 	}
 	
 	public void unpauseTheGame(){
-		Level game = (Level)theGame;
-		game.setIsPaused(false);
-		game.resumeTimer();
-		EventSupport.getInstance().fireNewEvent("resumegame", theGame);
+		gsm.popState();
+		//EventSupport.getInstance().fireNewEvent("resumegame", theGame);
 	}
 	
 	public void select(int x, int y){

@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.EmptyStackException;
 import java.util.Stack;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.utils.GdxNativesLoader;
 import view.GameState;
 import view.Level;
 import view.MenuState;
+import view.menus.PauseMenu;
 import lombok.Data;
 
 
@@ -39,21 +41,28 @@ public class GameStateManager {
 		return null;
 	}
 	
-	public void setState(GameState theState){
+	public void setState(GameState state){
 		popState();
-		pushState(theState);
+		game.setTheLevel(state);
+		pushState(state);
+		
 	}
 	
 	public void pushState(GameState state){
+		game.setTheLevel(state);
 		gameStates.push(state);
-
 	}
 	
 	public void popState(){
-		GameState g = gameStates.pop(); 
+		GameState g = gameStates.pop();
+		try{
+			game.setTheLevel(gameStates.peek());
+		}catch(EmptyStackException e){}
+		
 	}
 	
 	public void update(float dt){
+		
 		gameStates.peek().update(dt);
 	}
 	

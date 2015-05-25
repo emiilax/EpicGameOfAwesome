@@ -195,12 +195,48 @@ public class LevelSelect extends GameState implements IMenu {
 			select();
 			break;
 		case MyInput.BUTTON_ESCAPE:
-			gsm.getGame().setLevel(new MenuState(gsm));
+			gsm.setState(new MenuState(gsm));
 			break;
 		}
 
 	}
 
+<<<<<<< HEAD:EGA/src/main/java/view/menus/LevelSelect.java
+=======
+
+	private void select(){
+		String lvl = menuItems[currentRow][currentCol];
+		if(lvl == "Level 1"){
+			gsm.setState(new Level(gsm, gsm.getLevel(1)));
+			gsm.setCurrentLevel(1);
+		}
+		if(lvl == "Level 2"){
+			gsm.setState(new Level(gsm, gsm.getLevel(2)));
+			gsm.setCurrentLevel(2);
+		}
+		if(lvl == "Level 3"){
+			gsm.setState(new Level(gsm, gsm.getLevel(3)));
+			gsm.setCurrentLevel(3);
+		}
+		if(lvl == "Level 4"){
+			gsm.setState(new Level(gsm, gsm.getLevel(4)));
+			gsm.setCurrentLevel(4);
+		}
+		if(lvl == "Level 5"){
+			gsm.setState(new Level(gsm, gsm.getLevel(5)));
+			gsm.setCurrentLevel(5);
+		}
+		if(lvl == "Level 6"){
+			gsm.setState(new Level(gsm, gsm.getLevel(6)));
+			gsm.setCurrentLevel(6);
+		}
+		/*
+		 * add more if-states if you add more levels
+		 */
+		
+	}
+
+>>>>>>> 6842d6836a675278a4d68f5d34709eba64bbd656:EGA/src/main/java/view/LevelSelect.java
 	@Override
 	public void update(float dt) {}
 

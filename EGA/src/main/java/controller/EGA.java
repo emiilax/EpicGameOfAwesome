@@ -144,17 +144,24 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		}
 
 	}
-
+	
+	public void setTheState(GameState gs){
+		MyInput.setAllKeysFalse();
+		theLevel = gs;
+	}
+	
+	
 	/**
 	 * 
 	 * @param state
 	 */
+	/*
 	public void setLevel(GameState state){
 		MyInput.setAllKeysFalse();
 		theLevel = state;
 
 		gsm.setState(theLevel);
-	}
+	}*/
 
 
 
@@ -192,7 +199,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			}
 		}
 
-		if(MyInput.isDown(MyInput.BUTTON_ENTER)){
+		if(MyInput.isPressed(MyInput.BUTTON_ENTER)){
 
 			theLevel.handleInput(MyInput.BUTTON_ENTER);
 
@@ -204,7 +211,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 
 			theLevel.handleInput(MyInput.BUTTON_ESCAPE);
 
-		}else if(MyInput.isDown(MyInput.BUTTON_PAUSE)){
+		}else if(MyInput.isPressed(MyInput.BUTTON_PAUSE)){
 			theLevel.handleInput(MyInput.BUTTON_PAUSE);
 		}else {
 			theLevel.handleInput(-2);
@@ -219,7 +226,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	public void eventRecieved(TheEvent evt) {
 		if(theLevel instanceof Level){	
 			if(evt.getNameOfEvent().equals("spikehit")){
-				setLevel(new Level(gsm, gsm.getCurrentTiledMap()));
+				//setLevel(new Level(gsm, gsm.getCurrentTiledMap()));
 			}
 			if(evt.getNameOfEvent().equals("pause")){
 				theLevel.handleInput(MyInput.BUTTON_PAUSE);
@@ -234,7 +241,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			}
 
 			if(evt.getNameOfEvent().equals("resumegame")){
-				setLevel(evt.getGame());
+				//setLevel(evt.getGame());
 			}
 		}
 
@@ -313,7 +320,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 
 	public void setLevelFinished(int i){
 		LevelFinished state = new LevelFinished(gsm, finishedBgr.get(i), i);
-		setLevel(state);
+		gsm.setState(state);
 	}
 
 	private void initHashMap(){
@@ -326,7 +333,8 @@ public class EGA implements ApplicationListener, TheChangeListener{
 
 	public void setLevelSelect(int i){
 		LevelSelect state = new LevelSelect(gsm, levelBgr.get(i));
-		setLevel(state);
+		gsm.setState(state);
+		
 	}
 
 	private void initLevelBgr(){

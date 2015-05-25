@@ -8,6 +8,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
+import controller.SaveHandler;
 import controller.Variables;
 
 public class Content {
@@ -40,13 +41,16 @@ public class Content {
 		sounds.put(key, sound);
 	}
 	
-	public void playSound(String key){
-		sounds.get(key).play(Variables.music_volume);
-	}
 	
 	public Sound getSound(String key) {
 		return sounds.get(key);
 	}
+	
+	
+	public void playSound(String key){
+		sounds.get(key).play(SaveHandler.getGameData().getSoundVolume());
+	}
+	
 	
 	public void removeSound(String key) {
 		Sound sound = sounds.get(key);

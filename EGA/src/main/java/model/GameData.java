@@ -27,6 +27,8 @@ public class GameData implements Serializable {
 	public int escape = Keys.ESCAPE;
 
 	private float soundVolume = 0.6f;
+	
+	private boolean isDebug = false;
 
 	private HashMap<Integer, Float> times;
 
@@ -80,5 +82,13 @@ public class GameData implements Serializable {
 
 	public float getTime(int level){
 		return times.get(level);
+	}
+	
+	public void toggleDebug(){
+		isDebug = !isDebug;
+	}
+	
+	public boolean getIsDebug(){
+		return isDebug;
 	}
 }
