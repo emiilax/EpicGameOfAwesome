@@ -97,43 +97,43 @@ public class LevelSelect2 extends GameState implements IMenu {
 	}
 
 	private void select(){
-		String element = menuItems[currentRow][currentCol];
-		if(element == "Level 7"){
-			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(1)));
-			gsm.setCurrentLevel(1);
-		}
-		if(element == "Level 8"){
-			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(2)));
-			gsm.setCurrentLevel(2);
-		}
-		if(element == "Level 9"){
-			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(3)));
-			gsm.setCurrentLevel(3);
-		}
-		if(element == "Level 10"){
-			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(4)));
-			gsm.setCurrentLevel(4);
-		}
-		if(element == "Level 11"){
-			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(5)));
-			gsm.setCurrentLevel(5);
-		}
-		if(element == "Level 12"){
-			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(6)));
-			gsm.setCurrentLevel(6);
-		}
-		if(element == "<--" || element == "-->"){
-			//switch menu
-			//gsm.getGame().setLevel(new LevelSelect(gsm, backGround));
-		}
-		if(element == "Back"){
-			gsm.getGame().setLevel(new MenuState(gsm));
-			//switch to main menu
-		}
-		/*
-		 * add more if-states if you add more levels
-		 */
-		
+//		String element = menuItems[currentRow][currentCol];
+//		if(element == "Level 7"){
+//			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(1)));
+//			gsm.setCurrentLevel(1);
+//		}
+//		if(element == "Level 8"){
+//			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(2)));
+//			gsm.setCurrentLevel(2);
+//		}
+//		if(element == "Level 9"){
+//			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(3)));
+//			gsm.setCurrentLevel(3);
+//		}
+//		if(element == "Level 10"){
+//			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(4)));
+//			gsm.setCurrentLevel(4);
+//		}
+//		if(element == "Level 11"){
+//			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(5)));
+//			gsm.setCurrentLevel(5);
+//		}
+//		if(element == "Level 12"){
+//			gsm.getGame().setLevel(new Level(gsm, gsm.getLevel(6)));
+//			gsm.setCurrentLevel(6);
+//		}
+//		if(element == "<--" || element == "-->"){
+//			//switch menu
+//			//gsm.getGame().setLevel(new LevelSelect(gsm, backGround));
+//		}
+//		if(element == "Back"){
+//			gsm.getGame().setLevel(new MenuState(gsm));
+//			//switch to main menu
+//		}
+//		/*
+//		 * add more if-states if you add more levels
+//		 */
+//		
 	}
 	
 	@Override
@@ -186,7 +186,8 @@ public class LevelSelect2 extends GameState implements IMenu {
 			select();
 			break;
 		case MyInput.BUTTON_ESCAPE:
-			gsm.getGame().setLevel(new MenuState(gsm));
+			//gsm.getGame().setLevel(new MenuState(gsm));
+			gsm.popState();
 			break;
 		}
 
