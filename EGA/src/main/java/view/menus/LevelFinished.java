@@ -1,7 +1,11 @@
-package view;
+package view.menus;
 
 import java.awt.Point;
 
+import view.GameState;
+import view.IMenu;
+import view.Level;
+import view.MenuState;
 import model.EGATimer;
 import model.GameData;
 import model.MyInput;
@@ -28,8 +32,8 @@ public class LevelFinished extends GameState implements IMenu{
 	private BitmapFont font;
 	private GlyphLayout layout = new GlyphLayout();
 
-	public static Texture backgroundTexture;
-	public static Sprite backgroundSprite;
+	private static Texture backgroundTexture;
+	private static Sprite backgroundSprite;
 
 	private String title;
 	

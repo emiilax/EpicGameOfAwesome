@@ -40,11 +40,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
 import controller.MyContactListener;
-<<<<<<< HEAD
-=======
-import controller.OpenDoorController;
+import controller.entities.OpenDoorController;
 import controller.SaveHandler;
->>>>>>> 6842d6836a675278a4d68f5d34709eba64bbd656
 import controller.SpikeController;
 import controller.StarController;
 import controller.Variables;
