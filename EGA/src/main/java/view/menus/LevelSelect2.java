@@ -5,7 +5,6 @@ import java.awt.Point;
 import view.GameState;
 import view.IMenu;
 import view.Level;
-import view.MenuState;
 import model.EGATimer;
 import model.GameData;
 import model.MyInput;
@@ -24,6 +23,7 @@ import controller.EGA;
 import controller.GameStateManager;
 import controller.SaveHandler;
 import controller.Variables;
+import controller.menus.MenuState;
 
 public class LevelSelect2 extends GameState implements IMenu {
 
