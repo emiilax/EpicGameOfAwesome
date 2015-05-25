@@ -403,6 +403,10 @@ public class Level extends GameState{
 		}
 	}
 	// Get rid of this eventually! use the method above instead
+	
+	
+	
+	
 	public void createLayer(TiledMapTileLayer layer, short bits){
 
 		BodyDef bdef = new BodyDef();
