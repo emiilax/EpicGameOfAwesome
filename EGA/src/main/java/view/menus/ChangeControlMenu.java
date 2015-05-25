@@ -1,8 +1,11 @@
-package view;
+package view.menus;
 
 import java.awt.Point;
 import java.util.List;
 
+import view.GameState;
+import view.IMenu;
+import view.SettingsMenu;
 import model.GameData;
 import model.MyInput;
 
@@ -246,11 +249,6 @@ public class ChangeControlMenu extends GameState implements IMenu{
 		rendered = true;
 
 	}
-
-	/*private void renderBackground(){
-		backgroundSprite = new Sprite(new Texture("res/menu/emilsmamma.jpg"));
-		backgroundSprite.draw(sb);
-	}*/
 
 	private String[] getCurrentButtons() {
 		return currentButtons;
