@@ -36,6 +36,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import controller.LockedDoorController;
 import controller.MyContactListener;
 import controller.OpenDoorController;
+import controller.SaveHandler;
 import controller.SpikeController;
 import controller.KeyController;
 import controller.StarController;
@@ -127,7 +128,7 @@ public class Level extends GameState{
 		odc = new OpenDoorController(new EntityModel(), new OpenDoorView());
 		odc.setSpriteBatch(sb);
 		
-		debug = gsm.getGame().getDebug();
+		debug = SaveHandler.getGameData().getIsDebug();
 
 		createEntities();
 		// set up box2d cam
@@ -160,26 +161,28 @@ public class Level extends GameState{
 
 		case MyInput.BUTTON_JUMP:  if(cl.isPlayerOnGround()) ((CharacterController)chc).jump();//playerJump();
 		break;
-
+		
+		// Pause
 		case MyInput.BUTTON_PAUSE: 
 			if(!isPaused){
 				m = new PauseMenu(gsm);
-				gsm.pushState(m);
+				gsm.pushState(new PauseMenu(gsm));
 				//game.setLevel(m);
+				System.out.println("paus");
 				isPaused = true;
 				timer.stopTimer();
-			}else{
-				//game.setTheLevel(m.getTheGame());
-				isPaused = false;
-				resumeTimer();
-			} // vi borde kunna ta bort en hel del av det här iom att man aldrig är i level 
-			// när isPaused är true...
+			}
+			
 			break;
 
 		case MyInput.BUTTON_RESTART: gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
 		break;
-
-		case MyInput.BUTTON_ESCAPE: gsm.setState(new MenuState(gsm));
+		
+		// Pause
+		case MyInput.BUTTON_ESCAPE: gsm.pushState(new PauseMenu(gsm));
+									isPaused = true;
+									timer.stopTimer();
+			//gsm.setState(new MenuState(gsm));
 		break;
 		}
 	}
@@ -193,7 +196,7 @@ public class Level extends GameState{
 	}
 
 	public void update(float dt) {
-		
+		debug = SaveHandler.getGameData().getIsDebug();
 		if(isPaused){
 			isPaused = false;
 			resumeTimer();

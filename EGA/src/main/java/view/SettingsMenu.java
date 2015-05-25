@@ -46,8 +46,6 @@ public class SettingsMenu extends GameState implements IMenu {
 	private Point[] menuItemEndPositions;
 
 	private boolean rendered;
-
-	private GameState curGame;
 	
 	private String volume;
 
@@ -60,12 +58,7 @@ public class SettingsMenu extends GameState implements IMenu {
 		this.gsm = gsm;
 		init();
 		loadTextures();
-		this.curGame = null;
-	}
-
-	public SettingsMenu(GameStateManager gsm, GameState curGame){
-		this(gsm);
-		this.curGame = curGame;
+		
 	}
 
 	private void init(){
@@ -103,7 +96,7 @@ public class SettingsMenu extends GameState implements IMenu {
 	private void setVolume(){
 		fVol = SaveHandler.getGameData().getSoundVolume();
 		if(fVol < 0.2f){
-			volume = "";
+			volume = "mute";
 		}else if(fVol < 0.4f){
 			volume = "I";
 		}else if(fVol < 0.6f){
@@ -181,21 +174,13 @@ public class SettingsMenu extends GameState implements IMenu {
 
 	private void select(){
 		if (currentItem == 0){
-			gsm.pushState(new ChangeControlMenu(gsm, this));
+			gsm.pushState(new ChangeControlMenu(gsm));
 		}
 		if(currentItem == 1){
-			changeVolume();
-		}
-		if (currentItem == 2){
 			resetAll();
 		}
-		if (currentItem == 3){
-			if(curGame instanceof PauseMenu){
-				Level curLevel = (Level)((PauseMenu) curGame).getTheGame();
-				curLevel.toggleDebug();
-			} else {
-				gsm.getGame().toggleDebug();
-			}
+		if (currentItem == 2){
+			SaveHandler.getGameData().toggleDebug();
 
 			setDebugStatus();
 		}
@@ -219,6 +204,7 @@ public class SettingsMenu extends GameState implements IMenu {
 
 	public void resetAll(){
 		SaveHandler.init();
+		init();
 	}
 	@Override
 	public void update(float dt) {
@@ -281,7 +267,12 @@ public class SettingsMenu extends GameState implements IMenu {
 	}
 
 	private void setDebugStatus(){
-		debugStatus = gsm.getGame().getDebugStatus();
+		if(SaveHandler.getGameData().getIsDebug()){
+			debugStatus = "On";
+		}else{
+			debugStatus = "Off";
+		}
+		
 		menuItems[2] = "Dev mode: " + debugStatus;
 	}
 
