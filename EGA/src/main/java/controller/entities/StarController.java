@@ -1,9 +1,9 @@
-package controller;
+package controller.entities;
 
 import static controller.Variables.PPM;
 import model.entities.EntityModel;
 import view.SpikeView;
-import view.StarView;
+import view.entities.StarView;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -11,8 +11,8 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
+import controller.Variables;
 import controller.SpikeController.spikeOrientation;
-import controller.entities.EntityController;
 
 public class StarController extends EntityController {
 

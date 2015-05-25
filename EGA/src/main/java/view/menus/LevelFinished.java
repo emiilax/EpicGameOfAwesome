@@ -2,7 +2,6 @@ package view.menus;
 
 import java.awt.Point;
 
-import view.GameState;
 import view.IMenu;
 import view.Level;
 import model.EGATimer;
@@ -20,6 +19,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import controller.EGA;
+import controller.GameState;
 import controller.GameStateManager;
 import controller.SaveHandler;
 import controller.Variables;

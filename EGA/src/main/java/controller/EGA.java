@@ -3,7 +3,6 @@ package controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import view.GameState;
 import view.IMenu;
 import view.Level;
 import view.menus.LevelFinished;

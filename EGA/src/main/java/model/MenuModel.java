@@ -21,4 +21,5 @@ public class MenuModel{
 	
 	private int xPos;
 	private int yPos;
+	private int gap;
 }

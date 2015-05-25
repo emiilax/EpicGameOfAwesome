@@ -13,7 +13,6 @@ import java.io.ObjectOutputStream;
 
 import javax.imageio.ImageIO;
 
-import view.GameState;
 import view.Level;
 import lombok.Data;
 import model.EGATimer;

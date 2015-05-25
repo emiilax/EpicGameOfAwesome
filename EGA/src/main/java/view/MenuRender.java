@@ -29,8 +29,6 @@ public class MenuRender {
 
 	private static Sprite backgroundSprite;
 
-	private String title;
-	private String subTitle;
 	private int titleHeight;
 
 	private String menuItems[];
@@ -57,8 +55,11 @@ public class MenuRender {
 		titleFont.setColor(Color.WHITE);
 
 		font = gen.generateFont(model.getMenuFontSize());
-		subFont = gen.generateFont(model.getSubTitleFontSize());
 
+		if(model.getSubTitleFontSize() != 0){
+			subFont = gen.generateFont(model.getSubTitleFontSize());
+		}
+		
 		menuItems = model.getMenuItems();
 		menuItemPositions = model.getMenuItemPositions();
 		menuItemEndPositions = model.getMenuItemEndPositions();
@@ -98,7 +99,7 @@ public class MenuRender {
 		}else {
 			titleFont.draw(sb, model.getTitle(), (EGA.V_WIDTH-width) / 2, titleHeight);
 		}
-		
+
 		for(int i = 0; i < menuItems.length; i++){
 			layout.setText(font, menuItems[i]);
 			if(currentItem == i){
@@ -107,14 +108,9 @@ public class MenuRender {
 				font.setColor(Color.WHITE);
 			}
 
-			int yPos = 450 - 70*i;
-			int xPos = (int)(EGA.V_WIDTH - 365) / 2;
-			font.draw(
-					sb,
-					menuItems[i],
-					xPos,
-					yPos
-					);
+			int yPos = model.getYPos() - model.getGap()*i;
+			int xPos = model.getXPos();
+			drawFont(menuItems[i],font,xPos, yPos);
 			menuItemPositions[i] = new Point(xPos,EGA.V_HEIGTH-yPos);
 			menuItemEndPositions[i] = new Point(xPos+(int)width, EGA.V_HEIGTH-yPos+model.getMenuFontSize());
 		}
@@ -125,9 +121,23 @@ public class MenuRender {
 
 		rendered = true;
 	}
-	
-	public void draw(int xPos, int yPos){
-		
+
+	public void drawFont(String item, BitmapFont myFont, int xPos, int yPos){
+		boolean startedNow = false;
+		if(!sb.isDrawing()){
+			sb.begin();
+			startedNow = true;
+		}
+
+		myFont.draw(
+				sb,
+				item,
+				xPos,
+				yPos
+				);
+		if(startedNow){
+			sb.end();
+		}
 	}
 
 	private void animateTitle(Float width){	

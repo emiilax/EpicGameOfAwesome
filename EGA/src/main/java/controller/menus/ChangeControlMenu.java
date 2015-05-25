@@ -3,9 +3,10 @@ package controller.menus;
 import java.awt.Point;
 import java.util.List;
 
-import view.GameState;
 import view.IMenu;
+import view.MenuRender;
 import model.GameData;
+import model.MenuModel;
 import model.MyInput;
 
 import com.badlogic.gdx.Gdx;
@@ -20,6 +21,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import controller.EGA;
+import controller.GameState;
 import controller.GameStateManager;
 import controller.MyInputProcessor;
 import controller.SaveHandler;
@@ -27,7 +29,6 @@ import controller.Variables;
 
 public class ChangeControlMenu extends GameState implements IMenu{
 
-	private SpriteBatch sb;
 	private BitmapFont titleFont;
 	private BitmapFont font;
 	private GlyphLayout layout = new GlyphLayout();
@@ -39,7 +40,11 @@ public class ChangeControlMenu extends GameState implements IMenu{
 
 	private int titleFontSize = Variables.subMenuTitleSize;
 	private int menuFontSize = 30;
-
+	private int titleHeight = 600;
+	private int gap = 50;
+	private int xPos = (EGA.V_WIDTH - (EGA.V_WIDTH/2));
+	private int yPos = 450;
+	
 	private int currentItem;
 	private String menuItems[];
 	private String currentButtons[];
@@ -48,36 +53,32 @@ public class ChangeControlMenu extends GameState implements IMenu{
 	private Point[] menuItemPositions;
 	private Point[] menuItemEndPositions;
 
-	private boolean gotInput = false;
-
 	private boolean rendered = false;
 	private String latestRemoved;
 	private GameData gd;
 
 	private GameStateManager gsm;
-
 	
+	private MenuModel model;
+	private MenuRender view;
+
+
 	public ChangeControlMenu(GameStateManager gsm){
 		super(gsm);
 		this.gsm = gsm;
-		init();	
-		loadTextures();
-
+		init();
 	}
-	
+
 
 	private void init(){
 
 		gd = SaveHandler.getGameData();
-		sb = new SpriteBatch();
-
+		
 		FreeTypeFontGenerator gen = new FreeTypeFontGenerator(
 				Gdx.files.internal("res/fonts/orbitron-black.otf")
 				);
-
+		
 		titleFont = gen.generateFont(titleFontSize);
-		titleFont.setColor(Color.WHITE);
-
 		font = gen.generateFont(menuFontSize);
 
 		currentButtons = new String[]{
@@ -105,6 +106,10 @@ public class ChangeControlMenu extends GameState implements IMenu{
 		int length = menuItems.length;
 		menuItemPositions = new Point[length];
 		menuItemEndPositions = new Point[length];
+		model = new MenuModel();
+		updateModel();
+		
+		view = new MenuRender(model);
 		rendered = false;
 
 		currentItem = 0;
@@ -181,72 +186,49 @@ public class ChangeControlMenu extends GameState implements IMenu{
 		// TODO Auto-generated method stub
 
 	}
-	
-	private void loadTextures() {
-		backgroundTexture = new Texture("res/menu/skybackground_menu.jpg");
-		backgroundSprite =new Sprite(backgroundTexture);
-	}
-
-	public void renderBackground() {
-		backgroundSprite.draw(sb);
-	}
 
 	@Override
 	public void render() {
-
-		String[] buttons = getCurrentButtons();
-
-		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		cam.update();
-		sb.setProjectionMatrix(cam.combined);
-
-		sb.begin();
-		renderBackground();
-
+	
+		updateModel();
+		view.render(currentItem, cam, false);
+		
 		layout.setText(titleFont, title);
 		float width = layout.width;
 
-		titleFont.draw(sb, title, (EGA.V_WIDTH-width) / 2, 600);
-
 		for(int i = 0; i < menuItems.length; i++){
-			layout.setText(font, menuItems[i]);
-			float smallWidth = layout.width;
 			if(currentItem == i){
 				font.setColor(Color.RED);
 			} else {
 				font.setColor(Color.WHITE);
 			}
+			layout.setText(font, menuItems[i]);
+			float smallWidth = layout.width;
 
 			int xPosMenuItem = (int) ((EGA.V_WIDTH - smallWidth) - (EGA.V_WIDTH)/2);
 			int yPosMenuItem = 450 - 50 *i;
 
-			font.draw(
-					sb,
-					menuItems[i],
-					xPosMenuItem,
-					yPosMenuItem
-					);
-
-			int xPosButton = (EGA.V_WIDTH - (EGA.V_WIDTH/2));
-			int yPosButton = 450 - 50 *i;
-
-			font.draw(
-					sb,
-					buttons[i],
-					xPosButton,
-					yPosButton
-					);
-
-			menuItemPositions[i] = new Point(xPosMenuItem,EGA.V_HEIGTH-yPosMenuItem);
-			menuItemEndPositions[i] = new Point(xPosButton+(int)width, 
-					EGA.V_HEIGTH-yPosButton+menuFontSize);
+			view.drawFont(menuItems[i], font, xPosMenuItem, yPosMenuItem);
+//			menuItemPositions[i] = new Point(xPosMenuItem,EGA.V_HEIGTH-yPosMenuItem);
+//			menuItemEndPositions[i] = new Point(xPosButton+(int)width, 
+//					EGA.V_HEIGTH-yPosButton+menuFontSize);
 
 		}
-		sb.end();
 
 		rendered = true;
+	}
 
+	private void updateModel(){
+		model.setMenuItemEndPositions(menuItemEndPositions);
+		model.setMenuItemPositions(menuItemPositions);
+		model.setMenuItems(getCurrentButtons());
+		model.setTitleFontSize(titleFontSize);
+		model.setMenuFontSize(menuFontSize);
+		model.setTitle(title);
+		model.setTitleHeight(titleHeight);
+		model.setGap(gap);
+		model.setXPos(xPos);
+		model.setYPos(yPos);
 	}
 
 	private String[] getCurrentButtons() {
@@ -264,6 +246,7 @@ public class ChangeControlMenu extends GameState implements IMenu{
 			latestRemoved = currentButtons[index];
 			currentButtons[index] = key;
 		}
+		updateModel();
 	}
 
 	public void select(int x, int y) {
@@ -275,7 +258,7 @@ public class ChangeControlMenu extends GameState implements IMenu{
 		}
 
 	}
-	
+
 	private void menuBack(){
 		gsm.popState();	
 	}

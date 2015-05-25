@@ -2,10 +2,11 @@ package controller.menus;
 
 import java.awt.Point;
 
-import view.GameState;
 import view.IMenu;
+import view.MenuRender;
 import view.menus.PauseMenu;
 import lombok.Data;
+import model.MenuModel;
 import model.MyInput;
 
 import com.badlogic.gdx.Gdx;
@@ -19,16 +20,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import controller.EGA;
+import controller.GameState;
 import controller.GameStateManager;
 import controller.SaveHandler;
 import controller.Variables;
 
 @Data
 public class SettingsMenu extends GameState implements IMenu {
-	private SpriteBatch sb;
-	private BitmapFont titleFont;
-	private BitmapFont font;
-	private GlyphLayout layout = new GlyphLayout();
 
 	public static Texture backgroundTexture;
 	public static Sprite backgroundSprite;
@@ -37,7 +35,11 @@ public class SettingsMenu extends GameState implements IMenu {
 
 	private int titleFontSize = Variables.subMenuTitleSize;
 	private int menuFontSize = Variables.subMenuItemSize;
-
+	private int titleHeight = 650;
+	private int gap = 70;
+	private int xPos = (int)(EGA.V_WIDTH - Variables.menuItemX) / 2;
+	private int yPos = 450;
+	
 	private int currentItem;
 	private String menuItems[];
 	private String debugStatus;
@@ -50,31 +52,19 @@ public class SettingsMenu extends GameState implements IMenu {
 	private boolean rendered;
 	
 	private String volume;
-
-	private int vol;
-	
 	private float fVol;
+	
+	private MenuModel model;
+	private MenuRender view;
+
 
 	public SettingsMenu(GameStateManager gsm) {
 		super(gsm);
 		this.gsm = gsm;
 		init();
-		loadTextures();
-		
 	}
 
 	private void init(){
-		sb = new SpriteBatch();
-
-
-		FreeTypeFontGenerator gen = new FreeTypeFontGenerator(
-				Gdx.files.internal("res/fonts/orbitron-black.otf")
-				);
-
-		titleFont = gen.generateFont(titleFontSize);
-		titleFont.setColor(Color.WHITE);
-
-		font = gen.generateFont(menuFontSize);
 
 		setVolume();
 
@@ -92,6 +82,11 @@ public class SettingsMenu extends GameState implements IMenu {
 		menuItemPositions = new Point[menuItems.length];
 		menuItemEndPositions = new Point[menuItems.length];
 
+		model = new MenuModel();
+		updateModel();
+		
+		view = new MenuRender(model);
+		
 		rendered = false;
 	}
 	
@@ -131,16 +126,6 @@ public class SettingsMenu extends GameState implements IMenu {
 			SaveHandler.save();
 		}
 	}
-
-	private void loadTextures() {
-		backgroundTexture = new Texture("res/menu/skybackground_menu.jpg");
-		backgroundSprite =new Sprite(backgroundTexture);
-	}
-
-	public void renderBackground() {
-		backgroundSprite.draw(sb);
-	}
-
 
 	@Override
 	public void handleInput(int i) {
@@ -190,10 +175,6 @@ public class SettingsMenu extends GameState implements IMenu {
 			backMenu();			
 		}
 	}
-	
-	public void changeVolume(){
-		
-	}
 
 	public void select(int x, int y){
 		if(rendered && x > menuItemPositions[currentItem].getX() 
@@ -212,60 +193,29 @@ public class SettingsMenu extends GameState implements IMenu {
 	public void update(float dt) {
 		//handleInput();
 	}
-
-	int titleHeight = 900; 
-	boolean firstTime = true;
+	
 	@Override
 	public void render() {
-
-		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		cam.update();
-
-		sb.setProjectionMatrix(cam.combined);
-
-		sb.begin();
-
-		renderBackground();
-
-		layout.setText(titleFont, title);
-		float width = layout.width;
-
-		titleFont.draw(sb, title, (EGA.V_WIDTH-width) / 2, 650);
-
-		for(int i = 0; i < menuItems.length; i++){
-			layout.setText(font, menuItems[i]);
-			if(currentItem == i){
-				font.setColor(Color.RED);
-			} else {
-				font.setColor(Color.WHITE);
-			}
-
-			int yPos = 450 - 70*i;
-			int xPos = (int)(EGA.V_WIDTH - Variables.menuItemX) / 2;
-			font.draw(
-					sb,
-					menuItems[i],
-					xPos,
-					yPos
-					);
-			menuItemPositions[i] = new Point(xPos,EGA.V_HEIGTH-yPos);
-			menuItemEndPositions[i] = new Point(xPos+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
-			if(firstTime){
-				firstTime = false;
-			}
-		}
-
-		sb.end();
-
+		updateModel();
+		view.render(currentItem, cam, false);
 		rendered = true;
-
+	}
+	
+	private void updateModel(){
+		model.setMenuItemEndPositions(menuItemEndPositions);
+		model.setMenuItemPositions(menuItemPositions);
+		model.setMenuItems(menuItems);
+		model.setTitleFontSize(titleFontSize);
+		model.setMenuFontSize(menuFontSize);
+		model.setTitle(title);
+		model.setTitleHeight(titleHeight);
+		model.setGap(gap);
+		model.setXPos(xPos);
+		model.setYPos(yPos);
 	}
 
 	private void backMenu(){
 		gsm.popState();
-		
-		
 	}
 
 	private void setDebugStatus(){

@@ -2,7 +2,7 @@ package event;
 
 import java.util.EventObject;
 
-import view.GameState;
+import controller.GameState;
 import lombok.*;
 
 /**

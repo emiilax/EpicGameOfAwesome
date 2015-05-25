@@ -2,7 +2,6 @@ package controller.menus;
 
 import java.awt.Point;
 
-import view.GameState;
 import view.IMenu;
 import view.Level;
 import view.MenuRender;
@@ -29,18 +28,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import controller.EGA;
+import controller.GameState;
 import controller.GameStateManager;
 import controller.SaveHandler;
 import controller.Variables;
 
 @Data
 public class MenuState extends GameState implements IMenu{
-
-	private SpriteBatch sb;
-	private BitmapFont titleFont;
-	private BitmapFont font;
-	private BitmapFont subFont;
-	private GlyphLayout layout = new GlyphLayout();
 
 	private static Texture backgroundTexture;
 
@@ -60,6 +54,9 @@ public class MenuState extends GameState implements IMenu{
 	private Point[] menuItemEndPositions;
 
 	private int titleHeight = 900;
+	private int xPos = (int)(EGA.V_WIDTH - 365)/2;
+	private int yPos = 450;
+	private int gap = 70;
 
 	private boolean rendered;
 
@@ -103,6 +100,9 @@ public class MenuState extends GameState implements IMenu{
 		model.setTitle(title);
 		model.setSubTitle(subTitle);
 		model.setTitleHeight(titleHeight);
+		model.setGap(gap);
+		model.setXPos(xPos);
+		model.setYPos(yPos);
 	}
 
 	@Override
@@ -160,6 +160,7 @@ public class MenuState extends GameState implements IMenu{
 	@Override
 	public void render() {
 		view.render(currentItem, cam, true);
+		rendered = true;
 	}
 
 	@Override
