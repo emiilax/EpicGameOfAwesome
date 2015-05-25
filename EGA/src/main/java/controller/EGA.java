@@ -7,7 +7,6 @@ import view.GameState;
 import view.IMenu;
 import view.Level;
 import view.menus.LevelFinished;
-import view.SettingsMenu;
 import view.menus.LevelSelect;
 import view.menus.LevelSelect2;
 import view.menus.LevelFinished;
@@ -28,6 +27,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
 import controller.menus.MenuState;
+import controller.menus.SettingsMenu;
 import event.EventSupport;
 import event.TheChangeListener;
 import event.TheEvent;

@@ -1,7 +1,9 @@
-package view;
+package controller.menus;
 
 import java.awt.Point;
 
+import view.GameState;
+import view.IMenu;
 import view.menus.PauseMenu;
 import lombok.Data;
 import model.MyInput;
@@ -20,7 +22,6 @@ import controller.EGA;
 import controller.GameStateManager;
 import controller.SaveHandler;
 import controller.Variables;
-import controller.menus.ChangeControlMenu;
 
 @Data
 public class SettingsMenu extends GameState implements IMenu {

@@ -5,7 +5,6 @@ import java.util.List;
 
 import view.GameState;
 import view.IMenu;
-import view.SettingsMenu;
 import model.GameData;
 import model.MyInput;
 

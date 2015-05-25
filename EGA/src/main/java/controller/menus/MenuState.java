@@ -6,7 +6,6 @@ import view.GameState;
 import view.IMenu;
 import view.Level;
 import view.MenuRender;
-import view.SettingsMenu;
 import view.menus.LevelSelect;
 import lombok.Data;
 import model.MenuModel;
