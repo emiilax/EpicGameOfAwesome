@@ -28,9 +28,6 @@ import controller.Variables;
 @Data
 public class SettingsMenu extends GameState implements IMenu {
 
-	public static Texture backgroundTexture;
-	public static Sprite backgroundSprite;
-
 	private final String title = "Settings";
 
 	private int titleFontSize = Variables.subMenuTitleSize;

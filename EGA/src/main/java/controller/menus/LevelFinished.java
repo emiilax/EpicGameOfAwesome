@@ -1,10 +1,12 @@
-package view.menus;
+package controller.menus;
 
 import java.awt.Point;
 
 import view.IMenu;
+import view.MenuRender;
 import model.EGATimer;
 import model.GameData;
+import model.MenuModel;
 import model.MyInput;
 
 import com.badlogic.gdx.Gdx;
@@ -23,25 +25,20 @@ import controller.GameStateManager;
 import controller.Level;
 import controller.SaveHandler;
 import controller.Variables;
-import controller.menus.MenuState;
 
 public class LevelFinished extends GameState implements IMenu{
-	
-	private SpriteBatch sb;
-	private BitmapFont titleFont;
-	private BitmapFont font;
-	private GlyphLayout layout = new GlyphLayout();
-
-	private static Texture backgroundTexture;
-	private static Sprite backgroundSprite;
 
 	private String title;
 	
-	//private GameData gd;
 
 	private int titleFontSize = Variables.subMenuTitleSize - 20;
 	private int menuFontSize = Variables.subMenuItemSize;
 	private int level;
+	private int titleHeight = 650;
+	private int gap = 70;
+	private int xPos = (int)(EGA.V_WIDTH - Variables.menuItemX) / 2;
+	private int yPos = 450;
+	
 	private int currentItem;
 	private String menuItems[];
 	
@@ -53,27 +50,18 @@ public class LevelFinished extends GameState implements IMenu{
 	private GameStateManager gsm;
 	private EGATimer timer;
 	
+	private MenuModel model;
+	private MenuRender view;
+	
 	public LevelFinished(GameStateManager gsm, Texture backgroundTexture, int level){
 		super(gsm);
 		this.gsm = gsm;
-		this.backgroundTexture = backgroundTexture;
 		this.level = level;
-	//	gd = SaveHandler.getGameData();
 		init();
 		
 	}
 	
 	private void init(){
-		sb = new SpriteBatch();
-		
-		FreeTypeFontGenerator gen = new FreeTypeFontGenerator(
-				Gdx.files.internal("res/fonts/orbitron-black.otf")
-				);
-
-		titleFont = gen.generateFont(titleFontSize);
-		titleFont.setColor(Color.WHITE);
-
-		font = gen.generateFont(menuFontSize);
 
 		menuItems = new String[]{
 				"Next Level",
@@ -87,6 +75,11 @@ public class LevelFinished extends GameState implements IMenu{
 		
 		menuItemPositions = new Point[menuItems.length];
 		menuItemEndPositions = new Point[menuItems.length];
+		
+		model = new MenuModel();
+		updateModel();
+		
+		view = new MenuRender(model);
 		
 		rendered = false;
 	}
@@ -147,50 +140,22 @@ public class LevelFinished extends GameState implements IMenu{
 
 	@Override
 	public void render() {
-		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		cam.update();
-		sb.setProjectionMatrix(cam.combined);
-		
-		sb.begin();
-		renderBackground();
-		
-		layout.setText(titleFont, title);
-		float width = layout.width;
-
-		titleFont.draw(sb, title, (EGA.V_WIDTH-width) / 2, 600);
-
-		for(int i = 0; i < menuItems.length; i++){
-			layout.setText(font, menuItems[i]);
-			if(currentItem == i){
-				font.setColor(Color.RED);
-			} else {
-				font.setColor(Color.WHITE);
-			}
-			
-			int xPos = (int) ((EGA.V_WIDTH - width) / 2);
-			int yPos = 300 - 70 *i;
-			
-			menuItemPositions[i] = new Point(xPos,EGA.V_HEIGTH-yPos);
-			menuItemEndPositions[i] = new Point(xPos+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
-			
-			font.draw(
-					sb,
-					menuItems[i],
-					xPos,
-					yPos
-					);
-		}
-
-		sb.end();
-		
+		updateModel();
+		view.render(currentItem, cam, false);
 		rendered = true;
-
 	}
 	
-	private void renderBackground(){
-		backgroundSprite = new Sprite(backgroundTexture);
-		backgroundSprite.draw(sb);
+	private void updateModel(){
+		model.setMenuItemEndPositions(menuItemEndPositions);
+		model.setMenuItemPositions(menuItemPositions);
+		model.setMenuItems(menuItems);
+		model.setTitleFontSize(titleFontSize);
+		model.setMenuFontSize(menuFontSize);
+		model.setTitle(title);
+		model.setTitleHeight(titleHeight);
+		model.setGap(gap);
+		model.setXPos(xPos);
+		model.setYPos(yPos);
 	}
 
 	@Override

@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import controller.EGA;
+import controller.Variables;
 
 public class MenuRender {
 
@@ -122,6 +123,89 @@ public class MenuRender {
 		rendered = true;
 	}
 
+	/**
+	 * this method sets the color and draw the letters in the levelSelect menu
+	 */
+	@Override
+	public void renderMatrix() {
+		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		cam.update();
+		sb.setProjectionMatrix(cam.combined);
+
+		sb.begin();
+		renderBackground();
+
+		layout.setText(titleFont, title);
+		float width = Variables.menuItemX + 240;
+		float widthLay = layout.width;
+
+		titleFont.draw(sb, title, (EGA.V_WIDTH-widthLay) / 2, 600);
+
+		int x = menuItems[0].length;
+
+		for (int row = 0; row < menuItems.length; row++){
+			for (int col = 0; col < x; col++){
+				
+				layout.setText(font, menuItems[row][col]);
+
+				int yPos = 400 - 100*row;
+				
+				//set color on letters
+				if(currentRow == row && currentCol == col){
+					font.setColor(Color.RED);
+					
+				}else{
+					font.setColor(Color.WHITE);
+				}
+				//end set color on letters 
+
+				//draw letters
+				if(col == 0){
+					int xPos0 = (int) (EGA.V_WIDTH - width - 7*70);
+					font.draw(
+							sb,
+							menuItems[row][col],
+							xPos0,
+							yPos
+							);
+
+					menuItemPositions[row][col] = new Point(xPos0,EGA.V_HEIGTH-yPos);
+					menuItemEndPositions[row][col] = new Point(xPos0+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
+				}	
+				
+				if(col == 1){
+					int xPos1 = (int) (EGA.V_WIDTH - width- 2*70 );
+					font.draw(
+							sb,
+							menuItems[row][col],
+							xPos1,
+							yPos
+							);
+					menuItemPositions[row][col] = new Point(xPos1,EGA.V_HEIGTH-yPos);
+					menuItemEndPositions[row][col] = new Point(xPos1+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
+				}
+				if(col == 2){
+					int xPos2 = (int) (EGA.V_WIDTH - width + 3*70);
+					font.draw(
+							sb,
+							menuItems[row][col],
+							xPos2,
+							yPos
+							);
+					menuItemPositions[row][col] = new Point(xPos2,EGA.V_HEIGTH-yPos);
+					menuItemEndPositions[row][col] = new Point(xPos2+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
+				}
+				//end draw letters
+			}
+
+		}
+
+		sb.end();
+
+		rendered = true;
+
+	}
 	public void drawFont(String item, BitmapFont myFont, int xPos, int yPos){
 		boolean startedNow = false;
 		if(!sb.isDrawing()){
