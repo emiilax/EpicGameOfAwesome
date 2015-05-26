@@ -84,15 +84,4 @@ public class EventSupport {
 		}
 	}
 	
-	public void fireNewEvent(String nameOfEvent, GameState game){
-		TheEvent event = null;
-		
-		event = new TheEvent(this, nameOfEvent, game);
-		
-		Iterator<TheChangeListener> i = theListeners.iterator();
-		
-		while(i.hasNext()){
-			((TheChangeListener) i.next()).eventRecieved(event);
-		}
-	}
 }

@@ -1,4 +1,4 @@
-package view;
+package controller.menus;
 
 import java.awt.Point;
 

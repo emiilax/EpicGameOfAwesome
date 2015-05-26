@@ -2,7 +2,6 @@ package controller.menus;
 
 import java.awt.Point;
 
-import view.IMenu;
 import view.MenuRender;
 import lombok.Data;
 import model.MenuModel;

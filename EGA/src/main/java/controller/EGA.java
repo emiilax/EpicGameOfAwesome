@@ -3,7 +3,6 @@ package controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import view.IMenu;
 import lombok.Data;
 import model.Content;
 import model.GameData;
@@ -17,6 +16,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
+import controller.menus.IMenu;
 import controller.menus.LevelFinished;
 import controller.menus.MenuState;
 import event.EventSupport;
@@ -263,7 +263,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	 */
 	private void createPictures(){
 		//res = new Content();
-
+		
 		res.loadTexture("res/tiles/bunny.png", "bunny");
 		res.loadTexture("res/stars/star.png", "star");
 		res.loadTexture("res/tiles/hud.png", "hud");

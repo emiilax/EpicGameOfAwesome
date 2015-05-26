@@ -3,7 +3,6 @@ package controller.menus;
 import java.awt.Point;
 import java.util.List;
 
-import view.IMenu;
 import view.MenuRender;
 import model.GameData;
 import model.MenuModel;
