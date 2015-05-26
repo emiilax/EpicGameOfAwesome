@@ -510,7 +510,6 @@ public class Level extends GameState{
 				theController = new LockedDoorController(new EntityModel(), new LockedDoorView());
 			}
 			if(ec instanceof SpikeController){
-			
 				theController = new SpikeController(new SpikeModel(((SpikeController)ec).getSpikeOrientation()), 
 															new SpikeView());
 			}

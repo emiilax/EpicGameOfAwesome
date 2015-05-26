@@ -63,7 +63,7 @@ public class CharacterController extends EntityController{
 		
 		shape = new PolygonShape();
 		fDef = new FixtureDef();
-		
+	
 	}
 
 	/**
