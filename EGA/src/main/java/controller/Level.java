@@ -1,6 +1,7 @@
-package view;
+package controller;
 
 import static controller.Variables.PPM;
+import view.SpikeView;
 import view.entities.CharacterView;
 import view.entities.KeyView;
 import view.entities.LockedDoorView;
@@ -41,16 +42,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
-import controller.MyContactListener;
-
 import controller.entities.OpenDoorController;
-import controller.GameState;
-
-import controller.SaveHandler;
-import controller.SpikeController;
-import controller.Variables;
-import controller.EGA;
-import controller.GameStateManager;
 
 @Data
 public class Level extends GameState{

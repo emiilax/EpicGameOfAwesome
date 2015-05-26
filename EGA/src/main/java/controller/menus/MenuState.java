@@ -3,7 +3,6 @@ package controller.menus;
 import java.awt.Point;
 
 import view.IMenu;
-import view.Level;
 import view.MenuRender;
 import view.menus.LevelSelect;
 import lombok.Data;
@@ -30,6 +29,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import controller.EGA;
 import controller.GameState;
 import controller.GameStateManager;
+import controller.Level;
 import controller.SaveHandler;
 import controller.Variables;
 

@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import view.IMenu;
-import view.Level;
 import view.menus.LevelFinished;
 import view.menus.LevelSelect;
 import view.menus.LevelFinished;

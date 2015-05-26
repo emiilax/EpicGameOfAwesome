@@ -7,7 +7,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
 import controller.menus.MenuState;
-import view.Level;
 import view.menus.PauseMenu;
 import lombok.Data;
 

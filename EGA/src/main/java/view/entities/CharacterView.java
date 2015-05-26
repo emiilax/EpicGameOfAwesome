@@ -10,13 +10,15 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import controller.EGA;
 import controller.Variables;
+import lombok.Data;
 import model.entities.CharacterModel;
 import model.entities.EntityModel;
 
+@Data
 public class CharacterView extends EntityView{
 	
 	private TextureRegion[] sprites;
-	
+	private boolean isStopped = true;
 	public void setTexture(Boolean isBig){
 		if(!isBig){
 			Texture tex;
@@ -34,6 +36,10 @@ public class CharacterView extends EntityView{
 	
 	
 	public void update(Observable o, Object arg) {
+		
+		if(isStopped){
+			super.getAnimation().setCurrentFrame(0);
+		}
 		
 		if(o instanceof CharacterModel){		
 			CharacterModel cm = (CharacterModel)o;

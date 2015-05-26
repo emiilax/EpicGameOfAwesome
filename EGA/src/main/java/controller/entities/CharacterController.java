@@ -177,7 +177,7 @@ public class CharacterController extends EntityController{
 	 */
 	int i = 1;
 	public void moveForward(){	
-		
+		((CharacterView)super.getTheView()).setStopped(false);
 		Body playerBody = this.getBody();
 		yVelocity = playerBody.getLinearVelocity().y;
 		
@@ -190,6 +190,7 @@ public class CharacterController extends EntityController{
 	 * Moves the Character-body backwards
 	 */
 	public void moveBackward(){
+		((CharacterView)super.getTheView()).setStopped(false);
 		Body playerBody = this.getBody();
 		yVelocity = playerBody.getLinearVelocity().y;
 		playerBody.setLinearVelocity(-currentSpeed, yVelocity);
@@ -200,6 +201,7 @@ public class CharacterController extends EntityController{
 	 * Stops the Character-body from moving
 	 */
 	public void stop(){
+		((CharacterView)super.getTheView()).setStopped(true);
 		Body playerBody = this.getBody();
 		yVelocity = playerBody.getLinearVelocity().y;
 		playerBody.setLinearVelocity(0, yVelocity);
