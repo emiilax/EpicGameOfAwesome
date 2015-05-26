@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import view.IMenu;
-import view.menus.PauseMenu;
 import lombok.Data;
 import model.Content;
 import model.GameData;
@@ -23,6 +22,7 @@ import com.badlogic.gdx.utils.GdxNativesLoader;
 import controller.menus.LevelFinished;
 import controller.menus.LevelSelect;
 import controller.menus.MenuState;
+import controller.menus.PauseMenu;
 import controller.menus.SettingsMenu;
 import event.EventSupport;
 import event.TheChangeListener;
