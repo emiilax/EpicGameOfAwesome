@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import lombok.Data;
 import model.entities.EntityModel;
 import controller.EGA;
-import controller.SpikeController.spikeOrientation;
+//import controller.SpikeController.spikeOrientation;
 
 @Data
 public class StarView extends EntityView {

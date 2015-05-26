@@ -33,9 +33,13 @@ public class MenuRender {
 	private int titleHeight;
 
 	private String menuItems[];
+	private String matrixMenuItems[][];
 
 	private Point[] menuItemPositions;
 	private Point[] menuItemEndPositions;
+	
+	private Point[][] matrixMenuItemPositions;
+	private Point[][] matrixMenuItemEndPositions;
 
 	boolean rendered;
 
@@ -60,10 +64,18 @@ public class MenuRender {
 		if(model.getSubTitleFontSize() != 0){
 			subFont = gen.generateFont(model.getSubTitleFontSize());
 		}
+
+		if(model.getMenuItems() != null){
+			menuItems = model.getMenuItems();
+			menuItemPositions = model.getMenuItemPositions();
+			menuItemEndPositions = model.getMenuItemEndPositions();
+		}
+		if(model.getMatrixMenuItems() != null){
+			matrixMenuItems = model.getMatrixMenuItems();
+			matrixMenuItemPositions = model.getMatrixMenuItemPositions();
+			matrixMenuItemEndPositions = model.getMatrixMenuItemEndPositions();
+		}	
 		
-		menuItems = model.getMenuItems();
-		menuItemPositions = model.getMenuItemPositions();
-		menuItemEndPositions = model.getMenuItemEndPositions();
 		titleHeight = model.getTitleHeight();
 
 		rendered = false;
@@ -126,8 +138,7 @@ public class MenuRender {
 	/**
 	 * this method sets the color and draw the letters in the levelSelect menu
 	 */
-	@Override
-	public void renderMatrix() {
+	public void renderMatrix(int currentRow, int currentCol, OrthographicCamera cam) {
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		cam.update();
@@ -136,25 +147,25 @@ public class MenuRender {
 		sb.begin();
 		renderBackground();
 
-		layout.setText(titleFont, title);
+		layout.setText(titleFont, model.getTitle());
 		float width = Variables.menuItemX + 240;
 		float widthLay = layout.width;
 
-		titleFont.draw(sb, title, (EGA.V_WIDTH-widthLay) / 2, 600);
+		titleFont.draw(sb, model.getTitle(), (EGA.V_WIDTH-widthLay) / 2, titleHeight);
 
-		int x = menuItems[0].length;
+		int x = matrixMenuItems[0].length;
 
-		for (int row = 0; row < menuItems.length; row++){
+		for (int row = 0; row < matrixMenuItems.length; row++){
 			for (int col = 0; col < x; col++){
-				
-				layout.setText(font, menuItems[row][col]);
+
+				layout.setText(font, matrixMenuItems[row][col]);
 
 				int yPos = 400 - 100*row;
-				
+
 				//set color on letters
 				if(currentRow == row && currentCol == col){
 					font.setColor(Color.RED);
-					
+
 				}else{
 					font.setColor(Color.WHITE);
 				}
@@ -165,36 +176,36 @@ public class MenuRender {
 					int xPos0 = (int) (EGA.V_WIDTH - width - 7*70);
 					font.draw(
 							sb,
-							menuItems[row][col],
+							matrixMenuItems[row][col],
 							xPos0,
 							yPos
 							);
 
-					menuItemPositions[row][col] = new Point(xPos0,EGA.V_HEIGTH-yPos);
-					menuItemEndPositions[row][col] = new Point(xPos0+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
+					matrixMenuItemPositions[row][col] = new Point(xPos0,EGA.V_HEIGTH-yPos);
+					matrixMenuItemEndPositions[row][col] = new Point(xPos0+(int)width, EGA.V_HEIGTH-yPos+model.getMenuFontSize());
 				}	
-				
+
 				if(col == 1){
 					int xPos1 = (int) (EGA.V_WIDTH - width- 2*70 );
 					font.draw(
 							sb,
-							menuItems[row][col],
+							matrixMenuItems[row][col],
 							xPos1,
 							yPos
 							);
-					menuItemPositions[row][col] = new Point(xPos1,EGA.V_HEIGTH-yPos);
-					menuItemEndPositions[row][col] = new Point(xPos1+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
+					matrixMenuItemPositions[row][col] = new Point(xPos1,EGA.V_HEIGTH-yPos);
+					matrixMenuItemEndPositions[row][col] = new Point(xPos1+(int)width, EGA.V_HEIGTH-yPos+model.getMenuFontSize());
 				}
 				if(col == 2){
 					int xPos2 = (int) (EGA.V_WIDTH - width + 3*70);
 					font.draw(
 							sb,
-							menuItems[row][col],
+							matrixMenuItems[row][col],
 							xPos2,
 							yPos
 							);
-					menuItemPositions[row][col] = new Point(xPos2,EGA.V_HEIGTH-yPos);
-					menuItemEndPositions[row][col] = new Point(xPos2+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
+					matrixMenuItemPositions[row][col] = new Point(xPos2,EGA.V_HEIGTH-yPos);
+					matrixMenuItemEndPositions[row][col] = new Point(xPos2+(int)width, EGA.V_HEIGTH-yPos+model.getMenuFontSize());
 				}
 				//end draw letters
 			}
