@@ -3,7 +3,9 @@ package view.menus;
 import java.awt.Point;
 
 import view.IMenu;
+import view.MenuRender;
 import lombok.Data;
+import model.MenuModel;
 import model.MyInput;
 
 import com.badlogic.gdx.Gdx;
@@ -43,6 +45,10 @@ public class PauseMenu extends GameState implements IMenu{
 
 	private int titleFontSize = Variables.subMenuTitleSize;
 	private int menuFontSize = Variables.subMenuItemSize;
+	private int titleHeight = 650;
+	private int gap = 70;
+	private int xPos = (int)(EGA.V_WIDTH - Variables.menuItemX) / 2;
+	private int yPos = 450;
 
 	private int currentItem;
 	private String menuItems[];
@@ -53,28 +59,20 @@ public class PauseMenu extends GameState implements IMenu{
 	private Point[] menuItemEndPositions;
 	
 	private boolean rendered;
-	public GameState theGame;
+	private GameState theGame;
+	
+	private MenuModel model;
+	private MenuRender view;
 
 
 	public PauseMenu(GameStateManager gsm) {
 		super(gsm);
 		this.gsm = gsm;
 		init();
-		loadTextures();
 	}
 
 	private void init(){
 		sb = new SpriteBatch();
-
-
-		FreeTypeFontGenerator gen = new FreeTypeFontGenerator(
-				Gdx.files.internal("res/fonts/orbitron-black.otf")
-				);
-
-		titleFont = gen.generateFont(titleFontSize);
-		titleFont.setColor(Color.WHITE);
-
-		font = gen.generateFont(menuFontSize);
 
 		menuItems = new String[]{
 				"Resume",
@@ -86,22 +84,27 @@ public class PauseMenu extends GameState implements IMenu{
 		menuItemPositions = new Point[menuItems.length];
 		menuItemEndPositions = new Point[menuItems.length];
 		
+		model = new MenuModel();
+		updateModel();
+		
+		view = new MenuRender(model);
 		
 		rendered = false;
 	}
-
-
-	private void loadTextures() {
-		//backgroundTexture = new Texture("res/menu/emilsmamma.jpg");
-		backgroundTexture = new Texture("res/menu/skybackground_menu.jpg");
-		backgroundSprite =new Sprite(backgroundTexture);
+	
+	private void updateModel(){
+		model.setMenuItemEndPositions(menuItemEndPositions);
+		model.setMenuItemPositions(menuItemPositions);
+		model.setMenuItems(menuItems);
+		model.setTitleFontSize(titleFontSize);
+		model.setMenuFontSize(menuFontSize);
+		model.setTitle(title);
+		model.setTitleHeight(titleHeight);
+		model.setGap(gap);
+		model.setXPos(xPos);
+		model.setYPos(yPos);
 	}
-
-	public void renderBackground() {
-		backgroundSprite.draw(sb);
-	}
-
-
+	
 	@Override
 	public void handleInput(int i) {
 		switch(i){
@@ -167,63 +170,14 @@ public class PauseMenu extends GameState implements IMenu{
 		//handleInput();
 	}
 
-	int titleHeight = 900; 
-	boolean firstTime = true;
 	@Override
 	public void render() {
-
-		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		cam.update();
-
-		sb.setProjectionMatrix(cam.combined);
-
-		sb.begin();
-
-		renderBackground();
-
-		layout.setText(titleFont, title);
-		float width = layout.width;
-
-		//animateTitle(width);
-		titleFont.draw(sb, title, (EGA.V_WIDTH-width) / 2, 650);
-		for(int i = 0; i < menuItems.length; i++){
-			layout.setText(font, menuItems[i]);
-			if(currentItem == i){
-				font.setColor(Color.RED);
-			} else {
-				font.setColor(Color.WHITE);
-			}
-			
-			int yPos = 450 - 70*i;
-			int xPos = (int)(EGA.V_WIDTH - Variables.menuItemX) / 2;
-			font.draw(
-					sb,
-					menuItems[i],
-					xPos,
-					yPos
-					);
-			menuItemPositions[i] = new Point(xPos,EGA.V_HEIGTH-yPos);
-			menuItemEndPositions[i] = new Point(xPos+(int)Variables.menuItemX, EGA.V_HEIGTH-yPos+menuFontSize);
-			if(firstTime){
-				
-				firstTime = false;
-			}
-		}
-
-		sb.end();
+		
+		updateModel();
+		view.render(currentItem, cam, false);
 		
 		rendered = true;
 
-	}
-
-
-	private void animateTitle(Float width){	
-		/*if(titleHeight > 650){
-			titleHeight -= 2;
-		} */
-		titleFont.draw(sb, title, (EGA.V_WIDTH-width) / 2, titleHeight);
-		//subFont.draw(sb, subTitle, (EGA.V_WIDTH-width) / 2, titleHeight-120);
 	}
 
 	@Override
