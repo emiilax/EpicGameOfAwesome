@@ -16,14 +16,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.GdxNativesLoader;
 
 import controller.menus.LevelFinished;
-import controller.menus.LevelSelect;
 import controller.menus.MenuState;
-import controller.menus.PauseMenu;
-import controller.menus.SettingsMenu;
 import event.EventSupport;
 import event.TheChangeListener;
 import event.TheEvent;
@@ -317,7 +312,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 
 
 	public void setLevelFinished(int i){
-		LevelFinished state = new LevelFinished(gsm, finishedBgr.get(i), i);
+		LevelFinished state = new LevelFinished(gsm, i);
 		gsm.setState(state);
 	}
 
