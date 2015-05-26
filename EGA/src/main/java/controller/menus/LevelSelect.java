@@ -3,8 +3,10 @@ package controller.menus;
 import java.awt.Point;
 
 import view.IMenu;
+import view.MenuRender;
 import model.EGATimer;
 import model.GameData;
+import model.MenuModel;
 import model.MyInput;
 
 import com.badlogic.gdx.Gdx;
@@ -35,18 +37,14 @@ import controller.Variables;
 
 public class LevelSelect extends GameState implements IMenu {
 
-	private SpriteBatch sb;
-	private BitmapFont titleFont;
-	private BitmapFont font;
-	private GlyphLayout layout = new GlyphLayout();
-
-	public static Texture backgroundTexture;
-	public static Sprite backgroundSprite;
-
 	private String title;
 
 	private int titleFontSize = Variables.subMenuTitleSize;
 	private int menuFontSize = Variables.subMenuItemSize;
+	private int titleHeight = 650;
+	private int gap = 70;
+	private int xPos = (int)(EGA.V_WIDTH - Variables.menuItemX) / 2;
+	private int yPos = 450;
 
 	private boolean rendered = false;
 
@@ -60,28 +58,17 @@ public class LevelSelect extends GameState implements IMenu {
 	private String menuItems [][];
 
 	private GameStateManager gsm;
-	private Texture background;
+	private MenuModel model;
+	private MenuRender view;
 
 	public LevelSelect(GameStateManager gsm){
 		super(gsm);
 		this.gsm = gsm;
-		background = new Texture("res/menu/skybackground_menu.jpg");
-		this.backgroundTexture = background;
 		init();
 	}
 
 	private void init(){
-		sb = new SpriteBatch();
-
-		FreeTypeFontGenerator gen = new FreeTypeFontGenerator(
-				Gdx.files.internal("res/fonts/orbitron-black.otf")
-				);
-
-		titleFont = gen.generateFont(titleFontSize);
-		titleFont.setColor(Color.WHITE);
-
-		font = gen.generateFont(menuFontSize);
-
+		
 		menuItems = new String[][]{
 				{"Level 1", "Level 2", "Level 3"}, //row 0 
 				{"Level 4", "Level 5", "Level 6"}, //row 1
@@ -95,7 +82,12 @@ public class LevelSelect extends GameState implements IMenu {
 
 		menuItemPositions = new Point[menuItems.length][menuItems[0].length];
 		menuItemEndPositions = new Point[menuItems.length][menuItems[0].length];
-
+		
+		model = new MenuModel();
+		updateModel();
+		
+		view = new MenuRender(model);
+		
 		rendered = false;
 	}
 
@@ -210,89 +202,25 @@ public class LevelSelect extends GameState implements IMenu {
 	 */
 	@Override
 	public void render() {
-		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		cam.update();
-		sb.setProjectionMatrix(cam.combined);
-
-		sb.begin();
-		renderBackground();
-
-		layout.setText(titleFont, title);
-		float width = Variables.menuItemX + 240;
-		float widthLay = layout.width;
-
-		titleFont.draw(sb, title, (EGA.V_WIDTH-widthLay) / 2, 600);
-
-		int x = menuItems[0].length;
-
-		for (int row = 0; row < menuItems.length; row++){
-			for (int col = 0; col < x; col++){
-				
-				layout.setText(font, menuItems[row][col]);
-
-				int yPos = 400 - 100*row;
-				
-				//set color on letters
-				if(currentRow == row && currentCol == col){
-					font.setColor(Color.RED);
-					
-				}else{
-					font.setColor(Color.WHITE);
-				}
-				//end set color on letters 
-
-				//draw letters
-				if(col == 0){
-					int xPos0 = (int) (EGA.V_WIDTH - width - 7*70);
-					font.draw(
-							sb,
-							menuItems[row][col],
-							xPos0,
-							yPos
-							);
-
-					menuItemPositions[row][col] = new Point(xPos0,EGA.V_HEIGTH-yPos);
-					menuItemEndPositions[row][col] = new Point(xPos0+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
-				}	
-				
-				if(col == 1){
-					int xPos1 = (int) (EGA.V_WIDTH - width- 2*70 );
-					font.draw(
-							sb,
-							menuItems[row][col],
-							xPos1,
-							yPos
-							);
-					menuItemPositions[row][col] = new Point(xPos1,EGA.V_HEIGTH-yPos);
-					menuItemEndPositions[row][col] = new Point(xPos1+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
-				}
-				if(col == 2){
-					int xPos2 = (int) (EGA.V_WIDTH - width + 3*70);
-					font.draw(
-							sb,
-							menuItems[row][col],
-							xPos2,
-							yPos
-							);
-					menuItemPositions[row][col] = new Point(xPos2,EGA.V_HEIGTH-yPos);
-					menuItemEndPositions[row][col] = new Point(xPos2+(int)width, EGA.V_HEIGTH-yPos+menuFontSize);
-				}
-				//end draw letters
-			}
-
-		}
-
-		sb.end();
-
+		updateModel();
+		view.renderMatrix(currentRow, currentCol, cam);
 		rendered = true;
 
 	}
-
-	private void renderBackground(){
-		backgroundSprite = new Sprite(backgroundTexture);
-		backgroundSprite.draw(sb);
+	
+	private void updateModel(){
+		model.setMatrixMenuItemEndPositions(menuItemEndPositions);
+		model.setMatrixMenuItemPositions(menuItemPositions);
+		model.setMatrixMenuItems(menuItems);
+		model.setTitleFontSize(titleFontSize);
+		model.setMenuFontSize(menuFontSize);
+		model.setTitle(title);
+		model.setTitleHeight(titleHeight);
+		model.setGap(gap);
+		model.setXPos(xPos);
+		model.setYPos(yPos);
 	}
+
 
 	@Override
 	public void dispose() {}
