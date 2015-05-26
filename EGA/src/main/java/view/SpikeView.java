@@ -18,16 +18,10 @@ public class SpikeView extends EntityView {
 	
 	private int spikeStyle = 1;
 	
-	//private spikeOrientation spikeOr;
-
-	
-	public SpikeView(){
-		//spikeOr = ori;
-		//setTexture(ori);
-	}
 	
 	public void setTexture(spikeOrientation ori){
 		TextureRegion[] sprites = getTextureRegion(ori);
+		
 		//Range is which sprite to use
 		setAnimation(Arrays.copyOfRange(sprites, spikeStyle,  spikeStyle+1), 0/ 12f);
 		
