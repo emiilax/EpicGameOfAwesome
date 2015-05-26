@@ -1,4 +1,4 @@
-package view.menus;
+package controller.menus;
 
 import java.awt.Point;
 
@@ -23,7 +23,6 @@ import controller.GameStateManager;
 import controller.Level;
 import controller.SaveHandler;
 import controller.Variables;
-import controller.menus.MenuState;
 
 /**
  * 

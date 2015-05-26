@@ -5,7 +5,6 @@ import java.util.Map;
 
 import view.IMenu;
 import view.menus.LevelFinished;
-import view.menus.LevelSelect;
 import view.menus.LevelFinished;
 import view.menus.PauseMenu;
 import lombok.Data;
@@ -23,6 +22,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
+import controller.menus.LevelSelect;
 import controller.menus.MenuState;
 import controller.menus.SettingsMenu;
 import event.EventSupport;
