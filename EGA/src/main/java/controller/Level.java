@@ -1,11 +1,11 @@
 package controller;
 
 import static controller.Variables.PPM;
-import view.SpikeView;
 import view.entities.CharacterView;
 import view.entities.KeyView;
 import view.entities.LockedDoorView;
 import view.entities.OpenDoorView;
+import view.entities.SpikeView;
 import view.entities.StarView;
 import lombok.Data;
 import controller.entities.CharacterController;
@@ -13,6 +13,7 @@ import controller.entities.EntityController;
 import controller.entities.KeyController;
 import controller.entities.LockedDoorController;
 import controller.entities.OpenDoorController;
+import controller.entities.SpikeController;
 import controller.entities.StarController;
 import model.EGATimer;
 import model.MyInput;

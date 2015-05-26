@@ -2,7 +2,7 @@ package controller.entities;
 
 import static controller.Variables.PPM;
 import model.entities.EntityModel;
-import view.SpikeView;
+import view.entities.SpikeView;
 import view.entities.StarView;
 
 import com.badlogic.gdx.math.Vector2;
