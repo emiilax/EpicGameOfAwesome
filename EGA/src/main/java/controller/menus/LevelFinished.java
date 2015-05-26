@@ -2,23 +2,13 @@ package controller.menus;
 
 import java.awt.Point;
 
+
 import view.IMenu;
 import view.MenuRender;
 import model.EGATimer;
 import model.GameData;
 import model.MenuModel;
 import model.MyInput;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-
 import controller.EGA;
 import controller.GameState;
 import controller.GameStateManager;
@@ -53,7 +43,7 @@ public class LevelFinished extends GameState implements IMenu{
 	private MenuModel model;
 	private MenuRender view;
 	
-	public LevelFinished(GameStateManager gsm, Texture backgroundTexture, int level){
+	public LevelFinished(GameStateManager gsm, int level){
 		super(gsm);
 		this.gsm = gsm;
 		this.level = level;

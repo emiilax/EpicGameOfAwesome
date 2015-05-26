@@ -18,6 +18,9 @@ public class MenuModel{
 	private Point[] menuItemPositions;
 	private Point[] menuItemEndPositions;
 	private String menuItems[];
+	private String matrixMenuItems[][];
+	private Point[][] matrixMenuItemPositions;
+	private Point[][] matrixMenuItemEndPositions;
 	
 	private int xPos;
 	private int yPos;
