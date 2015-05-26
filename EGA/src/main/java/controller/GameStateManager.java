@@ -6,7 +6,7 @@ import java.util.Stack;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
-import controller.menus.MenuState;
+import controller.menus.MainMenu;
 import controller.menus.PauseMenu;
 import lombok.Data;
 
@@ -32,7 +32,7 @@ public class GameStateManager {
 	
 	private GameState getState(int state){
 	
-		if(state == MENU) return new MenuState(this);
+		if(state == MENU) return new MainMenu(this);
 		if(state == PLAY) {
 			return new Level(this, game.getTiledMap(currentLevel));
 		}

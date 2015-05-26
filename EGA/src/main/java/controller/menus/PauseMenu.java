@@ -27,7 +27,7 @@ import controller.Variables;
 import event.EventSupport;
 
 @Data
-public class PauseMenu extends GameState implements IMenu{
+public class PauseMenu extends Menu{
 
 	private SpriteBatch sb;
 	private BitmapFont titleFont;
@@ -37,30 +37,8 @@ public class PauseMenu extends GameState implements IMenu{
 	public static Texture backgroundTexture;
 	public static Sprite backgroundSprite;
 
-	private final String title = "Pause";
-	//private final String subTitle = "()";
-
-	private int titleFontSize = Variables.subMenuTitleSize;
-	private int menuFontSize = Variables.subMenuItemSize;
-	private int titleHeight = 650;
-	private int gap = 70;
-	private int xPos = (int)(EGA.V_WIDTH - Variables.menuItemX) / 2;
-	private int yPos = 450;
-
-	private int currentItem;
-	private String menuItems[];
-
 	private GameStateManager gsm;
-	
-	private Point[] menuItemPositions;
-	private Point[] menuItemEndPositions;
-	
-	private boolean rendered;
 	private GameState theGame;
-	
-	private MenuModel model;
-	private MenuRender view;
-
 
 	public PauseMenu(GameStateManager gsm) {
 		super(gsm);
@@ -70,6 +48,13 @@ public class PauseMenu extends GameState implements IMenu{
 
 	private void init(){
 		sb = new SpriteBatch();
+		title = "Pause";		
+		titleFontSize = Variables.subMenuTitleSize;
+		menuFontSize = Variables.subMenuItemSize;
+		titleHeight = 650;
+		gap = 70;
+		xPos = (int)(EGA.V_WIDTH - Variables.menuItemX) / 2;
+		yPos = 450;
 
 		menuItems = new String[]{
 				"Resume",
@@ -87,19 +72,6 @@ public class PauseMenu extends GameState implements IMenu{
 		view = new MenuRender(model);
 		
 		rendered = false;
-	}
-	
-	private void updateModel(){
-		model.setMenuItemEndPositions(menuItemEndPositions);
-		model.setMenuItemPositions(menuItemPositions);
-		model.setMenuItems(menuItems);
-		model.setTitleFontSize(titleFontSize);
-		model.setMenuFontSize(menuFontSize);
-		model.setTitle(title);
-		model.setTitleHeight(titleHeight);
-		model.setGap(gap);
-		model.setXPos(xPos);
-		model.setYPos(yPos);
 	}
 	
 	@Override
@@ -126,7 +98,8 @@ public class PauseMenu extends GameState implements IMenu{
 		}	
 	}
 
-	private void select(){
+	@Override
+	public void select(){
 		if (currentItem == 0){
 			// resume
 			unpauseTheGame();
@@ -139,68 +112,18 @@ public class PauseMenu extends GameState implements IMenu{
 		}
 		if (currentItem == 2){
 			gsm.pushState(new SettingsMenu(gsm));
-			//gsm.getGame().setLevel(new SettingsMenu(gsm, this));
 		}
 		if(currentItem == 3){
 			SaveHandler.save();
-			gsm.setState(new MenuState(gsm));
-			//Gdx.app.exit();
+			gsm.setState(new MainMenu(gsm));
 		}
 	}
 	
 	public void unpauseTheGame(){
 		gsm.popState();
-		//EventSupport.getInstance().fireNewEvent("resumegame", theGame);
 	}
-	
-	public void select(int x, int y){
-		if(x > menuItemPositions[currentItem].getX() 
-				&& y > menuItemPositions[currentItem].getY()
-				&& x < menuItemEndPositions[currentItem].getX() 
-				&& y < menuItemEndPositions[currentItem].getY()){
-			select();
-		}
-	}
-
 	@Override
 	public void update(float dt) {
 		//handleInput();
 	}
-
-	@Override
-	public void render() {
-		
-		updateModel();
-		view.render(currentItem, cam, false);
-		
-		rendered = true;
-
-	}
-
-	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
-
-	}
-	
-	public Point[] getMenuItemPositions(){
-		return menuItemPositions;
-	}
-	
-	public Point[] getMenuItemEndPositions(){
-		return menuItemEndPositions;
-	}
-	
-	public void setCurrentItem(int x, int y){
-		if(rendered){
-			for(int i = 0; i < menuItemPositions.length; i++){
-					if(x > menuItemPositions[i].getX() && y > menuItemPositions[i].getY()
-							&& x < menuItemEndPositions[i].getX() &&
-							y < menuItemEndPositions[i].getY()){
-							currentItem = i;
-					}
-			}	
-		}
-	}
-
 }

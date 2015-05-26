@@ -14,32 +14,11 @@ import controller.Level;
 import controller.SaveHandler;
 import controller.Variables;
 
-public class LevelFinished extends GameState implements IMenu{
+public class LevelFinished extends Menu{
 
-	private String title;
-	
-
-	private int titleFontSize = Variables.subMenuTitleSize - 20;
-	private int menuFontSize = Variables.subMenuItemSize;
 	private int level;
-	private int titleHeight = 650;
-	private int gap = 70;
-	private int xPos = (int)(EGA.V_WIDTH - Variables.menuItemX) / 2;
-	private int yPos = 450;
-	
-	private int currentItem;
-	private String menuItems[];
-	
-	private Point[] menuItemPositions;
-	private Point[] menuItemEndPositions;
-	
-	private boolean rendered = false;
-
 	private GameStateManager gsm;
 	private EGATimer timer;
-	
-	private MenuModel model;
-	private MenuRender view;
 	
 	public LevelFinished(GameStateManager gsm, int level){
 		super(gsm);
@@ -50,6 +29,12 @@ public class LevelFinished extends GameState implements IMenu{
 	}
 	
 	private void init(){
+		titleFontSize = Variables.subMenuTitleSize - 20;
+		menuFontSize = Variables.subMenuItemSize;
+		titleHeight = 650;
+		gap = 70;
+		xPos = (int)(EGA.V_WIDTH - Variables.menuItemX) / 2;
+		yPos = 450;
 
 		menuItems = new String[]{
 				"Next Level",
@@ -106,7 +91,8 @@ public class LevelFinished extends GameState implements IMenu{
 		}
 	}
 	
-	private void select(){
+	@Override
+	public void select(){
 		if(currentItem == 0){
 			
 			gsm.setState(new Level(gsm, gsm.getNextTiledMap()));
@@ -116,69 +102,13 @@ public class LevelFinished extends GameState implements IMenu{
 			gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
 		} else if(currentItem == 2){
 		
-			gsm.setState(new MenuState(gsm));
+			gsm.setState(new MainMenu(gsm));
 		}
 	}
 
 	@Override
 	public void update(float dt) {
 		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void render() {
-		updateModel();
-		view.render(currentItem, cam, false);
-		rendered = true;
-	}
-	
-	private void updateModel(){
-		model.setMenuItemEndPositions(menuItemEndPositions);
-		model.setMenuItemPositions(menuItemPositions);
-		model.setMenuItems(menuItems);
-		model.setTitleFontSize(titleFontSize);
-		model.setMenuFontSize(menuFontSize);
-		model.setTitle(title);
-		model.setTitleHeight(titleHeight);
-		model.setGap(gap);
-		model.setXPos(xPos);
-		model.setYPos(yPos);
-	}
-
-	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void select(int x, int y) {
-		if(rendered && x > menuItemPositions[currentItem].getX() 
-				&& y > menuItemPositions[currentItem].getY()
-				&& x < menuItemEndPositions[currentItem].getX() 
-				&& y < menuItemEndPositions[currentItem].getY()){
-			select();
-		}
-	}
-
-	public Point[] getMenuItemPositions() {
-		return menuItemPositions;
-	}
-
-	public Point[] getMenuItemEndPositions() {
-		return menuItemEndPositions;
-	}
-
-	public void setCurrentItem(int x, int y) {
-		if(rendered){
-			for(int i = 0; i < menuItemPositions.length; i++){
-					if(x > menuItemPositions[i].getX() && y > menuItemPositions[i].getY()
-							&& x < menuItemEndPositions[i].getX() &&
-							y < menuItemEndPositions[i].getY()){
-						currentItem = i;
-					}
-			}	
-		}
 		
 	}
 }

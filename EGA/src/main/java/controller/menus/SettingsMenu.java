@@ -13,34 +13,12 @@ import controller.SaveHandler;
 import controller.Variables;
 
 @Data
-public class SettingsMenu extends GameState implements IMenu {
-
-	private final String title = "Settings";
-
-	private int titleFontSize = Variables.subMenuTitleSize;
-	private int menuFontSize = Variables.subMenuItemSize;
-	private int titleHeight = 650;
-	private int gap = 70;
-	private int xPos = (int)(EGA.V_WIDTH - Variables.menuItemX) / 2;
-	private int yPos = 450;
-	
-	private int currentItem;
-	private String menuItems[];
+public class SettingsMenu extends Menu { 
 	private String debugStatus;
 
-	private GameStateManager gsm;
-
-	private Point[] menuItemPositions;
-	private Point[] menuItemEndPositions;
-
-	private boolean rendered;
-	
+	private GameStateManager gsm;	
 	private String volume;
 	private float fVol;
-	
-	private MenuModel model;
-	private MenuRender view;
-
 
 	public SettingsMenu(GameStateManager gsm) {
 		super(gsm);
@@ -49,6 +27,13 @@ public class SettingsMenu extends GameState implements IMenu {
 	}
 
 	private void init(){
+		title = "Settings";
+		titleFontSize = Variables.subMenuTitleSize;
+		menuFontSize = Variables.subMenuItemSize;
+		titleHeight = 650;
+		gap = 70;
+		xPos = (int)(EGA.V_WIDTH - Variables.menuItemX) / 2;
+		yPos = 450;
 
 		setVolume();
 
@@ -143,7 +128,8 @@ public class SettingsMenu extends GameState implements IMenu {
 		}
 	}
 
-	private void select(){
+	@Override
+	public void select(){
 		if (currentItem == 0){
 			gsm.pushState(new ChangeControlMenu(gsm));
 		}
@@ -160,15 +146,6 @@ public class SettingsMenu extends GameState implements IMenu {
 		}
 	}
 
-	public void select(int x, int y){
-		if(rendered && x > menuItemPositions[currentItem].getX() 
-				&& y > menuItemPositions[currentItem].getY()
-				&& x < menuItemEndPositions[currentItem].getX() 
-				&& y < menuItemEndPositions[currentItem].getY()){
-			select();
-		}
-	}
-
 	public void resetAll(){
 		SaveHandler.init();
 		init();
@@ -176,26 +153,6 @@ public class SettingsMenu extends GameState implements IMenu {
 	@Override
 	public void update(float dt) {
 		//handleInput();
-	}
-	
-	@Override
-	public void render() {
-		updateModel();
-		view.render(currentItem, cam, false);
-		rendered = true;
-	}
-	
-	private void updateModel(){
-		model.setMenuItemEndPositions(menuItemEndPositions);
-		model.setMenuItemPositions(menuItemPositions);
-		model.setMenuItems(menuItems);
-		model.setTitleFontSize(titleFontSize);
-		model.setMenuFontSize(menuFontSize);
-		model.setTitle(title);
-		model.setTitleHeight(titleHeight);
-		model.setGap(gap);
-		model.setXPos(xPos);
-		model.setYPos(yPos);
 	}
 
 	private void backMenu(){
@@ -214,31 +171,5 @@ public class SettingsMenu extends GameState implements IMenu {
 
 	private void updateVolumeStatus(){
 		menuItems[3] = "Volume: " + volume;
-	}
-
-	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public Point[] getMenuItemPositions(){
-		return menuItemPositions;
-	}
-
-	public Point[] getMenuItemEndPositions(){
-		return menuItemEndPositions;
-	}
-
-	public void setCurrentItem(int x, int y){
-		if(rendered){
-			for(int i = 0; i < menuItemPositions.length; i++){
-				if(x > menuItemPositions[i].getX() && y > menuItemPositions[i].getY()
-						&& x < menuItemEndPositions[i].getX() &&
-						y < menuItemEndPositions[i].getY()){
-					currentItem = i;
-				}
-			}	
-		}
 	}
 }

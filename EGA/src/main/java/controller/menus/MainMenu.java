@@ -32,42 +32,31 @@ import controller.SaveHandler;
 import controller.Variables;
 
 @Data
-public class MenuState extends GameState implements IMenu{
+public class MainMenu extends Menu{
 
 	private static Texture backgroundTexture;
-
-	private final String title = "EGA";
-	private final String subTitle = "Epic Game Of Awesome";
-
-	private int titleFontSize = Variables.mainMenuTitleSize;
-	private int menuFontSize = Variables.mainMenuItemSize;
-	private int subTitleFontSize = 28;
-
-	private int currentItem;
-	private String menuItems[];
-
 	private GameStateManager gsm;
+	
+	private String subTitle;
+	private int subTitleFontSize;
 
-	private Point[] menuItemPositions;
-	private Point[] menuItemEndPositions;
-
-	private int titleHeight = 900;
-	private int xPos = (int)(EGA.V_WIDTH - 365)/2;
-	private int yPos = 450;
-	private int gap = 70;
-
-	private boolean rendered;
-
-	private MenuRender view;
-	private MenuModel model;
-
-	public MenuState(GameStateManager gsm) {
+	public MainMenu(GameStateManager gsm) {
 		super(gsm);
 		this.gsm = gsm;
 		init();
 	}
 
 	private void init(){
+		title = "EGA";
+		subTitle = "Epic Game Of Awesome";
+
+		titleFontSize = Variables.mainMenuTitleSize;
+		menuFontSize = Variables.mainMenuItemSize;
+		subTitleFontSize = 28;
+		titleHeight = 900;
+		xPos = (int)(EGA.V_WIDTH - 365)/2;
+		yPos = 450;
+		gap = 70;
 
 		menuItems = new String[]{
 				"Play",
@@ -80,29 +69,22 @@ public class MenuState extends GameState implements IMenu{
 		menuItemEndPositions = new Point[menuItems.length];
 		
 		model = new MenuModel();
-		initModel();
+		//initModel();
+		updateModel();
 		
 		view = new MenuRender(model);
 
 		rendered = false;
 
 	}
-
-	private void initModel(){
-		model.setMenuItemEndPositions(menuItemEndPositions);
-		model.setMenuItemPositions(menuItemPositions);
-		model.setMenuItems(menuItems);
-		model.setTitleFontSize(titleFontSize);
-		model.setMenuFontSize(menuFontSize);
+	
+	@Override
+	protected void updateModel(){
+		super.updateModel();
 		model.setSubTitleFontSize(subTitleFontSize);
-		model.setTitle(title);
 		model.setSubTitle(subTitle);
-		model.setTitleHeight(titleHeight);
-		model.setGap(gap);
-		model.setXPos(xPos);
-		model.setYPos(yPos);
+		
 	}
-
 	@Override
 	public void handleInput(int i) {
 		switch(i){
@@ -122,7 +104,8 @@ public class MenuState extends GameState implements IMenu{
 		}
 	}
 
-	private void select(){
+	@Override
+	public void select(){
 		if (currentItem == 0){
 			gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
 		}
@@ -138,17 +121,6 @@ public class MenuState extends GameState implements IMenu{
 		}
 	}
 
-	public void select(int x, int y){
-		menuItemPositions = model.getMenuItemPositions();
-		menuItemEndPositions = model.getMenuItemEndPositions();
-		if(x > menuItemPositions[currentItem].getX() 
-				&& y > menuItemPositions[currentItem].getY()
-				&& x < menuItemEndPositions[currentItem].getX() 
-				&& y < menuItemEndPositions[currentItem].getY()){
-			select();
-		}
-	}
-
 	@Override
 	public void update(float dt) {
 		//handleInput();
@@ -160,24 +132,4 @@ public class MenuState extends GameState implements IMenu{
 		view.render(currentItem, cam, true);
 		rendered = true;
 	}
-
-	@Override
-	public void dispose() {
-
-	}
-
-	public void setCurrentItem(int x, int y){
-		menuItemPositions = model.getMenuItemPositions();
-		menuItemEndPositions = model.getMenuItemEndPositions();
-		if(rendered){
-			for(int i = 0; i < menuItemPositions.length; i++){
-				if(x > menuItemPositions[i].getX() && y > menuItemPositions[i].getY()
-						&& x < menuItemEndPositions[i].getX() &&
-						y < menuItemEndPositions[i].getY()){
-					currentItem = i;
-				}
-			}	
-		}
-	}
-
 }

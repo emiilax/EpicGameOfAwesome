@@ -18,7 +18,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 import controller.menus.IMenu;
 import controller.menus.LevelFinished;
-import controller.menus.MenuState;
+import controller.menus.MainMenu;
 import event.EventSupport;
 import event.TheChangeListener;
 import event.TheEvent;
@@ -101,7 +101,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		initHashMap();
 		initLevelBgr();
 
-		theLevel = new MenuState(gsm);
+		theLevel = new MainMenu(gsm);
 		gsm.pushState(theLevel);
 
 	}
