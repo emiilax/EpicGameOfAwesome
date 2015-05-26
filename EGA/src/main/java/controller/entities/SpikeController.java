@@ -1,4 +1,4 @@
-package controller;
+package controller.entities;
 
 import static controller.Variables.PPM;
 
@@ -7,11 +7,11 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
-import controller.entities.EntityController;
+import controller.Variables;
 import model.entities.EntityModel;
 import model.entities.SpikeModel;
 import model.entities.SpikeModel.spikeOrientation;
-import view.SpikeView;
+import view.entities.SpikeView;
 
 public class SpikeController extends EntityController {
 	

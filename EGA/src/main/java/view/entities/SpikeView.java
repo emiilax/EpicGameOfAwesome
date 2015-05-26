@@ -1,9 +1,7 @@
-package view;
+package view.entities;
 
 import java.util.Arrays;
 import java.util.Observable;
-
-import view.entities.EntityView;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
