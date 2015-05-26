@@ -9,7 +9,6 @@ import view.entities.OpenDoorView;
 import view.entities.StarView;
 import view.menus.PauseMenu;
 import lombok.Data;
-import controller.SpikeController.spikeOrientation;
 import controller.entities.CharacterController;
 import controller.entities.EntityController;
 import controller.entities.KeyController;
@@ -20,6 +19,8 @@ import model.EGATimer;
 import model.MyInput;
 import model.entities.CharacterModel;
 import model.entities.EntityModel;
+import model.entities.SpikeModel;
+import model.entities.SpikeModel.spikeOrientation;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -509,8 +510,9 @@ public class Level extends GameState{
 				theController = new LockedDoorController(new EntityModel(), new LockedDoorView());
 			}
 			if(ec instanceof SpikeController){
-				spikeOrientation ori = ((SpikeController)ec).getSpikeOrientation();
-				theController = new SpikeController(new EntityModel(), new SpikeView(ori));
+				//spikeOrientation ori = ((SpikeController)ec).getSpikeOrientation();
+				theController = new SpikeController(new SpikeModel(((SpikeController)ec).getSpikeOrientation()), 
+															new SpikeView());
 			}
 
 			Body body = null;
@@ -567,16 +569,16 @@ public class Level extends GameState{
 	private void createSpikes(){
 		//Create spikes
 		MapLayer layer = tiledMap.getLayers().get("upSpikes");
-		loopEntity(layer, new SpikeController(new EntityModel(), new SpikeView(spikeOrientation.UP)));
+		loopEntity(layer, new SpikeController(new SpikeModel(spikeOrientation.UP), new SpikeView()));
 
 		layer = tiledMap.getLayers().get("downSpikes");
-		loopEntity(layer, new SpikeController(new EntityModel(), new SpikeView(spikeOrientation.DOWN)));
+		loopEntity(layer, new SpikeController(new SpikeModel(spikeOrientation.DOWN), new SpikeView()));
 
 		layer = tiledMap.getLayers().get("leftSpikes");
-		loopEntity(layer, new SpikeController(new EntityModel(), new SpikeView(spikeOrientation.LEFT)));
+		loopEntity(layer, new SpikeController(new SpikeModel(spikeOrientation.LEFT), new SpikeView()));
 
 		layer = tiledMap.getLayers().get("rightSpikes");
-		loopEntity(layer, new SpikeController(new EntityModel(), new SpikeView(spikeOrientation.RIGHT)));
+		loopEntity(layer, new SpikeController(new SpikeModel(spikeOrientation.RIGHT), new SpikeView()));
 	}
 
 

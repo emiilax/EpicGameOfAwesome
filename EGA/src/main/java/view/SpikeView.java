@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Observable;
 
 import view.entities.EntityView;
-import controller.SpikeController.spikeOrientation;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -12,21 +11,19 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import controller.EGA;
 import lombok.Data;
 import model.entities.EntityModel;
+import model.entities.SpikeModel.spikeOrientation;
 
 @Data
 public class SpikeView extends EntityView {
 	
 	private int spikeStyle = 1;
 	
-	private spikeOrientation spikeOr;
+	//private spikeOrientation spikeOr;
+
 	
 	public SpikeView(){
-		this(spikeOrientation.UP);
-	}
-	
-	public SpikeView(spikeOrientation ori){
-		spikeOr = ori;
-		setTexture(ori);
+		//spikeOr = ori;
+		//setTexture(ori);
 	}
 	
 	public void setTexture(spikeOrientation ori){

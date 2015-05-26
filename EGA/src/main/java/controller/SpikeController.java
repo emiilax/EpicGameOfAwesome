@@ -9,6 +9,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 import controller.entities.EntityController;
 import model.entities.EntityModel;
+import model.entities.SpikeModel;
+import model.entities.SpikeModel.spikeOrientation;
 import view.SpikeView;
 
 public class SpikeController extends EntityController {
@@ -16,19 +18,21 @@ public class SpikeController extends EntityController {
 	private PolygonShape shape;
 	private FixtureDef fDef;
 	
-	private spikeOrientation currentOri;
+	//private spikeOrientation currentOri;
 
-	public SpikeController(EntityModel em, SpikeView sv) {
+	/*public SpikeController(SpikeModel em, SpikeView sv) {
 		this(em, sv, sv.getSpikeOr());
-	} 
+	} */
 	
-	public SpikeController(EntityModel em, SpikeView sv, spikeOrientation ori){
+	public SpikeController(SpikeModel em, SpikeView sv){
 		super(em, sv);
 		
-		currentOri = ori;
+		//currentOri = ori;
 		
 		shape = new PolygonShape();
 		fDef = new FixtureDef();
+		
+		((SpikeView)super.getTheView()).setTexture(getSpikeOrientation());
 		
 	}
 	
@@ -42,7 +46,7 @@ public class SpikeController extends EntityController {
 		fDef = new FixtureDef();
 		shape = new PolygonShape();
 		
-		Vector2[] vertices = setSpikeShape(currentOri);
+		Vector2[] vertices = setSpikeShape(getSpikeOrientation());
 		shape.set(vertices);
 		
 		fDef.shape = shape;
@@ -54,12 +58,10 @@ public class SpikeController extends EntityController {
 	}
 	
 	public spikeOrientation getSpikeOrientation(){
-		return ((SpikeView)super.getTheView()).getSpikeOr();
+		return ((SpikeModel)super.getTheModel()).getSpikeOri();
 	}
 	
-	public enum spikeOrientation{
-		UP, DOWN, RIGHT, LEFT
-	}
+	
 	
 	private Vector2[] setSpikeShape(spikeOrientation ori){
 		Vector2 v1 = new Vector2(-8f/PPM, -10f/PPM); 
