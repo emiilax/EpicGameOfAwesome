@@ -267,11 +267,11 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		res.loadTexture("res/tiles/bunny.png", "bunny");
 		res.loadTexture("res/stars/star.png", "star");
 		res.loadTexture("res/tiles/hud.png", "hud");
-		res.loadTexture("res/characters/eriksCharacter.png", "smallplayer");
+		res.loadTexture("res/characters/redball_small.png", "smallplayer");
 		res.loadTexture("res/characters/bigCharacter_test.png", "bigPlayer");
 		res.loadTexture("res/stars/bigBigStar.png", "bigStar");
-		res.loadTexture("res/door/openDoor.jpg", "openDoor");
-		res.loadTexture("res/door/closedDoor.jpg", "lockedDoor");
+		res.loadTexture("res/door/openDoor.png", "openDoor");
+		res.loadTexture("res/door/closedDoor.png", "lockedDoor");
 		res.loadTexture("res/tiles/upSpikes_16x21.png", "upSpike");
 		res.loadTexture("res/tiles/downSpikes_16x21.png", "downSpike");
 		res.loadTexture("res/tiles/leftSpikes_21x16.png", "leftSpike");
@@ -288,7 +288,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 
 	private void createMaps(){
 		TiledMap level1 = new TmxMapLoader().load("res/maps/level1.tmx");
-		TiledMap level2 = new TmxMapLoader().load("res/maps/testmap2.tmx");
+		TiledMap level2 = new TmxMapLoader().load("res/maps/level2.tmx");
 		TiledMap level3 = new TmxMapLoader().load("res/maps/testmap.tmx");
 
 		maps = new HashMap<Integer, TiledMap>();
@@ -316,7 +316,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		gsm.setState(state);
 	}
 
-	private void initHashMap(){ //behövs denna klass??
+	private void initHashMap(){ 
 		finishedBgr = new HashMap<Integer, Texture>();
 		finishedBgr.put(1,  new Texture("res/menu/lol.jpg"));
 		finishedBgr.put(2,  new Texture("res/menu/lol.jpg"));
