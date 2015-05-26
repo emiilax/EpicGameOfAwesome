@@ -59,16 +59,15 @@ public class LevelSelect extends GameState implements IMenu {
 	private Point [][] menuItemEndPositions;
 
 	private String menuItems [][];
-	
-	private Texture backGround;
 
 	private GameStateManager gsm;
+	private Texture background;
 
-	public LevelSelect(GameStateManager gsm, Texture backgroundTexture){
+	public LevelSelect(GameStateManager gsm){
 		super(gsm);
 		this.gsm = gsm;
-		backGround = backgroundTexture;
-		LevelSelect.backgroundTexture = backgroundTexture;
+		background = new Texture("res/menu/skybackground_menu.jpg");
+		this.backgroundTexture = background;
 		init();
 	}
 
@@ -105,8 +104,47 @@ public class LevelSelect extends GameState implements IMenu {
 		title = "Choose level to play";
 	}
 
+	private void select(){
+		String element = menuItems[currentRow][currentCol];
+		if(element == "Level 1"){
+			gsm.setState(new Level(gsm, gsm.getLevel(1)));
+			gsm.setCurrentLevel(1);
+		}
+		if(element == "Level 2"){
+			gsm.setState(new Level(gsm, gsm.getLevel(2)));
+			gsm.setCurrentLevel(2);
+		}
+		if(element == "Level 3"){
+			gsm.setState(new Level(gsm, gsm.getLevel(3)));
+			gsm.setCurrentLevel(3);
+		}
+		if(element == "Level 4"){
+			gsm.setState(new Level(gsm, gsm.getLevel(4)));
+			gsm.setCurrentLevel(4);
+		}
+		if(element == "Level 5"){
+			gsm.setState(new Level(gsm, gsm.getLevel(5)));
+			gsm.setCurrentLevel(5);
+		}
+		if(element == "Level 6"){
+			gsm.setState(new Level(gsm, gsm.getLevel(6)));
+			gsm.setCurrentLevel(6);
+		}
+		if(element == "<--" || element == "-->"){
+			// switch String array 
+			System.out.println("this is -->");
+		}
+		if(element == "Back"){
+			//gsm.getGame().setLevel(new MenuState(gsm));
+			//switch to main menu
+			gsm.popState();
+		}
+		/*
+		 * add more if-states if you add more levels
+		 */
+		
+	}
 
-	
 	
 	@Override
 	public void handleInput(int i) {
@@ -162,38 +200,6 @@ public class LevelSelect extends GameState implements IMenu {
 			break;
 		}
 
-	}
-
-	private void select(){
-		String lvl = menuItems[currentRow][currentCol];
-		if(lvl == "Level 1"){
-			gsm.setState(new Level(gsm, gsm.getLevel(1)));
-			gsm.setCurrentLevel(1);
-		}
-		if(lvl == "Level 2"){
-			gsm.setState(new Level(gsm, gsm.getLevel(2)));
-			gsm.setCurrentLevel(2);
-		}
-		if(lvl == "Level 3"){
-			gsm.setState(new Level(gsm, gsm.getLevel(3)));
-			gsm.setCurrentLevel(3);
-		}
-		if(lvl == "Level 4"){
-			gsm.setState(new Level(gsm, gsm.getLevel(4)));
-			gsm.setCurrentLevel(4);
-		}
-		if(lvl == "Level 5"){
-			gsm.setState(new Level(gsm, gsm.getLevel(5)));
-			gsm.setCurrentLevel(5);
-		}
-		if(lvl == "Level 6"){
-			gsm.setState(new Level(gsm, gsm.getLevel(6)));
-			gsm.setCurrentLevel(6);
-		}
-		/*
-		 * add more if-states if you add more levels
-		 */
-		
 	}
 
 	@Override
