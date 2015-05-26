@@ -1,7 +1,5 @@
 package controller.menus;
 
-import java.awt.Point;
-
 /**
  * @author Hampus Rönström
  * 

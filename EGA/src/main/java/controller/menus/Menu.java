@@ -7,6 +7,14 @@ import controller.GameState;
 import controller.GameStateManager;
 import model.MenuModel;
 
+/**
+ * @author Hampus Rönström
+ *
+ * Abstract class which all menu classes extend. Implements the IMenu interface.
+ * Contains methods which work with the general menus. Exceptions are for example
+ * the menuItemPositions in LevelSelct being in Point[][], so almost all methods
+ * need @Override.
+ */
 public abstract class Menu extends GameState implements IMenu {
 	protected MenuModel model;
 	protected MenuRender view;

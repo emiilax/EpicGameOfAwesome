@@ -36,8 +36,6 @@ import controller.Variables;
 
 public class LevelSelect extends Menu {
 	
-
-
 	private int currentRow = 0;
 	private int currentCol = 0;
 
