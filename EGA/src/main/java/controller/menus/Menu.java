@@ -48,6 +48,10 @@ public abstract class Menu extends GameState implements IMenu {
 		rendered = true;
 	}
 	
+	/**
+	 * Updates the variables in the model this menu is using.
+	 * @author Erik
+	 */
 	protected void updateModel(){
 		model.setMenuItemEndPositions(menuItemEndPositions);
 		model.setMenuItemPositions(menuItemPositions);
@@ -74,7 +78,10 @@ public abstract class Menu extends GameState implements IMenu {
 			}	
 		}
 	}
-
+	
+	/**
+	 * Selects what label pressed
+	 */
 	public abstract void select();
 
 }

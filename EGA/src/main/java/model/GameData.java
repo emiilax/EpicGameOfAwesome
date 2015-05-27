@@ -10,8 +10,9 @@ import com.badlogic.gdx.Input.Keys;
 import lombok.Data;
 
 /**
- * 
- * @author Erik Karlvist 
+ * A class that contains everything that gets saved onto the computer.
+ * It contains variables for buttons, soundvolume, debugmode and times
+ * @author Erik Karlkvist
  *
  */
 @Data

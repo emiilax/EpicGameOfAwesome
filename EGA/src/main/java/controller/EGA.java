@@ -123,21 +123,6 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		MyInput.setAllKeysFalse();
 		theLevel = gs;
 	}
-	
-	
-	/**
-	 * 
-	 * @param state
-	 */
-	/*
-	public void setLevel(GameState state){
-		MyInput.setAllKeysFalse();
-		theLevel = state;
-
-		gsm.setState(theLevel);
-	}*/
-
-
 
 	/**
 	 * Handles the input from the user

@@ -6,6 +6,7 @@ import view.MenuRender;
 import lombok.Data;
 import model.MenuModel;
 import model.MyInput;
+import model.Variables;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -29,7 +30,6 @@ import controller.GameState;
 import controller.GameStateManager;
 import controller.Level;
 import controller.SaveHandler;
-import controller.Variables;
 
 @Data
 public class MainMenu extends Menu{
@@ -45,7 +45,10 @@ public class MainMenu extends Menu{
 		this.gsm = gsm;
 		init();
 	}
-
+	
+	/**
+	 * Initiates all variables
+	 */
 	private void init(){
 		title = "EGA";
 		subTitle = "Epic Game Of Awesome";
@@ -82,9 +85,9 @@ public class MainMenu extends Menu{
 	protected void updateModel(){
 		super.updateModel();
 		model.setSubTitleFontSize(subTitleFontSize);
-		model.setSubTitle(subTitle);
-		
+		model.setSubTitle(subTitle);	
 	}
+	
 	@Override
 	public void handleInput(int i) {
 		switch(i){

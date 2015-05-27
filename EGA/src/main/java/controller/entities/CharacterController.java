@@ -1,14 +1,16 @@
 package controller.entities;
 
-import static controller.Variables.PPM;
+import static model.Variables.PPM;
 import view.entities.CharacterView;
 import lombok.Data;
+import model.Variables;
 import model.entities.CharacterModel;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import controller.Variables;
+
 import controller.io.Content;
 
 /**

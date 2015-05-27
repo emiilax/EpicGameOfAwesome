@@ -101,7 +101,7 @@ public class Content {
 		loadTexture("res/tiles/downSpikes_16x21.png", "downSpike");
 		loadTexture("res/tiles/leftSpikes_21x16.png", "leftSpike");
 		loadTexture("res/tiles/rightSpikes_21x16.png", "rightSpike");
-		loadTexture("res/key/key-4.png", "key");
+		loadTexture("res/key/7key.png", "key");
 	
 	}
 	/**

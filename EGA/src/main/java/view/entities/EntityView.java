@@ -3,14 +3,13 @@ package view.entities;
 import java.util.Observer;
 
 import lombok.Data;
+import model.Variables;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.utils.Array;
-
-import controller.Variables;
 
 @Data
 public abstract class EntityView implements Observer {
@@ -74,6 +73,10 @@ public abstract class EntityView implements Observer {
 		
 	}
 	
+	/**
+	 * Sets a new spritebach
+	 * @param sb The new SpriteBatch
+	 */
 	public void setSpriteBatch(SpriteBatch sb){
 		this.sb = sb;
 	}

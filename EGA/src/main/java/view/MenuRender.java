@@ -3,6 +3,7 @@ package view;
 import java.awt.Point;
 
 import model.MenuModel;
+import model.Variables;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -16,8 +17,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import controller.EGA;
-import controller.Variables;
 
+/**
+ * A classed used for all menus to render the text accordingly.
+ * @author Erik
+ *
+ */
 public class MenuRender {
 
 	private SpriteBatch sb;
@@ -47,7 +52,11 @@ public class MenuRender {
 		this.model = model;
 		init();
 	}
-
+	
+	
+	/**
+	 * Initiates all variables. Generates the font from the font file. 
+	 */
 	private void init(){
 		loadTextures();
 		sb = new SpriteBatch();
@@ -81,15 +90,27 @@ public class MenuRender {
 		rendered = false;
 	}
 
+	/**
+	 * Loads the texture for the background
+	 */
 	private void loadTextures() {
 		Texture backgroundTexture = new Texture("res/menu/skybackground_menu.jpg");
 		backgroundSprite =new Sprite(backgroundTexture);
 	}
-
+	
+	/**
+	 * Renders the background with spritebatch
+	 */
 	private void renderBackground() {
 		backgroundSprite.draw(sb);
 	}
-
+	
+	/**
+	 * Renders text from a array into a meny
+	 * @param currentItem The item which will be marked with red labeltext
+	 * @param cam The camera positions where the text will be rendered
+	 * @param animatedTitle If the title should be animated or not
+	 */
 	public void render(int currentItem, OrthographicCamera cam, boolean animatedTitle) {
 
 		menuItems = model.getMenuItems();
@@ -136,7 +157,12 @@ public class MenuRender {
 	}
 
 	/**
-	 * this method sets the color and draw the letters in the levelSelect menu
+	 * A rendermethod used only to loop in matrixes with labels into a
+	 * menu. 
+	 * @author Rebecca, Erik
+	 * @param currentRow The row which will be marked with red labeltext
+	 * @param currentCol The column which will be marked with red labeltext
+	 * @param cam The camera positions where the text will be rendered
 	 */
 	public void renderMatrix(int currentRow, int currentCol, OrthographicCamera cam) {
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);

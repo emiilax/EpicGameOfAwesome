@@ -9,9 +9,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import controller.EGA;
-import controller.Variables;
 import controller.io.Content;
 import lombok.Data;
+import model.Variables;
 import model.entities.CharacterModel;
 import model.entities.EntityModel;
 

@@ -6,6 +6,7 @@ import view.MenuRender;
 import lombok.Data;
 import model.MenuModel;
 import model.MyInput;
+import model.Variables;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -23,7 +24,6 @@ import controller.GameState;
 import controller.GameStateManager;
 import controller.Level;
 import controller.SaveHandler;
-import controller.Variables;
 import event.EventSupport;
 
 /**
