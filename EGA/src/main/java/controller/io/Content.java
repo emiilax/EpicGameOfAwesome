@@ -97,8 +97,8 @@ public class Content {
 		loadTexture("res/characters/smallCharacter_test.png", "smallplayer");
 		loadTexture("res/characters/bigCharacter_test.png", "bigPlayer");
 		loadTexture("res/stars/bigBigStar.png", "bigStar");
-		loadTexture("res/door/openDoor.jpg", "openDoor");
-		loadTexture("res/door/closedDoor.jpg", "lockedDoor");
+		loadTexture("res/door/openDoor.png", "openDoor");
+		loadTexture("res/door/closedDoor.png", "lockedDoor");
 		loadTexture("res/tiles/upSpikes_16x21.png", "upSpike");
 		loadTexture("res/tiles/downSpikes_16x21.png", "downSpike");
 		loadTexture("res/tiles/leftSpikes_21x16.png", "leftSpike");
