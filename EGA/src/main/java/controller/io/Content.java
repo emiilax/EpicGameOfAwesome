@@ -11,7 +11,7 @@ import controller.SaveHandler;
 
 
 /**
- * @author Rebecka Reitmaier
+ * @author Rebecka Reitmaier, Emil Axelsson
  * Content is a Singleton class that contains all pictures 
  * and tiledMaps for EGA.
  */
@@ -28,7 +28,7 @@ public class Content {
 	/** The instance */
 	private static Content instance;
 	
-	/** The constructor, it creates the HashMaps and pictures */
+	/** The constructor, it creates the HashMaps with sound and textures */
 	private Content(){
 		
 		textures = new HashMap<String, Texture>();
@@ -39,6 +39,7 @@ public class Content {
 		loadSounds();
 		
 	}
+	
 	
 	public void loadTexture(String path, String key){
 		Texture tex = new Texture(Gdx.files.internal(path));
@@ -90,10 +91,8 @@ public class Content {
 	 * load the pictures for EGA
 	 */
 	private void loadImages(){
-			
-		loadTexture("res/tiles/bunny.png", "bunny");
+		
 		loadTexture("res/stars/star.png", "star");
-		loadTexture("res/tiles/hud.png", "hud");
 		loadTexture("res/characters/smallCharacter_test.png", "smallplayer");
 		loadTexture("res/characters/bigCharacter_test.png", "bigPlayer");
 		loadTexture("res/stars/bigBigStar.png", "bigStar");
@@ -111,13 +110,13 @@ public class Content {
 	 */
 	private void loadMaps(){
 		TiledMap level1 = new TmxMapLoader().load("res/maps/level1.tmx");
-		TiledMap level2 = new TmxMapLoader().load("res/maps/testmap2.tmx");
-		TiledMap level3 = new TmxMapLoader().load("res/maps/testmap.tmx");
+		TiledMap level2 = new TmxMapLoader().load("res/maps/level2.tmx");
+		//TiledMap level3 = new TmxMapLoader().load("res/maps/testmap.tmx");
 		
 		maps = new HashMap<Integer, TiledMap>();
 		maps.put(1, level1);
 		maps.put(2, level2);
-		maps.put(3, level3);
+		//maps.put(3, level3);
 		
 		}
 	/**
@@ -133,7 +132,7 @@ public class Content {
 		loadSound("res/sound/sound_collectkey.wav", "collectkey");
 		loadSound("res/sound/sound_oflyt.wav", "fail");
 	}
-	/*
+	/**
 	 * @author Rebecka Reitmaier
 	 * getTiledMap is a method returns an object from the hashmap maps
 	 * OBS: currently only works with ints 1-3
