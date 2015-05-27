@@ -2,47 +2,55 @@ package controller.io;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import view.Content;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-
 import controller.SaveHandler;
-import controller.Variables;
-import event.EventSupport;
 
+
+/**
+ * @author Rebecka Reitmaier
+ * Content is a Singleton class that contains all pictures 
+ * and tiledMaps for EGA.
+ */
 public class Content {
 	/** Map for the textures*/
 	private Map<String, Texture> textures;
+	
 	/** Map for the sound*/
 	private Map<String, Sound> sounds;
+	
 	/** HashMap for the levels*/
 	private HashMap<Integer, TiledMap> maps;
+	
 	/** The instance */
 	private static Content instance = null;
 	
+	/** The constructor, it creates the HashMaps and pictures */
 	public Content(){
-
+		
 		textures = new HashMap<String, Texture>();
 		sounds = new HashMap<String, Sound>();
+		
+		loadImages();
+		loadMaps();
+		loadSounds();
+		
 	}
 	
 	public void loadTexture(String path, String key){
 		Texture tex = new Texture(Gdx.files.internal(path));
 		textures.put(key, tex);
 	}
+	
 	public Texture getTexture(String key){
 		return textures.get(key);
 			
 	}
 	public void disposeTexture(String key){
 		Texture tex = textures.get(key);
-		
 		if(tex != null) tex.dispose();
 	}
 	
@@ -51,7 +59,6 @@ public class Content {
 		sounds.put(key, sound);
 	}
 	
-	
 	public Sound getSound(String key) {
 		return sounds.get(key);
 	}
@@ -59,7 +66,6 @@ public class Content {
 	public void playSound(String key){
 		sounds.get(key).play(SaveHandler.getGameData().getSoundVolume());
 	}
-	
 	
 	public void removeSound(String key) {
 		Sound sound = sounds.get(key);
@@ -81,31 +87,29 @@ public class Content {
 		return instance;
 	}
 	/* 
-	 * @author Rebecka Reitmaier
-	 * creates the Pictures 
-	 * this is also in the new class Pictures in View
+	 * load the pictures for EGA
 	 */
-	private void createPictures(){
+	private void loadImages(){
 			
-		this.loadTexture("res/tiles/bunny.png", "bunny");
-		this.loadTexture("res/stars/star.png", "star");
-		this.loadTexture("res/tiles/hud.png", "hud");
-		this.loadTexture("res/characters/redball_small.png", "smallplayer");
-		this.loadTexture("res/characters/redball_big.png", "bigPlayer");
-		this.loadTexture("res/stars/bigStar.png", "bigStar");
-		this.loadTexture("res/door/openDoor.jpg", "openDoor");
-		this.loadTexture("res/door/closedDoor.jpg", "lockedDoor");
-		this.loadTexture("res/tiles/upSpikes_16x21.png", "upSpike");
-		this.loadTexture("res/tiles/downSpikes_16x21.png", "downSpike");
-		this.loadTexture("res/tiles/leftSpikes_21x16.png", "leftSpike");
-		this.loadTexture("res/tiles/rightSpikes_21x16.png", "rightSpike");
-		this.loadTexture("res/key/key-4.png", "key");
-		
-		createMaps();
+		loadTexture("res/tiles/bunny.png", "bunny");
+		loadTexture("res/stars/star.png", "star");
+		loadTexture("res/tiles/hud.png", "hud");
+		loadTexture("res/characters/redball_small.png", "smallplayer");
+		loadTexture("res/characters/redball_big.png", "bigPlayer");
+		loadTexture("res/stars/bigStar.png", "bigStar");
+		loadTexture("res/door/openDoor.jpg", "openDoor");
+		loadTexture("res/door/closedDoor.jpg", "lockedDoor");
+		loadTexture("res/tiles/upSpikes_16x21.png", "upSpike");
+		loadTexture("res/tiles/downSpikes_16x21.png", "downSpike");
+		loadTexture("res/tiles/leftSpikes_21x16.png", "leftSpike");
+		loadTexture("res/tiles/rightSpikes_21x16.png", "rightSpike");
+		loadTexture("res/key/key-4.png", "key");
 	
 	}
-	
-	private void createMaps(){
+	/**
+	 * load the maps for EGA and adds them to the HashMap "maps"
+	 */
+	private void loadMaps(){
 		TiledMap level1 = new TmxMapLoader().load("res/maps/testmap.tmx");
 		TiledMap level2 = new TmxMapLoader().load("res/maps/testmap2.tmx");
 		TiledMap level3 = new TmxMapLoader().load("res/maps/testmap.tmx");
@@ -116,6 +120,19 @@ public class Content {
 		maps.put(3, level3);
 		
 		}
+	/**
+	 * load the sound for EGA
+	 */
+	public void loadSounds(){
+		loadSound("res/sound/sound_mariojump.wav", "jump");
+		loadSound("res/sound/sound_forward.wav", "forward");
+		loadSound("res/sound/eriksmamma.wav", "grow");
+		loadSound("res/sound/sound_ta-da.wav", "finish");
+		loadSound("res/sound/sound_shrink.wav", "shrink");
+		loadSound("res/sound/sound_unlockdoor.wav", "unlock");
+		loadSound("res/sound/sound_collectkey.wav", "collectkey");
+		loadSound("res/sound/sound_oflyt.wav", "fail");
+	}
 	/*
 	 * @author Rebecka Reitmaier
 	 * getTiledMap is a method returns an object from the hashmap maps
