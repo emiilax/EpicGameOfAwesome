@@ -3,10 +3,11 @@ package view.entities;
 import java.util.Observer;
 
 import lombok.Data;
+import model.Variables;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import controller.Variables;
+
 
 /**
  * 
@@ -14,6 +15,9 @@ import controller.Variables;
  *
  *Super class for all the view classes for the entities.
  */
+
+
+
 @Data
 public abstract class EntityView implements Observer {
 	

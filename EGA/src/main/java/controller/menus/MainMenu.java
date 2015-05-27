@@ -9,11 +9,15 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import model.MenuModel;
 import model.MyInput;
+
+import model.Variables;
+
+
+
 import controller.EGA;
 import controller.GameStateManager;
 import controller.Level;
 import controller.SaveHandler;
-import controller.Variables;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
@@ -29,7 +33,10 @@ public class MainMenu extends Menu{
 		this.gsm = gsm;
 		init();
 	}
-
+	
+	/**
+	 * Initiates all variables
+	 */
 	private void init(){
 		title = "EGA";
 		subTitle = "Epic Game Of Awesome";
@@ -66,9 +73,9 @@ public class MainMenu extends Menu{
 	protected void updateModel(){
 		super.updateModel();
 		model.setSubTitleFontSize(subTitleFontSize);
-		model.setSubTitle(subTitle);
-		
+		model.setSubTitle(subTitle);	
 	}
+	
 	@Override
 	public void handleInput(int i) {
 		switch(i){

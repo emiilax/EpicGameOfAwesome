@@ -7,10 +7,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import model.MenuModel;
 import model.MyInput;
+import model.Variables;
 import controller.EGA;
 import controller.GameStateManager;
 import controller.SaveHandler;
-import controller.Variables;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
@@ -60,6 +60,9 @@ public class SettingsMenu extends Menu {
 		rendered = false;
 	}
 	
+	/**
+	 * Sets the string visible in the menu for how high the volume is. 
+	 */
 	private void setVolume(){
 		fVol = SaveHandler.getGameData().getSoundVolume();
 		if(fVol < 0.2f){
@@ -76,7 +79,10 @@ public class SettingsMenu extends Menu {
 			volume = "IIIII";
 		}
 	}
-
+	
+	/**
+	 * Increases the volume of the game. 
+	 */
 	private void incrementVolume(){
 		if(fVol < 1.0f){
 			fVol += 0.20f;
@@ -87,6 +93,9 @@ public class SettingsMenu extends Menu {
 		}	
 	}
 
+	/**
+	 * Decreases the volume of the game
+	 */
 	private void decrementVolume(){
 		if(fVol > 0.0f){
 			fVol -= 0.20f;
@@ -146,7 +155,10 @@ public class SettingsMenu extends Menu {
 			backMenu();			
 		}
 	}
-
+	
+	/**
+	 * Resets everything stored in the gamedata.
+	 */
 	public void resetAll(){
 		SaveHandler.init();
 		init();
@@ -159,7 +171,10 @@ public class SettingsMenu extends Menu {
 	private void backMenu(){
 		gsm.popState();
 	}
-
+	
+	/**
+	 * Sets the debugstatus to on or off, depending on the current status.
+	 */
 	private void setDebugStatus(){
 		if(SaveHandler.getGameData().getIsDebug()){
 			debugStatus = "On";
@@ -169,7 +184,10 @@ public class SettingsMenu extends Menu {
 		
 		menuItems[2] = "Dev mode: " + debugStatus;
 	}
-
+	
+	/**
+	 * Updates the volume status depending on the current volume. 
+	 */
 	private void updateVolumeStatus(){
 		menuItems[3] = "Volume: " + volume;
 	}

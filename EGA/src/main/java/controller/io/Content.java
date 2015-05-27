@@ -91,7 +91,6 @@ public class Content {
 	 * load the pictures for EGA
 	 */
 	private void loadImages(){
-		
 		loadTexture("res/stars/star.png", "star");
 		loadTexture("res/characters/smallCharacter_test.png", "smallplayer");
 		loadTexture("res/characters/bigCharacter_test.png", "bigPlayer");
@@ -102,7 +101,7 @@ public class Content {
 		loadTexture("res/tiles/downSpikes_16x21.png", "downSpike");
 		loadTexture("res/tiles/leftSpikes_21x16.png", "leftSpike");
 		loadTexture("res/tiles/rightSpikes_21x16.png", "rightSpike");
-		loadTexture("res/key/key-4.png", "key");
+		loadTexture("res/key/7key.png", "key");
 	
 	}
 	/**

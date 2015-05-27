@@ -44,6 +44,6 @@ public class KeyView extends EntityView {
 		tex = Content.getInstance().getTexture("key"); 
 		TextureRegion[] sprites = TextureRegion.split(tex,  50,  50)[0];
 		
-		setAnimation(sprites, 1/ 6f);
+		setAnimation(sprites, 1/ 8f);
 	}
 }

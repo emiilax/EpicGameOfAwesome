@@ -1,6 +1,6 @@
 package controller;
 
-import static controller.Variables.PPM;
+import static model.Variables.PPM;
 import view.LevelRender;
 import view.entities.CharacterView;
 import view.entities.KeyView;
@@ -20,6 +20,7 @@ import controller.entities.StarController;
 import model.EGATimer;
 import model.LevelModel;
 import model.MyInput;
+import model.Variables;
 import model.entities.CharacterModel;
 import model.entities.EntityModel;
 import model.entities.SpikeModel;

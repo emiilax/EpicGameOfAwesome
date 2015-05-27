@@ -1,12 +1,12 @@
 package controller.entities;
 
-import static controller.Variables.PPM;
+import static model.Variables.PPM;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
-import controller.Variables;
+import model.Variables;
 import model.entities.EntityModel;
 import view.entities.KeyView;
 

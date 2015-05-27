@@ -10,6 +10,11 @@ import lombok.EqualsAndHashCode;
 import model.entities.EntityModel;
 import controller.io.Content;
 
+/**
+ * The view class for stars. 
+ * @author Erik
+ *
+ */
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class StarView extends EntityView {
@@ -21,7 +26,12 @@ public class StarView extends EntityView {
 		this.isBig = isBig;
 		setTexture();
 	}
-
+	
+	/**
+	 * Sets the texture depending on if the star
+	 * is big or small. 
+	 * @author Erik 
+	 */
 	private void setTexture(){
 		Texture tex;
 		TextureRegion[] sprites;
@@ -34,7 +44,7 @@ public class StarView extends EntityView {
 		}
 		setAnimation(sprites, 1/ 12f);
 	}
-
+	
 	public void update(Observable o, Object arg) {
 		if(o instanceof EntityModel){		
 			EntityModel em = (EntityModel)o;

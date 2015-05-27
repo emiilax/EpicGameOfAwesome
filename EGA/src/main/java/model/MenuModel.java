@@ -4,6 +4,11 @@ import java.awt.Point;
 
 import lombok.Data;
 
+/**
+ * A class used to store all variables in every menu. Contains only get and set methods.
+ * @author Erik
+ *
+ */
 @Data
 public class MenuModel{
 	

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import model.MenuModel;
 import model.MyInput;
+import model.Variables;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,7 +16,6 @@ import controller.EGA;
 import controller.GameStateManager;
 import controller.Level;
 import controller.SaveHandler;
-import controller.Variables;
 
 
 /**
