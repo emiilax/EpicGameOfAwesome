@@ -2,11 +2,8 @@ package view.entities;
 
 import java.util.Arrays;
 import java.util.Observable;
-
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
-import controller.EGA;
+import controller.io.Content;
 import lombok.Data;
 import model.entities.EntityModel;
 import model.entities.SpikeModel.spikeOrientation;
@@ -28,15 +25,15 @@ public class SpikeView extends EntityView {
 	private TextureRegion[] getTextureRegion(spikeOrientation ori){
 		switch(ori){
 		case UP:
-			return TextureRegion.split(EGA.res.getTexture("upSpike"),  16,  21)[0];
+			return TextureRegion.split(Content.getInstance().getTexture("upSpike"),  16,  21)[0];
 		case DOWN:
-			return TextureRegion.split(EGA.res.getTexture("downSpike"),  16,  21)[0];
+			return TextureRegion.split(Content.getInstance().getTexture("downSpike"),  16,  21)[0];
 		case LEFT:
-			return TextureRegion.split(EGA.res.getTexture("leftSpike"),  21,  16)[0];
+			return TextureRegion.split(Content.getInstance().getTexture("leftSpike"),  21,  16)[0];
 		case RIGHT:
-			return TextureRegion.split(EGA.res.getTexture("rightSpike"),  21,  16)[0];
+			return TextureRegion.split(Content.getInstance().getTexture("rightSpike"),  21,  16)[0];
 		default:
-			return TextureRegion.split(EGA.res.getTexture("upSpike"),  16,  21)[0];
+			return TextureRegion.split(Content.getInstance().getTexture("upSpike"),  16,  21)[0];
 		}
 	}
 

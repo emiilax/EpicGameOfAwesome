@@ -26,7 +26,7 @@ public class Content {
 	private HashMap<Integer, TiledMap> maps;
 	
 	/** The instance */
-	private static Content instance = null;
+	private static Content instance;
 	
 	/** The constructor, it creates the HashMaps and pictures */
 	public Content(){
