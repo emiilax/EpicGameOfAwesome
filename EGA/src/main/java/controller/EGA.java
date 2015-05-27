@@ -203,6 +203,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 				theLevel.handleInput(MyInput.BUTTON_PAUSE);
 			}
 		}
+		// gets called on mouse movement and mouse press in menus
 		if(theLevel instanceof IMenu){
 			if(evt.getNameOfEvent().equals("selectMenuItem")){
 				((IMenu) theLevel).select(evt.getX(), evt.getY());
