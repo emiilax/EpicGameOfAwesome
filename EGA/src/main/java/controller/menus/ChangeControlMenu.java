@@ -209,11 +209,13 @@ public class ChangeControlMenu extends Menu{
 			int yPosMenuItem = 450 - 50 *i;
 
 			view.drawFont(menuItems[i], font, xPosMenuItem, yPosMenuItem);
-//			menuItemPositions[i] = new Point(xPosMenuItem,EGA.V_HEIGTH-yPosMenuItem);
+			
+			menuItemPositions[i] = new Point(xPosMenuItem,EGA.V_HEIGTH-yPosMenuItem);
 //			menuItemEndPositions[i] = new Point(xPosButton+(int)width, 
 //					EGA.V_HEIGTH-yPosButton+menuFontSize);
 
 		}
+		model.setMenuItemPositions(menuItemPositions);
 
 		rendered = true;
 	}
