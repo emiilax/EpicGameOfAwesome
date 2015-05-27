@@ -4,8 +4,6 @@ import java.util.Observable;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
-import controller.EGA;
 import controller.io.Content;
 import model.entities.EntityModel;
 
@@ -20,6 +18,14 @@ public class OpenDoorView extends EntityView{
 		setTexture();
 	}
 	
+
+	/**
+	 * Method update() updates the EntityModel with current positions
+	 * and calls the render method.
+	 * 
+	 * @param o, Observable
+	 * @param arg, Object 
+	 */
 	public void update(Observable o, Object arg) {
 		if (o instanceof EntityModel) {
 			super.setXPosition(((EntityModel) o).getXPosition());
@@ -28,7 +34,11 @@ public class OpenDoorView extends EntityView{
 		}
 		
 	}
-	
+
+	/**
+	 * Method setTexture() sets the texture and gets the picture
+	 * from an instance from Content.
+	 */
 	public void setTexture(){
 		Texture tex;
 		tex = Content.getInstance().getTexture("openDoor"); 
