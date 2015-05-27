@@ -224,64 +224,6 @@ public class EGA implements ApplicationListener, TheChangeListener{
 
 	}
 
-
-	/**
-	 * Loads the sounds that will be usd in 
-	 * the game
-	 */
-	public void loadSounds(){
-		res.loadSound("res/sound/sound_mariojump.wav", "jump");
-		res.loadSound("res/sound/sound_forward.wav", "forward");
-		res.loadSound("res/sound/eriksmamma.wav", "grow");
-		res.loadSound("res/sound/sound_ta-da.wav", "finish");
-		res.loadSound("res/sound/sound_shrink.wav", "shrink");
-		res.loadSound("res/sound/sound_unlockdoor.wav", "unlock");
-		res.loadSound("res/sound/sound_collectkey.wav", "collectkey");
-		res.loadSound("res/sound/sound_oflyt.wav", "fail");
-	}
-
-	/** 
-	 * @author Rebecka Reitmaier
-	 * creates the Pictures 
-	 * this is also in the new class Pictures in View
-	 */
-	private void createPictures(){
-		//res = new Content();
-		
-		res.loadTexture("res/tiles/bunny.png", "bunny");
-		res.loadTexture("res/stars/star.png", "star");
-		res.loadTexture("res/tiles/hud.png", "hud");
-		res.loadTexture("res/characters/smallCharacter_test.png", "smallplayer");
-		res.loadTexture("res/characters/bigCharacter_test.png", "bigPlayer");
-		res.loadTexture("res/stars/bigBigStar.png", "bigStar");
-		res.loadTexture("res/door/openDoor.png", "openDoor");
-		res.loadTexture("res/door/closedDoor.png", "lockedDoor");
-		res.loadTexture("res/tiles/upSpikes_16x21.png", "upSpike");
-		res.loadTexture("res/tiles/downSpikes_16x21.png", "downSpike");
-		res.loadTexture("res/tiles/leftSpikes_21x16.png", "leftSpike");
-		res.loadTexture("res/tiles/rightSpikes_21x16.png", "rightSpike");
-		res.loadTexture("res/key/7key.png", "key");
-
-	}
-
-	/** 
-	 * @author Rebecka Reitmaier
-	 * creates the Maps to levels and puts them in the hashMap maps
-	 * this is also in the new class Pictures in View
-	 */
-
-	private void createMaps(){
-		TiledMap level1 = new TmxMapLoader().load("res/maps/level1.tmx");
-		TiledMap level2 = new TmxMapLoader().load("res/maps/level2.tmx");
-		TiledMap level3 = new TmxMapLoader().load("res/maps/testmap.tmx");
-
-		maps = new HashMap<Integer, TiledMap>();
-		maps.put(1, level1);
-		maps.put(2, level2);
-		maps.put(3, level3);
-
-	}
-
 	/**
 	 * @author Rebecka Reitmaier
 	 * getTiledMap is a method returns an object from the hashmap maps
