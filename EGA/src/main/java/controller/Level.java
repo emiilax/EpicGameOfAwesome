@@ -9,6 +9,7 @@ import view.entities.OpenDoorView;
 import view.entities.SpikeView;
 import view.entities.StarView;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import controller.entities.CharacterController;
 import controller.entities.EntityController;
 import controller.entities.KeyController;
@@ -45,6 +46,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import controller.menus.PauseMenu;
 
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class Level extends GameState{
 
 	private boolean debug = true;

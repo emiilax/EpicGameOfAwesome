@@ -3,7 +3,6 @@ package model;
 import java.awt.Point;
 
 import lombok.Data;
-import controller.Variables;
 
 @Data
 public class MenuModel{

@@ -4,15 +4,16 @@ import java.awt.Point;
 
 import view.MenuRender;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import model.MenuModel;
 import model.MyInput;
 import controller.EGA;
-import controller.GameState;
 import controller.GameStateManager;
 import controller.SaveHandler;
 import controller.Variables;
 
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class SettingsMenu extends Menu { 
 	private String debugStatus;
 

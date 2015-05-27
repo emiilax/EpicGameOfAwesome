@@ -2,7 +2,9 @@ package controller;
 
 import java.util.EmptyStackException;
 import java.util.Stack;
+
 import com.badlogic.gdx.maps.tiled.TiledMap;
+
 import controller.io.Content;
 import controller.menus.MainMenu;
 import lombok.Data;
@@ -27,6 +29,7 @@ public class GameStateManager {
 		currentLevel = 1;
 	}
 	
+	@SuppressWarnings("unused")
 	private GameState getState(int state){
 	
 		if(state == MENU) return new MainMenu(this);
@@ -49,6 +52,7 @@ public class GameStateManager {
 	}
 	
 	public void popState(){
+		@SuppressWarnings("unused")
 		GameState g = gameStates.pop();
 		try{
 			game.setTheLevel(gameStates.peek());

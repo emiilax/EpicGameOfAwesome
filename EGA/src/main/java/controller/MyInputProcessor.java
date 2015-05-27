@@ -3,7 +3,6 @@ package controller;
 import model.GameData;
 import model.MyInput;
 
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 
 import event.EventSupport;

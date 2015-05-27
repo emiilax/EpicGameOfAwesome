@@ -48,6 +48,7 @@ public class MenuRender {
 		init();
 	}
 
+	@SuppressWarnings("deprecation")
 	private void init(){
 		loadTextures();
 		sb = new SpriteBatch();

@@ -2,13 +2,17 @@ package view.entities;
 
 import java.util.Arrays;
 import java.util.Observable;
+
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 import controller.io.Content;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import model.entities.EntityModel;
 import model.entities.SpikeModel.spikeOrientation;
 
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class SpikeView extends EntityView {
 	
 	private int spikeStyle = 1;

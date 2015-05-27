@@ -11,16 +11,11 @@ import model.MyInput;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import controller.EGA;
-import controller.GameState;
 import controller.GameStateManager;
 import controller.MyInputProcessor;
 import controller.SaveHandler;
@@ -32,8 +27,6 @@ public class ChangeControlMenu extends Menu{
 	private BitmapFont font;
 	private GlyphLayout layout = new GlyphLayout();
 
-	private Sprite backgroundSprite;
-	private Texture backgroundTexture; 
 
 	private String currentButtons[];
 	private boolean changeMode = false;
@@ -51,6 +44,7 @@ public class ChangeControlMenu extends Menu{
 	}
 
 
+	@SuppressWarnings("deprecation")
 	private void init(){
 		title = "Settings";
 		titleFontSize = Variables.subMenuTitleSize;
@@ -183,7 +177,6 @@ public class ChangeControlMenu extends Menu{
 		view.render(currentItem, cam, false);
 		
 		layout.setText(titleFont, title);
-		float width = layout.width;
 
 		for(int i = 0; i < menuItems.length; i++){
 			if(currentItem == i){
