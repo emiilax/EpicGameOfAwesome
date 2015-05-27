@@ -1,25 +1,10 @@
 package controller.menus;
 
 import java.awt.Point;
-
 import view.MenuRender;
-import model.EGATimer;
-import model.GameData;
 import model.MenuModel;
 import model.MyInput;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-
 import controller.EGA;
-import controller.GameState;
 import controller.GameStateManager;
 import controller.Level;
 import controller.SaveHandler;
@@ -48,12 +33,20 @@ public class LevelSelect extends Menu {
 	private MenuModel model;
 	private MenuRender view;
 
+	/**
+	 * LevelSelect constructor calls the superclass and initializes it
+	 * @param gsm, the GameStateManeger
+	 */
 	public LevelSelect(GameStateManager gsm){
 		super(gsm);
 		this.gsm = gsm;
 		init();
 	}
 
+	/**
+	 * Initializes how the visual elements in the menu should look like.
+	 * It updates the model.
+	 */
 	private void init(){
 		titleFontSize = Variables.subMenuTitleSize;
 		menuFontSize = Variables.subMenuItemSize;
@@ -84,10 +77,19 @@ public class LevelSelect extends Menu {
 		rendered = false;
 	}
 
+	/**
+	 * This method sets the title for the levelSelect menu.
+	 */
 	private void setTitle(){
 		title = "Choose level to play";
 	}
 
+	/**
+	 * This method is used to locate which level should be created 
+	 * or if it should which to another menu.
+	 * 
+	 * Add more if-states if group add more levels.
+	 */
 	@Override
 	public void select(){
 		String element = menuItems[currentRow][currentCol];
@@ -117,20 +119,18 @@ public class LevelSelect extends Menu {
 		}
 		if(element == "<--" || element == "-->"){
 			// switch String array 
-			System.out.println("this is -->");
 		}
 		if(element == "Back"){
-			//gsm.getGame().setLevel(new MenuState(gsm));
 			//switch to main menu
 			gsm.popState();
 		}
-		/*
-		 * add more if-states if you add more levels
-		 */
 		
 	}
-
 	
+	/**
+	 * This method handles the key input and decides which
+	 * string is current in the matrix. 
+	 */
 	@Override
 	public void handleInput(int i) {
 		switch(i){
@@ -190,7 +190,6 @@ public class LevelSelect extends Menu {
 	@Override
 	public void update(float dt) {}
 
-	
 	/**
 	 * this method sets the color and draw the letters in the menu
 	 */
@@ -202,6 +201,9 @@ public class LevelSelect extends Menu {
 
 	}
 
+	/**
+	 * This method updates the model with all the current values.
+	 */
 	@Override
 	public void updateModel(){
 		model.setMatrixMenuItemEndPositions(menuItemEndPositions);
@@ -216,6 +218,9 @@ public class LevelSelect extends Menu {
 		model.setYPos(yPos);
 	}
 
+	/**
+	 * This method is used to select an object in the matrix with the mouse.
+	 */
 	@Override
 	public void select(int x, int y) {
 		if(rendered && x > menuItemPositions[currentRow][currentCol].getX() 
@@ -225,7 +230,9 @@ public class LevelSelect extends Menu {
 			select();
 		}
 	}
-
+	/**
+	 * This method is used to select which object in the matrix is current.
+	 */
 	@Override
 	public void setCurrentItem(int x, int y) {		
 		if(rendered){

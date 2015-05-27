@@ -19,12 +19,18 @@ import controller.Variables;
 
 public class LockedDoorController extends EntityController{
 
-		
 		private PolygonShape shape;
 		private FixtureDef fDef;
 		private LockedDoorView ldv;
 		private EntityModel em;
 		
+		/**
+		 * This contructor calls the superclasses and initilizes it.
+		 * It also sets the shape and fDef.
+		 * 
+		 * @param em
+		 * @param ldv
+		 */
 		public LockedDoorController(EntityModel em, LockedDoorView ldv) {
 			super(em, ldv);
 			
