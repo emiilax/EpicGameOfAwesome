@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import controller.EGA;
 import controller.Variables;
+import controller.io.Content;
 import lombok.Data;
 import model.entities.CharacterModel;
 import model.entities.EntityModel;
@@ -19,20 +20,20 @@ public class CharacterView extends EntityView{
 	
 	private TextureRegion[] sprites;
 	private boolean isStopped = true;
+	
 	public void setTexture(Boolean isBig){
 		if(!isBig){
 			Texture tex;
-			tex = EGA.res.getTexture("smallplayer");
+			tex = Content.getInstance().getTexture("smallPlayer");
 			sprites = TextureRegion.split(tex, 30, 30)[0];
 			setAnimation(sprites, 1/8f);
 		}else {
 			Texture tex;
-			tex = EGA.res.getTexture("bigPlayer");
+			tex = Content.getInstance().getTexture("bigPlayer");
 			sprites = TextureRegion.split(tex, 60, 60)[0];
-			setAnimation(sprites, 1/12f);
+			setAnimation(sprites, 1/12f); 
 		}
 	}
-	
 	
 	public void update(Observable o, Object arg) {
 		
@@ -46,8 +47,5 @@ public class CharacterView extends EntityView{
 			setYPosition(cm.getYPosition());
 			render();
 		}
-	}
-	
-	
-	
+	}	
 }

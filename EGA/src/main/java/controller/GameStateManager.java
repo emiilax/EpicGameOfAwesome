@@ -2,12 +2,9 @@ package controller;
 
 import java.util.EmptyStackException;
 import java.util.Stack;
-
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.utils.GdxNativesLoader;
-
-import controller.menus.MenuState;
-import controller.menus.PauseMenu;
+import controller.io.Content;
+import controller.menus.MainMenu;
 import lombok.Data;
 
 
@@ -32,9 +29,9 @@ public class GameStateManager {
 	
 	private GameState getState(int state){
 	
-		if(state == MENU) return new MenuState(this);
+		if(state == MENU) return new MainMenu(this);
 		if(state == PLAY) {
-			return new Level(this, game.getTiledMap(currentLevel));
+			return new Level(this, Content.getInstance().getTiledMap(currentLevel));
 		}
 		return null;
 	}
@@ -74,13 +71,13 @@ public class GameStateManager {
 	
 	public TiledMap getNextTiledMap(){
 		currentLevel++;
-		return game.getTiledMap(currentLevel);
+		return Content.getInstance().getTiledMap(currentLevel);
 	}
 	public TiledMap getCurrentTiledMap(){
-		return game.getTiledMap(currentLevel);
+		return Content.getInstance().getTiledMap(currentLevel);
 	}
 	public TiledMap getLevel(int i){ // this is the exact same method as in EGA
-		return game.getTiledMap(i);
+		return Content.getInstance().getTiledMap(i);
 	}
 	
 	public int getCurrentLevel(){

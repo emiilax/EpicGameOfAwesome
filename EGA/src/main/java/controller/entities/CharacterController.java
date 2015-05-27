@@ -4,15 +4,12 @@ import static controller.Variables.PPM;
 import view.entities.CharacterView;
 import lombok.Data;
 import model.entities.CharacterModel;
-
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-
-import controller.EGA;
 import controller.Variables;
+import controller.io.Content;
 
 /**
  * 
@@ -134,9 +131,9 @@ public class CharacterController extends EntityController{
 	 */
 	public void collectGrowStar() { 
 	
-		//EGA.res.getSound("grow").play();
 		setIsBig(true);
 		setFixtureDef(currentWidth, currentHeigth);
+		//grow sound ? 
 		
 		((CharacterView)getTheView()).setTexture(isBig);
 	}
@@ -147,7 +144,7 @@ public class CharacterController extends EntityController{
 	public void collectShrinkStar() { 
 		setIsBig(false);
 		setFixtureDef(currentWidth, currentHeigth);
-		EGA.res.playSound("shrink");
+		Content.getInstance().playSound("shrink");
 		
 		((CharacterView)getTheView()).setTexture(isBig);
 
@@ -167,7 +164,7 @@ public class CharacterController extends EntityController{
 	 * Makes the Character-body jump
 	 */
 	public void jump(){
-		EGA.res.playSound("jump");
+		Content.getInstance().playSound("jump");
 		Body playerBody = this.getBody();
 		playerBody.applyForceToCenter(0, currentJumpForce, true);
 	}

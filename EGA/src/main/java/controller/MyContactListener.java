@@ -1,21 +1,7 @@
 package controller;
 
-import java.awt.AWTException;
-import java.awt.HeadlessException;
-import java.awt.Rectangle;
-import java.awt.Robot;
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-
-import javax.imageio.ImageIO;
-
 import lombok.Data;
 import model.EGATimer;
-
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -23,15 +9,10 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.utils.Array;
-
-import event.EventSupport;
-
-
-
+import controller.io.Content;
 
 @Data
 public class MyContactListener implements ContactListener{
-	
 	
 	private int numFootContacts;
 	private Array<Body> bodiesToRemove;
@@ -82,17 +63,16 @@ public class MyContactListener implements ContactListener{
 		}
 		if(fa.getUserData() != null && fa.getUserData().equals("openDoor")){
 			timer.stopTimer();
-			EGA.res.getSound("finish").play();
+			Content.getInstance().playSound("finish");
 			ega.setLevelFinished(gsm.getCurrentLevel());
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("openDoor")){
 			timer.stopTimer();
-			EGA.res.getSound("finish").play();
+			Content.getInstance().playSound("finish");
 			ega.setLevelFinished(gsm.getCurrentLevel());
 		}
 		
 		if(fa.getUserData() != null && fa.getUserData().equals("lockedDoor")){
-			//doorsToRemove.add(fa.getBody());
 			if(lvl.getDoorIsOpen() == true){
 				bodiesToRemove.add(fa.getBody());
 			}
@@ -100,7 +80,6 @@ public class MyContactListener implements ContactListener{
 			
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("lockedDoor")){
-			//doorsToRemove.add(fb.getBody());
 			if(lvl.getDoorIsOpen() == true){
 				bodiesToRemove.add(fb.getBody());
 			}
@@ -127,17 +106,14 @@ public class MyContactListener implements ContactListener{
 			
 			bodiesToRemove.add(fb.getBody());
 		
-			//EGA.res.getSound("collectkey").play();
-			EGA.res.playSound("collectkey");
+			Content.getInstance().playSound("collectkey");
 			
 		}
 	}
 	
 	public void contactWithSpike(){
-		//EGA.res.getSound("fail").play();
-		EGA.res.playSound("fail");
+		Content.getInstance().playSound("fail");
 		gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
-		//EventSupport.getInstance().fireNewEvent("spikehit");
 	}
 	
 	// called when two fixures no longer collide

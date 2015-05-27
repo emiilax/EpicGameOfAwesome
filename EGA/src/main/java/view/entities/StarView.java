@@ -1,14 +1,11 @@
 package view.entities;
 
 import java.util.Observable;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
 import lombok.Data;
 import model.entities.EntityModel;
-import controller.EGA;
-//import controller.SpikeController.spikeOrientation;
+import controller.io.Content;
 
 @Data
 public class StarView extends EntityView {
@@ -25,10 +22,10 @@ public class StarView extends EntityView {
 		Texture tex;
 		TextureRegion[] sprites;
 		if(isBig){
-			tex = EGA.res.getTexture("bigStar");
+			tex = Content.getInstance().getTexture("bigStar");
 			sprites = TextureRegion.split(tex,  40,  42)[0];
 		} else {
-			tex = EGA.res.getTexture("star");
+			tex = Content.getInstance().getTexture("star");
 			sprites = TextureRegion.split(tex,  18,  17)[0];
 		}
 		setAnimation(sprites, 1/ 12f);

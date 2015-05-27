@@ -34,20 +34,8 @@ import controller.Variables;
  * @param backGroundTexture, Texture  
  */
 
-public class LevelSelect extends GameState implements IMenu {
-
-	private String title;
-
-	private int titleFontSize = Variables.subMenuTitleSize;
-	private int menuFontSize = Variables.subMenuItemSize;
-	private int titleHeight = 650;
-	private int gap = 70;
-	private int xPos = (int)(EGA.V_WIDTH - Variables.menuItemX) / 2;
-	private int yPos = 450;
-
-	private boolean rendered = false;
-
-
+public class LevelSelect extends Menu {
+	
 	private int currentRow = 0;
 	private int currentCol = 0;
 
@@ -67,6 +55,12 @@ public class LevelSelect extends GameState implements IMenu {
 	}
 
 	private void init(){
+		titleFontSize = Variables.subMenuTitleSize;
+		menuFontSize = Variables.subMenuItemSize;
+		titleHeight = 650;
+		gap = 70;
+		xPos = (int)(EGA.V_WIDTH - Variables.menuItemX) / 2;
+		yPos = 450;
 		
 		menuItems = new String[][]{
 				{"Level 1", "Level 2", "Level 3"}, //row 0 
@@ -94,7 +88,8 @@ public class LevelSelect extends GameState implements IMenu {
 		title = "Choose level to play";
 	}
 
-	private void select(){
+	@Override
+	public void select(){
 		String element = menuItems[currentRow][currentCol];
 		if(element == "Level 1"){
 			gsm.setState(new Level(gsm, gsm.getLevel(1)));
@@ -186,7 +181,7 @@ public class LevelSelect extends GameState implements IMenu {
 			select();
 			break;
 		case MyInput.BUTTON_ESCAPE:
-			gsm.setState(new MenuState(gsm));
+			gsm.setState(new MainMenu(gsm));
 			break;
 		}
 
@@ -206,8 +201,9 @@ public class LevelSelect extends GameState implements IMenu {
 		rendered = true;
 
 	}
-	
-	private void updateModel(){
+
+	@Override
+	public void updateModel(){
 		model.setMatrixMenuItemEndPositions(menuItemEndPositions);
 		model.setMatrixMenuItemPositions(menuItemPositions);
 		model.setMatrixMenuItems(menuItems);
@@ -220,10 +216,7 @@ public class LevelSelect extends GameState implements IMenu {
 		model.setYPos(yPos);
 	}
 
-
 	@Override
-	public void dispose() {}
-
 	public void select(int x, int y) {
 		if(rendered && x > menuItemPositions[currentRow][currentCol].getX() 
 				&& y > menuItemPositions[currentRow][currentCol].getY()
@@ -233,14 +226,7 @@ public class LevelSelect extends GameState implements IMenu {
 		}
 	}
 
-	public Point[] getMenuItemPositions() {
-		return null;
-	}
-
-	public Point[] getMenuItemEndPositions() {
-		return null;
-	}
-
+	@Override
 	public void setCurrentItem(int x, int y) {		
 		if(rendered){
 			for(int i = 0; i < menuItemPositions.length; i++){

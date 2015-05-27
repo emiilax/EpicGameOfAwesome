@@ -26,7 +26,7 @@ import controller.MyInputProcessor;
 import controller.SaveHandler;
 import controller.Variables;
 
-public class ChangeControlMenu extends GameState implements IMenu{
+public class ChangeControlMenu extends Menu{
 
 	private BitmapFont titleFont;
 	private BitmapFont font;
@@ -35,31 +35,13 @@ public class ChangeControlMenu extends GameState implements IMenu{
 	private Sprite backgroundSprite;
 	private Texture backgroundTexture; 
 
-	private String title = "Settings";
-
-	private int titleFontSize = Variables.subMenuTitleSize;
-	private int menuFontSize = 30;
-	private int titleHeight = 600;
-	private int gap = 50;
-	private int xPos = (EGA.V_WIDTH - (EGA.V_WIDTH/2));
-	private int yPos = 450;
-	
-	private int currentItem;
-	private String menuItems[];
 	private String currentButtons[];
 	private boolean changeMode = false;
-
-	private Point[] menuItemPositions;
-	private Point[] menuItemEndPositions;
-
-	private boolean rendered = false;
+	
 	private String latestRemoved;
 	private GameData gd;
 
 	private GameStateManager gsm;
-	
-	private MenuModel model;
-	private MenuRender view;
 
 
 	public ChangeControlMenu(GameStateManager gsm){
@@ -70,6 +52,14 @@ public class ChangeControlMenu extends GameState implements IMenu{
 
 
 	private void init(){
+		title = "Settings";
+		titleFontSize = Variables.subMenuTitleSize;
+		menuFontSize = 30;
+		titleHeight = 600;
+		gap = 50;
+		xPos = (EGA.V_WIDTH - (EGA.V_WIDTH/2));
+		yPos = 450;
+		
 
 		gd = SaveHandler.getGameData();
 		
@@ -128,7 +118,7 @@ public class ChangeControlMenu extends GameState implements IMenu{
 			}else if (i == MyInput.BUTTON_ESCAPE){
 				menuBack();				
 			} else if (i == MyInput.BUTTON_ENTER) { 
-				selectChange();
+				select();
 			}
 		} else {changeButton();}
 	}
@@ -171,8 +161,8 @@ public class ChangeControlMenu extends GameState implements IMenu{
 		}
 	}
 
-
-	private void selectChange(){
+	@Override
+	public void select(){
 		if(currentItem == 7){
 			menuBack();
 		}
@@ -217,27 +207,14 @@ public class ChangeControlMenu extends GameState implements IMenu{
 		rendered = true;
 	}
 
-	private void updateModel(){
-		model.setMenuItemEndPositions(menuItemEndPositions);
-		model.setMenuItemPositions(menuItemPositions);
+	@Override
+	protected void updateModel(){
+		super.updateModel();
 		model.setMenuItems(getCurrentButtons());
-		model.setTitleFontSize(titleFontSize);
-		model.setMenuFontSize(menuFontSize);
-		model.setTitle(title);
-		model.setTitleHeight(titleHeight);
-		model.setGap(gap);
-		model.setXPos(xPos);
-		model.setYPos(yPos);
 	}
 
 	private String[] getCurrentButtons() {
 		return currentButtons;
-	}
-
-	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
-
 	}
 
 	private void setCurrentButtons(int index, String key){
@@ -248,42 +225,8 @@ public class ChangeControlMenu extends GameState implements IMenu{
 		updateModel();
 	}
 
-	public void select(int x, int y) {
-		if(rendered && x > menuItemPositions[currentItem].getX() 
-				&& y > menuItemPositions[currentItem].getY()
-				&& x < menuItemEndPositions[currentItem].getX() 
-				&& y < menuItemEndPositions[currentItem].getY()){
-			selectChange();
-		}
-
-	}
-
 	private void menuBack(){
 		gsm.popState();	
-	}
-
-	public Point[] getMenuItemPositions() {
-		return menuItemPositions;
-	}
-
-	public Point[] getMenuItemEndPositions() {
-		return menuItemEndPositions;
-	}
-
-	public void setCurrentItem(int x, int y) {
-		if(rendered){
-			for(int i = 0; i < menuItemPositions.length; i++){
-				if(isHovered(x, y, i, menuItemPositions[i], menuItemEndPositions[i])){
-					currentItem = i;
-				}
-			}	
-		}		
-	}
-
-	private boolean isHovered(int x, int y, int i, Point point, Point pointEnd){
-		return (x > point.getX() && y > point.getY()
-				&& x < pointEnd.getX() &&
-				y < pointEnd.getY());
 	}
 
 }
