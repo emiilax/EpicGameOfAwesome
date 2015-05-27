@@ -66,7 +66,6 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	/** Keeps all the pictures and sounds*/ 
 	public static Content res;
 
-
 	/** Map with maps */
 	private Map<Integer, TiledMap> maps;
 
