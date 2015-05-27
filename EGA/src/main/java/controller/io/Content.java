@@ -29,7 +29,7 @@ public class Content {
 	private static Content instance;
 	
 	/** The constructor, it creates the HashMaps and pictures */
-	public Content(){
+	private Content(){
 		
 		textures = new HashMap<String, Texture>();
 		sounds = new HashMap<String, Sound>();
@@ -94,9 +94,9 @@ public class Content {
 		loadTexture("res/tiles/bunny.png", "bunny");
 		loadTexture("res/stars/star.png", "star");
 		loadTexture("res/tiles/hud.png", "hud");
-		loadTexture("res/characters/redball_small.png", "smallplayer");
-		loadTexture("res/characters/redball_big.png", "bigPlayer");
-		loadTexture("res/stars/bigStar.png", "bigStar");
+		loadTexture("res/characters/smallCharacter_test.png", "smallplayer");
+		loadTexture("res/characters/bigCharacter_test.png", "bigPlayer");
+		loadTexture("res/stars/bigBigStar.png", "bigStar");
 		loadTexture("res/door/openDoor.jpg", "openDoor");
 		loadTexture("res/door/closedDoor.jpg", "lockedDoor");
 		loadTexture("res/tiles/upSpikes_16x21.png", "upSpike");
@@ -110,7 +110,7 @@ public class Content {
 	 * load the maps for EGA and adds them to the HashMap "maps"
 	 */
 	private void loadMaps(){
-		TiledMap level1 = new TmxMapLoader().load("res/maps/testmap.tmx");
+		TiledMap level1 = new TmxMapLoader().load("res/maps/level1.tmx");
 		TiledMap level2 = new TmxMapLoader().load("res/maps/testmap2.tmx");
 		TiledMap level3 = new TmxMapLoader().load("res/maps/testmap.tmx");
 		

@@ -24,7 +24,7 @@ public class CharacterView extends EntityView{
 	public void setTexture(Boolean isBig){
 		if(!isBig){
 			Texture tex;
-			tex = Content.getInstance().getTexture("smallPlayer");
+			tex = Content.getInstance().getTexture("smallplayer");
 			sprites = TextureRegion.split(tex, 30, 30)[0];
 			setAnimation(sprites, 1/8f);
 		}else {
