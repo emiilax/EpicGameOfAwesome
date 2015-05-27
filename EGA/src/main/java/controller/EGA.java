@@ -267,7 +267,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		res.loadTexture("res/tiles/bunny.png", "bunny");
 		res.loadTexture("res/stars/star.png", "star");
 		res.loadTexture("res/tiles/hud.png", "hud");
-		res.loadTexture("res/characters/redball_small.png", "smallplayer");
+		res.loadTexture("res/characters/smallCharacter_test.png", "smallplayer");
 		res.loadTexture("res/characters/bigCharacter_test.png", "bigPlayer");
 		res.loadTexture("res/stars/bigBigStar.png", "bigStar");
 		res.loadTexture("res/door/openDoor.png", "openDoor");
