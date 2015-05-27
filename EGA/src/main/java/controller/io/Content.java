@@ -91,9 +91,7 @@ public class Content {
 	 */
 	private void loadImages(){
 			
-		loadTexture("res/tiles/bunny.png", "bunny");
 		loadTexture("res/stars/star.png", "star");
-		loadTexture("res/tiles/hud.png", "hud");
 		loadTexture("res/characters/smallCharacter_test.png", "smallplayer");
 		loadTexture("res/characters/bigCharacter_test.png", "bigPlayer");
 		loadTexture("res/stars/bigBigStar.png", "bigStar");
