@@ -11,6 +11,11 @@ public class MyInputProcessor extends InputAdapter{
 	private static int pressed;
 	private static boolean active = true;
 
+	/**
+	 * changes active, a boolean that determines if mouse movement 
+	 * should be handled.
+	 * @param act
+	 */
 	public static void setActive(boolean act){
 		active = act;
 	}
@@ -43,9 +48,7 @@ public class MyInputProcessor extends InputAdapter{
 			MyInput.setKey(MyInput.BUTTON_ESCAPE, true);
 		}
 		if(k == gd.pause){
-			
 			MyInput.setKey(MyInput.BUTTON_PAUSE, true);
-			//EventSupport.getInstance().fireNewEvent("pause");
 		}
 		pressed = k;
 		return true;
@@ -80,13 +83,14 @@ public class MyInputProcessor extends InputAdapter{
 			MyInput.setKey(MyInput.BUTTON_ESCAPE, false);
 		}
 		if(k == gd.pause){
-			
 			MyInput.setKey(MyInput.BUTTON_PAUSE, false);
-			//EventSupport.getInstance().fireNewEvent("pause");
 		}
 		return true;
 	}
 
+	/**
+	 * handles mouse presses
+	 */
 	@Override
 	public boolean touchDown(int x, int y, int pointer, int button){
 		if(active){
@@ -96,6 +100,9 @@ public class MyInputProcessor extends InputAdapter{
 		return false;
 	}
 
+	/**
+	 * handles mouse movement
+	 */
 	@Override
 	public boolean mouseMoved(int x, int y){
 		if (active){

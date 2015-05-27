@@ -148,7 +148,6 @@ public class Level extends GameState{
 		case MyInput.BUTTON_PAUSE: 
 			if(!isPaused){
 				gsm.pushState(new PauseMenu(gsm));
-				//game.setLevel(m);
 				System.out.println("paus");
 				isPaused = true;
 				timer.stopTimer();
@@ -164,7 +163,6 @@ public class Level extends GameState{
 			gsm.pushState(new PauseMenu(gsm));
 			isPaused = true;
 			timer.stopTimer();
-			//gsm.setState(new MenuState(gsm));
 		break;
 		}
 	}
@@ -481,9 +479,10 @@ public class Level extends GameState{
 	
 	}
 
-
+	/**
+	 * create spikes in all 4 orientations
+	 */
 	private void createSpikes(){
-		//Create spikes
 		MapLayer layer = tiledMap.getLayers().get("upSpikes");
 		loopEntity(layer, new SpikeController(new SpikeModel(spikeOrientation.UP), new SpikeView()));
 

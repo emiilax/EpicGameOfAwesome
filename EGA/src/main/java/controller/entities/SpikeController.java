@@ -39,6 +39,10 @@ public class SpikeController extends EntityController {
 		setFixtureDef();
 	}
 
+	/**
+	 * Set the fixture and shape. Also sets which other fixtures this should
+	 * interact with on collision.
+	 */
 	public void setFixtureDef(){
 		fDef = new FixtureDef();
 		shape = new PolygonShape();
@@ -58,8 +62,11 @@ public class SpikeController extends EntityController {
 		return ((SpikeModel)super.getTheModel()).getSpikeOri();
 	}
 	
-	
-	
+	/**
+	 * Sets the shape of the spike depending on its orientation.
+	 * @param ori
+	 * @return a Vector2[] with vectors in a triangular shape
+	 */
 	private Vector2[] setSpikeShape(spikeOrientation ori){
 		Vector2 v1 = new Vector2(-8f/PPM, -10f/PPM); 
 		Vector2 v2 = new Vector2(0.0f/PPM, 10f/PPM);
@@ -78,6 +85,14 @@ public class SpikeController extends EntityController {
 		}
 	}
 	
+	/**
+	 * Rotates 3 vectors and returns their Vector2[].
+	 * @param v1
+	 * @param v2
+	 * @param v3
+	 * @param deg
+	 * @return a Vector2[] with the param vectors rotated
+	 */
 	private Vector2[] spikeVectors(Vector2 v1, Vector2 v2, Vector2 v3, float deg){
 		v1.rotate(deg);
 		v2.rotate(deg);

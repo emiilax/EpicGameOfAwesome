@@ -95,7 +95,6 @@ public class MyContactListener implements ContactListener{
 			contactWithSpike();
 		}
 		
-		//private boolean removeKey = false;
 		if(fa.getUserData() != null && fa.getUserData().equals("key")){
 			
 			System.out.println(fa.getBody().getUserData().toString());

@@ -11,7 +11,11 @@ import model.Variables;
 import controller.EGA;
 import controller.GameStateManager;
 import controller.SaveHandler;
-
+/**
+ * Settings menu class. Extends the Menu class.
+ * @author Hampus Rönström
+ *
+ */
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class SettingsMenu extends Menu { 
