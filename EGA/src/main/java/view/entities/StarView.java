@@ -1,5 +1,7 @@
 package view.entities;
 
+import io.Content;
+
 import java.util.Observable;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -8,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import model.entities.EntityModel;
-import controller.io.Content;
 
 /**
  * The view class for stars. 

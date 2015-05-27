@@ -1,11 +1,12 @@
 package view.entities;
 
+import io.Content;
+
 import java.util.Arrays;
 import java.util.Observable;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import controller.io.Content;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import model.entities.EntityModel;

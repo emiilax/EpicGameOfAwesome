@@ -1,9 +1,12 @@
 package view.entities;
 
+import io.Content;
+
 import java.util.Observable;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import controller.io.Content;
+
 import model.entities.EntityModel;
 
 public class LockedDoorView extends EntityView{

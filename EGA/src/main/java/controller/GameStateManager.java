@@ -1,11 +1,12 @@
 package controller;
 
+import io.Content;
+
 import java.util.EmptyStackException;
 import java.util.Stack;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 
-import controller.io.Content;
 import controller.menus.MainMenu;
 import lombok.Data;
 
