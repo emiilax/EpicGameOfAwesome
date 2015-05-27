@@ -19,6 +19,13 @@ public class KeyView extends EntityView {
 		setTexture();
 	}
 
+	/**
+	 * Method update() updates the EntityModel with current positions
+	 * and calls the render method.
+	 * 
+	 * @param o, Observable
+	 * @param arg, Object 
+	 */
 	public void update(Observable o, Object arg) {
 		if (o instanceof EntityModel) {
 			super.setXPosition(((EntityModel) o).getXPosition());
@@ -27,6 +34,10 @@ public class KeyView extends EntityView {
 		}
 	}
 
+	/**
+	 * Method setTexture() sets the texture and gets the picture
+	 * from an instance from Content.
+	 */
 	public void setTexture (){
 
 		Texture tex;

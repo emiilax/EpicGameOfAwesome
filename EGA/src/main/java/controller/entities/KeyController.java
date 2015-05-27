@@ -17,7 +17,8 @@ import view.entities.KeyView;
 /**
  * 
  * @author Rebecka Reitmaier
- *
+ *	
+ * KeyController, a controller for the key.
  */
 
 public class KeyController extends EntityController{
@@ -28,6 +29,13 @@ public class KeyController extends EntityController{
 	private KeyView kv;
 	private EntityModel em;
 	
+	/**
+	 * This contructor calls the superclasses and initilizes it.
+	 * It also sets the shape and fDef.
+	 * 
+	 * @param em
+	 * @param kv
+	 */
 	public KeyController(EntityModel em, KeyView kv) {
 		super(em, kv);
 		

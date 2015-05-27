@@ -2,8 +2,6 @@ package controller.entities;
 
 import static controller.Variables.PPM;
 import model.entities.EntityModel;
-import view.entities.KeyView;
-import view.entities.LockedDoorView;
 import view.entities.OpenDoorView;
 
 import com.badlogic.gdx.physics.box2d.Body;
@@ -26,6 +24,13 @@ public class OpenDoorController extends EntityController{
 		private OpenDoorView odv;
 		private EntityModel em;
 		
+		/**
+		 * This contructor calls the superclasses and initilizes it.
+		 * It also sets the shape and fDef.
+		 * 
+		 * @param em
+		 * @param odv
+		 */
 		public OpenDoorController(EntityModel em, OpenDoorView odv) {
 			super(em, odv);
 			
