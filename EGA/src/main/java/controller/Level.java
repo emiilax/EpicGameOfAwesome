@@ -3,6 +3,7 @@ package controller;
 import static controller.Variables.PPM;
 import view.LevelRender;
 import view.entities.CharacterView;
+import view.entities.EGATimerView;
 import view.entities.KeyView;
 import view.entities.LockedDoorView;
 import view.entities.OpenDoorView;
@@ -63,6 +64,8 @@ public class Level extends GameState{
 
 	
 	private EGATimer timer;
+	//private EGATimerView timerView;
+	private EGATimerController etc;
 	private boolean doorIsOpen;
 	private boolean isPaused;
 
@@ -116,13 +119,21 @@ public class Level extends GameState{
 		
 		debug = SaveHandler.getGameData().getIsDebug();
 
-		createEntities();
+		
 		// set up box2d cam
 		b2dCam = new OrthographicCamera();
 		b2dCam.setToOrtho(false, EGA.V_WIDTH / PPM, EGA.V_HEIGTH / PPM);
 		//set up the game timer
 		timer = EGATimer.getTimer();
+		etc = new EGATimerController(timer, new EGATimerView());
+		etc.setSpriteBatch(sb);
+
+//		timerView = new EGATimerView();
+//		timerView.setSpriteBatch(sb);
+//		timer.addObserver(timerView);
 		timer.startTimer();
+		
+		createEntities();
 
 
 	}
@@ -249,6 +260,7 @@ public class Level extends GameState{
 	public void createEntities(){
 		createPlayer();
 		createTiles();
+		createTimer();
 		createMapObjects();
 	}
 
@@ -292,6 +304,17 @@ public class Level extends GameState{
 		
 		layer = (TiledMapTileLayer) tiledMap.getLayers().get("platform");
 		createLayer(layer, Variables.BIT_PLATFORM);
+	}
+	
+	public void createTimer(){
+		BodyDef bdef = new BodyDef();
+		bdef.position.set(140  / PPM, (EGA.V_HEIGTH-140) / PPM);
+		bdef.type = BodyType.StaticBody;
+		Body body = world.createBody(bdef);
+
+		etc.setBody(body);
+
+		body.setUserData(etc);
 	}
 
 	public void testCreateLayer(MapLayer layer, short bits){

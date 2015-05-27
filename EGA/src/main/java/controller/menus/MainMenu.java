@@ -69,7 +69,6 @@ public class MainMenu extends Menu{
 		menuItemEndPositions = new Point[menuItems.length];
 		
 		model = new MenuModel();
-		//initModel();
 		updateModel();
 		
 		view = new MenuRender(model);

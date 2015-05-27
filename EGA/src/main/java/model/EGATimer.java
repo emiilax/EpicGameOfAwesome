@@ -2,14 +2,20 @@ package model;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
 
 import javax.swing.Timer;
 
-public class EGATimer implements ActionListener {
+
+public class EGATimer extends Observable implements ActionListener {
+	private float xPosition;
+	private float yPosition;
 	
 	private Timer timer;
 	private static EGATimer myTimer;
 	private float timePassed;
+	
+	private int interval = 0;
 	
 	private EGATimer(){
 		timer = new Timer(10,this);
@@ -35,9 +41,25 @@ public class EGATimer implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		timePassed++;
+		if(interval >= 100){
+			setChanged();
+			notifyObservers();
+			interval =0;
+		}else{
+			interval++;
+		}
+		
 	}
 	
 	public float getTimePassed(){
 		return timePassed/100;
+	}
+
+	public void setPosition(float x, float y) {
+		xPosition = x;
+		yPosition = y;	
+		
+		setChanged();
+		notifyObservers();		
 	}
 }
