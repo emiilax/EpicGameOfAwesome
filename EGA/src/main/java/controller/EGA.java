@@ -82,7 +82,6 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		hudCam = new OrthographicCamera();
 		gsm = new GameStateManager(this);
 		initHashMap();
-
 		theLevel = new MainMenu(gsm);
 		gsm.pushState(theLevel);
 
@@ -247,6 +246,4 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		finishedBgr.put(3,  new Texture("res/menu/lol.jpg"));
 		finishedBgr.put(4,  new Texture("res/menu/lol.jpg"));
 	}
-	
-	
 }

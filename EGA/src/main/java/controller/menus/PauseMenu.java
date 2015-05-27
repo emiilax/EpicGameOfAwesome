@@ -26,16 +26,30 @@ import controller.SaveHandler;
 import controller.Variables;
 import event.EventSupport;
 
+/**
+ * 
+ * @author Emil Axelsson
+ * 
+ * This is the pausemenu that will be shown when 
+ * you pause the game
+ */
 @Data
 public class PauseMenu extends Menu{
-
+	/** The spritebatch where it should draw */
 	private SpriteBatch sb;
+	
+	/** The font for the title*/
 	private BitmapFont titleFont;
+	
+	/** The font for the undertitles*/
 	private BitmapFont font;
+	
+	
 	private GlyphLayout layout = new GlyphLayout();
-
-	public static Texture backgroundTexture;
-	public static Sprite backgroundSprite;
+	
+//	/** The background */
+//	public static Texture backgroundTexture;
+//	public static Sprite backgroundSprite;
 
 	private GameStateManager gsm;
 	private GameState theGame;

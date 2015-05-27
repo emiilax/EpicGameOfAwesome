@@ -10,10 +10,10 @@
   <image source="../key/key-4.png" width="50" height="50"/>
  </tileset>
  <tileset firstgid="4" name="closedDoor" tilewidth="50" tileheight="50">
-  <image source="../door/closedDoor.jpg" width="50" height="50"/>
+  <image source="../door/closedDoor.png" width="50" height="50"/>
  </tileset>
  <tileset firstgid="5" name="openDoor" tilewidth="50" tileheight="50">
-  <image source="../door/openDoor.jpg" width="50" height="50"/>
+  <image source="../door/openDoor.png" width="50" height="50"/>
  </tileset>
  <tileset firstgid="6" name="upSpikes" tilewidth="16" tileheight="21">
   <image source="../tiles/upSpikes_16x21.png" width="64" height="21"/>

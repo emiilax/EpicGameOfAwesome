@@ -112,15 +112,15 @@ public class CharacterController extends EntityController{
 		
 		
 		if(isBig){
-			currentWidth = 20f;
-			currentHeigth = 25f;
+			currentWidth = 30f;
+			currentHeigth = 30f;
 			
 			currentJumpForce = 350;
 			currentSpeed = 1.3f;
 		} else{
-
-			currentWidth = 10f;
-			currentHeigth = 12f;
+			currentWidth = 15f;
+			currentHeigth = 15f;
+			
 			currentJumpForce = 250;
 			currentSpeed = 2f;
 		}
@@ -202,10 +202,6 @@ public class CharacterController extends EntityController{
 		Body playerBody = this.getBody();
 		yVelocity = playerBody.getLinearVelocity().y;
 		playerBody.setLinearVelocity(0, yVelocity);
-	}
-	
-	public void setRender(){
-		
 	}
 
 }
