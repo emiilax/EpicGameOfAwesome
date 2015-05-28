@@ -32,7 +32,7 @@ public class EGATimerController {
 	
 	public void setBody(Body b){
 		body = b;
-		setFixtureDef(100, 100);
+		setFixtureDef(60, 20);
 	}
 	
 	public void setFixtureDef(float width, float heigth){

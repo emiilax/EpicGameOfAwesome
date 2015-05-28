@@ -55,8 +55,8 @@ public class EGATimerView implements Observer {
 		if(render){
 			sb.begin();
 			font.draw(sb, currentTime ,
-					xPosition * Variables.PPM , 
-					yPosition * Variables.PPM);
+					xPosition * Variables.PPM - 60, 
+					yPosition * Variables.PPM + 20);
 			sb.end();
 		}
 		

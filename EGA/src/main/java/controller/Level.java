@@ -119,7 +119,6 @@ public class Level extends GameState{
 		chc.setSpriteBatch(sb);
 		
 		debug = SaveHandler.getGameData().getIsDebug();
-
 		
 		// set up box2d cam
 		b2dCam = new OrthographicCamera();
@@ -128,13 +127,8 @@ public class Level extends GameState{
 		timer = EGATimer.getTimer();
 		etc = new EGATimerController(timer, new EGATimerView());
 		etc.setSpriteBatch(sb);
-
-//		timerView = new EGATimerView();
-//		timerView.setSpriteBatch(sb);
-//		timer.addObserver(timerView);
 		
 		createEntities();
-		
 		timer.startTimer();
 	}
 
@@ -156,7 +150,6 @@ public class Level extends GameState{
 		case MyInput.BUTTON_PAUSE: 
 			if(!isPaused){
 				gsm.pushState(new PauseMenu(gsm));
-				//game.setLevel(m);
 				System.out.println("paus");
 				isPaused = true;
 				timer.stopTimer();
@@ -172,7 +165,6 @@ public class Level extends GameState{
 			gsm.pushState(new PauseMenu(gsm));
 			isPaused = true;
 			timer.stopTimer();
-			//gsm.setState(new MenuState(gsm));
 		break;
 		}
 	}
@@ -310,7 +302,7 @@ public class Level extends GameState{
 	
 	public void createTimer(){
 		BodyDef bdef = new BodyDef();
-		bdef.position.set(140  / PPM, (EGA.V_HEIGTH-140) / PPM);
+		bdef.position.set(80  / PPM, (EGA.V_HEIGTH-60) / PPM);
 		bdef.type = BodyType.StaticBody;
 		Body body = world.createBody(bdef);
 
