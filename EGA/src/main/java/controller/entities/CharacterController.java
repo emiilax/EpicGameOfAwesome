@@ -115,14 +115,14 @@ public class CharacterController extends EntityController{
 		
 		
 		if(isBig){
-			currentWidth = 30f;
-			currentHeigth = 30f;
+			currentWidth = 18;
+			currentHeigth = 25f;
 			
 			currentJumpForce = 350;
 			currentSpeed = 1.3f;
 		} else{
-			currentWidth = 15f;
-			currentHeigth = 15f;
+			currentWidth = 8f;
+			currentHeigth = 13f;
 			
 			currentJumpForce = 250;
 			currentSpeed = 2f;
