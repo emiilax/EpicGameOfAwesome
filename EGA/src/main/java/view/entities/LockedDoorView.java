@@ -28,8 +28,7 @@ public class LockedDoorView extends EntityView{
 			super.setXPosition(((EntityModel) o).getXPosition());
 			super.setYPosition(((EntityModel) o).getYPosition());
 			render();
-		}
-		
+		}	
 	}
 
 	/**
