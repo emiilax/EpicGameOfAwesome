@@ -44,7 +44,6 @@ public class EGATimerView implements Observer {
 
 	public void update(Observable o, Object arg) {
 		if (o instanceof EGATimer) {
-			System.out.println("timer render?");
 			render();
 		}		
 	}
@@ -55,6 +54,7 @@ public class EGATimerView implements Observer {
 			font.draw(sb, "testes" ,
 					xPosition * Variables.PPM / 2, 
 					yPosition * Variables.PPM/ 2);
+			System.out.println("in EGATimerView.render()");
 			sb.end();
 		}
 		

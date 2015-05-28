@@ -131,11 +131,10 @@ public class Level extends GameState{
 //		timerView = new EGATimerView();
 //		timerView.setSpriteBatch(sb);
 //		timer.addObserver(timerView);
-		timer.startTimer();
 		
 		createEntities();
-
-
+		
+		timer.startTimer();
 	}
 
 	public void handleInput(int i) {
@@ -218,6 +217,8 @@ public class Level extends GameState{
 		for(EntityController ec: entities){
 			ec.render();
 		}
+		
+		etc.render();
 	}
 
 

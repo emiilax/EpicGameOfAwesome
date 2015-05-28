@@ -41,14 +41,6 @@ public class EGATimer extends Observable implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		timePassed++;
-		if(interval >= 100){
-			setChanged();
-			notifyObservers();
-			interval =0;
-		}else{
-			interval++;
-		}
-		
 	}
 	
 	public float getTimePassed(){
