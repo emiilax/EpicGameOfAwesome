@@ -2,6 +2,7 @@ package controller;
 
 import static model.Variables.PPM;
 import view.entities.CharacterView;
+import view.entities.EGATimerView;
 import view.entities.KeyView;
 import view.entities.LockedDoorView;
 import view.entities.OpenDoorView;
@@ -11,6 +12,7 @@ import view.renders.LevelRender;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import controller.entities.CharacterController;
+import controller.entities.EGATimerController;
 import controller.entities.EntityController;
 import controller.entities.KeyController;
 import controller.entities.LockedDoorController;
@@ -66,6 +68,8 @@ public class Level extends GameState{
 
 	
 	private EGATimer timer;
+	//private EGATimerView timerView;
+	private EGATimerController etc;
 	private boolean doorIsOpen;
 	private boolean isPaused;
 
@@ -118,16 +122,17 @@ public class Level extends GameState{
 		chc.setSpriteBatch(sb);
 		
 		debug = SaveHandler.getGameData().getIsDebug();
-
-		createEntities();
+		
 		// set up box2d cam
 		b2dCam = new OrthographicCamera();
 		b2dCam.setToOrtho(false, EGA.V_WIDTH / PPM, EGA.V_HEIGTH / PPM);
 		//set up the game timer
 		timer = EGATimer.getTimer();
+		etc = new EGATimerController(timer, new EGATimerView());
+		etc.setSpriteBatch(sb);
+		
+		createEntities();
 		timer.startTimer();
-
-
 	}
 
 	public void handleInput(int i) {
@@ -208,6 +213,8 @@ public class Level extends GameState{
 		for(EntityController ec: entities){
 			ec.render();
 		}
+		
+		etc.render();
 	}
 
 
@@ -250,6 +257,7 @@ public class Level extends GameState{
 	public void createEntities(){
 		createPlayer();
 		createTiles();
+		createTimer();
 		createMapObjects();
 	}
 
@@ -293,6 +301,17 @@ public class Level extends GameState{
 		
 		layer = (TiledMapTileLayer) tiledMap.getLayers().get("platform");
 		createLayer(layer, Variables.BIT_PLATFORM);
+	}
+	
+	public void createTimer(){
+		BodyDef bdef = new BodyDef();
+		bdef.position.set(80  / PPM, (EGA.V_HEIGTH-60) / PPM);
+		bdef.type = BodyType.StaticBody;
+		Body body = world.createBody(bdef);
+
+		etc.setBody(body);
+
+		body.setUserData(etc);
 	}
 
 	public void testCreateLayer(MapLayer layer, short bits){
