@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 
 import javax.swing.Timer;
-
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * A class that handles the timer in the game. Uses singleton pattern.
@@ -15,6 +15,7 @@ import lombok.Data;
  *
  */
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class EGATimer extends Observable implements ActionListener {
 	private float xPosition;
 	private float yPosition;
