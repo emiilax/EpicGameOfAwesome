@@ -8,6 +8,12 @@ import javax.swing.Timer;
 
 import lombok.Data;
 
+/**
+ * A class that handles the timer in the game. Uses singleton pattern.
+ * The time is stored in seconds with two decimals.  
+ * @author Erik
+ *
+ */
 @Data
 public class EGATimer extends Observable implements ActionListener {
 	private float xPosition;
@@ -23,28 +29,47 @@ public class EGATimer extends Observable implements ActionListener {
 		timer = new Timer(10,this);
 	}
 	
+	/**
+	 * If EGATimer has not been initialized, create a new timer.  
+	 * @return The timer
+	 */
 	public static EGATimer getTimer(){
 		if(myTimer == null) myTimer = new EGATimer();
 		return myTimer;
 	}
 	
+	/**
+	 * Starts the timer
+	 */
 	public void startTimer(){
 		timePassed = 0;
 		timer.start();
 	}
 	
+	/**
+	 * Stops the timer
+	 */
 	public void stopTimer(){
 		timer.stop();
 	}
 	
+	/**
+	 * Resumes the timer
+	 */
 	public void resumeTimer(){
 		timer.start();
 	}
-
+	
+	/**
+	 * Called every 10 millisecond add increments the time passed. 
+	 */
 	public void actionPerformed(ActionEvent e) {
 		timePassed++;
 	}
 	
+	/**
+	 * @return Time passed
+	 */
 	public float getTimePassed(){
 		return timePassed/100;
 	}

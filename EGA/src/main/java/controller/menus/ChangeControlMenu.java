@@ -7,33 +7,34 @@ import view.MenuRender;
 import model.GameData;
 import model.MenuModel;
 import model.MyInput;
+import model.Variables;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
+
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import controller.EGA;
-import controller.GameState;
 import controller.GameStateManager;
 import controller.MyInputProcessor;
 import controller.SaveHandler;
-import controller.Variables;
 
+/**
+ * The control class for the menu that handles and shows the buttonmapping for the game. When this
+ * menu is visible it is possible to change the controls used to play and navigate menus.
+ * @author Erik
+ *
+ */
 public class ChangeControlMenu extends Menu{
 
 	private BitmapFont titleFont;
 	private BitmapFont font;
 	private GlyphLayout layout = new GlyphLayout();
 
-	private Sprite backgroundSprite;
-	private Texture backgroundTexture; 
 
 	private String currentButtons[];
 	private boolean changeMode = false;
@@ -43,13 +44,13 @@ public class ChangeControlMenu extends Menu{
 
 	private GameStateManager gsm;
 
-
 	public ChangeControlMenu(GameStateManager gsm){
 		super(gsm);
 		this.gsm = gsm;
 		init();
 	}
 
+	@SuppressWarnings("deprecation")
 
 	private void init(){
 		title = "Settings";
@@ -104,6 +105,10 @@ public class ChangeControlMenu extends Menu{
 		currentItem = 0;
 	}
 
+	/**
+	 * @inherent
+	 * If changemode is active, call the changebutton method instead.
+	 */
 	@Override
 	public void handleInput(int i) {
 		if(!changeMode){
@@ -122,18 +127,20 @@ public class ChangeControlMenu extends Menu{
 			}
 		} else {changeButton();}
 	}
-
+	
+	/**
+	 * Checks what button was previously pressed and what button is currently pressed.
+	 * Changes the mapping of the previously pressed button, if it was a valid button. 
+	 */
 	private void changeButton(){
 		int key = MyInputProcessor.getPressed();
 		List<Integer> keys = gd.getKeysList();
 		if(keys.contains(Keys.valueOf(latestRemoved))){
 			keys.remove(keys.indexOf(Keys.valueOf(latestRemoved)));
 		}
-		System.out.println(currentItem);
 		if(!(keys.contains(key))){
 			switch(currentItem){
 			case 0: gd.up = key;
-			System.out.println(Keys.toString(gd.up));
 			setCurrentButtons(currentItem, Keys.toString(gd.up));
 			break;
 			case 1: gd.down = key; 
@@ -161,6 +168,11 @@ public class ChangeControlMenu extends Menu{
 		}
 	}
 
+	/**
+	 * @inherent
+	 * If anything but the back button was pressed, change the button-part of the selected
+	 * item to "...".
+	 */
 	@Override
 	public void select(){
 		if(currentItem == 7){
@@ -183,7 +195,6 @@ public class ChangeControlMenu extends Menu{
 		view.render(currentItem, cam, false);
 		
 		layout.setText(titleFont, title);
-		float width = layout.width;
 
 		for(int i = 0; i < menuItems.length; i++){
 			if(currentItem == i){
@@ -198,11 +209,9 @@ public class ChangeControlMenu extends Menu{
 			int yPosMenuItem = 450 - 50 *i;
 
 			view.drawFont(menuItems[i], font, xPosMenuItem, yPosMenuItem);
-//			menuItemPositions[i] = new Point(xPosMenuItem,EGA.V_HEIGTH-yPosMenuItem);
-//			menuItemEndPositions[i] = new Point(xPosButton+(int)width, 
-//					EGA.V_HEIGTH-yPosButton+menuFontSize);
-
+			menuItemPositions[i] = new Point(xPosMenuItem,EGA.V_HEIGTH-yPosMenuItem);
 		}
+		model.setMenuItemPositions(menuItemPositions);
 
 		rendered = true;
 	}
@@ -212,11 +221,20 @@ public class ChangeControlMenu extends Menu{
 		super.updateModel();
 		model.setMenuItems(getCurrentButtons());
 	}
-
+	
+	/**
+	 * 
+	 * @return Currently used buttons in string format
+	 */
 	private String[] getCurrentButtons() {
 		return currentButtons;
 	}
-
+	
+	/**
+	 * 
+	 * @param index The index where the button is located in the arrey
+	 * @param key The new button in string format
+	 */
 	private void setCurrentButtons(int index, String key){
 		if(index < currentButtons.length){
 			latestRemoved = currentButtons[index];
@@ -224,7 +242,7 @@ public class ChangeControlMenu extends Menu{
 		}
 		updateModel();
 	}
-
+	
 	private void menuBack(){
 		gsm.popState();	
 	}

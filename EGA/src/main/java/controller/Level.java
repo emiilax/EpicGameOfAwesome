@@ -1,6 +1,6 @@
 package controller;
 
-import static controller.Variables.PPM;
+import static model.Variables.PPM;
 import view.LevelRender;
 import view.entities.CharacterView;
 import view.entities.EGATimerView;
@@ -10,6 +10,7 @@ import view.entities.OpenDoorView;
 import view.entities.SpikeView;
 import view.entities.StarView;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import controller.entities.CharacterController;
 import controller.entities.EGATimerController;
 import controller.entities.EntityController;
@@ -21,6 +22,7 @@ import controller.entities.StarController;
 import model.EGATimer;
 import model.LevelModel;
 import model.MyInput;
+import model.Variables;
 import model.entities.CharacterModel;
 import model.entities.EntityModel;
 import model.entities.SpikeModel;
@@ -47,6 +49,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import controller.menus.PauseMenu;
 
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class Level extends GameState{
 
 	private boolean debug = true;
@@ -101,7 +104,7 @@ public class Level extends GameState{
 		this.gsm = gsm;
 		this.tiledMap = tiledMap;
 		lvlModel = new LevelModel();
-		
+		lvlModel.setDebug(SaveHandler.getGameData().getIsDebug());
 		lvlRender = new LevelRender(lvlModel, sb);
 		
 		doorIsOpen = false;
@@ -178,7 +181,7 @@ public class Level extends GameState{
 	}
 
 	public void update(float dt) {
-		lvlModel.update();
+		lvlModel.setDebug(SaveHandler.getGameData().getIsDebug());
 		
 		if(isPaused){
 			isPaused = false;
@@ -495,9 +498,10 @@ public class Level extends GameState{
 	
 	}
 
-
+	/**
+	 * create spikes in all 4 orientations
+	 */
 	private void createSpikes(){
-		//Create spikes
 		MapLayer layer = tiledMap.getLayers().get("upSpikes");
 		loopEntity(layer, new SpikeController(new SpikeModel(spikeOrientation.UP), new SpikeView()));
 

@@ -7,13 +7,18 @@ import model.EGATimer;
 import model.GameData;
 import model.MenuModel;
 import model.MyInput;
+import model.Variables;
 import controller.EGA;
-import controller.GameState;
 import controller.GameStateManager;
 import controller.Level;
 import controller.SaveHandler;
-import controller.Variables;
 
+/**
+ * A menu that is shown at the end of each completed level. It shows the time passed and let's you
+ * replay the level, go back or move on to the next level.
+ * @author Erik
+ *
+ */
 public class LevelFinished extends Menu{
 
 	private int level;
@@ -57,6 +62,10 @@ public class LevelFinished extends Menu{
 		rendered = false;
 	}
 	
+	/**
+	 * Sets the string which is printed out at the top.
+	 * Checks if the time is a record or not.
+	 */
 	private void setTimeString(){
 		timer = EGATimer.getTimer();
 		Float timePassed = timer.getTimePassed();

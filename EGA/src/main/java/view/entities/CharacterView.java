@@ -1,26 +1,35 @@
 package view.entities;
 
-import java.util.Observable;
-import java.util.Observer;
+import io.Content;
 
-import com.badlogic.gdx.Gdx;
+import java.util.Observable;
+
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import controller.EGA;
-import controller.Variables;
-import controller.io.Content;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import model.entities.CharacterModel;
-import model.entities.EntityModel;
-
-@Data
+/**
+ * 
+ * @author Emil Axelsson
+ * 
+ * The view class for the Character.
+ */
+@Data 
+@EqualsAndHashCode(callSuper=false)
 public class CharacterView extends EntityView{
 	
+	/** Array of texture regions that will be used in animation class*/
 	private TextureRegion[] sprites;
+	
+	/** Boolean shows whether the character is stopped or not*/
 	private boolean isStopped = true;
 	
+	/**
+	 * Sets the texture of the character. Depends on whether its big or small.
+	 * @param isBig, boolean whitch tells if the character is big or not
+	 */
 	public void setTexture(Boolean isBig){
 		if(!isBig){
 			Texture tex;
@@ -35,6 +44,9 @@ public class CharacterView extends EntityView{
 		}
 	}
 	
+	/**
+	 * This method is called when the model has changed
+	 */
 	public void update(Observable o, Object arg) {
 		
 		if(isStopped){

@@ -1,19 +1,32 @@
 package view.entities;
 
+import io.Content;
+
 import java.util.Arrays;
 import java.util.Observable;
+
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import controller.io.Content;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import model.entities.EntityModel;
 import model.entities.SpikeModel.spikeOrientation;
-
+/**
+ * a class that sets the correct texture for a spike and renders it.
+ * @author Hampus Rönström
+ *
+ */
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class SpikeView extends EntityView {
-	
+	/** decides which spike to use from the TextureRegion[] */
 	private int spikeStyle = 1;
 	
-	
+	/**
+	 * sets the texture of a spike. The parameter ori decides which orientation
+	 * the spike has.
+	 * @param ori
+	 */
 	public void setTexture(spikeOrientation ori){
 		TextureRegion[] sprites = getTextureRegion(ori);
 		
@@ -22,6 +35,11 @@ public class SpikeView extends EntityView {
 		
 	}
 	
+	/**
+	 * returns a TextureRegion[] with spikes in the correct orientation.
+	 * @param ori
+	 * @return TextureRegion[]
+	 */
 	private TextureRegion[] getTextureRegion(spikeOrientation ori){
 		switch(ori){
 		case UP:
@@ -37,6 +55,11 @@ public class SpikeView extends EntityView {
 		}
 	}
 
+	/**
+	 * updates the position of the spike with values from the EntityModel.
+	 * @param o
+	 * @param arg
+	 */
 	public void update(Observable o, Object arg) {
 		if(o instanceof EntityModel){		
 			EntityModel em = (EntityModel)o;

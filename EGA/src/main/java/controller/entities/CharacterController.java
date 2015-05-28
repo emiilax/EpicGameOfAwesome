@@ -1,15 +1,17 @@
 package controller.entities;
 
-import static controller.Variables.PPM;
+import static model.Variables.PPM;
+import io.Content;
 import view.entities.CharacterView;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import model.Variables;
 import model.entities.CharacterModel;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import controller.Variables;
-import controller.io.Content;
 
 /**
  * 
@@ -18,6 +20,7 @@ import controller.io.Content;
  * The controller class for the Character. Extends EntityController 
  */
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class CharacterController extends EntityController{
 
 	private PolygonShape shape;
@@ -112,14 +115,14 @@ public class CharacterController extends EntityController{
 		
 		
 		if(isBig){
-			currentWidth = 30f;
-			currentHeigth = 30f;
+			currentWidth = 18;
+			currentHeigth = 25f;
 			
 			currentJumpForce = 350;
 			currentSpeed = 1.3f;
 		} else{
-			currentWidth = 15f;
-			currentHeigth = 15f;
+			currentWidth = 8f;
+			currentHeigth = 13f;
 			
 			currentJumpForce = 250;
 			currentSpeed = 2f;
@@ -202,10 +205,6 @@ public class CharacterController extends EntityController{
 		Body playerBody = this.getBody();
 		yVelocity = playerBody.getLinearVelocity().y;
 		playerBody.setLinearVelocity(0, yVelocity);
-	}
-	
-	public void setRender(){
-		
 	}
 
 }

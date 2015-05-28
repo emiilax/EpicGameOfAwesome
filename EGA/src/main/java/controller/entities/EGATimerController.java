@@ -1,6 +1,6 @@
 package controller.entities;
 
-import static controller.Variables.PPM;
+import static model.Variables.PPM;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;

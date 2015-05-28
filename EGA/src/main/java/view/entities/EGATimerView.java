@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import controller.EGA;
-import controller.Variables;
+import model.Variables;
 
 @Data
 public class EGATimerView implements Observer {

@@ -2,39 +2,25 @@ package controller.menus;
 
 import java.awt.Point;
 
+import com.badlogic.gdx.Gdx;
+
 import view.MenuRender;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import model.MenuModel;
 import model.MyInput;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import model.Variables;
 
 import controller.EGA;
-import controller.GameState;
 import controller.GameStateManager;
 import controller.Level;
 import controller.SaveHandler;
-import controller.Variables;
 
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class MainMenu extends Menu{
 
-	private static Texture backgroundTexture;
 	private GameStateManager gsm;
 	
 	private String subTitle;
@@ -45,7 +31,10 @@ public class MainMenu extends Menu{
 		this.gsm = gsm;
 		init();
 	}
-
+	
+	/**
+	 * Initiates all variables
+	 */
 	private void init(){
 		title = "EGA";
 		subTitle = "Epic Game Of Awesome";
@@ -81,9 +70,9 @@ public class MainMenu extends Menu{
 	protected void updateModel(){
 		super.updateModel();
 		model.setSubTitleFontSize(subTitleFontSize);
-		model.setSubTitle(subTitle);
-		
+		model.setSubTitle(subTitle);	
 	}
+	
 	@Override
 	public void handleInput(int i) {
 		switch(i){
