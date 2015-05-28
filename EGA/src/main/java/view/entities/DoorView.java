@@ -9,20 +9,17 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import model.entities.EntityModel;
 
-/**
- * 
- * @author Rebecka Reitmaier
- *
- */
-public class OpenDoorView extends EntityView{
+public class DoorView extends EntityView{
 	
-	public OpenDoorView(){
+	private Boolean doorIsLocked;
+	
+	public DoorView(){
+		doorIsLocked = true;
 		setTexture();
 	}
-	
 
 	/**
-	 * Method update() updates the EntityModel with current positions
+	 * Updates the EntityModel with current positions
 	 * and calls the render method.
 	 * 
 	 * @param o, Observable
@@ -32,20 +29,39 @@ public class OpenDoorView extends EntityView{
 		if (o instanceof EntityModel) {
 			super.setXPosition(((EntityModel) o).getXPosition());
 			super.setYPosition(((EntityModel) o).getYPosition());
+			setTexture();
 			render();
-		}
-		
+		}	
+	}
+	
+	@Override
+	public void update(float dt){
+		super.update(dt);
+		setTexture();
 	}
 
 	/**
-	 * Method setTexture() sets the texture and gets the picture
+	 * Sets the texture and gets the picture
 	 * from an instance from Content.
 	 */
 	public void setTexture(){
 		Texture tex;
-		tex = Content.getInstance().getTexture("openDoor"); 
+		if(doorIsLocked){
+			tex = Content.getInstance().getTexture("lockedDoor");
+		}else{
+			tex = Content.getInstance().getTexture("openDoor");
+		}
+
 		TextureRegion[] sprites = TextureRegion.split(tex,  50,  50)[0];
 		setAnimation(sprites, 1/ 12f);
+	}
+	
+	public void setDoorIsLocked(Boolean b){
+		doorIsLocked = b;
+		setTexture();
+	}
+	public boolean getDoorIsLocked(){
+		return doorIsLocked;
 	}
 
 }

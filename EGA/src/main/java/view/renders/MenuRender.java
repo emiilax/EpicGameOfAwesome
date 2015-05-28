@@ -160,12 +160,15 @@ public class MenuRender {
 	/**
 	 * A rendermethod used only to loop in matrixes with labels into a
 	 * menu. 
-	 * @author Rebecca, Erik
+	 * @author Rebecka, Erik
 	 * @param currentRow The row which will be marked with red labeltext
 	 * @param currentCol The column which will be marked with red labeltext
 	 * @param cam The camera positions where the text will be rendered
 	 */
 	public void renderMatrix(int currentRow, int currentCol, OrthographicCamera cam) {
+		
+		matrixMenuItems = model.getMatrixMenuItems();
+		
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		cam.update();
