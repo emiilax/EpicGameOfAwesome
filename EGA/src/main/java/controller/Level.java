@@ -4,17 +4,14 @@ import static model.Variables.PPM;
 import view.LevelRender;
 import view.entities.CharacterView;
 import view.entities.KeyView;
-import view.entities.LockedDoorView;
-import view.entities.OpenDoorView;
 import view.entities.SpikeView;
 import view.entities.StarView;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import controller.entities.CharacterController;
+import controller.entities.DoorController;
 import controller.entities.EntityController;
 import controller.entities.KeyController;
-import controller.entities.LockedDoorController;
-import controller.entities.OpenDoorController;
 import controller.entities.SpikeController;
 import controller.entities.StarController;
 import model.EGATimer;
@@ -25,7 +22,6 @@ import model.entities.CharacterModel;
 import model.entities.EntityModel;
 import model.entities.SpikeModel;
 import model.entities.SpikeModel.spikeOrientation;
-
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -44,6 +40,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
+import view.entities.DoorView;
 import controller.menus.PauseMenu;
 
 @Data
@@ -79,15 +76,17 @@ public class Level extends GameState{
 	private KeyController kc;
 	private EntityModel km;
 	private KeyView kv;
+	
+	private Boolean keyIsTaken;
 
 	//MVC Doors
-	private LockedDoorController ldc;
-	private LockedDoorView ldv;
-	private EntityModel ldm;
+	private DoorController doorC; //ldc
+	private DoorView doorV; //ldv
+	private EntityModel doorM;
 
-	private OpenDoorController odc;
-	private OpenDoorView odv;
-	private EntityModel odm;
+//	private OpenDoorController odc;
+//	private OpenDoorView odv;
+//	private EntityModel odm;
 
 	private LevelRender lvlRender;
 	private LevelModel lvlModel;
@@ -100,11 +99,10 @@ public class Level extends GameState{
 		this.gsm = gsm;
 		this.tiledMap = tiledMap;
 		lvlModel = new LevelModel();
-		
 		lvlRender = new LevelRender(lvlModel, sb);
-		
-		doorIsOpen = false;
+		//doorIsOpen = false;
 		isPaused = false;
+		
 		// set up box2d stuff
 		world = new World(new Vector2(0,-9.81f), true);
 		cl = new MyContactListener(this);
@@ -126,8 +124,6 @@ public class Level extends GameState{
 		//set up the game timer
 		timer = EGATimer.getTimer();
 		timer.startTimer();
-
-
 	}
 
 	public void handleInput(int i) {
@@ -177,6 +173,7 @@ public class Level extends GameState{
 
 	public void update(float dt) {
 		lvlModel.update();
+		doorC.update(dt);
 		
 		if(isPaused){
 			isPaused = false;
@@ -221,9 +218,10 @@ public class Level extends GameState{
 				
 				if(b.getUserData() instanceof StarController) collectedStar((StarController)b.getUserData());
 
-				if(b.getUserData() instanceof KeyController) setDoorIsOpen(true);
-
-				if(b.getUserData() instanceof LockedDoorController) createOpenDoor();
+				if(b.getUserData() instanceof KeyController) {
+					getDoorC().setDoorIsLocked(false);
+				}
+				//if(b.getUserData() instanceof DoorController) doorV.setDoorIsLocked(false);;
 
 				entities.removeValue((EntityController)b.getUserData(), true);
 				world.destroyBody(b);
@@ -231,6 +229,8 @@ public class Level extends GameState{
 		}
 		bodies.clear();
 	}
+	
+	
 
 	public void collectedStar(StarController s){
 		if(!s.isBig()){
@@ -258,7 +258,7 @@ public class Level extends GameState{
 		createStars();
 		createSpikes();
 		createKey();
-		createLockedDoor();
+		createDoor();
 	}
 
 	/**
@@ -423,11 +423,11 @@ public class Level extends GameState{
 			if(ec instanceof KeyController){
 				theController = new KeyController(new EntityModel(), new KeyView());
 			}
-			if(ec instanceof OpenDoorController){
-				theController = new OpenDoorController(new EntityModel(), new OpenDoorView());
-			}
-			if(ec instanceof LockedDoorController){
-				theController = new LockedDoorController(new EntityModel(), new LockedDoorView());
+//			if(ec instanceof OpenDoorController){
+//				theController = new OpenDoorController(new EntityModel(), new OpenDoorView());
+//			}
+			if(ec instanceof DoorController){
+				theController = (DoorController)ec;
 			}
 			if(ec instanceof SpikeController){
 				theController = new SpikeController(new SpikeModel(((SpikeController)ec).getSpikeOrientation()), 
@@ -458,23 +458,20 @@ public class Level extends GameState{
 		}
 	}
 
-	private void createLockedDoor(){
+	private void createDoor(){
 
 		MapLayer layer = tiledMap.getLayers().get("lockedDoor");
-		loopEntity(layer, new LockedDoorController(new EntityModel(), new LockedDoorView()));
+		doorM = new EntityModel();
+		doorV = new DoorView();
+		doorC = new DoorController(doorM, doorV);
+		loopEntity(layer, doorC);
 
 	}
-	private void createOpenDoor(){
 
-		MapLayer layer = tiledMap.getLayers().get("openDoor");
-		loopEntity(layer, new OpenDoorController(new EntityModel(), new OpenDoorView()));
-
-	}
 
 	private void createKey(){
 
 		MapLayer layer = tiledMap.getLayers().get("key");
-		
 		loopEntity(layer, new KeyController(new EntityModel(), new KeyView()));
 	
 	}

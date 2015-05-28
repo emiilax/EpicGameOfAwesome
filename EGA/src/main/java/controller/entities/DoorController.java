@@ -3,7 +3,7 @@ package controller.entities;
 import static model.Variables.PPM;
 import model.Variables;
 import model.entities.EntityModel;
-import view.entities.LockedDoorView;
+import view.entities.DoorView;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -15,11 +15,12 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
  *
  */
 
-public class LockedDoorController extends EntityController{
+public class DoorController extends EntityController{
 
 		private PolygonShape shape;
 		private FixtureDef fDef;
 		private EntityModel em;
+		private DoorView dv;
 		
 		/**
 		 * This contructor calls the superclasses and initilizes it.
@@ -28,25 +29,31 @@ public class LockedDoorController extends EntityController{
 		 * @param em
 		 * @param ldv
 		 */
-		public LockedDoorController(EntityModel em, LockedDoorView ldv) {
-			super(em, ldv);
+		public DoorController(EntityModel em, DoorView dv) {
+			super(em, dv);
 			
+			this.dv = dv;
 			shape = new PolygonShape();
 			fDef = new FixtureDef();
 			
 			this.em = em;
 			
 		}	
+		
+		@Override
+		public void update(float dt){
+			dv.update(dt);
+			super.update(dt);
+		}
+		
+		
 		/**
 		 * Sets the body of the door.
 		 */
 		@Override
 		public void setBody(Body body){
 			super.setBody(body);
-			setFixtureDef();
-			em.setPosition(body.getPosition().x, body.getPosition().y);
-
-			
+			em.setPosition(body.getPosition().x, body.getPosition().y);		
 		}
 		
 		/**
@@ -64,8 +71,20 @@ public class LockedDoorController extends EntityController{
 			fDef.filter.categoryBits = Variables.BIT_DOOR;
 			fDef.filter.maskBits = Variables.BIT_PLAYER;
 			
-			setSensor(fDef, "lockedDoor");
-
+			setDoorSensor();
 		}
-
+	
+	public void setDoorSensor(){
+		
+		if(dv.getDoorIsLocked()){
+			setSensor(fDef, "lockedDoor"); 
+		}
+		else{
+			setSensor(fDef, "openDoor");
+		}
+	}
+	public void setDoorIsLocked(Boolean b){
+		dv.setDoorIsLocked(b);
+		setFixtureDef();
+	}
 }
