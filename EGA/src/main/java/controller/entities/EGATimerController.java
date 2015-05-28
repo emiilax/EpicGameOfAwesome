@@ -1,4 +1,4 @@
-package controller;
+package controller.entities;
 
 import static controller.Variables.PPM;
 

@@ -11,6 +11,7 @@ import view.entities.SpikeView;
 import view.entities.StarView;
 import lombok.Data;
 import controller.entities.CharacterController;
+import controller.entities.EGATimerController;
 import controller.entities.EntityController;
 import controller.entities.KeyController;
 import controller.entities.LockedDoorController;

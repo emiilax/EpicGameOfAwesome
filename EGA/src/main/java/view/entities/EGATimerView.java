@@ -20,9 +20,8 @@ import controller.Variables;
 public class EGATimerView implements Observer {
 	private boolean render;
 	private BitmapFont font;
-	private float timePassed;
+	private String currentTime;
 	
-
 	private float xPosition;
 	private float yPosition;
 
@@ -38,13 +37,14 @@ public class EGATimerView implements Observer {
 		FreeTypeFontGenerator gen = new FreeTypeFontGenerator(
 				Gdx.files.internal("res/fonts/orbitron-black.otf")
 				);
-		font = gen.generateFont(150);
+		font = gen.generateFont(50);
 		font.setColor(Color.RED);
 	}
 
 	public void update(Observable o, Object arg) {
 		if (o instanceof EGATimer) {
 			EGATimer et = (EGATimer)o;
+			currentTime = Float.toString(et.getTimePassed());
 			setXPosition(et.getXPosition());
 			setYPosition(et.getYPosition());
 			render();
@@ -54,10 +54,9 @@ public class EGATimerView implements Observer {
 	private void render() {
 		if(render){
 			sb.begin();
-			font.draw(sb, "testes" ,
-					xPosition * Variables.PPM / 2, 
-					yPosition * Variables.PPM/ 2);
-			System.out.println("in EGATimerView.render()");
+			font.draw(sb, currentTime ,
+					xPosition * Variables.PPM , 
+					yPosition * Variables.PPM);
 			sb.end();
 		}
 		
