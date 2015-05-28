@@ -2,18 +2,23 @@ package controller;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import lombok.Data;
 import model.GameData;
 import model.MyInput;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+
 import controller.menus.IMenu;
 import controller.menus.LevelFinished;
 import controller.menus.MainMenu;
+import controller.menus.MenuFactory;
+import controller.menus.PauseMenu;
 import event.EventSupport;
 import event.TheChangeListener;
 import event.TheEvent;
@@ -82,8 +87,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		hudCam = new OrthographicCamera();
 		gsm = new GameStateManager(this);
 		initHashMap();
-		theLevel = new MainMenu(gsm);
-		gsm.pushState(theLevel);
+		gsm.pushState(new MainMenu(gsm));
 
 	}
 	
@@ -195,29 +199,18 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	 * This method is called when there has been an event. 
 	 */
 	public void eventRecieved(TheEvent evt) {
-		if(theLevel instanceof Level){	
-			if(evt.getNameOfEvent().equals("spikehit")){
-				//setLevel(new Level(gsm, gsm.getCurrentTiledMap()));
-			}
-			if(evt.getNameOfEvent().equals("pause")){
-				theLevel.handleInput(MyInput.BUTTON_PAUSE);
-			}
+		if(evt.getNameOfEvent().equals("pause")){
+			
+			gsm.pushState(new PauseMenu(gsm));
+			
+		}else if(evt.getNameOfEvent().equals("finish")){
+			
+			gsm.setState(new PauseMenu(gsm));
+		}else{
+			
+			theLevel.perform(evt);
 		}
-		// gets called on mouse movement and mouse press in menus
-		if(theLevel instanceof IMenu){
-			if(evt.getNameOfEvent().equals("selectMenuItem")){
-				((IMenu) theLevel).select(evt.getX(), evt.getY());
-			}
-			if(evt.getNameOfEvent().equals("currentMenuItem")){
-				((IMenu) theLevel).setCurrentItem(evt.getX(), evt.getY());
-			}
-
-			if(evt.getNameOfEvent().equals("resumegame")){
-				//setLevel(evt.getGame());
-			}
-		}
-
-
+		
 	}
 
 	/**
@@ -236,10 +229,12 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	 * When level is finished this method is called. 
 	 * @param i, the number of the level that have been done.
 	 */
+	/*
 	public void setLevelFinished(int i){
+		
 		LevelFinished state = new LevelFinished(gsm, i);
 		gsm.setState(state);
-	}
+	}*/
 
 	private void initHashMap(){ // this class should be in Content
 		finishedBgr = new HashMap<Integer, Texture>();

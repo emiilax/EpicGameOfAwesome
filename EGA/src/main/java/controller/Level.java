@@ -46,7 +46,10 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
+import controller.menus.LevelFinished;
 import controller.menus.PauseMenu;
+import event.EventSupport;
+import event.TheEvent;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
@@ -152,8 +155,8 @@ public class Level extends GameState{
 		// Pause
 		case MyInput.BUTTON_PAUSE: 
 			if(!isPaused){
-				gsm.pushState(new PauseMenu(gsm));
-				System.out.println("paus");
+				EventSupport.getInstance().fireNewEvent("pause");
+				//gsm.pushState((new MenuFactory()).getMenu("pause", gsm));
 				isPaused = true;
 				timer.stopTimer();
 			}
@@ -165,12 +168,17 @@ public class Level extends GameState{
 		
 		// Pause
 		case MyInput.BUTTON_ESCAPE: 
-			gsm.pushState(new PauseMenu(gsm));
+			EventSupport.getInstance().fireNewEvent("pause");
+
+			//gsm.pushState((new MenuFactory()).getMenu("pause", gsm));
 			isPaused = true;
 			timer.stopTimer();
 		break;
 		}
 	}
+	
+	@Override
+	public void perform(TheEvent evt){}
 
 	public void setIsPaused(boolean b){
 		isPaused = false;

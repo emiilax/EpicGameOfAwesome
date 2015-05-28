@@ -30,6 +30,7 @@ public class GameStateManager {
 		currentLevel = 1;
 	}
 	
+	/*
 	@SuppressWarnings("unused")
 	private GameState getState(int state){
 	
@@ -38,7 +39,7 @@ public class GameStateManager {
 			return new Level(this, Content.getInstance().getTiledMap(currentLevel));
 		}
 		return null;
-	}
+	}*/
 	
 	public void setState(GameState state){
 		gameStates.clear();

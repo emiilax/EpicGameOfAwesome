@@ -12,6 +12,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.utils.Array;
 
+import event.EventSupport;
+
 @Data
 public class MyContactListener implements ContactListener{
 	
@@ -65,12 +67,14 @@ public class MyContactListener implements ContactListener{
 		if(fa.getUserData() != null && fa.getUserData().equals("openDoor")){
 			timer.stopTimer();
 			Content.getInstance().playSound("finish");
-			ega.setLevelFinished(gsm.getCurrentLevel());
+			EventSupport.getInstance().fireNewEvent("finish");
+			//ega.setLevelFinished(gsm.getCurrentLevel());
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("openDoor")){
 			timer.stopTimer();
 			Content.getInstance().playSound("finish");
-			ega.setLevelFinished(gsm.getCurrentLevel());
+			EventSupport.getInstance().fireNewEvent("finish");
+			//ega.setLevelFinished(gsm.getCurrentLevel());
 		}
 		
 		if(fa.getUserData() != null && fa.getUserData().equals("lockedDoor")){

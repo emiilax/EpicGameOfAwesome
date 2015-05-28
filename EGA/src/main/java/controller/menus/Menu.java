@@ -5,6 +5,7 @@ import java.awt.Point;
 import view.renders.MenuRender;
 import controller.GameState;
 import controller.GameStateManager;
+import event.TheEvent;
 import model.MenuModel;
 
 /**
@@ -94,5 +95,15 @@ public abstract class Menu extends GameState implements IMenu {
 	 * Selects what label pressed
 	 */
 	public abstract void select();
+	
+	@Override
+	public void perform(TheEvent evt){
+		if(evt.getNameOfEvent().equals("selectMenuItem")){
+			select(evt.getX(), evt.getY());
+		}
+		if(evt.getNameOfEvent().equals("currentMenuItem")){
+			setCurrentItem(evt.getX(), evt.getY());
+		}
+	};
 
 }

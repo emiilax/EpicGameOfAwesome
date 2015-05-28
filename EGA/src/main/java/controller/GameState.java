@@ -3,6 +3,7 @@ package controller;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import event.TheEvent;
 import lombok.*;
 
 /**
@@ -54,5 +55,8 @@ public abstract class GameState {
 	 * @author Emil, Erik, Hampus, Rebecca
 	 */
 	public abstract void render();
+	
+	
+	public void perform(TheEvent evt){};
 	
 }
