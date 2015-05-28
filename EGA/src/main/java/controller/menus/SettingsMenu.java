@@ -2,7 +2,7 @@ package controller.menus;
 
 import java.awt.Point;
 
-import view.MenuRender;
+import view.renders.MenuRender;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import model.MenuModel;
@@ -13,7 +13,7 @@ import controller.GameStateManager;
 import controller.SaveHandler;
 /**
  * Settings menu class. Extends the Menu class.
- * @author Hampus Rönström
+ * @author Hampus Rï¿½nstrï¿½m
  *
  */
 @Data

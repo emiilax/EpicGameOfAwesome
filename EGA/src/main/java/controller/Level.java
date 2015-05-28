@@ -1,13 +1,13 @@
 package controller;
 
 import static model.Variables.PPM;
-import view.LevelRender;
 import view.entities.CharacterView;
 import view.entities.KeyView;
 import view.entities.LockedDoorView;
 import view.entities.OpenDoorView;
 import view.entities.SpikeView;
 import view.entities.StarView;
+import view.renders.LevelRender;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import controller.entities.CharacterController;

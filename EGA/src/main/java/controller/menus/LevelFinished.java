@@ -2,7 +2,7 @@ package controller.menus;
 
 import java.awt.Point;
 
-import view.MenuRender;
+import view.renders.MenuRender;
 import model.EGATimer;
 import model.GameData;
 import model.MenuModel;

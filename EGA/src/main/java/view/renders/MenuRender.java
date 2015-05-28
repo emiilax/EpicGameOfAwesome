@@ -1,4 +1,4 @@
-package view;
+package view.renders;
 
 import java.awt.Point;
 
