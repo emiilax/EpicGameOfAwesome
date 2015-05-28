@@ -16,7 +16,7 @@ import controller.SaveHandler;
 
 /**
  * A menu that is shown at the end of each completed level. It shows the time passed and let's you
- * replay the level, go back or move on to the next level
+ * replay the level, go back or move on to the next level.
  * @author Erik
  *
  */

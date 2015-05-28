@@ -85,6 +85,7 @@ public class StarController extends EntityController {
 	
 	/**
 	 * Chooses if this star will be rendered or not
+	 * @param b True will render the star, false will not
 	 */
 	public void setRender(boolean b){
 		super.setRender(b);

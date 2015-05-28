@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * A class filled with different variables.
+ * @author Emil
+ *
+ */
 public class Variables {
 	//  pixel per meter ratio
 	public static final float PPM = 100;
