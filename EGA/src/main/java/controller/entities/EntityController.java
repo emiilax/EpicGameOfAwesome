@@ -88,7 +88,7 @@ public abstract class EntityController {
 	 * @param sb, the SpriteBatch
 	 */
 	public void setSpriteBatch(SpriteBatch sb){
-		theView.setSpriteBatch(sb);
+		theView.setSb(sb);
 	};
 	
 	
@@ -111,7 +111,5 @@ public abstract class EntityController {
 		
 	}
 	
-	public void setRender(boolean b){
-		theView.setRender(b);
-	}
+
 }

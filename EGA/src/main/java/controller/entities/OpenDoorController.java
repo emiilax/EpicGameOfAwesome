@@ -1,14 +1,13 @@
 package controller.entities;
 
-import static controller.Variables.PPM;
+import static model.Variables.PPM;
+import model.Variables;
 import model.entities.EntityModel;
 import view.entities.OpenDoorView;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-
-import controller.Variables;
 
 /**
  * 
@@ -21,7 +20,6 @@ public class OpenDoorController extends EntityController{
 		
 		private PolygonShape shape;
 		private FixtureDef fDef;
-		private OpenDoorView odv;
 		private EntityModel em;
 		
 		/**
@@ -57,17 +55,17 @@ public class OpenDoorController extends EntityController{
 		 */
 		public void setFixtureDef(){
 
-			FixtureDef fdef = new FixtureDef();
-			PolygonShape ps = new PolygonShape();
-			ps.setAsBox(25/PPM, 25/PPM);
+			fDef = new FixtureDef();
+			shape = new PolygonShape();
+			shape.setAsBox(25/PPM, 25/PPM);
 
-			fdef.shape = ps;
-			fdef.isSensor = true;
+			fDef.shape = shape;
+			fDef.isSensor = true;
 
-			fdef.filter.categoryBits = Variables.BIT_DOOR;
-			fdef.filter.maskBits = Variables.BIT_PLAYER;
+			fDef.filter.categoryBits = Variables.BIT_DOOR;
+			fDef.filter.maskBits = Variables.BIT_PLAYER;
 			
-			setSensor(fdef, "openDoor");
+			setSensor(fDef, "openDoor");
 
 		}
 

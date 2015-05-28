@@ -3,8 +3,12 @@ package model;
 import java.awt.Point;
 
 import lombok.Data;
-import controller.Variables;
 
+/**
+ * A class used to store all variables in every menu. Contains only get and set methods.
+ * @author Erik
+ *
+ */
 @Data
 public class MenuModel{
 	

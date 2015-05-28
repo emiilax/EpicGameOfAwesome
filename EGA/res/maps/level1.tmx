@@ -1,51 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="32" tileheight="32" nextobjectid="215">
- <tileset firstgid="1" name="whiteblock" tilewidth="32" tileheight="32">
-  <image source="../tiles/whiteblock.png" width="32" height="32"/>
- </tileset>
- <tileset firstgid="2" name="greenblock" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="greenblock" tilewidth="32" tileheight="32">
   <image source="../tiles/greenblock.png" width="32" height="32"/>
  </tileset>
- <tileset firstgid="3" name="brownblock" tilewidth="32" tileheight="32">
+ <tileset firstgid="2" name="brownblock" tilewidth="32" tileheight="32">
   <image source="../tiles/brownblock.png" width="32" height="32"/>
  </tileset>
- <tileset firstgid="4" name="keyTile" tilewidth="50" tileheight="50">
+ <tileset firstgid="3" name="keyTile" tilewidth="50" tileheight="50">
   <image source="../key/key-4.png" width="50" height="50"/>
  </tileset>
- <tileset firstgid="5" name="closedDoor" tilewidth="50" tileheight="50">
-  <image source="../door/closedDoor.jpg" width="50" height="50"/>
- </tileset>
- <tileset firstgid="6" name="openDoor" tilewidth="50" tileheight="50">
-  <image source="../door/openDoor.jpg" width="50" height="50"/>
- </tileset>
- <tileset firstgid="7" name="upSpikes" tilewidth="16" tileheight="21">
+ <tileset firstgid="4" name="upSpikes" tilewidth="16" tileheight="21">
   <image source="../tiles/upSpikes_16x21.png" width="64" height="21"/>
  </tileset>
- <tileset firstgid="11" name="downSpikes" tilewidth="16" tileheight="21">
+ <tileset firstgid="8" name="downSpikes" tilewidth="16" tileheight="21">
   <image source="../tiles/downSpikes_16x21.png" width="64" height="21"/>
  </tileset>
- <tileset firstgid="15" name="rightSpikes" tilewidth="21" tileheight="16">
+ <tileset firstgid="12" name="rightSpikes" tilewidth="21" tileheight="16">
   <image source="../tiles/rightSpikes_21x16.png" width="84" height="16"/>
  </tileset>
- <tileset firstgid="19" name="leftSpikes" tilewidth="21" tileheight="16">
+ <tileset firstgid="16" name="leftSpikes" tilewidth="21" tileheight="16">
   <image source="../tiles/leftSpikes_21x16.png" width="84" height="16"/>
  </tileset>
- <tileset firstgid="23" name="skybackgroundemil2" tilewidth="1280" tileheight="720">
+ <tileset firstgid="20" name="skybackgroundemil2" tilewidth="1280" tileheight="720">
   <image source="../tiles/skybackgroundemil2.jpg" width="1280" height="720"/>
  </tileset>
  <layer name="background" width="40" height="23">
   <data encoding="base64" compression="zlib">
-   eJztzgEJAAAIA7C3sH9TeQoRtgRLAAAAqLkOPLcrIAAY
+   eJztzgEJAAAIA7CHsH9WeQoRtgRLAAAAqLkOPLcnYAAV
   </data>
  </layer>
  <layer name="ground" width="40" height="23">
   <data encoding="base64" compression="zlib">
-   eJztwwEJAAAMA6Cx/qFX4wcFEwAAAD7o8QMoAABR
+   eJztwwEJAAAMA6Ctf+nV+EHBBAAAgA96/AAbMAAp
   </data>
  </layer>
  <layer name="platform" width="40" height="23">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApGwSgYnoAZCx4FIwvgivPBkhawpdHBlFaR3cKMRYxadlCqFxdNDUAN9+FjDzcAAPKoAFU=
+   eJxjYBgFo2AUjIJRMApGwSgYnoAJCx4FIwvgivPBkhawpdHBlFaR3cKERYxadlCqFxdNDUAN9+FjDzcAAKaQADk=
   </data>
  </layer>
  <objectgroup name="stars">
@@ -59,30 +50,30 @@
   </object>
  </objectgroup>
  <objectgroup name="openDoor">
-  <object id="212" gid="6" x="1191" y="675.666"/>
+  <object id="212" x="1191" y="675.666"/>
  </objectgroup>
  <objectgroup name="key">
-  <object id="210" gid="4" x="861.667" y="683.667"/>
+  <object id="210" gid="3" x="861.667" y="683.667"/>
  </objectgroup>
  <objectgroup name="lockedDoor">
-  <object id="211" gid="5" x="1192.34" y="677"/>
+  <object id="211" x="1192.34" y="677"/>
  </objectgroup>
  <objectgroup name="upSpikes">
-  <object id="175" gid="10" x="335.545" y="704.061"/>
-  <object id="180" gid="10" x="351.545" y="704"/>
-  <object id="181" gid="10" x="383.606" y="704.03"/>
-  <object id="182" gid="10" x="367.667" y="704"/>
-  <object id="183" gid="10" x="735.742" y="576.311"/>
-  <object id="191" gid="10" x="399.25" y="704"/>
-  <object id="192" gid="10" x="751.25" y="576"/>
-  <object id="204" gid="10" x="704.977" y="576.637"/>
-  <object id="205" gid="10" x="641.272" y="576.698"/>
-  <object id="206" gid="10" x="657.272" y="576.637"/>
-  <object id="207" gid="10" x="673.394" y="576.637"/>
-  <object id="208" gid="10" x="689.333" y="576.667"/>
-  <object id="209" gid="10" x="720.333" y="576"/>
-  <object id="213" gid="10" x="767" y="576.333"/>
-  <object id="214" gid="10" x="783" y="576"/>
+  <object id="175" gid="7" x="335.545" y="704.061"/>
+  <object id="180" gid="7" x="351.545" y="704"/>
+  <object id="181" gid="7" x="383.606" y="704.03"/>
+  <object id="182" gid="7" x="367.667" y="704"/>
+  <object id="183" gid="7" x="735.742" y="576.311"/>
+  <object id="191" gid="7" x="399.25" y="704"/>
+  <object id="192" gid="7" x="751.25" y="576"/>
+  <object id="204" gid="7" x="704.977" y="576.637"/>
+  <object id="205" gid="7" x="641.272" y="576.698"/>
+  <object id="206" gid="7" x="657.272" y="576.637"/>
+  <object id="207" gid="7" x="673.394" y="576.637"/>
+  <object id="208" gid="7" x="689.333" y="576.667"/>
+  <object id="209" gid="7" x="720.333" y="576"/>
+  <object id="213" gid="7" x="767" y="576.333"/>
+  <object id="214" gid="7" x="783" y="576"/>
  </objectgroup>
  <objectgroup name="leftSpikes"/>
  <objectgroup name="rightSpikes"/>

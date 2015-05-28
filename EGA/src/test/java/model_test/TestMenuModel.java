@@ -3,9 +3,9 @@ package model_test;
 import static org.junit.Assert.*;
 
 import java.awt.Point;
+import java.util.Arrays;
 
 import model.MenuModel;
-import model.entities.EntityModel;
 
 import org.junit.Test;
 
@@ -67,7 +67,7 @@ public class TestMenuModel {
 		pointArray[0]= p;
 		mm.setMenuItemPositions(pointArray);
 		Point [] testArray = mm.getMenuItemPositions();
-		assertTrue(testArray.equals(pointArray) && testArray[0]==pointArray[0]);
+		assertTrue(Arrays.equals(pointArray, testArray) && testArray[0].equals(pointArray[0]));
 	}
 	@Test 
 	public void testMenuItemEndPosition(){
@@ -79,7 +79,7 @@ public class TestMenuModel {
 		pointArray[0]= p;
 		mm.setMenuItemEndPositions(pointArray);
 		Point [] testArray = mm.getMenuItemEndPositions();
-		assertTrue(testArray.equals(pointArray) && testArray[0]==pointArray[0]);
+		assertTrue(Arrays.equals(testArray, pointArray) && testArray[0].equals(pointArray[0]));
 	}
 	
 	@Test 
@@ -89,7 +89,7 @@ public class TestMenuModel {
 		stringArray[0] = "testString";
 		mm.setMenuItems(stringArray);
 		String [] testArray = mm.getMenuItems();
-		assertTrue(testArray.equals(stringArray) && testArray[0]==stringArray[0]);
+		assertTrue(Arrays.equals(testArray, stringArray) && testArray[0].equals(stringArray[0]));
 	}
 	
 	@Test 

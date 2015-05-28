@@ -1,6 +1,7 @@
 package controller;
 
-import static controller.Variables.PPM;
+import static model.Variables.PPM;
+import view.LevelRender;
 import view.entities.CharacterView;
 import view.entities.KeyView;
 import view.entities.LockedDoorView;
@@ -8,6 +9,7 @@ import view.entities.OpenDoorView;
 import view.entities.SpikeView;
 import view.entities.StarView;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import controller.entities.CharacterController;
 import controller.entities.EntityController;
 import controller.entities.KeyController;
@@ -16,15 +18,14 @@ import controller.entities.OpenDoorController;
 import controller.entities.SpikeController;
 import controller.entities.StarController;
 import model.EGATimer;
+import model.LevelModel;
 import model.MyInput;
+import model.Variables;
 import model.entities.CharacterModel;
 import model.entities.EntityModel;
 import model.entities.SpikeModel;
 import model.entities.SpikeModel.spikeOrientation;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -43,10 +44,10 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
-import controller.entities.OpenDoorController;
 import controller.menus.PauseMenu;
 
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class Level extends GameState{
 
 	private boolean debug = true;
@@ -60,17 +61,10 @@ public class Level extends GameState{
 	private OrthogonalTiledMapRenderer tmr;
 	private GameStateManager gsm;
 
-	//Entities
-	private Character player;
-	private Array<StarController> stars;
-	//private Array<IDoor> doors;
-	private Array<LockedDoorController> lockedDoor;
-	private Array<OpenDoorController> openDoor;
-	private Array<SpikeController> spikes;
-	private Array<KeyController> keys;
+	//Array with the entities
 	private Array<EntityController> entities;
 
-	//end Entities 
+	
 	private EGATimer timer;
 	private boolean doorIsOpen;
 	private boolean isPaused;
@@ -95,7 +89,8 @@ public class Level extends GameState{
 	private OpenDoorView odv;
 	private EntityModel odm;
 
-
+	private LevelRender lvlRender;
+	private LevelModel lvlModel;
 
 	//public Level(GameStateManager gsm){
 	public Level(GameStateManager gsm, TiledMap tiledMap){
@@ -104,7 +99,10 @@ public class Level extends GameState{
 
 		this.gsm = gsm;
 		this.tiledMap = tiledMap;
-
+		lvlModel = new LevelModel();
+		
+		lvlRender = new LevelRender(lvlModel, sb);
+		
 		doorIsOpen = false;
 		isPaused = false;
 		// set up box2d stuff
@@ -113,22 +111,11 @@ public class Level extends GameState{
 		world.setContactListener(cl);
 		b2br = new Box2DDebugRenderer();
 
-		stars = new Array<StarController>();
-		//doors = new Array <IDoor>();
-		spikes = new Array<SpikeController>();
-		keys = new Array<KeyController>();
-
 		entities = new Array<EntityController>(); 
 
 		//create controllers for the game and set the spritebatch
 		chc = new CharacterController(new CharacterModel(), new CharacterView());
 		chc.setSpriteBatch(sb);
-		kc = new KeyController(new EntityModel(), new KeyView());
-		kc.setSpriteBatch(sb); 
-		ldc = new LockedDoorController(new EntityModel(), new LockedDoorView());
-		ldc.setSpriteBatch(sb);
-		odc = new OpenDoorController(new EntityModel(), new OpenDoorView());
-		odc.setSpriteBatch(sb);
 		
 		debug = SaveHandler.getGameData().getIsDebug();
 
@@ -141,12 +128,6 @@ public class Level extends GameState{
 		timer.startTimer();
 
 
-	}
-
-	public void toggleDebug(){
-		EGA game = gsm.getGame();
-		game.toggleDebug();
-		debug = game.getDebug(); 
 	}
 
 	public void handleInput(int i) {
@@ -167,7 +148,6 @@ public class Level extends GameState{
 		case MyInput.BUTTON_PAUSE: 
 			if(!isPaused){
 				gsm.pushState(new PauseMenu(gsm));
-				//game.setLevel(m);
 				System.out.println("paus");
 				isPaused = true;
 				timer.stopTimer();
@@ -183,7 +163,6 @@ public class Level extends GameState{
 			gsm.pushState(new PauseMenu(gsm));
 			isPaused = true;
 			timer.stopTimer();
-			//gsm.setState(new MenuState(gsm));
 		break;
 		}
 	}
@@ -197,7 +176,8 @@ public class Level extends GameState{
 	}
 
 	public void update(float dt) {
-		debug = SaveHandler.getGameData().getIsDebug();
+		lvlModel.update();
+		
 		if(isPaused){
 			isPaused = false;
 			resumeTimer();
@@ -210,68 +190,26 @@ public class Level extends GameState{
 			removeEntities();
 
 			//update controllers
-			ldc.update(dt);
-			odc.update(dt);	
 			chc.update(dt);
-			kc.update(dt);
 
 			for(EntityController ec: entities){
 				ec.update(dt);
 			}
-			for(SpikeController s: spikes){
-				s.update(dt);
-			}
-
 		}
 
 	}
 
 	public void render() {
-
-		//clear screen
-		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		// draw tile map
-		tmr.setView(cam);
-		tmr.render();
-
-		// draw player 
-		sb.setProjectionMatrix(cam.combined);
-		//player.render(sb);
-
+		
+		lvlRender.render(cam, tmr, world, b2br, b2dCam);
+		
 		chc.render();
-		//kc.render();
 
 		for(EntityController ec: entities){
 			ec.render();
 		}
-
-		if(debug){
-			b2br.render(world, b2dCam.combined);
-		}
-
 	}
 
-	public void resetLevel(){
-		createMapObjects();
-	}
-
-	public void renderNewLevel(int Level){
-
-		createPlayer();
-
-		createTiles();
-
-		createStars();
-
-		createLockedDoor();
-
-		createSpikes();
-
-		createKey();
-
-		//createEntities(); 
-	}
 
 	public void dispose() {}
 
@@ -280,8 +218,7 @@ public class Level extends GameState{
 
 		if(bodies.size >0){
 			for(Body b: bodies){
-				//entities.removeValue((EntityController)b.getUserData(), true);
-
+				
 				if(b.getUserData() instanceof StarController) collectedStar((StarController)b.getUserData());
 
 				if(b.getUserData() instanceof KeyController) setDoorIsOpen(true);
@@ -308,24 +245,6 @@ public class Level extends GameState{
 	}
 
 
-
-
-//	public void removeDoors(){
-//		Array<Body> bodies = cl.getDoorsToRemove();
-//
-//		if(bodies.size > 0 && doorIsOpen){
-//			for(int i = 0; i < bodies.size; i++){
-//				Body b = bodies.get(i);
-//				doors.removeValue( (IDoor) b.getUserData(), true); 
-//				world.destroyBody(b);
-//
-//				EGA.res.getSound("unlock").play();
-//				createOpenDoor();
-//
-//			}
-//		}
-//		bodies.clear();
-//	}
 
 	// 	CREATE METHODS --------------------------------------------------------------
 	public void createEntities(){
@@ -354,7 +273,7 @@ public class Level extends GameState{
 
 		chc.setBody(body);
 
-		body.setUserData(player);
+		body.setUserData(chc);
 	}
 
 	/**
@@ -542,32 +461,28 @@ public class Level extends GameState{
 	private void createLockedDoor(){
 
 		MapLayer layer = tiledMap.getLayers().get("lockedDoor");
-		Body body = createBody(layer.getObjects().get(0));
-		body.setUserData(ldc);
-		ldc.setBody(body);
-		entities.add(ldc);
+		loopEntity(layer, new LockedDoorController(new EntityModel(), new LockedDoorView()));
+
 	}
 	private void createOpenDoor(){
 
 		MapLayer layer = tiledMap.getLayers().get("openDoor");
-		Body body = createBody(layer.getObjects().get(0));
-		body.setUserData(odc);
-		odc.setBody(body);
-		entities.add(odc);
+		loopEntity(layer, new OpenDoorController(new EntityModel(), new OpenDoorView()));
+
 	}
 
 	private void createKey(){
 
 		MapLayer layer = tiledMap.getLayers().get("key");
-		Body body = createBody(layer.getObjects().get(0));
-		body.setUserData(kc);
-		kc.setBody(body);
-		entities.add(kc);
+		
+		loopEntity(layer, new KeyController(new EntityModel(), new KeyView()));
+	
 	}
 
-
+	/**
+	 * create spikes in all 4 orientations
+	 */
 	private void createSpikes(){
-		//Create spikes
 		MapLayer layer = tiledMap.getLayers().get("upSpikes");
 		loopEntity(layer, new SpikeController(new SpikeModel(spikeOrientation.UP), new SpikeView()));
 
@@ -601,7 +516,7 @@ public class Level extends GameState{
 		Body body = world.createBody(bdef);
 
 		chc.setBody(body);
-		body.setUserData(player);
+		body.setUserData(chc);
 	}
 
 	private void setDoorIsOpen(boolean b){
