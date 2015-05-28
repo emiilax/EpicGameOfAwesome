@@ -123,7 +123,11 @@ public class ChangeControlMenu extends Menu{
 			} else if (i == MyInput.BUTTON_ENTER) { 
 				select();
 			}
-		} else {changeButton();}
+		} else {
+			MyInputProcessor.setActive(false);
+			changeButton();
+			MyInputProcessor.setActive(true);
+		}
 	}
 	
 	/**
