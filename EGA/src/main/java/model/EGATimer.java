@@ -6,7 +6,9 @@ import java.util.Observable;
 
 import javax.swing.Timer;
 
+import lombok.Data;
 
+@Data
 public class EGATimer extends Observable implements ActionListener {
 	private float xPosition;
 	private float yPosition;

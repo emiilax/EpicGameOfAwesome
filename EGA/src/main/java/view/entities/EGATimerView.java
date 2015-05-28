@@ -44,6 +44,9 @@ public class EGATimerView implements Observer {
 
 	public void update(Observable o, Object arg) {
 		if (o instanceof EGATimer) {
+			EGATimer et = (EGATimer)o;
+			setXPosition(et.getXPosition());
+			setYPosition(et.getYPosition());
 			render();
 		}		
 	}
