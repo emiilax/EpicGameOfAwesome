@@ -3,7 +3,7 @@ package controller.menus;
 import java.awt.Point;
 import java.util.List;
 
-import view.MenuRender;
+import view.renders.MenuRender;
 import model.GameData;
 import model.MenuModel;
 import model.MyInput;
@@ -12,10 +12,8 @@ import model.Variables;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
-
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import controller.EGA;

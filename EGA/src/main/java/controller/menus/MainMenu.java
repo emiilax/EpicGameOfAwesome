@@ -4,14 +4,12 @@ import java.awt.Point;
 
 import com.badlogic.gdx.Gdx;
 
-import view.MenuRender;
+import view.renders.MenuRender;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import model.MenuModel;
 import model.MyInput;
-
 import model.Variables;
-
 import controller.EGA;
 import controller.GameStateManager;
 import controller.Level;

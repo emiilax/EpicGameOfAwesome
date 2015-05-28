@@ -2,13 +2,13 @@ package controller.menus;
 
 import java.awt.Point;
 
-import view.MenuRender;
+import view.renders.MenuRender;
 import controller.GameState;
 import controller.GameStateManager;
 import model.MenuModel;
 
 /**
- * @author Hampus Rönström
+ * @author Hampus Rï¿½nstrï¿½m
  *
  * Abstract class which all menu classes extend. Implements the IMenu interface.
  * Contains methods which work with the general menus. Exceptions are for example

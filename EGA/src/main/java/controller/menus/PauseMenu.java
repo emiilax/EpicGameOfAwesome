@@ -2,7 +2,7 @@ package controller.menus;
 
 import java.awt.Point;
 
-import view.MenuRender;
+import view.renders.MenuRender;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import model.MenuModel;

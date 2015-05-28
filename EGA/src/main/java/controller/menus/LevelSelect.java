@@ -2,7 +2,7 @@ package controller.menus;
 
 import java.awt.Point;
 
-import view.MenuRender;
+import view.renders.MenuRender;
 import model.MenuModel;
 import model.MyInput;
 import model.Variables;
