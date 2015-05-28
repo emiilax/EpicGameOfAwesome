@@ -7,8 +7,9 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
+
 import model.Variables;
-import model.entities.EntityModel;
+
 import model.entities.SpikeModel;
 import model.entities.SpikeModel.spikeOrientation;
 import view.entities.SpikeView;
@@ -18,11 +19,7 @@ public class SpikeController extends EntityController {
 	private PolygonShape shape;
 	private FixtureDef fDef;
 	
-	//private spikeOrientation currentOri;
-
-	/*public SpikeController(SpikeModel em, SpikeView sv) {
-		this(em, sv, sv.getSpikeOr());
-	} */
+	
 	
 	public SpikeController(SpikeModel em, SpikeView sv){
 		super(em, sv);
@@ -42,6 +39,10 @@ public class SpikeController extends EntityController {
 		setFixtureDef();
 	}
 
+	/**
+	 * Set the fixture and shape. Also sets which other fixtures this should
+	 * interact with on collision.
+	 */
 	public void setFixtureDef(){
 		fDef = new FixtureDef();
 		shape = new PolygonShape();
@@ -61,8 +62,11 @@ public class SpikeController extends EntityController {
 		return ((SpikeModel)super.getTheModel()).getSpikeOri();
 	}
 	
-	
-	
+	/**
+	 * Sets the shape of the spike depending on its orientation.
+	 * @param ori
+	 * @return a Vector2[] with vectors in a triangular shape
+	 */
 	private Vector2[] setSpikeShape(spikeOrientation ori){
 		Vector2 v1 = new Vector2(-8f/PPM, -10f/PPM); 
 		Vector2 v2 = new Vector2(0.0f/PPM, 10f/PPM);
@@ -81,6 +85,14 @@ public class SpikeController extends EntityController {
 		}
 	}
 	
+	/**
+	 * Rotates 3 vectors and returns their Vector2[].
+	 * @param v1
+	 * @param v2
+	 * @param v3
+	 * @param deg
+	 * @return a Vector2[] with the param vectors rotated
+	 */
 	private Vector2[] spikeVectors(Vector2 v1, Vector2 v2, Vector2 v3, float deg){
 		v1.rotate(deg);
 		v2.rotate(deg);

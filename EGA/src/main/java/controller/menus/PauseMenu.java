@@ -4,27 +4,19 @@ import java.awt.Point;
 
 import view.MenuRender;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import model.MenuModel;
 import model.MyInput;
 import model.Variables;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.scenes.scene2d.Event;
 
 import controller.EGA;
-import controller.GameState;
 import controller.GameStateManager;
 import controller.Level;
 import controller.SaveHandler;
-import event.EventSupport;
+
 
 /**
  * 
@@ -34,6 +26,7 @@ import event.EventSupport;
  * you pause the game
  */
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class PauseMenu extends Menu{
 	/** The spritebatch where it should draw */
 	private SpriteBatch sb;
@@ -44,22 +37,24 @@ public class PauseMenu extends Menu{
 	/** The font for the undertitles*/
 	private BitmapFont font;
 	
-	
-	private GlyphLayout layout = new GlyphLayout();
-	
-//	/** The background */
-//	public static Texture backgroundTexture;
-//	public static Sprite backgroundSprite;
-
+	/** The gamestate manager*/
 	private GameStateManager gsm;
-	private GameState theGame;
-
+	
+	/** 
+	 * Constructor, sets up the necassary parts for the 
+	 * pause menu
+	 * @param gsm, the GameStateManager
+	 */
 	public PauseMenu(GameStateManager gsm) {
 		super(gsm);
 		this.gsm = gsm;
 		init();
 	}
-
+	
+	/**
+	 * Initiate the text that should be shown.
+	 * Also sets up the model- and view- class
+	 */
 	private void init(){
 		sb = new SpriteBatch();
 		title = "Pause";		
@@ -88,6 +83,9 @@ public class PauseMenu extends Menu{
 		rendered = false;
 	}
 	
+	/** 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void handleInput(int i) {
 		switch(i){
@@ -111,7 +109,10 @@ public class PauseMenu extends Menu{
 			break;
 		}	
 	}
-
+	
+	/** 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void select(){
 		if (currentItem == 0){
@@ -133,11 +134,17 @@ public class PauseMenu extends Menu{
 		}
 	}
 	
+	/**
+	 * Remove the menu from the stack and the game will now
+	 * be the peek of the stack. 
+	 */
 	public void unpauseTheGame(){
 		gsm.popState();
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public void update(float dt) {
-		//handleInput();
-	}
+	public void update(float dt) {}
 }

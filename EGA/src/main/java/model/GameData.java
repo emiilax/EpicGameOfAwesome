@@ -15,6 +15,7 @@ import lombok.Data;
  * @author Erik Karlkvist
  *
  */
+@SuppressWarnings("serial")
 @Data
 public class GameData implements Serializable {
 

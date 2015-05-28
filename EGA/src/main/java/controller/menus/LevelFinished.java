@@ -9,7 +9,6 @@ import model.MenuModel;
 import model.MyInput;
 import model.Variables;
 import controller.EGA;
-import controller.GameState;
 import controller.GameStateManager;
 import controller.Level;
 import controller.SaveHandler;

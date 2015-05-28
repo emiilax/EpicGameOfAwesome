@@ -3,14 +3,11 @@ package controller.entities;
 import static model.Variables.PPM;
 import model.Variables;
 import model.entities.EntityModel;
-import view.entities.SpikeView;
 import view.entities.StarView;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 
 /**
@@ -81,13 +78,5 @@ public class StarController extends EntityController {
 	 */
 	public boolean isBig(){
 		return isBig;
-	}
-	
-	/**
-	 * Chooses if this star will be rendered or not
-	 * @param b True will render the star, false will not
-	 */
-	public void setRender(boolean b){
-		super.setRender(b);
 	}
 }

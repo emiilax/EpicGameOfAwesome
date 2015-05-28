@@ -4,15 +4,20 @@ import java.awt.Point;
 
 import view.MenuRender;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import model.MenuModel;
 import model.MyInput;
 import model.Variables;
 import controller.EGA;
-import controller.GameState;
 import controller.GameStateManager;
 import controller.SaveHandler;
-
+/**
+ * Settings menu class. Extends the Menu class.
+ * @author Hampus Rönström
+ *
+ */
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class SettingsMenu extends Menu { 
 	private String debugStatus;
 

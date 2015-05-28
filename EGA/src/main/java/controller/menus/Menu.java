@@ -29,8 +29,15 @@ public abstract class Menu extends GameState implements IMenu {
 		super(gsm);
 	}
 	
+	/**
+	 * handles key input. Needs to be implement in every class that extends this class.
+	 */
 	public abstract void handleInput(int i);
 
+	/**
+	 * Gets called on mouse press. Selects the current item if the mous press
+	 * is at the same position as the item.
+	 */
 	public void select(int x, int y) {
 		menuItemPositions = model.getMenuItemPositions();
 		menuItemEndPositions = model.getMenuItemEndPositions();
@@ -65,6 +72,10 @@ public abstract class Menu extends GameState implements IMenu {
 		model.setYPos(yPos);
 	}
 
+	/**
+	 * Gets called on mouse move. Updates the current item if the position
+	 * of the mouse is at the same position as an item.
+	 */
 	public void setCurrentItem(int x, int y) {
 		menuItemPositions = model.getMenuItemPositions();
 		menuItemEndPositions = model.getMenuItemEndPositions();

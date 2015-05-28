@@ -8,6 +8,7 @@ package model;
 public class Variables {
 	//  pixel per meter ratio
 	public static final float PPM = 100;
+	/** size of text in menus */
 	public static final int menuItemX = 365;
 	public static final int mainMenuTitleSize = 150;
 	public static final int subMenuTitleSize = 80;

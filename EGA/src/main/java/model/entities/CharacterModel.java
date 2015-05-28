@@ -1,23 +1,25 @@
 package model.entities;
 
-import java.util.Observable;
 
-import view.entities.CharacterView;
 import lombok.*;
 
-
+/**
+ * 
+ * @author Emil Axelsson
+ * 
+ * The model class for the character 
+ */
 public class CharacterModel extends EntityModel {
 	
+	/** The x-velocity */
 	@Setter @Getter private float xVelocity;
+	
+	/** The x-velocity */
 	@Setter @Getter private float yVelocity;
-	
-	@Setter @Getter private float speed;
-	@Setter @Getter private float force;
-	
-	@Setter @Getter private boolean isBig;
 	
 	public CharacterModel(){}
 	
+	/** Sets the current velocity and notify observers*/
 	public void setVelocity(float xVel, float yVel){
 		xVelocity = xVel;
 		yVelocity = yVel;

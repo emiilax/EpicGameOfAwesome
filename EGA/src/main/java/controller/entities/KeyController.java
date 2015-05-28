@@ -2,16 +2,12 @@ package controller.entities;
 
 import static model.Variables.PPM;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 import model.Variables;
 import model.entities.EntityModel;
-import view.entities.EntityView;
 import view.entities.KeyView;
 
 /**
@@ -26,7 +22,6 @@ public class KeyController extends EntityController{
 	private PolygonShape shape;
 	private FixtureDef fDef;
 	private boolean keyIsTaken;
-	private KeyView kv;
 	private EntityModel em;
 	
 	/**

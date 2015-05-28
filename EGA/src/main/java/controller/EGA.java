@@ -119,13 +119,21 @@ public class EGA implements ApplicationListener, TheChangeListener{
 
 	}
 	
+	/**
+	 * Sets the current level and resets the keys clicked.
+	 * 
+	 * @param gs, the cuurrent gamestate
+	 */
 	public void setTheState(GameState gs){
 		MyInput.setAllKeysFalse();
 		theLevel = gs;
 	}
-
+	
 	/**
-	 * Handles the input from the user
+	 * Handles the input from the user.
+	 * The method will process the input differently,
+	 * depending on whether its a level or menu that is
+	 * the current state. 
 	 */
 	public void handleInput() {
 
@@ -176,12 +184,16 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			theLevel.handleInput(-2);
 		}
 	}
-
+	
+	// Unused methods that belongs to ApplicationListener
 	public void dispose() {}
 	public void resize(int arg0, int arg1) {}
 	public void resume() {}
 	public void pause() {}
-
+	
+	/**
+	 * This method is called when there has been an event. 
+	 */
 	public void eventRecieved(TheEvent evt) {
 		if(theLevel instanceof Level){	
 			if(evt.getNameOfEvent().equals("spikehit")){
@@ -191,6 +203,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 				theLevel.handleInput(MyInput.BUTTON_PAUSE);
 			}
 		}
+		// gets called on mouse movement and mouse press in menus
 		if(theLevel instanceof IMenu){
 			if(evt.getNameOfEvent().equals("selectMenuItem")){
 				((IMenu) theLevel).select(evt.getX(), evt.getY());
@@ -218,7 +231,11 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	public TiledMap getTiledMap(int i){
 		return maps.get(i);
 	}
-
+	
+	/**
+	 * When level is finished this method is called. 
+	 * @param i, the number of the level that have been done.
+	 */
 	public void setLevelFinished(int i){
 		LevelFinished state = new LevelFinished(gsm, i);
 		gsm.setState(state);

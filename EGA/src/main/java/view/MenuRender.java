@@ -52,8 +52,9 @@ public class MenuRender {
 		this.model = model;
 		init();
 	}
-	
-	
+
+	@SuppressWarnings("deprecation")
+
 	/**
 	 * Initiates all variables. Generates the font from the font file. 
 	 */

@@ -7,22 +7,35 @@ import model.Variables;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.utils.Array;
+
+
+/**
+ * 
+ * @author Emil Axelsson
+ *
+ *Super class for all the view classes for the entities.
+ */
+
+
 
 @Data
 public abstract class EntityView implements Observer {
 	
+	/** The animation */
 	private Animation animation;
+	
+	/** The width of every texture region frame */
 	private float width;
+	
+	/** The heigth of every texture region frame */
 	private float height;
 	
-	private boolean render;
-
+	/** The x-position of the entity body */
 	private float xPosition;
+	/** The y-position of the entity body */
 	private float yPosition;
 	
+	/** The spritebatch where it should draw */ 
 	private SpriteBatch sb;
 	
 	/**
@@ -34,7 +47,6 @@ public abstract class EntityView implements Observer {
 	 */
 	public EntityView(){
 		animation = new Animation();
-		render = true;
 	}
 	
 	/**
@@ -53,7 +65,7 @@ public abstract class EntityView implements Observer {
 	 * @param dt, 
 	 */
 	public void update(float dt){
-		animation.updtate(dt);
+		animation.update(dt);
 	}
 	
 	/**
@@ -63,22 +75,14 @@ public abstract class EntityView implements Observer {
 	 * @param sb, where it should draw
 	 */
 	public void render(){
-		if(render){
-			sb.begin();
-			sb.draw(animation.getFrame(), 
-					xPosition * Variables.PPM - width / 2,
-					 yPosition * Variables.PPM - height / 2);
-			sb.end();
-		}
+		sb.begin();
+		sb.draw(animation.getFrame(), 
+				xPosition * Variables.PPM - width / 2,
+				 yPosition * Variables.PPM - height / 2);
+		sb.end();
+		
 		
 	}
 	
-	/**
-	 * Sets a new spritebach
-	 * @param sb The new SpriteBatch
-	 */
-	public void setSpriteBatch(SpriteBatch sb){
-		this.sb = sb;
-	}
 	
 }

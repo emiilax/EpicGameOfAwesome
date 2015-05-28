@@ -2,7 +2,6 @@ package event;
 
 import java.util.EventObject;
 
-import controller.GameState;
 import lombok.*;
 
 /**
@@ -11,7 +10,9 @@ import lombok.*;
  * 
  * Class for the event that will be fired in EventSupport.
  */
+@SuppressWarnings("serial")
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class TheEvent extends EventObject {
 	
 	/** Instacevariable that contains the name of event */

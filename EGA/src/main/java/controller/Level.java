@@ -9,6 +9,7 @@ import view.entities.OpenDoorView;
 import view.entities.SpikeView;
 import view.entities.StarView;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import controller.entities.CharacterController;
 import controller.entities.EntityController;
 import controller.entities.KeyController;
@@ -46,6 +47,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import controller.menus.PauseMenu;
 
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class Level extends GameState{
 
 	private boolean debug = true;
@@ -146,7 +148,6 @@ public class Level extends GameState{
 		case MyInput.BUTTON_PAUSE: 
 			if(!isPaused){
 				gsm.pushState(new PauseMenu(gsm));
-				//game.setLevel(m);
 				System.out.println("paus");
 				isPaused = true;
 				timer.stopTimer();
@@ -162,7 +163,6 @@ public class Level extends GameState{
 			gsm.pushState(new PauseMenu(gsm));
 			isPaused = true;
 			timer.stopTimer();
-			//gsm.setState(new MenuState(gsm));
 		break;
 		}
 	}
@@ -479,9 +479,10 @@ public class Level extends GameState{
 	
 	}
 
-
+	/**
+	 * create spikes in all 4 orientations
+	 */
 	private void createSpikes(){
-		//Create spikes
 		MapLayer layer = tiledMap.getLayers().get("upSpikes");
 		loopEntity(layer, new SpikeController(new SpikeModel(spikeOrientation.UP), new SpikeView()));
 
