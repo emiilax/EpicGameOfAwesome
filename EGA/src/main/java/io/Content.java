@@ -92,8 +92,8 @@ public class Content {
 	 */
 	private void loadImages(){
 		loadTexture("res/stars/star.png", "star");
-		loadTexture("res/characters/smallCharacter_test.png", "smallplayer");
-		loadTexture("res/characters/bigCharacter_test.png", "bigPlayer");
+		loadTexture("res/characters/smallCharacter_test1.png", "smallplayer");
+		loadTexture("res/characters/bigCharacter_test1.png", "bigPlayer");
 		loadTexture("res/stars/bigBigStar.png", "bigStar");
 		loadTexture("res/door/openDoor.png", "openDoor");
 		loadTexture("res/door/closedDoor.png", "lockedDoor");

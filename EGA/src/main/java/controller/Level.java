@@ -100,7 +100,7 @@ public class Level extends GameState{
 		this.gsm = gsm;
 		this.tiledMap = tiledMap;
 		lvlModel = new LevelModel();
-		
+		lvlModel.setDebug(SaveHandler.getGameData().getIsDebug());
 		lvlRender = new LevelRender(lvlModel, sb);
 		
 		doorIsOpen = false;
@@ -178,7 +178,7 @@ public class Level extends GameState{
 	}
 
 	public void update(float dt) {
-		lvlModel.update();
+		lvlModel.setDebug(SaveHandler.getGameData().getIsDebug());
 		
 		if(isPaused){
 			isPaused = false;
