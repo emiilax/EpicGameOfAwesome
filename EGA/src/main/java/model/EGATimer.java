@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 
 import javax.swing.Timer;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

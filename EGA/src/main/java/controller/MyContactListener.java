@@ -77,20 +77,6 @@ public class MyContactListener implements ContactListener{
 			//ega.setLevelFinished(gsm.getCurrentLevel());
 		}
 		
-		if(fa.getUserData() != null && fa.getUserData().equals("lockedDoor")){
-			if(lvl.getDoorIsOpen() == true){
-				bodiesToRemove.add(fa.getBody());
-			}
-
-			
-		}
-		if(fb.getUserData() != null && fb.getUserData().equals("lockedDoor")){
-			if(lvl.getDoorIsOpen() == true){
-				bodiesToRemove.add(fb.getBody());
-			}
-		
-		}
-		
 		if(fa.getUserData() != null && fa.getUserData().equals("spike")){
 			contactWithSpike();
 		}
@@ -100,16 +86,13 @@ public class MyContactListener implements ContactListener{
 		}
 		
 		if(fa.getUserData() != null && fa.getUserData().equals("key")){
-			
-			System.out.println(fa.getBody().getUserData().toString());
 			bodiesToRemove.add(fa.getBody());
+			Content.getInstance().playSound("collectkey");
 		
 			
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("key")){
-			
 			bodiesToRemove.add(fb.getBody());
-		
 			Content.getInstance().playSound("collectkey");
 			
 		}
