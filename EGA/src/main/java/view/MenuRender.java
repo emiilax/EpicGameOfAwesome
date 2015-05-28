@@ -166,6 +166,9 @@ public class MenuRender {
 	 * @param cam The camera positions where the text will be rendered
 	 */
 	public void renderMatrix(int currentRow, int currentCol, OrthographicCamera cam) {
+		
+		matrixMenuItems = model.getMatrixMenuItems();
+		
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		cam.update();

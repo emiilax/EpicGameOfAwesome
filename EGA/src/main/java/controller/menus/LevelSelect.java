@@ -21,7 +21,7 @@ import controller.SaveHandler;
  */
 
 public class LevelSelect extends Menu {
-	
+
 	private int currentRow = 0;
 	private int currentCol = 0;
 
@@ -33,6 +33,7 @@ public class LevelSelect extends Menu {
 	private GameStateManager gsm;
 	private MenuModel model;
 	private MenuRender view;
+	private int currentlyVisible = 0;
 
 	/**
 	 * LevelSelect constructor calls the superclass and initializes it
@@ -55,7 +56,7 @@ public class LevelSelect extends Menu {
 		gap = 70;
 		xPos = (int)(EGA.V_WIDTH - Variables.menuItemX) / 2;
 		yPos = 450;
-		
+
 		menuItems = new String[][]{
 				{"Level 1", "Level 2", "Level 3"}, //row 0 
 				{"Level 4", "Level 5", "Level 6"}, //row 1
@@ -69,12 +70,12 @@ public class LevelSelect extends Menu {
 
 		menuItemPositions = new Point[menuItems.length][menuItems[0].length];
 		menuItemEndPositions = new Point[menuItems.length][menuItems[0].length];
-		
+
 		model = new MenuModel();
 		updateModel();
-		
+
 		view = new MenuRender(model);
-		
+
 		rendered = false;
 	}
 
@@ -93,41 +94,78 @@ public class LevelSelect extends Menu {
 	 */
 	@Override
 	public void select(){
-		String element = menuItems[currentRow][currentCol];
-		if(element == "Level 1"){
-			gsm.setState(new Level(gsm, gsm.getLevel(1)));
-			gsm.setCurrentLevel(1);
+		int levelIndex = 0;
+		if(currentlyVisible == 0){
+			levelIndex = 0;
+		} else if (currentlyVisible == 1){
+			levelIndex = 6;
 		}
-		if(element == "Level 2"){
-			gsm.setState(new Level(gsm, gsm.getLevel(2)));
-			gsm.setCurrentLevel(2);
+		if(currentRow == 0){
+			if(currentCol == 0){
+				gsm.setState(new Level(gsm, gsm.getLevel(levelIndex+1)));
+				gsm.setCurrentLevel(1);
+			}
+			if(currentCol == 1){
+				gsm.setState(new Level(gsm, gsm.getLevel(levelIndex+2)));
+				gsm.setCurrentLevel(2);
+			}
+			if(currentCol == 2){
+				gsm.setState(new Level(gsm, gsm.getLevel(levelIndex+3)));
+				gsm.setCurrentLevel(3);
+			}
+		} else if(currentRow == 1){
+			if(currentCol == 0){
+				gsm.setState(new Level(gsm, gsm.getLevel(levelIndex+4)));
+				gsm.setCurrentLevel(4);
+			}
+			if(currentCol == 1){
+				gsm.setState(new Level(gsm, gsm.getLevel(levelIndex+5)));
+				gsm.setCurrentLevel(5);
+			}
+			if(currentCol == 2){
+				gsm.setState(new Level(gsm, gsm.getLevel(levelIndex+6)));
+				gsm.setCurrentLevel(6);
+			}
+		} else {
+			if(currentCol == 0 || currentCol == 2){
+				changeMenuItems(getNext());
+			}
+			if(currentCol == 1){
+				gsm.popState();
+			}
 		}
-		if(element == "Level 3"){
-			gsm.setState(new Level(gsm, gsm.getLevel(3)));
-			gsm.setCurrentLevel(3);
-		}
-		if(element == "Level 4"){
-			gsm.setState(new Level(gsm, gsm.getLevel(4)));
-			gsm.setCurrentLevel(4);
-		}
-		if(element == "Level 5"){
-			gsm.setState(new Level(gsm, gsm.getLevel(5)));
-			gsm.setCurrentLevel(5);
-		}
-		if(element == "Level 6"){
-			gsm.setState(new Level(gsm, gsm.getLevel(6)));
-			gsm.setCurrentLevel(6);
-		}
-		if(element == "<--" || element == "-->"){
-			// switch String array 
-		}
-		if(element == "Back"){
-			//switch to main menu
-			gsm.popState();
-		}
-		
+
 	}
 	
+	private void changeMenuItems(int index){
+		if(index == 0){
+			menuItems = new String[][]{
+					{"Level 1", "Level 2", "Level 3"}, //row 0 
+					{"Level 4", "Level 5", "Level 6"}, //row 1
+					{"<--", "Back", "-->"}, 
+
+			};
+		} else if (index == 1){
+			menuItems = new String[][]{
+					{"Level 7", "Level 8", "Level 9"}, //row 0 
+					{"Level 10", "Level 11", "Level 12"}, //row 1
+					{"<--", "Back", "-->"}, 
+
+			};
+		}
+		currentlyVisible = index;
+		updateModel();
+		System.out.println(model.getMatrixMenuItems()[0][0]);
+	}
+	
+	private int getNext(){
+		if(currentlyVisible == 0){
+			return currentlyVisible+1;
+		} else {
+			return 0;
+		}
+	}
+
 	/**
 	 * This method handles the key input and decides which
 	 * string is current in the matrix. 
