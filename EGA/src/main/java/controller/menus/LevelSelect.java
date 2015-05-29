@@ -12,9 +12,9 @@ import controller.Level;
 import controller.SaveHandler;
 
 /**
- * 
- * @author Rebecka Reitmaier
  * This GameState is used to choose the level for the game.
+ * @author Rebecka Reitmaier
+ * 
  * 
  * @param gsm, GameStateManeger
  * @param backGroundTexture, Texture  

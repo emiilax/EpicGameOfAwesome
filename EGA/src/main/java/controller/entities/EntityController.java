@@ -9,11 +9,12 @@ import view.entities.EntityView;
 import lombok.Data;
 import model.entities.EntityModel;
 /**
+ * Abstract controller super-class for all the
+ * entities. 
  * 
  * @author Emil Axelsson
  *
- * Abstract controller super-class for all the
- * entities. 
+ * 
  */
 
 @Data

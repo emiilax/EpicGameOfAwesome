@@ -43,9 +43,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
-import controller.menus.LevelFinished;
 import view.entities.DoorView;
-import controller.menus.PauseMenu;
 import event.EventSupport;
 import event.TheEvent;
 

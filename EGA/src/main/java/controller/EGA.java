@@ -14,10 +14,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 
-import controller.menus.IMenu;
 import controller.menus.LevelFinished;
 import controller.menus.MainMenu;
-import controller.menus.MenuFactory;
 import controller.menus.PauseMenu;
 import event.EventSupport;
 import event.TheChangeListener;
@@ -140,20 +138,8 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	 * the current state. 
 	 */
 	public void handleInput() {
-
-
-		if(MyInput.isPressed(MyInput.BUTTON_JUMP)){
-
-			theLevel.handleInput(MyInput.BUTTON_JUMP);
-
-		}
-		if(MyInput.isPressed(MyInput.BUTTON_DOWN)){
-
-			theLevel.handleInput(MyInput.BUTTON_DOWN);
-
-		}
 		
-		if(theLevel instanceof Level){
+		if(theLevel.getClass().equals(Level.class)){
 			if(MyInput.isDown(MyInput.BUTTON_FORWARD)){
 				theLevel.handleInput(MyInput.BUTTON_FORWARD);
 			} else if(MyInput.isDown(MyInput.BUTTON_BACKWARD)){
@@ -161,32 +147,25 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			} else if(!MyInput.isDown(MyInput.BUTTON_FORWARD) || !MyInput.isDown(MyInput.BUTTON_BACKWARD)){
 				theLevel.handleInput(-1);
 			}
-		} else {
-			if(MyInput.isPressed(MyInput.BUTTON_FORWARD)){
-				theLevel.handleInput(MyInput.BUTTON_FORWARD);
-			}
-			if(MyInput.isPressed(MyInput.BUTTON_BACKWARD)){
-				theLevel.handleInput(MyInput.BUTTON_BACKWARD);
+		}
+		
+		boolean isPressed = false;
+		for(int i = 0; i < MyInput.keys.length; i++){
+			if(theLevel.getClass().equals(Level.class)){
+				if(MyInput.isPressed(i) && (i != MyInput.BUTTON_FORWARD || i != MyInput.BUTTON_BACKWARD)){
+					theLevel.handleInput(i);
+				}
+				
+			}else{
+				if(MyInput.isPressed(i)){
+					theLevel.handleInput(i);
+					isPressed = true;
+				}
 			}
 		}
-
-		if(MyInput.isPressed(MyInput.BUTTON_ENTER)){
-
-			theLevel.handleInput(MyInput.BUTTON_ENTER);
-
-		}else if(MyInput.isDown(MyInput.BUTTON_RESTART)){
-
-			theLevel.handleInput(MyInput.BUTTON_RESTART);
-
-		}else if(MyInput.isDown(MyInput.BUTTON_ESCAPE)){
-
-			theLevel.handleInput(MyInput.BUTTON_ESCAPE);
-
-		}else if(MyInput.isPressed(MyInput.BUTTON_PAUSE)){
-			theLevel.handleInput(MyInput.BUTTON_PAUSE);
-		}else {
-			theLevel.handleInput(-2);
-		}
+		
+		if(!isPressed) theLevel.handleInput(-2);
+	
 	}
 	
 	// Unused methods that belongs to ApplicationListener
@@ -205,7 +184,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			
 		}else if(evt.getNameOfEvent().equals("finish")){
 			
-			gsm.setState(new PauseMenu(gsm));
+			gsm.setState(new LevelFinished(gsm, gsm.getCurrentLevel()));
 		}else{
 			
 			theLevel.perform(evt);
@@ -229,12 +208,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	 * When level is finished this method is called. 
 	 * @param i, the number of the level that have been done.
 	 */
-	/*
-	public void setLevelFinished(int i){
-		
-		LevelFinished state = new LevelFinished(gsm, i);
-		gsm.setState(state);
-	}*/
+	
 
 	private void initHashMap(){ // this class should be in Content
 		finishedBgr = new HashMap<Integer, Texture>();
