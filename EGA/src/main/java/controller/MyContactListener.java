@@ -28,7 +28,7 @@ public class MyContactListener implements ContactListener{
 	private int numFootContacts;
 	
 	private Array<Body> bodiesToRemove;
-	//private Array<Body> keysToRemove;
+
 	private Array<Body> doorsToRemove;
 	private Level lvl;
 	private GameStateManager gsm;

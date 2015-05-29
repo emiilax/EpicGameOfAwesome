@@ -24,6 +24,7 @@ import model.entities.CharacterModel;
 import model.entities.EntityModel;
 import model.entities.SpikeModel;
 import model.entities.SpikeModel.spikeOrientation;
+
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
