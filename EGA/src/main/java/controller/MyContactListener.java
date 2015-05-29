@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.utils.Array;
 
+import controller.superclass.GameState;
 import event.EventSupport;
 
 /**
@@ -31,15 +32,15 @@ public class MyContactListener implements ContactListener{
 
 	private Array<Body> doorsToRemove;
 	private Level lvl;
-	private GameStateManager gsm;
+	//private GameStateManager gsm;
 	private EGA ega;
 	private EGATimer timer;
 	
 	public MyContactListener(GameState gs){
 		super();
 		lvl = (Level) gs;
-		gsm = gs.getGsm();
-		ega = gsm.getGame();
+		//gsm = gs.getGsm();
+		ega = ((Level)gs).getGame();
 		bodiesToRemove = new Array<Body>();
 		doorsToRemove = new Array<Body>();
 		timer = EGATimer.getTimer();
@@ -108,7 +109,8 @@ public class MyContactListener implements ContactListener{
 	
 	public void contactWithSpike(){
 		Content.getInstance().playSound("fail");
-		gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
+		EventSupport.getInstance().fireNewEvent("level", 0);
+		//gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
 	}
 	
 	// called when two fixures no longer collide

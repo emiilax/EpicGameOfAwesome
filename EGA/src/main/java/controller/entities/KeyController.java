@@ -11,10 +11,11 @@ import model.entities.EntityModel;
 import view.entities.KeyView;
 
 /**
+ * KeyController, a controller for the key.
  * 
  * @author Rebecka Reitmaier
  *	
- * KeyController, a controller for the key.
+ * 
  */
 
 public class KeyController extends EntityController{

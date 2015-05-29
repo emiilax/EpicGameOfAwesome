@@ -2,9 +2,8 @@ package controller.menus;
 
 import java.awt.Point;
 
+import controller.superclass.GameState;
 import view.renders.MenuRender;
-import controller.GameState;
-import controller.GameStateManager;
 import event.TheEvent;
 import model.MenuModel;
 
@@ -26,8 +25,12 @@ public abstract class Menu extends GameState implements IMenu {
 	protected String menuItems[];
 	protected String title;
 	
-	protected Menu(GameStateManager gsm) {
+	/*protected Menu(GameStateManager gsm) {
 		super(gsm);
+	}*/
+	
+	protected Menu(){
+		super();
 	}
 	
 	/**
@@ -52,7 +55,7 @@ public abstract class Menu extends GameState implements IMenu {
 
 	public void render() {
 		updateModel();
-		view.render(currentItem, cam, false);
+		view.render(currentItem, getCam(), false);
 		rendered = true;
 	}
 	

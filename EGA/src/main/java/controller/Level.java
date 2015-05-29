@@ -16,6 +16,8 @@ import controller.entities.EntityController;
 import controller.entities.KeyController;
 import controller.entities.SpikeController;
 import controller.entities.StarController;
+import controller.savehandler.SaveHandler;
+import controller.superclass.GameState;
 import model.EGATimer;
 import model.LevelModel;
 import model.MyInput;
@@ -43,9 +45,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
-import controller.menus.LevelFinished;
 import view.entities.DoorView;
-import controller.menus.PauseMenu;
 import event.EventSupport;
 import event.TheEvent;
 
@@ -92,25 +92,24 @@ public class Level extends GameState{
 	private DoorView doorV; //ldv
 	private EntityModel doorM;
 
-//	private OpenDoorController odc;
-//	private OpenDoorView odv;
-//	private EntityModel odm;
-
 	private LevelRender lvlRender;
 	private LevelModel lvlModel;
+	
+	private EGA game;
 
 	//public Level(GameStateManager gsm){
-	public Level(GameStateManager gsm, TiledMap tiledMap){
+	public Level(EGA game ,TiledMap tiledMap){
 
-		super(gsm);
-
-		this.gsm = gsm;
+		//super(gsm);
+		super();
+		this.game = game;
+		//this.gsm = gsm;
 		this.tiledMap = tiledMap;
 		lvlModel = new LevelModel();
 
 		lvlModel.setDebug(SaveHandler.getGameData().getIsDebug());
 
-		lvlRender = new LevelRender(lvlModel, sb);
+		lvlRender = new LevelRender(lvlModel, getSb());
 		//doorIsOpen = false;
 		isPaused = false;
 		
@@ -124,7 +123,7 @@ public class Level extends GameState{
 
 		//create controllers for the game and set the spritebatch
 		chc = new CharacterController(new CharacterModel(), new CharacterView());
-		chc.setSpriteBatch(sb);
+		chc.setSpriteBatch(getSb());
 		
 		debug = SaveHandler.getGameData().getIsDebug();
 		
@@ -132,6 +131,7 @@ public class Level extends GameState{
 		b2dCam = new OrthographicCamera();
 		b2dCam.setToOrtho(false, EGA.V_WIDTH / PPM, EGA.V_HEIGTH / PPM);
 		//set up the game timer
+		EGATimer.resetTimer();
 		timer = EGATimer.getTimer();
 		etc = new EGATimerController(timer, new EGATimerView());
 		etc.setSpriteBatch(sb);
@@ -165,7 +165,8 @@ public class Level extends GameState{
 			
 			break;
 
-		case MyInput.BUTTON_RESTART: gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
+		case MyInput.BUTTON_RESTART: //gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
+			EventSupport.getInstance().fireNewEvent("level", 0);
 		break;
 		
 		// Pause
@@ -222,7 +223,7 @@ public class Level extends GameState{
 
 	public void render() {
 		
-		lvlRender.render(cam, tmr, world, b2br, b2dCam);
+		lvlRender.render(getCam(), tmr, world, b2br, b2dCam);
 		
 		chc.render();
 
@@ -488,7 +489,7 @@ public class Level extends GameState{
 				body = world.createBody(bdef);
 			}
 
-			theController.setSpriteBatch(sb);
+			theController.setSpriteBatch(getSb());
 			theController.setBody(body);
 			body.setUserData(theController);
 			entities.add(theController);
