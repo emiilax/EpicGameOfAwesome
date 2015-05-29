@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="32" tileheight="32" nextobjectid="429">
+ <tileset firstgid="1" name="greenblock" tilewidth="32" tileheight="32">
+  <image source="../tiles/greenblock.png" width="32" height="32"/>
+ </tileset>
+ <tileset firstgid="2" name="brownblock" tilewidth="32" tileheight="32">
+  <image source="../tiles/brownblock.png" width="32" height="32"/>
+ </tileset>
+ <tileset firstgid="3" name="keyTile" tilewidth="50" tileheight="50">
+  <image source="../key/key-4.png" width="50" height="50"/>
+ </tileset>
+ <tileset firstgid="4" name="closedDoor" tilewidth="50" tileheight="50">
+  <image source="../door/closedDoor.png" width="50" height="50"/>
+ </tileset>
+ <tileset firstgid="5" name="openDoor" tilewidth="50" tileheight="50">
+  <image source="../door/openDoor.png" width="50" height="50"/>
+ </tileset>
+ <tileset firstgid="6" name="upSpikes" tilewidth="16" tileheight="21">
+  <image source="../tiles/upSpikes_16x21.png" width="64" height="21"/>
+ </tileset>
+ <tileset firstgid="10" name="downSpikes" tilewidth="16" tileheight="21">
+  <image source="../tiles/downSpikes_16x21.png" width="64" height="21"/>
+ </tileset>
+ <tileset firstgid="14" name="rightSpikes" tilewidth="21" tileheight="16">
+  <image source="../tiles/rightSpikes_21x16.png" width="84" height="16"/>
+ </tileset>
+ <tileset firstgid="18" name="leftSpikes" tilewidth="21" tileheight="16">
+  <image source="../tiles/leftSpikes_21x16.png" width="84" height="16"/>
+ </tileset>
+ <tileset firstgid="22" name="skybackgroundemil2" tilewidth="1280" tileheight="720">
+  <image source="../tiles/skybackgroundemil2.jpg" width="1280" height="720"/>
+ </tileset>
+ <layer name="background" width="40" height="23">
+  <data encoding="base64" compression="zlib">
+   eJztzgEJAAAIA7CnsH9UeQoRtgRLAAAAqLkOPLcp4AAX
+  </data>
+ </layer>
+ <layer name="ground" width="40" height="23">
+  <data encoding="base64" compression="zlib">
+   eJztztkJACAMBcHYf9O2EK8gOgPvM2QjAABgXCv+NbNd97/3nfZq3+puasmuAyNbAJw=
+  </data>
+ </layer>
+ <layer name="platform" width="40" height="23">
+  <data encoding="base64" compression="zlib">
+   eJztljsOACAIQ9X7H9rJhTAU/KSGvoQRfTHQ2JqozDAl6tDBYvN56XvK6ZYrm5/NE+QO2xPpzfgt0DfwchH1Qx29DGby82D3yxKZv6zfzi6+2OOd80/66V8ixL9Mn2kBEA==
+  </data>
+ </layer>
+ <objectgroup name="stars">
+  <object id="399" x="329.667" y="71.3333">
+   <ellipse/>
+  </object>
+ </objectgroup>
+ <objectgroup name="bigStars">
+  <object id="397" x="100.667" y="668">
+   <ellipse/>
+  </object>
+ </objectgroup>
+ <objectgroup name="openDoor">
+  <object id="212" gid="5" x="628.364" y="164.302"/>
+ </objectgroup>
+ <objectgroup name="key">
+  <object id="210" gid="3" x="619.337" y="435.667"/>
+ </objectgroup>
+ <objectgroup name="lockedDoor">
+  <object id="211" gid="4" x="631.037" y="159.969"/>
+ </objectgroup>
+ <objectgroup name="upSpikes">
+  <object id="401" gid="7" x="160" y="544.091"/>
+  <object id="402" gid="7" x="176.273" y="543.909"/>
+ </objectgroup>
+ <objectgroup name="leftSpikes">
+  <object id="427" gid="19" x="234.909" y="112.303"/>
+  <object id="428" gid="19" x="235.152" y="127.455"/>
+ </objectgroup>
+ <objectgroup name="rightSpikes"/>
+ <objectgroup name="downSpikes">
+  <object id="403" gid="11" x="159" y="373"/>
+  <object id="404" gid="11" x="177" y="373"/>
+  <object id="405" gid="11" x="191.333" y="373"/>
+  <object id="406" gid="11" x="209.333" y="373"/>
+  <object id="407" gid="11" x="48.333" y="597"/>
+  <object id="408" gid="11" x="-2" y="597"/>
+  <object id="409" gid="11" x="30.333" y="597"/>
+  <object id="410" gid="11" x="16" y="597"/>
+  <object id="425" gid="11" x="80.75" y="436.75"/>
+  <object id="426" gid="11" x="63.75" y="436.75"/>
+ </objectgroup>
+</map>
