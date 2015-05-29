@@ -14,12 +14,21 @@ import com.badlogic.gdx.utils.Array;
 
 import event.EventSupport;
 
+/**
+ * 
+ * @author Emil Axelsson
+ * 
+ * Class that handles the collisions
+ * 
+ */
 @Data
 public class MyContactListener implements ContactListener{
 	
+	/** Used to see if character is on ground */
 	private int numFootContacts;
+	
 	private Array<Body> bodiesToRemove;
-	private Array<Body> keysToRemove;
+	//private Array<Body> keysToRemove;
 	private Array<Body> doorsToRemove;
 	private Level lvl;
 	private GameStateManager gsm;
@@ -32,7 +41,6 @@ public class MyContactListener implements ContactListener{
 		gsm = gs.getGsm();
 		ega = gsm.getGame();
 		bodiesToRemove = new Array<Body>();
-		keysToRemove = new Array<Body>();
 		doorsToRemove = new Array<Body>();
 		timer = EGATimer.getTimer();
 	}
