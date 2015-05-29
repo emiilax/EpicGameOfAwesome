@@ -17,9 +17,9 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import controller.EGA;
-import controller.GameStateManager;
 import controller.MyInputProcessor;
-import controller.SaveHandler;
+import controller.savehandler.SaveHandler;
+import event.EventSupport;
 
 /**
  * The control class for the menu that handles and shows the buttonmapping for the game. When this
@@ -40,13 +40,18 @@ public class ChangeControlMenu extends Menu{
 	private String latestRemoved;
 	private GameData gd;
 
-	private GameStateManager gsm;
+	//private GameStateManager gsm;
 
-	public ChangeControlMenu(GameStateManager gsm){
-		super(gsm);
-		this.gsm = gsm;
+//	public ChangeControlMenu(GameStateManager gsm){
+//		super(gsm);
+//		this.gsm = gsm;
+//		init();
+//	}
+	public ChangeControlMenu(){
+		super();
 		init();
 	}
+
 
 	@SuppressWarnings("deprecation")
 
@@ -195,7 +200,7 @@ public class ChangeControlMenu extends Menu{
 	public void render() {
 	
 		updateModel();
-		view.render(currentItem, cam, false);
+		view.render(currentItem, getCam(), false);
 		
 		layout.setText(titleFont, title);
 
@@ -247,7 +252,7 @@ public class ChangeControlMenu extends Menu{
 	}
 	
 	private void menuBack(){
-		gsm.popState();	
+		EventSupport.getInstance().fireNewEvent("pop");
 	}
 
 }

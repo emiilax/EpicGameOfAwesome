@@ -7,7 +7,7 @@ import java.util.Stack;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 
-import controller.menus.MainMenu;
+import controller.superclass.GameState;
 import lombok.Data;
 
 /**

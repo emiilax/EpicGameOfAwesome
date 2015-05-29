@@ -83,4 +83,16 @@ public class EventSupport {
 		}
 	}
 	
+	public void fireNewEvent(String nameOfEvent, int theLevel){
+		TheEvent event = null;
+		
+		event = new TheEvent(this, nameOfEvent, theLevel);
+		
+		Iterator<TheChangeListener> i = theListeners.iterator();
+		
+		while(i.hasNext()){
+			((TheChangeListener) i.next()).eventRecieved(event);
+		}
+	}
+	
 }

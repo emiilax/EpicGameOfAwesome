@@ -14,9 +14,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 
-import controller.menus.LevelFinished;
-import controller.menus.MainMenu;
-import controller.menus.PauseMenu;
+import controller.factory.MenuFactory;
+import controller.savehandler.SaveHandler;
+import controller.superclass.GameState;
 import event.EventSupport;
 import event.TheChangeListener;
 import event.TheEvent;
@@ -85,7 +85,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		hudCam = new OrthographicCamera();
 		gsm = new GameStateManager(this);
 		initHashMap();
-		gsm.pushState(new MainMenu(gsm));
+		gsm.pushState((new MenuFactory()).getMenu("main"));
 
 	}
 	
@@ -128,6 +128,11 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	 */
 	public void setTheState(GameState gs){
 		MyInput.setAllKeysFalse();
+		if(gs.getClass().equals(Level.class)){
+			MyInputProcessor.setActive(false);
+		}else{
+			MyInputProcessor.setActive(true);
+		}
 		theLevel = gs;
 	}
 	
@@ -178,18 +183,48 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	 * This method is called when there has been an event. 
 	 */
 	public void eventRecieved(TheEvent evt) {
-		if(evt.getNameOfEvent().equals("pause")){
+		String name = evt.getNameOfEvent();
+		
+		if(name.equalsIgnoreCase("level")){
+			if(evt.getTheLevelNumber() != 0){
+				gsm.setCurrentLevel(evt.getTheLevelNumber());
+			}
 			
-			gsm.pushState(new PauseMenu(gsm));
+			gsm.pushState(new Level(this, gsm.getCurrentTiledMap()));
+			return;
+		}
+		if(name.equalsIgnoreCase("nextlevel")){
 			
-		}else if(evt.getNameOfEvent().equals("finish")){
+			gsm.setCurrentLevel(gsm.getCurrentLevel()+1);		
+			gsm.pushState(new Level(this, gsm.getCurrentTiledMap()));
+			return;
 			
-			gsm.setState(new LevelFinished(gsm, gsm.getCurrentLevel()));
-		}else{
+		}
+		if(name.equalsIgnoreCase("levelselect")){
 			
-			theLevel.perform(evt);
+			gsm.pushState((new MenuFactory()).getMenu("levelselect"));
+			return;
+		
+		}
+		if(name.equalsIgnoreCase("pop")){
+			
+			gsm.popState();
+			return;
+		}
+		if(name.equalsIgnoreCase("finish")){
+		
+			gsm.pushState((new MenuFactory()).getLevelFinishedMenu(gsm.getCurrentLevel()));
+			return;
+		} 
+		if(!(name.equalsIgnoreCase("selectMenuItem") || name.equalsIgnoreCase("currentMenuItem"))){
+			gsm.pushState((new MenuFactory()).getMenu(name));
 		}
 		
+
+		
+		theLevel.perform(evt);
+		
+	
 	}
 
 	/**

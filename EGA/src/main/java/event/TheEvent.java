@@ -18,6 +18,7 @@ public class TheEvent extends EventObject {
 	/** Instacevariable that contains the name of event */
 	private String nameOfEvent;
 	private int x, y;
+	private int theLevelNumber;
 
 	
 	/**
@@ -37,5 +38,9 @@ public class TheEvent extends EventObject {
 		this.y = y;
 	}
 	
+	public TheEvent(Object source, String nameOfEvent, int theLevel){
+		this(source, nameOfEvent);
+		this.theLevelNumber = theLevel;
+	}
 
 }

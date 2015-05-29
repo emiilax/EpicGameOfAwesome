@@ -11,22 +11,27 @@ import model.MenuModel;
 import model.MyInput;
 import model.Variables;
 import controller.EGA;
-import controller.GameStateManager;
-import controller.Level;
-import controller.SaveHandler;
+import controller.savehandler.SaveHandler;
+import event.EventSupport;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class MainMenu extends Menu{
 
-	private GameStateManager gsm;
+	//private GameStateManager gsm;
 	
 	private String subTitle;
 	private int subTitleFontSize;
-
+	
+	/*
 	public MainMenu(GameStateManager gsm) {
 		super(gsm);
 		this.gsm = gsm;
+		init();
+	}*/
+	
+	public MainMenu(){
+		super();
 		init();
 	}
 	
@@ -93,13 +98,17 @@ public class MainMenu extends Menu{
 	@Override
 	public void select(){
 		if (currentItem == 0){
-			gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
+			EventSupport.getInstance().fireNewEvent("level",0);
+			
+			//gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
 		}
 		if (currentItem == 1){
-			gsm.pushState(new LevelSelect(gsm));
+			EventSupport.getInstance().fireNewEvent("levelselect");
+			//gsm.pushState(new LevelSelect(gsm));
 		}
 		if (currentItem == 2){
-			gsm.pushState(new SettingsMenu(gsm));
+			EventSupport.getInstance().fireNewEvent("settings");
+			//gsm.pushState(new SettingsMenu(gsm));
 		}
 		if(currentItem == 3){
 			SaveHandler.save();
@@ -115,7 +124,7 @@ public class MainMenu extends Menu{
 
 	@Override
 	public void render() {
-		view.render(currentItem, cam, true);
+		view.render(currentItem, getCam(), true);
 		rendered = true;
 	}
 }
