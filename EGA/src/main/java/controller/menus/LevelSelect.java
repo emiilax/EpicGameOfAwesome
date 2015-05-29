@@ -141,9 +141,11 @@ public class LevelSelect extends Menu {
 		} else {
 			if(currentCol == 0 || currentCol == 2){
 				changeMenuItems(getNext());
+				return;
 			}
 			if(currentCol == 1){
 				EventSupport.getInstance().fireNewEvent("pop");
+				return;
 			}
 		}
 		

@@ -190,22 +190,17 @@ public class EGA implements ApplicationListener, TheChangeListener{
 				gsm.setCurrentLevel(evt.getTheLevelNumber());
 			}
 			
-			gsm.pushState(new Level(this, gsm.getCurrentTiledMap()));
+			gsm.setState(new Level(this, gsm.getCurrentTiledMap()));
 			return;
 		}
 		if(name.equalsIgnoreCase("nextlevel")){
 			
 			gsm.setCurrentLevel(gsm.getCurrentLevel()+1);		
-			gsm.pushState(new Level(this, gsm.getCurrentTiledMap()));
+			gsm.setState(new Level(this, gsm.getCurrentTiledMap()));
 			return;
 			
 		}
-		if(name.equalsIgnoreCase("levelselect")){
-			
-			gsm.pushState((new MenuFactory()).getMenu("levelselect"));
-			return;
 		
-		}
 		if(name.equalsIgnoreCase("pop")){
 			
 			gsm.popState();
@@ -217,7 +212,12 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			return;
 		} 
 		if(!(name.equalsIgnoreCase("selectMenuItem") || name.equalsIgnoreCase("currentMenuItem"))){
-			gsm.pushState((new MenuFactory()).getMenu(name));
+			if(name.equalsIgnoreCase("main")){
+				gsm.setState((new MenuFactory()).getMenu(name));
+			}else{
+				gsm.pushState((new MenuFactory()).getMenu(name));
+			}
+			
 		}
 		
 
