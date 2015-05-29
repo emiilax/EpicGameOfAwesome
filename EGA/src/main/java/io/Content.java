@@ -111,7 +111,7 @@ public class Content {
 		TiledMap level1 = new TmxMapLoader().load("res/maps/level1.tmx");
 		TiledMap level2 = new TmxMapLoader().load("res/maps/level2.tmx");
 		TiledMap level3 = new TmxMapLoader().load("res/maps/level3.tmx");
-		TiledMap level7 = new TmxMapLoader().load("res/maps/level3.tmx");
+		TiledMap level7 = new TmxMapLoader().load("res/maps/level99.tmx");
 		
 		maps = new HashMap<Integer, TiledMap>();
 		maps.put(1, level1);
