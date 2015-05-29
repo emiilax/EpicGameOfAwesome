@@ -110,6 +110,7 @@ public class ChangeControlMenu extends Menu{
 	@Override
 	public void handleInput(int i) {
 		if(!changeMode){
+			MyInputProcessor.setActive(true);
 			if(i == MyInput.BUTTON_JUMP){
 				if(currentItem > 0){
 					currentItem--;
@@ -123,7 +124,10 @@ public class ChangeControlMenu extends Menu{
 			} else if (i == MyInput.BUTTON_ENTER) { 
 				select();
 			}
-		} else {changeButton();}
+		} else {
+			MyInputProcessor.setActive(false);
+			changeButton();
+		}
 	}
 	
 	/**
@@ -136,7 +140,7 @@ public class ChangeControlMenu extends Menu{
 		if(keys.contains(Keys.valueOf(latestRemoved))){
 			keys.remove(keys.indexOf(Keys.valueOf(latestRemoved)));
 		}
-		if(!(keys.contains(key))){
+		if((!(keys.contains(key))) && key != 0 ){
 			switch(currentItem){
 			case 0: gd.up = key;
 			setCurrentButtons(currentItem, Keys.toString(gd.up));
@@ -176,8 +180,9 @@ public class ChangeControlMenu extends Menu{
 		if(currentItem == 7){
 			menuBack();
 		}
-		setCurrentButtons(currentItem, "...");
 		changeMode = true;
+		setCurrentButtons(currentItem, "...");
+		
 	}
 
 	@Override
