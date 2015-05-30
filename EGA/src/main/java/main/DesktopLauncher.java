@@ -25,7 +25,9 @@ public class DesktopLauncher {
     	cfg.title = EGA.TITLE;
     	cfg.width = EGA.V_WIDTH * EGA.SCALE;
     	cfg.height = EGA.V_HEIGTH * EGA.SCALE;
-    	
+    	cfg.resizable = false;
+    	cfg.x = -1;
+    	cfg.y = 0;
     	
     	new LwjglApplication(new EGA(), cfg);
     	
