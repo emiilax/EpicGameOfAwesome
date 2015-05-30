@@ -15,35 +15,51 @@ public class TestEGATimer {
 	}
 	
 	@Test
-	public void timePassedShouldIncrementWhenTimerIsActive() {
-		float initialTimePassed = tester.getTimePassed();
+	public void timePassedShouldIncrementWhenTimerIsActive() throws InterruptedException {
 		tester.startTimer();
-		int i = 0;
-		while(i<100){
-			i++;
-		}
+		Thread.sleep(100);
+		float initialTimePassed = tester.getTimePassed();
+		Thread.sleep(100);
 		tester.stopTimer();
-		assertTrue(initialTimePassed < tester.getTimePassed());
+		float finalTimePassed = tester.getTimePassed();
+		assertTrue(initialTimePassed < finalTimePassed);
 	}
 	
 	@Test
-	public void timePassedShouldBeGreaterWhenTimerRunsLonger(){
+	public void timePassedShouldBeGreaterWhenTimerRunsLonger() throws InterruptedException{
 		tester.startTimer();
-		int i = 0;
-		while(i<2000){
-			i++;
-		}
+		Thread.sleep(1000);
+		float firstTimePassed = tester.getTimePassed();
+		tester.stopTimer();	
+		
+		tester.startTimer();
+		Thread.sleep(500);
+		float secondTimePassed = tester.getTimePassed();
+		tester.stopTimer();
+			
+		assertTrue(firstTimePassed > secondTimePassed);
+	}
+	
+	@Test
+	public void testResumeTimer() throws InterruptedException{
+		tester.startTimer();
+		Thread.sleep(500);
 		tester.stopTimer();
 		float firstTimePassed = tester.getTimePassed();
 		
-		tester.startTimer();
-		int j = 0;
-		while(j<500){
-			j++;
-		}
+		tester.resumeTimer();
+		Thread.sleep(100);
+		tester.stopTimer();
 		float secondTimePassed = tester.getTimePassed();
 		
-		assertTrue(firstTimePassed > secondTimePassed);
+		assertTrue(firstTimePassed < secondTimePassed);
+	}
+	
+	@Test
+	public void testSetPosition(){
+		tester.setPosition(150, 250);
+		
+		assertTrue(tester.getXPosition() == 150 && tester.getYPosition() == 250);
 	}
 
 }
