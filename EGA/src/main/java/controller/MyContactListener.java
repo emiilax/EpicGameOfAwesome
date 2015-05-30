@@ -110,7 +110,6 @@ public class MyContactListener implements ContactListener{
 	public void contactWithSpike(){
 		Content.getInstance().playSound("fail");
 		EventSupport.getInstance().fireNewEvent("level", 0);
-		//gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
 	}
 	
 	// called when two fixures no longer collide
