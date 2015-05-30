@@ -1,8 +1,11 @@
-package controller;
+package controller.superclass;
+
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import controller.EGA;
+import event.TheEvent;
 import lombok.*;
 
 /**
@@ -14,22 +17,29 @@ import lombok.*;
 @Data
 public abstract class GameState {
 	
-	protected GameStateManager gsm;
-	protected EGA game;
+	//protected GameStateManager gsm;
+	
 	
 	protected SpriteBatch sb;
-	protected OrthographicCamera cam; 
-	protected OrthographicCamera hudCam;
+	private OrthographicCamera cam; 
+	private OrthographicCamera hudCam;
 	
-	protected GameState(GameStateManager gsm){
+	/*protected GameState(GameStateManager gsm){
 		this.gsm = gsm;
 		game = gsm.getGame();
 		sb = game.getSb();
-		
 		cam = game.getCam();
 		cam.setToOrtho(false, EGA.V_WIDTH, EGA.V_HEIGTH);
 		
 		hudCam = game.getHudCam();
+		hudCam.setToOrtho(false, EGA.V_WIDTH, EGA.V_HEIGTH);
+	}*/
+	
+	protected GameState(){
+		sb = new SpriteBatch();
+		cam = new OrthographicCamera();
+		hudCam = new OrthographicCamera();
+		cam.setToOrtho(false, EGA.V_WIDTH, EGA.V_HEIGTH);
 		hudCam.setToOrtho(false, EGA.V_WIDTH, EGA.V_HEIGTH);
 	}
 	
@@ -54,5 +64,8 @@ public abstract class GameState {
 	 * @author Emil, Erik, Hampus, Rebecca
 	 */
 	public abstract void render();
+	
+	
+	public void perform(TheEvent evt){};
 	
 }

@@ -12,25 +12,36 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.utils.Array;
 
+import controller.superclass.GameState;
+import event.EventSupport;
+
+/**
+ * 
+ * @author Emil Axelsson
+ * 
+ * Class that handles the collisions
+ * 
+ */
 @Data
 public class MyContactListener implements ContactListener{
 	
+	/** Used to see if character is on ground */
 	private int numFootContacts;
+	
 	private Array<Body> bodiesToRemove;
-	private Array<Body> keysToRemove;
+
 	private Array<Body> doorsToRemove;
 	private Level lvl;
-	private GameStateManager gsm;
+	//private GameStateManager gsm;
 	private EGA ega;
 	private EGATimer timer;
 	
 	public MyContactListener(GameState gs){
 		super();
 		lvl = (Level) gs;
-		gsm = gs.getGsm();
-		ega = gsm.getGame();
+		//gsm = gs.getGsm();
+		ega = ((Level)gs).getGame();
 		bodiesToRemove = new Array<Body>();
-		keysToRemove = new Array<Body>();
 		doorsToRemove = new Array<Body>();
 		timer = EGATimer.getTimer();
 	}
@@ -65,12 +76,14 @@ public class MyContactListener implements ContactListener{
 		if(fa.getUserData() != null && fa.getUserData().equals("openDoor")){
 			timer.stopTimer();
 			Content.getInstance().playSound("finish");
-			ega.setLevelFinished(gsm.getCurrentLevel());
+			EventSupport.getInstance().fireNewEvent("finish");
+			//ega.setLevelFinished(gsm.getCurrentLevel());
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("openDoor")){
 			timer.stopTimer();
 			Content.getInstance().playSound("finish");
-			ega.setLevelFinished(gsm.getCurrentLevel());
+			EventSupport.getInstance().fireNewEvent("finish");
+			//ega.setLevelFinished(gsm.getCurrentLevel());
 		}
 		
 		if(fa.getUserData() != null && fa.getUserData().equals("spike")){
@@ -96,7 +109,8 @@ public class MyContactListener implements ContactListener{
 	
 	public void contactWithSpike(){
 		Content.getInstance().playSound("fail");
-		gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
+		EventSupport.getInstance().fireNewEvent("level", 0);
+		//gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
 	}
 	
 	// called when two fixures no longer collide

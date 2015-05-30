@@ -37,6 +37,11 @@ public class EGATimer extends Observable implements ActionListener {
 		return myTimer;
 	}
 	
+	public static void resetTimer(){
+		myTimer = null;
+	}
+	
+	
 	/**
 	 * Starts the timer
 	 */

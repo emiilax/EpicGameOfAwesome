@@ -2,12 +2,14 @@ package io;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import controller.SaveHandler;
+
+import controller.savehandler.SaveHandler;
 
 
 /**
@@ -111,7 +113,7 @@ public class Content {
 		TiledMap level1 = new TmxMapLoader().load("res/maps/level1.tmx");
 		TiledMap level2 = new TmxMapLoader().load("res/maps/level2.tmx");
 		TiledMap level3 = new TmxMapLoader().load("res/maps/level3.tmx");
-		TiledMap level7 = new TmxMapLoader().load("res/maps/level3.tmx");
+		TiledMap level7 = new TmxMapLoader().load("res/maps/level99.tmx");
 		
 		maps = new HashMap<Integer, TiledMap>();
 		maps.put(1, level1);

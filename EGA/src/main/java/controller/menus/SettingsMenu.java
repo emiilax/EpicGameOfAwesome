@@ -9,8 +9,8 @@ import model.MenuModel;
 import model.MyInput;
 import model.Variables;
 import controller.EGA;
-import controller.GameStateManager;
-import controller.SaveHandler;
+import controller.savehandler.SaveHandler;
+import event.EventSupport;
 /**
  * Settings menu class. Extends the Menu class.
  * @author Hampus R�nstr�m
@@ -21,16 +21,19 @@ import controller.SaveHandler;
 public class SettingsMenu extends Menu { 
 	private String debugStatus;
 
-	private GameStateManager gsm;	
 	private String volume;
 	private float fVol;
 
-	public SettingsMenu(GameStateManager gsm) {
+	/*public SettingsMenu(GameStateManager gsm) {
 		super(gsm);
 		this.gsm = gsm;
 		init();
+	}*/
+	
+	public SettingsMenu() {
+		super();
+		init();
 	}
-
 	private void init(){
 		title = "Settings";
 		titleFontSize = Variables.subMenuTitleSize;
@@ -145,7 +148,8 @@ public class SettingsMenu extends Menu {
 	@Override
 	public void select(){
 		if (currentItem == 0){
-			gsm.pushState(new ChangeControlMenu(gsm));
+			EventSupport.getInstance().fireNewEvent("changecontroller");
+			//gsm.pushState(new ChangeControlMenu(gsm));
 		}
 		if(currentItem == 1){
 			resetAll();
@@ -173,7 +177,8 @@ public class SettingsMenu extends Menu {
 	}
 
 	private void backMenu(){
-		gsm.popState();
+		//gsm.popState();
+		EventSupport.getInstance().fireNewEvent("pop");
 	}
 	
 	/**

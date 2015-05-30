@@ -5,12 +5,24 @@ import model.MyInput;
 
 import com.badlogic.gdx.InputAdapter;
 
+import controller.savehandler.SaveHandler;
 import event.EventSupport;
-
+import event.TheChangeListener;
+import event.TheEvent;
+/**
+ * 
+ * @author Emil Axelsson
+ * 
+ * Class that detect it mouse or button is clicked
+ * 
+ */
 public class MyInputProcessor extends InputAdapter{
+	/** The key that have been clicked*/
 	private static int pressed;
+	
+	/** If true, handle mouse input */
 	private static boolean active = true;
-
+	
 	/**
 	 * changes active, a boolean that determines if mouse movement 
 	 * should be handled.
@@ -19,8 +31,10 @@ public class MyInputProcessor extends InputAdapter{
 	public static void setActive(boolean act){
 		active = act;
 	}
-
-
+	
+	/**
+	 * Called when a button is down
+	 */
 	@Override
 	public boolean keyDown(int k){
 		GameData gd = SaveHandler.getGameData();
@@ -50,14 +64,20 @@ public class MyInputProcessor extends InputAdapter{
 		if(k == gd.pause){
 			MyInput.setKey(MyInput.BUTTON_PAUSE, true);
 		}
-		pressed = k;
+		EventSupport.getInstance().fireNewEvent("latestPressed", k);
 		return true;
 	}
-
+	
+	/**
+	 * 
+	 * @return pressed, the key that has been pressed
+	 */
 	public static int getPressed(){
 		return pressed;
 	}
-
+	/**
+	 * Called when a button is released
+	 */
 	@Override
 	public boolean keyUp(int k){
 		GameData gd = SaveHandler.getGameData();

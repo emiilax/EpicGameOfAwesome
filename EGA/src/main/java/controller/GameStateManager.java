@@ -7,22 +7,35 @@ import java.util.Stack;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 
-import controller.menus.MainMenu;
+import controller.superclass.GameState;
 import lombok.Data;
 
-
+/**
+ * Class with a stack that handles what gamestate 
+ * that should be updated
+ * 
+ * @author Emil Axelsson
+ *
+ */
 @Data
 public class GameStateManager {
 	
+	/** The gamecontroller*/
 	private EGA game;
-	private GameState theState;
+	
+	/** The stack with gamestates */
 	private Stack<GameState> gameStates;
 	
-	public static final int MENU = 123123;
-	public static final int PLAY = 912837;
+	//public static final int MENU = 123123;
+	//public static final int PLAY = 912837;
 	
+	/** the number of the current level*/
 	private int currentLevel;
 	
+	/** 
+	 * Initates the stack and set the camecontroller
+	 * @param game
+	 */
 	public GameStateManager(EGA game){
 		
 		this.game = game;
@@ -30,6 +43,7 @@ public class GameStateManager {
 		currentLevel = 1;
 	}
 	
+	/*
 	@SuppressWarnings("unused")
 	private GameState getState(int state){
 	
@@ -38,8 +52,14 @@ public class GameStateManager {
 			return new Level(this, Content.getInstance().getTiledMap(currentLevel));
 		}
 		return null;
-	}
+	}*/
 	
+	/** 
+	 * clear the stack and push a new gamestate
+	 * to the top of the stack
+	 * 
+	 * @param state, the GameState that you want to set 
+	 */
 	public void setState(GameState state){
 		gameStates.clear();
 		game.setTheLevel(state);
@@ -47,11 +67,27 @@ public class GameStateManager {
 		
 	}
 	
+	/**
+	 * Checks what type the current state is and returns it
+	 * @return The current state
+	 */
+	public GameState getCurrentState(){
+		return gameStates.get(gameStates.size()-1);
+	}
+	
+	/**
+	 * Push a new GameState to the stack without 
+	 * erasing the prev state
+	 * @param state, the GameState you want to push
+	 */
 	public void pushState(GameState state){
 		game.setTheLevel(state);
 		gameStates.push(state);
 	}
 	
+	/**
+	 * Removes the top element of the stack
+	 */
 	public void popState(){
 		@SuppressWarnings("unused")
 		GameState g = gameStates.pop();
@@ -61,15 +97,26 @@ public class GameStateManager {
 		
 	}
 	
+	/**
+	 * Updates the gamestate at the top of the stack
+	 * @param dt
+	 */
 	public void update(float dt){
 		
 		gameStates.peek().update(dt);
 	}
 	
+	/**
+	 * Render the gamestate at the top of the stack
+	 */
 	public void render(){
 		gameStates.peek().render();
 	}
 	
+	/**
+	 * 
+	 * @param i
+	 */
 	public void setCurrentLevel(int i){
 		currentLevel = i;
 	}

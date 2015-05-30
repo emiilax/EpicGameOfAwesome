@@ -9,9 +9,8 @@ import model.MenuModel;
 import model.MyInput;
 import model.Variables;
 import controller.EGA;
-import controller.GameStateManager;
-import controller.Level;
-import controller.SaveHandler;
+import controller.savehandler.SaveHandler;
+import event.EventSupport;
 
 /**
  * A menu that is shown at the end of each completed level. It shows the time passed and let's you
@@ -22,12 +21,19 @@ import controller.SaveHandler;
 public class LevelFinished extends Menu{
 
 	private int level;
-	private GameStateManager gsm;
+	//private GameStateManager gsm;
 	private EGATimer timer;
 	
-	public LevelFinished(GameStateManager gsm, int level){
+	/*public LevelFinished(GameStateManager gsm, int level){
 		super(gsm);
 		this.gsm = gsm;
+		this.level = level;
+		init();
+		
+	}*/
+	
+	public LevelFinished(int level){
+		super();
 		this.level = level;
 		init();
 		
@@ -103,15 +109,12 @@ public class LevelFinished extends Menu{
 	@Override
 	public void select(){
 		if(currentItem == 0){
-			
-			gsm.setState(new Level(gsm, gsm.getNextTiledMap()));
+			EventSupport.getInstance().fireNewEvent("nextlevel");
 		}
 		if(currentItem == 1){
-		
-			gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
+			EventSupport.getInstance().fireNewEvent("level", 0);
 		} else if(currentItem == 2){
-		
-			gsm.setState(new MainMenu(gsm));
+			EventSupport.getInstance().fireNewEvent("main");
 		}
 	}
 

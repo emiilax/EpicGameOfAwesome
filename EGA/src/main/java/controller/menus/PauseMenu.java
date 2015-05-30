@@ -13,9 +13,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import controller.EGA;
-import controller.GameStateManager;
-import controller.Level;
-import controller.SaveHandler;
+import controller.savehandler.SaveHandler;
+import event.EventSupport;
 
 
 /**
@@ -38,16 +37,23 @@ public class PauseMenu extends Menu{
 	private BitmapFont font;
 	
 	/** The gamestate manager*/
-	private GameStateManager gsm;
+	//private GameStateManager gsm;
 	
 	/** 
 	 * Constructor, sets up the necassary parts for the 
 	 * pause menu
 	 * @param gsm, the GameStateManager
 	 */
+	/*
 	public PauseMenu(GameStateManager gsm) {
 		super(gsm);
 		this.gsm = gsm;
+		init();
+	}*/
+	
+	public PauseMenu() {
+		super();
+		
 		init();
 	}
 	
@@ -122,15 +128,18 @@ public class PauseMenu extends Menu{
 		}
 		if (currentItem == 1){
 			// restart level
-			gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
+			EventSupport.getInstance().fireNewEvent("level", 0);
+			//gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
 
 		}
 		if (currentItem == 2){
-			gsm.pushState(new SettingsMenu(gsm));
+			EventSupport.getInstance().fireNewEvent("settings");
+			//gsm.pushState(new SettingsMenu(gsm));
 		}
 		if(currentItem == 3){
 			SaveHandler.save();
-			gsm.setState(new MainMenu(gsm));
+			EventSupport.getInstance().fireNewEvent("main");
+			//gsm.setState(new MainMenu(gsm));
 		}
 	}
 	
@@ -139,7 +148,7 @@ public class PauseMenu extends Menu{
 	 * be the peek of the stack. 
 	 */
 	public void unpauseTheGame(){
-		gsm.popState();
+		EventSupport.getInstance().fireNewEvent("pop");
 	}
 	
 	/**

@@ -17,9 +17,9 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import controller.EGA;
-import controller.GameStateManager;
 import controller.MyInputProcessor;
-import controller.SaveHandler;
+import controller.savehandler.SaveHandler;
+import event.EventSupport;
 
 /**
  * The control class for the menu that handles and shows the buttonmapping for the game. When this
@@ -39,14 +39,21 @@ public class ChangeControlMenu extends Menu{
 	
 	private String latestRemoved;
 	private GameData gd;
+	
+	private int key;
 
-	private GameStateManager gsm;
+	//private GameStateManager gsm;
 
-	public ChangeControlMenu(GameStateManager gsm){
-		super(gsm);
-		this.gsm = gsm;
+//	public ChangeControlMenu(GameStateManager gsm){
+//		super(gsm);
+//		this.gsm = gsm;
+//		init();
+//	}
+	public ChangeControlMenu(){
+		super();
 		init();
 	}
+
 
 	@SuppressWarnings("deprecation")
 
@@ -110,6 +117,7 @@ public class ChangeControlMenu extends Menu{
 	@Override
 	public void handleInput(int i) {
 		if(!changeMode){
+			EventSupport.getInstance().fireNewEvent("toggleMouse", true);
 			if(i == MyInput.BUTTON_JUMP){
 				if(currentItem > 0){
 					currentItem--;
@@ -123,7 +131,14 @@ public class ChangeControlMenu extends Menu{
 			} else if (i == MyInput.BUTTON_ENTER) { 
 				select();
 			}
-		} else {changeButton();}
+		} else {
+			EventSupport.getInstance().fireNewEvent("toggleMouse", false);
+			changeButton();
+		}
+	}
+	
+	public void setKey(int key){
+		this.key = key;
 	}
 	
 	/**
@@ -131,12 +146,12 @@ public class ChangeControlMenu extends Menu{
 	 * Changes the mapping of the previously pressed button, if it was a valid button. 
 	 */
 	private void changeButton(){
-		int key = MyInputProcessor.getPressed();
+		//int key = MyInputProcessor.getPressed();
 		List<Integer> keys = gd.getKeysList();
 		if(keys.contains(Keys.valueOf(latestRemoved))){
 			keys.remove(keys.indexOf(Keys.valueOf(latestRemoved)));
 		}
-		if(!(keys.contains(key))){
+		if((!(keys.contains(key))) && key != 0 ){
 			switch(currentItem){
 			case 0: gd.up = key;
 			setCurrentButtons(currentItem, Keys.toString(gd.up));
@@ -176,8 +191,9 @@ public class ChangeControlMenu extends Menu{
 		if(currentItem == 7){
 			menuBack();
 		}
-		setCurrentButtons(currentItem, "...");
 		changeMode = true;
+		setCurrentButtons(currentItem, "...");
+		
 	}
 
 	@Override
@@ -190,7 +206,7 @@ public class ChangeControlMenu extends Menu{
 	public void render() {
 	
 		updateModel();
-		view.render(currentItem, cam, false);
+		view.render(currentItem, getCam(), false);
 		
 		layout.setText(titleFont, title);
 
@@ -242,7 +258,7 @@ public class ChangeControlMenu extends Menu{
 	}
 	
 	private void menuBack(){
-		gsm.popState();	
+		EventSupport.getInstance().fireNewEvent("pop");
 	}
 
 }

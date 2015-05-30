@@ -14,10 +14,11 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 /**
+ * The controller class for the Character. Extends EntityController 
  * 
  * @author Emil Axelsson
  *
- * The controller class for the Character. Extends EntityController 
+ * 
  */
 @Data
 @EqualsAndHashCode(callSuper=false)

@@ -2,18 +2,22 @@ package controller;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import lombok.Data;
 import model.GameData;
 import model.MyInput;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import controller.menus.IMenu;
-import controller.menus.LevelFinished;
-import controller.menus.MainMenu;
+
+import controller.factory.MenuFactory;
+import controller.menus.ChangeControlMenu;
+import controller.savehandler.SaveHandler;
+import controller.superclass.GameState;
 import event.EventSupport;
 import event.TheChangeListener;
 import event.TheEvent;
@@ -66,14 +70,14 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	private Map <Integer, Texture> levelBgr;
 
 	private Boolean debug = false; 
-	
+
 	/**
 	 * Setups the parts necessary for the game.
 	 */
 	public void create() {
 
 		Gdx.input.setInputProcessor(new MyInputProcessor());
-		
+
 		SaveHandler.load();
 
 		EventSupport.getInstance().addListner(this);
@@ -82,19 +86,18 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		hudCam = new OrthographicCamera();
 		gsm = new GameStateManager(this);
 		initHashMap();
-		theLevel = new MainMenu(gsm);
-		gsm.pushState(theLevel);
+		gsm.pushState((new MenuFactory()).getMenu("main"));
 
 	}
-	
+
 	public void toggleDebug(){
 		debug = !debug;
 	}
-	
+
 	public Boolean isDebug(){
 		return debug;
 	}
-	
+
 	public String getDebugStatus(){
 		if(debug){
 			return "on";
@@ -118,7 +121,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		}
 
 	}
-	
+
 	/**
 	 * Sets the current level and resets the keys clicked.
 	 * 
@@ -126,9 +129,14 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	 */
 	public void setTheState(GameState gs){
 		MyInput.setAllKeysFalse();
+		if(gs.getClass().equals(Level.class)){
+			MyInputProcessor.setActive(false);
+		}else{
+			MyInputProcessor.setActive(true);
+		}
 		theLevel = gs;
 	}
-	
+
 	/**
 	 * Handles the input from the user.
 	 * The method will process the input differently,
@@ -137,19 +145,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	 */
 	public void handleInput() {
 
-
-		if(MyInput.isPressed(MyInput.BUTTON_JUMP)){
-
-			theLevel.handleInput(MyInput.BUTTON_JUMP);
-
-		}
-		if(MyInput.isPressed(MyInput.BUTTON_DOWN)){
-
-			theLevel.handleInput(MyInput.BUTTON_DOWN);
-
-		}
-		
-		if(theLevel instanceof Level){
+		if(theLevel.getClass().equals(Level.class)){
 			if(MyInput.isDown(MyInput.BUTTON_FORWARD)){
 				theLevel.handleInput(MyInput.BUTTON_FORWARD);
 			} else if(MyInput.isDown(MyInput.BUTTON_BACKWARD)){
@@ -157,66 +153,85 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			} else if(!MyInput.isDown(MyInput.BUTTON_FORWARD) || !MyInput.isDown(MyInput.BUTTON_BACKWARD)){
 				theLevel.handleInput(-1);
 			}
-		} else {
-			if(MyInput.isPressed(MyInput.BUTTON_FORWARD)){
-				theLevel.handleInput(MyInput.BUTTON_FORWARD);
-			}
-			if(MyInput.isPressed(MyInput.BUTTON_BACKWARD)){
-				theLevel.handleInput(MyInput.BUTTON_BACKWARD);
-			}
 		}
 
-		if(MyInput.isPressed(MyInput.BUTTON_ENTER)){
+		boolean isPressed = false;
+		for(int i = 0; i < MyInput.keys.length; i++){
+			if(theLevel.getClass().equals(Level.class)){
+				if(MyInput.isPressed(i) && (i != MyInput.BUTTON_FORWARD || i != MyInput.BUTTON_BACKWARD)){
+					theLevel.handleInput(i);
+				}
 
-			theLevel.handleInput(MyInput.BUTTON_ENTER);
-
-		}else if(MyInput.isDown(MyInput.BUTTON_RESTART)){
-
-			theLevel.handleInput(MyInput.BUTTON_RESTART);
-
-		}else if(MyInput.isDown(MyInput.BUTTON_ESCAPE)){
-
-			theLevel.handleInput(MyInput.BUTTON_ESCAPE);
-
-		}else if(MyInput.isPressed(MyInput.BUTTON_PAUSE)){
-			theLevel.handleInput(MyInput.BUTTON_PAUSE);
-		}else {
-			theLevel.handleInput(-2);
+			}else{
+				if(MyInput.isPressed(i)){
+					theLevel.handleInput(i);
+					isPressed = true;
+				}
+			}
 		}
+		if(!isPressed) theLevel.handleInput(-2);
 	}
-	
+
 	// Unused methods that belongs to ApplicationListener
 	public void dispose() {}
 	public void resize(int arg0, int arg1) {}
 	public void resume() {}
 	public void pause() {}
-	
+
 	/**
 	 * This method is called when there has been an event. 
 	 */
 	public void eventRecieved(TheEvent evt) {
-		if(theLevel instanceof Level){	
-			if(evt.getNameOfEvent().equals("spikehit")){
-				//setLevel(new Level(gsm, gsm.getCurrentTiledMap()));
-			}
-			if(evt.getNameOfEvent().equals("pause")){
-				theLevel.handleInput(MyInput.BUTTON_PAUSE);
-			}
-		}
-		// gets called on mouse movement and mouse press in menus
-		if(theLevel instanceof IMenu){
-			if(evt.getNameOfEvent().equals("selectMenuItem")){
-				((IMenu) theLevel).select(evt.getX(), evt.getY());
-			}
-			if(evt.getNameOfEvent().equals("currentMenuItem")){
-				((IMenu) theLevel).setCurrentItem(evt.getX(), evt.getY());
+		String name = evt.getNameOfEvent();
+
+		if(name.equalsIgnoreCase("level")){
+			if(evt.getTheLevelNumber() != 0){
+				gsm.setCurrentLevel(evt.getTheLevelNumber());
 			}
 
-			if(evt.getNameOfEvent().equals("resumegame")){
-				//setLevel(evt.getGame());
-			}
+			gsm.setState(new Level(this, gsm.getCurrentTiledMap()));
+			return;
+		}
+		if(name.equalsIgnoreCase("nextlevel")){
+
+			gsm.setCurrentLevel(gsm.getCurrentLevel()+1);		
+			gsm.setState(new Level(this, gsm.getCurrentTiledMap()));
+			return;
+
 		}
 
+		if(name.equalsIgnoreCase("pop")){
+
+			gsm.popState();
+			return;
+		}
+		if(name.equalsIgnoreCase("finish")){
+
+			gsm.pushState((new MenuFactory()).getLevelFinishedMenu(gsm.getCurrentLevel()));
+			return;
+		}
+		if(name.equals("latestPressed")){
+			GameState state = gsm.getCurrentState();
+			if(state.getClass().equals(ChangeControlMenu.class)){
+				((ChangeControlMenu)state).setKey(evt.getTheLevelNumber());
+			}
+			return;
+		}
+		if(name.equals("toggleMouse")){
+			MyInputProcessor.setActive(evt.isActive());
+			return;
+		}
+		if(!(name.equalsIgnoreCase("selectMenuItem") || name.equalsIgnoreCase("currentMenuItem"))){
+			if(name.equalsIgnoreCase("main")){
+				gsm.setState((new MenuFactory()).getMenu(name));
+			}else{
+				gsm.pushState((new MenuFactory()).getMenu(name));
+			}
+
+		}
+
+		theLevel.perform(evt);
+		
 
 	}
 
@@ -231,15 +246,12 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	public TiledMap getTiledMap(int i){
 		return maps.get(i);
 	}
-	
+
 	/**
 	 * When level is finished this method is called. 
 	 * @param i, the number of the level that have been done.
 	 */
-	public void setLevelFinished(int i){
-		LevelFinished state = new LevelFinished(gsm, i);
-		gsm.setState(state);
-	}
+
 
 	private void initHashMap(){ // this class should be in Content
 		finishedBgr = new HashMap<Integer, Texture>();

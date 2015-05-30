@@ -7,14 +7,13 @@ import model.MenuModel;
 import model.MyInput;
 import model.Variables;
 import controller.EGA;
-import controller.GameStateManager;
-import controller.Level;
-import controller.SaveHandler;
+import controller.savehandler.SaveHandler;
+import event.EventSupport;
 
 /**
- * 
- * @author Rebecka Reitmaier
  * This GameState is used to choose the level for the game.
+ * @author Rebecka Reitmaier
+ * 
  * 
  * @param gsm, GameStateManeger
  * @param backGroundTexture, Texture  
@@ -30,7 +29,7 @@ public class LevelSelect extends Menu {
 
 	private String menuItems [][];
 
-	private GameStateManager gsm;
+	//private GameStateManager gsm;
 	private MenuModel model;
 	private MenuRender view;
 	private int currentlyVisible = 0;
@@ -39,9 +38,15 @@ public class LevelSelect extends Menu {
 	 * LevelSelect constructor calls the superclass and initializes it
 	 * @param gsm, the GameStateManeger
 	 */
+	/*
 	public LevelSelect(GameStateManager gsm){
 		super(gsm);
 		this.gsm = gsm;
+		init();
+	}*/
+	
+	public LevelSelect(){
+		super();
 		init();
 	}
 
@@ -102,38 +107,49 @@ public class LevelSelect extends Menu {
 		}
 		if(currentRow == 0){
 			if(currentCol == 0){
-				gsm.setState(new Level(gsm, gsm.getLevel(levelIndex+1)));
-				gsm.setCurrentLevel(1);
+				//EventSupport.getInstance().fireNewEvent("level", levelIndex+1);
+//				gsm.setState(new Level(gsm, gsm.getLevel(levelIndex+1)));
+//				gsm.setCurrentLevel(1);
+				levelIndex = levelIndex+1;
 			}
 			if(currentCol == 1){
-				gsm.setState(new Level(gsm, gsm.getLevel(levelIndex+2)));
-				gsm.setCurrentLevel(2);
+//				gsm.setState(new Level(gsm, gsm.getLevel(levelIndex+2)));
+//				gsm.setCurrentLevel(2);
+				levelIndex = levelIndex+2;
 			}
 			if(currentCol == 2){
-				gsm.setState(new Level(gsm, gsm.getLevel(levelIndex+3)));
-				gsm.setCurrentLevel(3);
+//				gsm.setState(new Level(gsm, gsm.getLevel(levelIndex+3)));
+//				gsm.setCurrentLevel(3);
+				levelIndex = levelIndex+3;
 			}
 		} else if(currentRow == 1){
 			if(currentCol == 0){
-				gsm.setState(new Level(gsm, gsm.getLevel(levelIndex+4)));
-				gsm.setCurrentLevel(4);
+//				gsm.setState(new Level(gsm, gsm.getLevel(levelIndex+4)));
+//				gsm.setCurrentLevel(4);
+				levelIndex = levelIndex+4;
 			}
 			if(currentCol == 1){
-				gsm.setState(new Level(gsm, gsm.getLevel(levelIndex+5)));
-				gsm.setCurrentLevel(5);
+//				gsm.setState(new Level(gsm, gsm.getLevel(levelIndex+5)));
+//				gsm.setCurrentLevel(5);
+				levelIndex = levelIndex+5;
 			}
 			if(currentCol == 2){
-				gsm.setState(new Level(gsm, gsm.getLevel(levelIndex+6)));
-				gsm.setCurrentLevel(6);
+//				gsm.setState(new Level(gsm, gsm.getLevel(levelIndex+6)));
+//				gsm.setCurrentLevel(6);
+				levelIndex = levelIndex+6;
 			}
 		} else {
 			if(currentCol == 0 || currentCol == 2){
 				changeMenuItems(getNext());
+				return;
 			}
 			if(currentCol == 1){
-				gsm.popState();
+				EventSupport.getInstance().fireNewEvent("pop");
+				return;
 			}
 		}
+		
+		EventSupport.getInstance().fireNewEvent("level", levelIndex);
 
 	}
 	
@@ -220,7 +236,8 @@ public class LevelSelect extends Menu {
 			select();
 			break;
 		case MyInput.BUTTON_ESCAPE:
-			gsm.setState(new MainMenu(gsm));
+			EventSupport.getInstance().fireNewEvent("main");
+			//gsm.setState(new MainMenu(gsm));
 			break;
 		}
 
@@ -235,7 +252,7 @@ public class LevelSelect extends Menu {
 	@Override
 	public void render() {
 		updateModel();
-		view.renderMatrix(currentRow, currentCol, cam);
+		view.renderMatrix(currentRow, currentCol, getCam());
 		rendered = true;
 
 	}
