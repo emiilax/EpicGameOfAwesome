@@ -31,7 +31,7 @@ public class MyInputProcessor extends InputAdapter{
 	public static void setActive(boolean act){
 		active = act;
 	}
-
+	
 	/**
 	 * Called when a button is down
 	 */

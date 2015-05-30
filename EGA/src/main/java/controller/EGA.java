@@ -211,9 +211,14 @@ public class EGA implements ApplicationListener, TheChangeListener{
 			return;
 		}
 		if(name.equals("latestPressed")){
-			if(gsm.getCurrentState().getClass().equals(ChangeControlMenu.class)){
-				((ChangeControlMenu)gsm.getCurrentState()).setKey(evt.getTheLevelNumber());
+			GameState state = gsm.getCurrentState();
+			if(state.getClass().equals(ChangeControlMenu.class)){
+				((ChangeControlMenu)state).setKey(evt.getTheLevelNumber());
 			}
+			return;
+		}
+		if(name.equals("toggleMouse")){
+			MyInputProcessor.setActive(evt.isActive());
 			return;
 		}
 		if(!(name.equalsIgnoreCase("selectMenuItem") || name.equalsIgnoreCase("currentMenuItem"))){

@@ -117,7 +117,7 @@ public class ChangeControlMenu extends Menu{
 	@Override
 	public void handleInput(int i) {
 		if(!changeMode){
-			MyInputProcessor.setActive(true);
+			EventSupport.getInstance().fireNewEvent("toggleMouse", true);
 			if(i == MyInput.BUTTON_JUMP){
 				if(currentItem > 0){
 					currentItem--;
@@ -132,7 +132,7 @@ public class ChangeControlMenu extends Menu{
 				select();
 			}
 		} else {
-			MyInputProcessor.setActive(false);
+			EventSupport.getInstance().fireNewEvent("toggleMouse", false);
 			changeButton();
 		}
 	}

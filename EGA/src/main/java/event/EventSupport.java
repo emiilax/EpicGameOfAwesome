@@ -95,4 +95,16 @@ public class EventSupport {
 		}
 	}
 	
+	public void fireNewEvent(String nameOfEvent, boolean active){
+		TheEvent event = null;
+		
+		event = new TheEvent(this, nameOfEvent, active);
+		
+		Iterator<TheChangeListener> i = theListeners.iterator();
+		
+		while(i.hasNext()){
+			((TheChangeListener) i.next()).eventRecieved(event);
+		}
+	}
+	
 }

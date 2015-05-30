@@ -19,6 +19,7 @@ public class TheEvent extends EventObject {
 	private String nameOfEvent;
 	private int x, y;
 	private int theLevelNumber;
+	private boolean active;
 
 	
 	/**
@@ -30,6 +31,12 @@ public class TheEvent extends EventObject {
 	public TheEvent(Object source, String nameOfEvent) {
 		super(source);
 		this.nameOfEvent = nameOfEvent;
+	}
+	
+	public TheEvent(Object source, String nameOfEvent, boolean active) {
+		super(source);
+		this.nameOfEvent = nameOfEvent;
+		this.active = active;
 	}
 	
 	public TheEvent(Object source, String nameOfEvent, int x, int y){
