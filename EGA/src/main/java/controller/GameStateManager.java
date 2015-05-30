@@ -68,6 +68,14 @@ public class GameStateManager {
 	}
 	
 	/**
+	 * Checks what type the current state is and returns it
+	 * @return The current state
+	 */
+	public GameState getCurrentState(){
+		return gameStates.get(gameStates.size()-1);
+	}
+	
+	/**
 	 * Push a new GameState to the stack without 
 	 * erasing the prev state
 	 * @param state, the GameState you want to push

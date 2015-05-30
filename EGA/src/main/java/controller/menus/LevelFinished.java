@@ -110,14 +110,11 @@ public class LevelFinished extends Menu{
 	public void select(){
 		if(currentItem == 0){
 			EventSupport.getInstance().fireNewEvent("nextlevel");
-			//gsm.setState(new Level(gsm, gsm.getNextTiledMap()));
 		}
 		if(currentItem == 1){
 			EventSupport.getInstance().fireNewEvent("level", 0);
-			//gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
 		} else if(currentItem == 2){
 			EventSupport.getInstance().fireNewEvent("main");
-			//gsm.setState(new MainMenu(gsm));
 		}
 	}
 

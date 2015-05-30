@@ -7,6 +7,8 @@ import com.badlogic.gdx.InputAdapter;
 
 import controller.savehandler.SaveHandler;
 import event.EventSupport;
+import event.TheChangeListener;
+import event.TheEvent;
 /**
  * 
  * @author Emil Axelsson
@@ -20,7 +22,7 @@ public class MyInputProcessor extends InputAdapter{
 	
 	/** If true, handle mouse input */
 	private static boolean active = true;
-
+	
 	/**
 	 * changes active, a boolean that determines if mouse movement 
 	 * should be handled.
@@ -62,7 +64,7 @@ public class MyInputProcessor extends InputAdapter{
 		if(k == gd.pause){
 			MyInput.setKey(MyInput.BUTTON_PAUSE, true);
 		}
-		pressed = k;
+		EventSupport.getInstance().fireNewEvent("latestPressed", k);
 		return true;
 	}
 	

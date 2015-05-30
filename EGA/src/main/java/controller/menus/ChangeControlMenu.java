@@ -39,6 +39,8 @@ public class ChangeControlMenu extends Menu{
 	
 	private String latestRemoved;
 	private GameData gd;
+	
+	private int key;
 
 	//private GameStateManager gsm;
 
@@ -135,12 +137,16 @@ public class ChangeControlMenu extends Menu{
 		}
 	}
 	
+	public void setKey(int key){
+		this.key = key;
+	}
+	
 	/**
 	 * Checks what button was previously pressed and what button is currently pressed.
 	 * Changes the mapping of the previously pressed button, if it was a valid button. 
 	 */
 	private void changeButton(){
-		int key = MyInputProcessor.getPressed();
+		//int key = MyInputProcessor.getPressed();
 		List<Integer> keys = gd.getKeysList();
 		if(keys.contains(Keys.valueOf(latestRemoved))){
 			keys.remove(keys.indexOf(Keys.valueOf(latestRemoved)));
