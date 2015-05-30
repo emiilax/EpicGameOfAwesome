@@ -6,7 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ TestCharacterModel.class, TestEntityModel.class, TestGameData.class, 
-	TestMenuModel.class, TestMyInput.class })
+	TestMenuModel.class, TestMyInput.class, TestEGATimer.class })
 public class AllModelTests {
 
 }

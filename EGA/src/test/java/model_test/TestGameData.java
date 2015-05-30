@@ -79,16 +79,6 @@ public class TestGameData {
 		tester.toggleDebug();
 		assertTrue(tester.getIsDebug() == true);
 	}
-
-	/* I dont know why this fails
-	@Test
-	public void testGetKeyList(){
-		tester.updateList();
-		List<Integer> gottenKeys;
-		gottenKeys = tester.getKeysList();
-		int upKey = tester.getUp();
-		assertTrue(gottenKeys.get(2) == upKey);
-	} */
 	
 	@Test
 	public void testSetSoundVolume(){
