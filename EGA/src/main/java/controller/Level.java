@@ -325,7 +325,7 @@ public class Level extends GameState{
 	
 	public void createTimer(){
 		BodyDef bdef = new BodyDef();
-		bdef.position.set(80  / PPM, (EGA.V_HEIGTH-60) / PPM);
+		bdef.position.set((EGA.V_WIDTH/2)/PPM, (EGA.V_HEIGTH-60)/PPM);
 		bdef.type = BodyType.StaticBody;
 		Body body = world.createBody(bdef);
 
