@@ -14,12 +14,14 @@ import model.entities.SpikeModel;
 import model.entities.SpikeModel.spikeOrientation;
 import view.entities.SpikeView;
 
+/*
+ * SpikeController, controller for the spike
+ * @author Hampus R
+ */
 public class SpikeController extends EntityController {
 	
 	private PolygonShape shape;
 	private FixtureDef fDef;
-	
-	
 	
 	public SpikeController(SpikeModel em, SpikeView sv){
 		super(em, sv);

@@ -29,6 +29,14 @@ public class TestGameData {
 		assertTrue(tester.isBetterTime(0, time-1));	
 		assertFalse(tester.isBetterTime(0, time + 1));
 	}
+
+	@Test
+	public void equalTimeShouldReturnTrue(){
+		tester.addTime(0, 50f);
+		
+		float time = tester.getTime(0);
+		assertTrue(tester.isBetterTime(0, time));
+	}
 	
 	@Test
 	public void smallerTimeShouldUpdateTheTime(){		

@@ -19,10 +19,8 @@ import event.EventSupport;
 @EqualsAndHashCode(callSuper=false)
 public class MainMenu extends Menu{
 
-
 	private String subTitle;
 	private int subTitleFontSize;
-	
 	
 	public MainMenu(){
 		super();
@@ -93,16 +91,12 @@ public class MainMenu extends Menu{
 	public void select(){
 		if (currentItem == 0){
 			EventSupport.getInstance().fireNewEvent("level",0);
-			
-			//gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
 		}
 		if (currentItem == 1){
 			EventSupport.getInstance().fireNewEvent("levelselect");
-			//gsm.pushState(new LevelSelect(gsm));
 		}
 		if (currentItem == 2){
 			EventSupport.getInstance().fireNewEvent("settings");
-			//gsm.pushState(new SettingsMenu(gsm));
 		}
 		if(currentItem == 3){
 			SaveHandler.save();
@@ -111,9 +105,7 @@ public class MainMenu extends Menu{
 	}
 
 	@Override
-	public void update(float dt) {
-		//handleInput();
-	}
+	public void update(float dt) {}
 
 
 	@Override
