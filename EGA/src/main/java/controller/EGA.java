@@ -236,8 +236,7 @@ public class EGA implements ApplicationListener, TheChangeListener{
 
 	/**
 	 * @author Rebecka Reitmaier
-	 * getTiledMap is a method returns an object from the hashmap maps
-	 * OBS: currently only works with ints 1-3
+	 * getTiledMap is a method returns an object from the HashMap maps
 	 * 
 	 * @param int i, the map to the level you want
 	 * @return TiledMap

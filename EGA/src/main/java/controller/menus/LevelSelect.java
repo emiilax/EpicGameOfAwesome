@@ -25,17 +25,22 @@ import event.EventSupport;
 
 public class LevelSelect extends Menu {
 
+	/** the current row in the menu */
 	private int currentRow = 0;
+	/** the current column in the menu */
 	private int currentCol = 0;
 
+	/** the element points in the menu (start and end) */
 	private Point [][] menuItemPositions;
 	private Point [][] menuItemEndPositions;
 
+	/** the matrix with the string elements in the menu */
 	private String menuItems [][];
-
-	//private GameStateManager gsm;
+	/** the model */
 	private MenuModel model;
+	/** the view */
 	private MenuRender view;
+	/** the visibility */
 	private int currentlyVisible = 0;
 
 	/**
@@ -65,7 +70,7 @@ public class LevelSelect extends Menu {
 
 		};
 
-		setTitle();
+		setTitle("Choose level");
 
 		SaveHandler.save();
 
@@ -83,65 +88,13 @@ public class LevelSelect extends Menu {
 	/**
 	 * This method sets the title for the levelSelect menu.
 	 */
-	private void setTitle(){
-		title = "Choose level";
-	}
-
-	/**
-	 * This method is used to locate which level should be created 
-	 * or if it should which to another menu.
-	 * 
-	 * Add more if-states if group add more levels.
-	 */
-	@Override
-	public void select(){
-		int levelIndex = 0;
-		if(currentlyVisible == 0){
-			levelIndex = 0;
-		} else if (currentlyVisible == 1){
-			levelIndex = 6;
-		}
-		if(currentRow == 0){
-			if(currentCol == 0){
-				levelIndex = levelIndex+1;
-			}
-			if(currentCol == 1){
-				levelIndex = levelIndex+2;
-			}
-			if(currentCol == 2){
-				levelIndex = levelIndex+3;
-			}
-		} else if(currentRow == 1){
-			if(currentCol == 0){
-				levelIndex = levelIndex+4;
-			}
-			if(currentCol == 1){
-				levelIndex = levelIndex+5;
-			}
-			if(currentCol == 2){
-				levelIndex = levelIndex+6;
-			}
-		} else {
-			if(currentCol == 0 || currentCol == 2){
-				changeMenuItems(getNext());
-				return;
-			}
-			if(currentCol == 1){
-				EventSupport.getInstance().fireNewEvent("pop");
-				return;
-			}
-		}
-
-		try{
-			EventSupport.getInstance().fireNewEvent("level", levelIndex);
-		}catch (NullPointerException e){
-			JOptionPane.showMessageDialog(new Frame(), "Level doesn't exist");
-		}
+	private void setTitle(String s){
+		title = s;
 	}
 	
 	/**
 	 * When an arrow is pressed, this method is called 
-	 * @param index The number of the slide
+	 * @param index, The number of the slide
 	 */
 	private void changeMenuItems(int index){
 		if(index == 0){
@@ -226,12 +179,62 @@ public class LevelSelect extends Menu {
 			break;
 		case MyInput.BUTTON_ESCAPE:
 			EventSupport.getInstance().fireNewEvent("main");
-			//gsm.setState(new MainMenu(gsm));
 			break;
 		}
-
 	}
 
+	/**
+	 * This method is used to locate which level should be created 
+	 * or if it should which to another menu-text.
+	 * 
+	 */
+	@Override
+	public void select(){
+		int levelIndex = 0;
+		if(currentlyVisible == 0){
+			levelIndex = 0;
+		} else if (currentlyVisible == 1){
+			levelIndex = 6;
+		}
+		if(currentRow == 0){
+			if(currentCol == 0){
+				levelIndex = levelIndex+1;
+			}
+			if(currentCol == 1){
+				levelIndex = levelIndex+2;
+			}
+			if(currentCol == 2){
+				levelIndex = levelIndex+3;
+			}
+		} else if(currentRow == 1){
+			if(currentCol == 0){
+				levelIndex = levelIndex+4;
+			}
+			if(currentCol == 1){
+				levelIndex = levelIndex+5;
+			}
+			if(currentCol == 2){
+				levelIndex = levelIndex+6;
+			}
+		} else {
+			if(currentCol == 0 || currentCol == 2){
+				changeMenuItems(getNext());
+				return;
+			}
+			if(currentCol == 1){
+				EventSupport.getInstance().fireNewEvent("pop");
+				return;
+			}
+		}
+
+		try{
+			EventSupport.getInstance().fireNewEvent("level", levelIndex);
+		}catch (NullPointerException e){
+			JOptionPane.showMessageDialog(new Frame(), "Level doesn't exist");
+		}
+	}
+
+	
 	@Override
 	public void update(float dt) {}
 

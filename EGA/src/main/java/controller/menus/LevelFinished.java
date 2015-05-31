@@ -133,8 +133,5 @@ public class LevelFinished extends Menu{
 	}
 
 	@Override
-	public void update(float dt) {
-		// TODO Auto-generated method stub
-
-	}
+	public void update(float dt) {}
 }
