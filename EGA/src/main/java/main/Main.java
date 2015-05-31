@@ -7,7 +7,8 @@ import com.badlogic.gdx.utils.GdxNativesLoader;
 import controller.EGA;
 
 /**
- * Only used by Erik because DesktopLauncher doesn't work for some reason
+ * This is the main class that launches the game. It also sets window size and disables the rezizable function.
+ * 
  * @author Erik
  *
  */

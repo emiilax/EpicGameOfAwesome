@@ -26,7 +26,6 @@ public class Content {
 	/** HashMap for the levels*/
 	private HashMap<Integer, TiledMap> maps;
 	
-	/** The instance */
 	private static Content instance;
 	
 	/** The constructor, it creates the HashMaps with sound and textures */
@@ -40,30 +39,57 @@ public class Content {
 		
 	}
 	
-	
+	/**
+	 * Adds a new texture to content
+	 * @param path The path of the texture
+	 * @param key The name of the texture
+	 */
 	public void loadTexture(String path, String key){
 		Texture tex = new Texture(Gdx.files.internal(path));
 		textures.put(key, tex);
 	}
 	
+	/**
+	 * 
+	 * @param key The name of the texture
+	 * @return The texture with the specfic key
+	 */
 	public Texture getTexture(String key){
 		return textures.get(key);
 			
 	}
+	
+	/**
+	 * Removes the texture from content
+	 * @param key The name of the texture
+	 */
 	public void disposeTexture(String key){
 		Texture tex = textures.get(key);
 		if(tex != null) tex.dispose();
 	}
 	
+	/**
+	 * Adds new sound to the content
+	 * @param path Path of the sound
+	 * @param key The name of the song
+	 */
 	public void loadSound(String path, String key) {
 		Music sound = Gdx.audio.newMusic(Gdx.files.internal(path));
 		sounds.put(key, sound);
 	}
 	
+	/**
+	 * @param key The name of the song
+	 * @return The Music class of the song
+	 */
 	public Music getSound(String key) {
 		return sounds.get(key);
 	}
-
+	
+	/**
+	 * Plays the song with the specific key
+	 * @param key The name of the song
+	 */
 	public void playSound(String key){
 		if (key != "fail"){
 			sounds.get(key).stop();
@@ -72,6 +98,9 @@ public class Content {
 		sounds.get(key).play();
 	}
 	
+	/**
+	 * Stops all sounds from playing
+	 */
 	public void stopAllSounds(){
 		for(Map.Entry<String, Music> entry : sounds.entrySet()){
 			entry.getValue().stop();
@@ -79,6 +108,10 @@ public class Content {
 	}
 	
 	
+	/**
+	 * Removes the sound with the specifik key
+	 * @param key Name of the song
+	 */
 	public void removeSound(String key) {
 		Music sound = sounds.get(key);
 		if(sound != null) {
