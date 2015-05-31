@@ -117,6 +117,7 @@ public class Content {
 		TiledMap level3 = new TmxMapLoader().load("res/maps/level3.tmx");
 		TiledMap level8 = new TmxMapLoader().load("res/maps/level8.tmx");
 		TiledMap level7 = new TmxMapLoader().load("res/maps/level99.tmx");
+		TiledMap level12 = new TmxMapLoader().load("res/maps/level12.tmx");
 		
 		maps = new HashMap<Integer, TiledMap>();
 		maps.put(1, level1);
@@ -124,6 +125,7 @@ public class Content {
 		maps.put(3, level3);
 		maps.put(8, level8);
 		maps.put(7, level7);
+		maps.put(12, level12);
 		}
 	/**
 	 * load the sound for EGA

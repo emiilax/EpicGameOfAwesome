@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="32" tileheight="32" nextobjectid="454">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="32" tileheight="32" nextobjectid="466">
  <tileset firstgid="1" name="greenblock" tilewidth="32" tileheight="32">
   <image source="../tiles/greenblock.png" width="32" height="32"/>
  </tileset>
@@ -32,7 +32,7 @@
  </tileset>
  <layer name="background" width="40" height="23">
   <data encoding="base64" compression="zlib">
-   eJztzgEJAAAIA7CnsH9UeQoRtgRLAAAAqLkOPLcp4AAX
+   eJzt0TEKACAMBEHjI/z/U20MSDgbG1e4gWDKJbZmZmZmSpTp66WofaS2pBppraQWhXq3tHdR/5vScUJuSyF2evOt8TrgcxP46ABA
   </data>
  </layer>
  <layer name="ground" width="40" height="23">
@@ -73,6 +73,16 @@
  <objectgroup name="upSpikes">
   <object id="401" gid="7" x="160" y="544.091"/>
   <object id="402" gid="7" x="176.273" y="543.909"/>
+  <object id="454" gid="7" x="1184.73" y="416.182"/>
+  <object id="455" gid="7" x="1201" y="416"/>
+  <object id="456" gid="7" x="1216.73" y="416.515"/>
+  <object id="457" gid="7" x="1233" y="416.333"/>
+  <object id="458" gid="7" x="1248.4" y="416.182"/>
+  <object id="459" gid="7" x="1264.67" y="416"/>
+  <object id="462" gid="7" x="830.73" y="224.182"/>
+  <object id="463" gid="7" x="847" y="224"/>
+  <object id="464" gid="7" x="542.73" y="192.682"/>
+  <object id="465" gid="7" x="559" y="192.5"/>
  </objectgroup>
  <objectgroup name="leftSpikes">
   <object id="427" gid="19" x="234.909" y="112.303"/>
@@ -91,6 +101,8 @@
   <object id="442" gid="19" x="1227" y="497.5"/>
   <object id="443" gid="19" x="1227.99" y="480.402"/>
   <object id="444" gid="19" x="1227.75" y="465.25"/>
+  <object id="460" gid="19" x="1099.09" y="304.181"/>
+  <object id="461" gid="19" x="1099.33" y="319.333"/>
  </objectgroup>
  <objectgroup name="rightSpikes">
   <object id="445" gid="15" x="1152" y="607"/>
