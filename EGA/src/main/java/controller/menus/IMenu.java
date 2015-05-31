@@ -1,9 +1,11 @@
 package controller.menus;
 
 /**
+ * interface for menus
+ * 
  * @author Hampus Rönström
  * 
- * interface for menus
+ * 
  */
 public interface IMenu {
 	public void handleInput(int i);

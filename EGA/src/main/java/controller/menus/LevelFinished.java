@@ -27,16 +27,8 @@ public class LevelFinished extends Menu{
 
 	private int level;
 	private int lastLevel;
-	//private GameStateManager gsm;
 	private EGATimer timer;
 
-	/*public LevelFinished(GameStateManager gsm, int level){
-		super(gsm);
-		this.gsm = gsm;
-		this.level = level;
-		init();
-
-	}*/
 
 	public LevelFinished(int level){
 		super();
@@ -44,7 +36,10 @@ public class LevelFinished extends Menu{
 		init();
 
 	}
-
+	
+	/**
+	 * Initiates all variables
+	 */
 	private void init(){
 		titleFontSize = Variables.subMenuTitleSize - 20;
 		menuFontSize = Variables.subMenuItemSize;

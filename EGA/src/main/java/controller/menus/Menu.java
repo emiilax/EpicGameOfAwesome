@@ -24,11 +24,9 @@ public abstract class Menu extends GameState implements IMenu {
 	protected String menuItems[];
 	protected String title;
 	
-	/*protected Menu(GameStateManager gsm) {
-		super(gsm);
-	}*/
+
 	
-	protected Menu(){
+	public Menu(){
 		super();
 	}
 	

@@ -41,7 +41,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
+
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
@@ -53,7 +53,7 @@ import event.TheEvent;
 @EqualsAndHashCode(callSuper=false)
 public class Level extends GameState{
 
-	private boolean debug = true;
+	private boolean debug;
 
 	private World world;
 	private Box2DDebugRenderer b2br;
@@ -69,23 +69,16 @@ public class Level extends GameState{
 
 	
 	private EGATimer timer;
-	//private EGATimerView timerView;
 	private EGATimerController etc;
 	private boolean doorIsOpen;
 	private boolean isPaused;
 
 	//MVC Character 
-	private EntityController chc;
+	private CharacterController chc;
 	private CharacterModel chm;
 	private CharacterView chv;
-	private SpikeController spc;
-
-	//MVC Key
-	private KeyController kc;
-	private EntityModel km;
-	private KeyView kv;
+	//private SpikeController spc;
 	
-	private Boolean keyIsTaken;
 
 	//MVC Doors
 	private DoorController doorC; //ldc
@@ -100,36 +93,38 @@ public class Level extends GameState{
 	//public Level(GameStateManager gsm){
 	public Level(EGA game ,TiledMap tiledMap){
 
-		//super(gsm);
 		super();
 		this.game = game;
-		//this.gsm = gsm;
 		this.tiledMap = tiledMap;
 		lvlModel = new LevelModel();
 
 		lvlModel.setDebug(SaveHandler.getGameData().getIsDebug());
 
-		lvlRender = new LevelRender(lvlModel, getSb());
-		//doorIsOpen = false;
+		lvlRender = new LevelRender(lvlModel, sb);
+
 		isPaused = false;
 		
-		// set up box2d stuff
+		// set up box2d parts
 		world = new World(new Vector2(0,-9.81f), true);
 		cl = new MyContactListener(this);
 		world.setContactListener(cl);
 		b2br = new Box2DDebugRenderer();
+		
+		// set up box2d cam
+		b2dCam = new OrthographicCamera();
+		b2dCam.setToOrtho(false, EGA.V_WIDTH / PPM, EGA.V_HEIGTH / PPM);
+		
 
+		debug = SaveHandler.getGameData().getIsDebug();
+		
+		
 		entities = new Array<EntityController>(); 
 
 		//create controllers for the game and set the spritebatch
 		chc = new CharacterController(new CharacterModel(), new CharacterView());
 		chc.setSpriteBatch(getSb());
 		
-		debug = SaveHandler.getGameData().getIsDebug();
 		
-		// set up box2d cam
-		b2dCam = new OrthographicCamera();
-		b2dCam.setToOrtho(false, EGA.V_WIDTH / PPM, EGA.V_HEIGTH / PPM);
 		//set up the game timer
 		EGATimer.resetTimer();
 		timer = EGATimer.getTimer();
@@ -139,7 +134,8 @@ public class Level extends GameState{
 		createEntities();
 		timer.startTimer();
 	}
-
+	
+	@Override
 	public void handleInput(int i) {
 		switch(i){
 		case -1: ((CharacterController)chc).stop();
@@ -183,14 +179,14 @@ public class Level extends GameState{
 	@Override
 	public void perform(TheEvent evt){}
 
-	public void setIsPaused(boolean b){
-		isPaused = false;
-	}
-
+	/**
+	 * Resumes timer
+	 */
 	public void resumeTimer(){
 		timer.resumeTimer();
 	}
-
+	
+	@Override
 	public void update(float dt) {
 
 		lvlModel.setDebug(SaveHandler.getGameData().getIsDebug());
@@ -220,7 +216,8 @@ public class Level extends GameState{
 		}
 
 	}
-
+	
+	@Override
 	public void render() {
 		
 		lvlRender.render(getCam(), tmr, world, b2br, b2dCam);
@@ -234,9 +231,12 @@ public class Level extends GameState{
 		etc.render();
 	}
 
-
 	public void dispose() {}
-
+	
+	/**
+	 * Loops through the array of bodies to remove, and removes the
+	 * bodys in it.
+	 */
 	public void removeEntities(){
 		Array<Body> bodies = cl.getBodiesToRemove();
 
@@ -248,7 +248,6 @@ public class Level extends GameState{
 				if(b.getUserData() instanceof KeyController) {
 					getDoorC().setDoorIsLocked(false);
 				}
-				//if(b.getUserData() instanceof DoorController) doorV.setDoorIsLocked(false);;
 
 				entities.removeValue((EntityController)b.getUserData(), true);
 				world.destroyBody(b);
@@ -258,7 +257,10 @@ public class Level extends GameState{
 	}
 	
 	
-
+	/**
+	 * Called when a star is collected
+	 * @param s, the star that have been collected
+	 */
 	public void collectedStar(StarController s){
 		if(!s.isBig()){
 			((CharacterController)chc).setIsBig(false);
@@ -278,16 +280,20 @@ public class Level extends GameState{
 		createPlayer();
 		createTiles();
 		createTimer();
-		createMapObjects();
-	}
-
-	public void createMapObjects(){
-
 		createStars();
 		createSpikes();
 		createKey();
 		createDoor();
+		//createMapObjects();
 	}
+
+//	public void createMapObjects(){
+//
+//		createStars();
+//		createSpikes();
+//		createKey();
+//		createDoor();
+//	}
 
 	/**
 	 * Creates the character
@@ -334,37 +340,13 @@ public class Level extends GameState{
 		body.setUserData(etc);
 	}
 
-	public void testCreateLayer(MapLayer layer, short bits){
-		BodyDef bdef = new BodyDef();
-		FixtureDef fdef = new FixtureDef();
-		PolygonShape shape = new PolygonShape();
-
-		for(MapObject mo: layer.getObjects()){
-			bdef.type = BodyType.StaticBody;
-
-
-			float width = mo.getProperties().get("width", Float.class) / PPM / 2;
-			float height = mo.getProperties().get("height", Float.class) / PPM / 2;
-
-			float x = (mo.getProperties().get("x", Float.class) + width*PPM) / PPM;
-			float y = (mo.getProperties().get("y", Float.class) + height*PPM) / PPM;
-
-			bdef.position.set(x, y);
-			shape.setAsBox(width, height);
-			fdef.friction = 0;
-			fdef.shape = shape;
-			fdef.filter.categoryBits = bits;
-			fdef.filter.maskBits = Variables.BIT_PLAYER;
-			fdef.isSensor = false;
-
-			world.createBody(bdef).createFixture(fdef);
-		}
-	}
-	// Get rid of this eventually! use the method above instead
 	
 	
-	
-	
+	/**
+	 * Creates the body around the layer
+	 * @param layer, what layer that should be surrounded with a body
+	 * @param bits, what category bits that should be set to it
+	 */
 	public void createLayer(TiledMapTileLayer layer, short bits){
 
 		BodyDef bdef = new BodyDef();
@@ -384,12 +366,7 @@ public class Level extends GameState{
 				bdef.type = BodyType.StaticBody;
 				bdef.position.set((col + 0.5f)* tilesize / PPM, (row + 0.5f) * tilesize / PPM);
 
-				Vector2[] v = new Vector2[5];
-				v[0] = new Vector2(-tilesize / 2 / PPM, - tilesize / 2 / PPM);
-				v[1] = new Vector2(-tilesize / 2 / PPM, tilesize / 2 / PPM);
-				v[2] = new Vector2(tilesize / 2 / PPM, tilesize / 2 / PPM);
-				v[3] = new Vector2(tilesize / 2 / PPM, -tilesize / 2 / PPM);
-				v[4] = new Vector2(-tilesize / 2 / PPM, -tilesize / 2 / PPM);
+				Vector2[] v = createSquare(tilesize, tilesize);
 
 				ChainShape cs = new ChainShape();
 				cs.createChain(v);
@@ -404,12 +381,7 @@ public class Level extends GameState{
 
 		bdef.position.set(EGA.V_WIDTH /2/ PPM, EGA.V_HEIGTH /2/ PPM);
 
-		Vector2[] v = new Vector2[5];
-		v[0] = new Vector2(-EGA.V_WIDTH /2/ PPM, -EGA.V_HEIGTH/2/PPM);
-		v[1] = new Vector2(-EGA.V_WIDTH/2/PPM, EGA.V_HEIGTH/2/PPM);
-		v[2] = new Vector2(EGA.V_WIDTH/2/PPM, EGA.V_HEIGTH/2/PPM);
-		v[3] = new Vector2(EGA.V_WIDTH/2/PPM, -EGA.V_HEIGTH/2/PPM);
-		v[4] = new Vector2(-EGA.V_WIDTH/2/PPM, -EGA.V_HEIGTH/2/PPM);
+		Vector2[] v = createSquare(EGA.V_WIDTH, EGA.V_HEIGTH);
 
 		ChainShape cs = new ChainShape();
 		cs.createChain(v);
@@ -420,6 +392,24 @@ public class Level extends GameState{
 		fdef.isSensor = false;
 		world.createBody(bdef).createFixture(fdef);
 
+	}
+	
+	/**
+	 * Creates a square out of vectors
+	 * @param width, the width of the square
+	 * @param heigth, the heigth of the square
+	 * 
+	 * @return a array of vectors
+	 */
+	public Vector2[] createSquare(float width, float heigth){
+		Vector2[] v = new Vector2[5];
+		v[0] = new Vector2(-width /2/ PPM, -heigth/2/PPM);
+		v[1] = new Vector2(-width/2/PPM, heigth/2/PPM);
+		v[2] = new Vector2(width/2/PPM, heigth/2/PPM);
+		v[3] = new Vector2(width/2/PPM, -heigth/2/PPM);
+		v[4] = new Vector2(-width/2/PPM, -heigth/2/PPM);
+		return v;
+		
 	}
 
 	/**
@@ -437,6 +427,12 @@ public class Level extends GameState{
 
 	}
 
+	/**
+	 * creates a body 
+	 * @param mo, what object that should have the body
+	 * 
+	 * @return the body
+	 */
 	public Body createBody(MapObject mo){
 		BodyDef bdef = new BodyDef();
 
@@ -449,7 +445,12 @@ public class Level extends GameState{
 
 		return world.createBody(bdef);
 	}
-
+	
+	/**
+	 * Loops an entitylayer into the level
+	 * @param layer, the layer
+	 * @param ec, what kind of entity
+	 */
 	public void loopEntity(MapLayer layer, EntityController ec){
 
 		for(MapObject mo: layer.getObjects()){
@@ -462,9 +463,6 @@ public class Level extends GameState{
 			if(ec instanceof KeyController){
 				theController = new KeyController(new EntityModel(), new KeyView());
 			}
-//			if(ec instanceof OpenDoorController){
-//				theController = new OpenDoorController(new EntityModel(), new OpenDoorView());
-//			}
 			if(ec instanceof DoorController){
 				theController = (DoorController)ec;
 			}
@@ -496,7 +494,10 @@ public class Level extends GameState{
 
 		}
 	}
-
+	
+	/**
+	 * Creates the door
+	 */
 	private void createDoor(){
 
 		MapLayer layer = tiledMap.getLayers().get("lockedDoor");
@@ -507,7 +508,9 @@ public class Level extends GameState{
 
 	}
 
-
+	/**
+	 * Creates the key
+	 */
 	private void createKey(){
 
 		MapLayer layer = tiledMap.getLayers().get("key");
@@ -555,9 +558,7 @@ public class Level extends GameState{
 		body.setUserData(chc);
 	}
 
-	private void setDoorIsOpen(boolean b){
-		doorIsOpen = b;
-	}
+
 
 	public Boolean getDoorIsOpen(){
 		return doorIsOpen;

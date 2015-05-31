@@ -25,16 +25,15 @@ public class SettingsMenu extends Menu {
 	private String volume;
 	private float fVol;
 
-	/*public SettingsMenu(GameStateManager gsm) {
-		super(gsm);
-		this.gsm = gsm;
-		init();
-	}*/
 	
 	public SettingsMenu() {
 		super();
 		init();
 	}
+	
+	/**
+	 * Initiates all variables
+	 */
 	private void init(){
 		title = "Settings";
 		titleFontSize = Variables.subMenuTitleSize;

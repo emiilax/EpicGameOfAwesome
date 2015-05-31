@@ -17,23 +17,12 @@ import lombok.*;
 @Data
 public abstract class GameState {
 	
-	//protected GameStateManager gsm;
-	
+
 	
 	protected SpriteBatch sb;
 	private OrthographicCamera cam; 
 	private OrthographicCamera hudCam;
-	
-	/*protected GameState(GameStateManager gsm){
-		this.gsm = gsm;
-		game = gsm.getGame();
-		sb = game.getSb();
-		cam = game.getCam();
-		cam.setToOrtho(false, EGA.V_WIDTH, EGA.V_HEIGTH);
-		
-		hudCam = game.getHudCam();
-		hudCam.setToOrtho(false, EGA.V_WIDTH, EGA.V_HEIGTH);
-	}*/
+
 	
 	protected GameState(){
 		sb = new SpriteBatch();
@@ -65,7 +54,10 @@ public abstract class GameState {
 	 */
 	public abstract void render();
 	
-	
+	/**
+	 * When a event has been recived, the mainclass call this method
+	 * @param evt
+	 */
 	public void perform(TheEvent evt){};
 	
 }

@@ -71,6 +71,13 @@ public class EventSupport {
 		fireNewEvent(nameOfEvent, x, y);
 	}
 	
+	/**
+	 * Fire events with a name and x, y. (Used for mouse events)
+	 * 
+	 * @param nameOfEvent, the name
+	 * @param x, x-position
+	 * @param y, y-position
+	 */
 	public void fireNewEvent(String nameOfEvent, int x, int y){
 		TheEvent event = null;
 		
@@ -83,6 +90,12 @@ public class EventSupport {
 		}
 	}
 	
+	/**
+	 * Fire events with a name and a level. (Used for mouse events)
+	 * 
+	 * @param nameOfEvent
+	 * @param theLevel
+	 */
 	public void fireNewEvent(String nameOfEvent, int theLevel){
 		TheEvent event = null;
 		

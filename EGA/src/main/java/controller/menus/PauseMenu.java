@@ -38,20 +38,11 @@ public class PauseMenu extends Menu{
 	private BitmapFont font;
 	
 	/** The gamestate manager*/
-	//private GameStateManager gsm;
 	
 	/** 
 	 * Constructor, sets up the necassary parts for the 
 	 * pause menu
-	 * @param gsm, the GameStateManager
 	 */
-	/*
-	public PauseMenu(GameStateManager gsm) {
-		super(gsm);
-		this.gsm = gsm;
-		init();
-	}*/
-	
 	public PauseMenu() {
 		super();
 		
@@ -130,17 +121,17 @@ public class PauseMenu extends Menu{
 		if (currentItem == 1){
 			// restart level
 			EventSupport.getInstance().fireNewEvent("level", 0);
-			//gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
+
 
 		}
 		if (currentItem == 2){
 			EventSupport.getInstance().fireNewEvent("settings");
-			//gsm.pushState(new SettingsMenu(gsm));
+
 		}
 		if(currentItem == 3){
 			SaveHandler.save();
 			EventSupport.getInstance().fireNewEvent("main");
-			//gsm.setState(new MainMenu(gsm));
+
 		}
 	}
 	

@@ -2,9 +2,21 @@ package controller.menus;
 
 
 
-
+/**
+ * A menu factory that returns a menu
+ * 
+ * @author Emil Axelsson
+ *
+ */
 public class MenuFactory {
 	
+	/**
+	 * Returns a menu depending on the name
+	 * 
+	 * @param name, the name of the menu
+	 * 
+	 * @return the menu
+	 */
 	public Menu getMenu(String name){
 		
 		if(name.equalsIgnoreCase("main")){
@@ -31,6 +43,13 @@ public class MenuFactory {
 		
 	}
 	
+	/**
+	 * Called when a level is completed, shows the levelfinished menu
+	 * 
+	 * @param i, the level that have been finished
+	 * 
+	 * @return, levelfinished menu
+	 */
 	public Menu getLevelFinishedMenu(int i){
 		return new LevelFinished(i);
 	}

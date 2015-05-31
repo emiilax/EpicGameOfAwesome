@@ -32,20 +32,21 @@ public class MyContactListener implements ContactListener{
 
 	private Array<Body> doorsToRemove;
 	private Level lvl;
-	//private GameStateManager gsm;
 	private EGA ega;
 	private EGATimer timer;
 	
 	public MyContactListener(GameState gs){
 		super();
 		lvl = (Level) gs;
-		//gsm = gs.getGsm();
+
 		ega = ((Level)gs).getGame();
 		bodiesToRemove = new Array<Body>();
 		doorsToRemove = new Array<Body>();
 		timer = EGATimer.getTimer();
 	}
-	// called when two fixures collides
+	/**
+	 * Called when two fixtures collides
+	 */
 	public void beginContact(Contact c) {
 		Fixture fa = c.getFixtureA();
 		Fixture fb = c.getFixtureB();
@@ -77,13 +78,11 @@ public class MyContactListener implements ContactListener{
 			timer.stopTimer();
 			Content.getInstance().playSound("finish");
 			EventSupport.getInstance().fireNewEvent("finish");
-			//ega.setLevelFinished(gsm.getCurrentLevel());
 		}
 		if(fb.getUserData() != null && fb.getUserData().equals("openDoor")){
 			timer.stopTimer();
 			Content.getInstance().playSound("finish");
 			EventSupport.getInstance().fireNewEvent("finish");
-			//ega.setLevelFinished(gsm.getCurrentLevel());
 		}
 		
 		if(fa.getUserData() != null && fa.getUserData().equals("spike")){
@@ -112,7 +111,9 @@ public class MyContactListener implements ContactListener{
 		EventSupport.getInstance().fireNewEvent("level", 0);
 	}
 	
-	// called when two fixures no longer collide
+	/**
+	 *  called when two fixures no longer are in contact
+	 */
 	public void endContact(Contact c) {
 		Fixture fa = c.getFixtureA();
 		Fixture fb = c.getFixtureB();
@@ -126,10 +127,13 @@ public class MyContactListener implements ContactListener{
 		
 	}
 	
+	/**
+	 * Tells if player is on ground
+	 * @return true if on ground
+	 */
 	public boolean isPlayerOnGround(){return numFootContacts > 0;}
-
+	
 	public void postSolve(Contact arg0, ContactImpulse arg1) {}
-
 	public void preSolve(Contact arg0, Manifold arg1) {}
 
 }

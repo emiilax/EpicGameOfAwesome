@@ -4,10 +4,10 @@ package model.entities;
 import lombok.*;
 
 /**
- * 
+ * The model class for the character 
  * @author Emil Axelsson
  * 
- * The model class for the character 
+ * 
  */
 public class CharacterModel extends EntityModel {
 	
