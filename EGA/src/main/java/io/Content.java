@@ -28,7 +28,7 @@ public class Content {
 	
 	private static Content instance;
 	
-	/** The constructor, it creates the HashMaps with sound and textures */
+	/** The constructor, it creates the HashMaps with sound and textures. The constructor is a singleton. */
 	private Content(){
 		
 		textures = new HashMap<String, Texture>();
