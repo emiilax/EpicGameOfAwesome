@@ -22,7 +22,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public abstract class EntityView implements Observer {
 	
 	/** The animation */
-	private Animation animation;
+	private Movements animation;
 	
 	/** The width of every texture region frame */
 	private float width;
@@ -46,7 +46,8 @@ public abstract class EntityView implements Observer {
 	 * 
 	 */
 	public EntityView(){
-		animation = new Animation();
+		animation = new Movements();
+		
 	}
 	
 	/**

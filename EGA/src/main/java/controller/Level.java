@@ -7,7 +7,7 @@ import view.entities.EGATimerView;
 import view.entities.KeyView;
 import view.entities.SpikeView;
 import view.entities.StarView;
-import view.renders.LevelRender;
+import view.renders.ViewRender;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import controller.entities.CharacterController;
@@ -84,7 +84,7 @@ public class Level extends GameState{
 	private DoorView doorV; //ldv
 	private EntityModel doorM;
 
-	private LevelRender lvlRender;
+	private ViewRender lvlRender;
 	private LevelModel lvlModel;
 	
 	private EGA game;
@@ -99,7 +99,7 @@ public class Level extends GameState{
 
 		lvlModel.setDebug(SaveHandler.getGameData().getIsDebug());
 
-		lvlRender = new LevelRender(lvlModel, sb);
+		lvlRender = new ViewRender(lvlModel, sb);
 
 		isPaused = false;
 		
