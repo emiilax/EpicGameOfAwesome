@@ -8,8 +8,6 @@ import model.MyInput;
 import com.badlogic.gdx.InputAdapter;
 
 import event.EventSupport;
-import event.TheChangeListener;
-import event.TheEvent;
 /**
  * 
  * @author Emil Axelsson
