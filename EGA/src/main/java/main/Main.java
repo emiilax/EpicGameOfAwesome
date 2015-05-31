@@ -11,7 +11,7 @@ import controller.EGA;
  * @author Erik
  *
  */
-public class WindowsStarter {
+public class Main {
 public static void main( String[] args ) {
 		
     	LwjglApplicationConfiguration cfg = 
