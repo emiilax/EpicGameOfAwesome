@@ -2,7 +2,6 @@ package controller;
 
 import io.SaveHandler;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import lombok.Data;
@@ -86,7 +85,6 @@ public class EGA implements ApplicationListener, TheChangeListener{
 		cam = new OrthographicCamera();
 		hudCam = new OrthographicCamera();
 		gsm = new GameStateManager(this);
-		initHashMap();
 		gsm.pushState((new MenuFactory()).getMenu("main"));
 
 	}
@@ -246,19 +244,5 @@ public class EGA implements ApplicationListener, TheChangeListener{
 	 */
 	public TiledMap getTiledMap(int i){
 		return maps.get(i);
-	}
-
-	/**
-	 * When level is finished this method is called. 
-	 * @param i, the number of the level that have been done.
-	 */
-
-
-	private void initHashMap(){ // this class should be in Content
-		finishedBgr = new HashMap<Integer, Texture>();
-		finishedBgr.put(1,  new Texture("res/menu/lol.jpg"));
-		finishedBgr.put(2,  new Texture("res/menu/lol.jpg"));
-		finishedBgr.put(3,  new Texture("res/menu/lol.jpg"));
-		finishedBgr.put(4,  new Texture("res/menu/lol.jpg"));
 	}
 }

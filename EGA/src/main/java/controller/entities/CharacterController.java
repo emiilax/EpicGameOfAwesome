@@ -80,7 +80,6 @@ public class CharacterController extends EntityController{
 		
 		playerBody.setLinearVelocity(xVelocity, yVelocity);
 		setFixtureDef(currentWidth, currentHeigth);
-		//EGA.res.getSound("forward").stop();
 	}
 	
 	/**

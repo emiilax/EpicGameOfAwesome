@@ -190,12 +190,6 @@ public class ChangeControlMenu extends Menu{
 	}
 
 	@Override
-	public void update(float dt) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void render() {
 	
 		updateModel();
@@ -253,5 +247,8 @@ public class ChangeControlMenu extends Menu{
 	private void menuBack(){
 		EventSupport.getInstance().fireNewEvent("pop");
 	}
+
+	@Override
+	public void update(float dt) {}
 
 }

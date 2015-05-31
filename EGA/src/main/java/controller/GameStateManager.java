@@ -26,9 +26,6 @@ public class GameStateManager {
 	/** The stack with gamestates */
 	private Stack<GameState> gameStates;
 	
-	//public static final int MENU = 123123;
-	//public static final int PLAY = 912837;
-	
 	/** the number of the current level*/
 	private int currentLevel;
 	
@@ -42,17 +39,6 @@ public class GameStateManager {
 		gameStates = new Stack<GameState>();
 		currentLevel = 1;
 	}
-	
-	/*
-	@SuppressWarnings("unused")
-	private GameState getState(int state){
-	
-		if(state == MENU) return new MainMenu(this);
-		if(state == PLAY) {
-			return new Level(this, Content.getInstance().getTiledMap(currentLevel));
-		}
-		return null;
-	}*/
 	
 	/** 
 	 * clear the stack and push a new gamestate
@@ -128,7 +114,7 @@ public class GameStateManager {
 	public TiledMap getCurrentTiledMap(){
 		return Content.getInstance().getTiledMap(currentLevel);
 	}
-	public TiledMap getLevel(int i){ // this is the exact same method as in EGA
+	public TiledMap getLevel(int i){ 
 		return Content.getInstance().getTiledMap(i);
 	}
 	

@@ -24,8 +24,6 @@ public class SpikeController extends EntityController {
 	public SpikeController(SpikeModel em, SpikeView sv){
 		super(em, sv);
 		
-		//currentOri = ori;
-		
 		shape = new PolygonShape();
 		fDef = new FixtureDef();
 		
