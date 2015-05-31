@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.utils.Array;
 
-import controller.superstate.GameState;
+import controller.menus.GameState;
 import event.EventSupport;
 
 /**

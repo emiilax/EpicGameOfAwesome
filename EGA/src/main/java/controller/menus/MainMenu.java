@@ -1,5 +1,7 @@
 package controller.menus;
 
+import io.SaveHandler;
+
 import java.awt.Point;
 
 import com.badlogic.gdx.Gdx;
@@ -11,7 +13,6 @@ import model.MenuModel;
 import model.MyInput;
 import model.Variables;
 import controller.EGA;
-import controller.savehandler.SaveHandler;
 import event.EventSupport;
 
 @Data

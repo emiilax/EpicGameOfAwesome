@@ -1,5 +1,7 @@
 package controller.menus;
 
+import io.SaveHandler;
+
 import java.awt.Point;
 import java.util.List;
 
@@ -18,7 +20,6 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import controller.EGA;
 import controller.MyInputProcessor;
-import controller.savehandler.SaveHandler;
 import event.EventSupport;
 
 /**

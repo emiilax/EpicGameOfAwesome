@@ -1,5 +1,7 @@
 package controller.menus;
 
+import io.SaveHandler;
+
 import java.awt.Frame;
 import java.awt.Point;
 
@@ -10,7 +12,6 @@ import model.MenuModel;
 import model.MyInput;
 import model.Variables;
 import controller.EGA;
-import controller.savehandler.SaveHandler;
 import event.EventSupport;
 
 /**

@@ -1,5 +1,8 @@
 package controller.menus;
 
+
+import io.SaveHandler;
+
 import java.awt.Frame;
 import java.awt.Point;
 
@@ -12,7 +15,6 @@ import model.MenuModel;
 import model.MyInput;
 import model.Variables;
 import controller.EGA;
-import controller.savehandler.SaveHandler;
 import event.EventSupport;
 
 /**
@@ -24,6 +26,7 @@ import event.EventSupport;
 public class LevelFinished extends Menu{
 
 	private int level;
+	private int lastLevel;
 	//private GameStateManager gsm;
 	private EGATimer timer;
 
@@ -49,12 +52,21 @@ public class LevelFinished extends Menu{
 		gap = 70;
 		xPos = (int)(EGA.V_WIDTH - Variables.menuItemX) / 2;
 		yPos = 450;
-
-		menuItems = new String[]{
-				"Next Level",
-				"Replay",
-				"Main Menu",
-		};
+		
+		if(level == 12){
+			lastLevel = 1;
+			menuItems = new String[]{
+					"Replay",
+					"Main Menu"
+			};
+		}else{
+			lastLevel = 0;
+			menuItems = new String[]{
+					"Next Level",
+					"Replay",
+					"Main Menu",
+			};
+		}
 
 		setTimeString();
 
@@ -114,12 +126,12 @@ public class LevelFinished extends Menu{
 	@Override
 	public void select(){
 		try{
-			if(currentItem == 0){
+			if(currentItem == 0 - lastLevel){
 				EventSupport.getInstance().fireNewEvent("nextlevel");
 			}
-			if(currentItem == 1){
+			if(currentItem == 1 - lastLevel){
 				EventSupport.getInstance().fireNewEvent("level", 0);
-			} else if(currentItem == 2){
+			} else if(currentItem == 2 - lastLevel){
 				EventSupport.getInstance().fireNewEvent("main");
 			}
 		}catch (NullPointerException e){

@@ -1,12 +1,5 @@
-package controller.factory;
+package controller.menus;
 
-import controller.menus.ChangeControlMenu;
-import controller.menus.LevelFinished;
-import controller.menus.LevelSelect;
-import controller.menus.MainMenu;
-import controller.menus.Menu;
-import controller.menus.PauseMenu;
-import controller.menus.SettingsMenu;
 
 
 
