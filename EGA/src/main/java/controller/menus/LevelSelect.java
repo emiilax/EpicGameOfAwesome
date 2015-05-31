@@ -91,7 +91,7 @@ public class LevelSelect extends Menu {
 	 * This method sets the title for the levelSelect menu.
 	 */
 	private void setTitle(){
-		title = "Choose level to play";
+		title = "Choose level";
 	}
 
 	/**
