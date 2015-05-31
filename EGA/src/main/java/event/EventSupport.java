@@ -6,7 +6,8 @@ import java.util.List;
 
 /**
  * 
- * @author emil axelsson
+ * @author Emil Axelsson
+ * 
  * A singelton class that will be used to 
  * fire events. When a event is fired, it 
  * message the classes that are listeners.
@@ -91,10 +92,10 @@ public class EventSupport {
 	}
 	
 	/**
-	 * Fire events with a name and a level. (Used for mouse events)
+	 * Fire events with a name and a level number
 	 * 
-	 * @param nameOfEvent
-	 * @param theLevel
+	 * @param nameOfEvent, the name
+	 * @param theLevel, the level number
 	 */
 	public void fireNewEvent(String nameOfEvent, int theLevel){
 		TheEvent event = null;
@@ -108,6 +109,12 @@ public class EventSupport {
 		}
 	}
 	
+	/**
+	 * Fire events with a name and boolean for if the mouse should be active or not
+	 * 
+	 * @param nameOfEvent, the name
+	 * @param active, if active
+	 */
 	public void fireNewEvent(String nameOfEvent, boolean active){
 		TheEvent event = null;
 		

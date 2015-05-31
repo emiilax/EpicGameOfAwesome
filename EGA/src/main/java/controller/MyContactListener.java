@@ -106,6 +106,9 @@ public class MyContactListener implements ContactListener{
 		}
 	}
 	
+	/**
+	 * Called when in contact with spike
+	 */
 	public void contactWithSpike(){
 		Content.getInstance().playSound("fail");
 		EventSupport.getInstance().fireNewEvent("level", 0);

@@ -9,10 +9,10 @@ import com.badlogic.gdx.InputAdapter;
 
 import event.EventSupport;
 /**
- * 
+ *  Class that detect it mouse or button is clicked
+ *  
  * @author Emil Axelsson
  * 
- * Class that detect it mouse or button is clicked
  * 
  */
 public class MyInputProcessor extends InputAdapter{
