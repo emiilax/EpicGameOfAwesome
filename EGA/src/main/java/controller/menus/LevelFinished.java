@@ -29,7 +29,6 @@ public class LevelFinished extends Menu{
 	private int lastLevel;
 	private EGATimer timer;
 
-
 	public LevelFinished(int level){
 		super();
 		this.level = level;
@@ -83,7 +82,6 @@ public class LevelFinished extends Menu{
 	 * Checks if the time is a record or not.
 	 */
 	private void setTimeString(){
-		System.out.println("only once");
 		timer = EGATimer.getTimer();
 		timer.stopTimer();
 		Float timePassed = timer.getTimePassed();

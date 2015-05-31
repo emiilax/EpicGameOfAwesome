@@ -20,7 +20,7 @@ import controller.EGA;
 
 /**
  * A classed used for all menus to render the text accordingly.
- * @author Erik
+ * @author Erik, Rebecka Reitmaier
  *
  */
 public class MenuRender {
@@ -105,62 +105,10 @@ public class MenuRender {
 	private void renderBackground() {
 		backgroundSprite.draw(sb);
 	}
-	
-	/**
-	 * Renders text from a array into a meny
-	 * @param currentItem The item which will be marked with red labeltext
-	 * @param cam The camera positions where the text will be rendered
-	 * @param animatedTitle If the title should be animated or not
-	 */
-	public void render(int currentItem, OrthographicCamera cam, boolean animatedTitle) {
-
-		menuItems = model.getMenuItems();
-
-		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		cam.update();
-
-		sb.setProjectionMatrix(cam.combined);
-
-		sb.begin();
-
-		renderBackground();
-
-		layout.setText(titleFont, model.getTitle());
-		float width = layout.width;
-
-		if(animatedTitle){
-			animateTitle(width);
-		}else {
-			titleFont.draw(sb, model.getTitle(), (EGA.V_WIDTH-width) / 2, titleHeight);
-		}
-
-		for(int i = 0; i < menuItems.length; i++){
-			layout.setText(font, menuItems[i]);
-			if(currentItem == i){
-				font.setColor(Color.RED);
-			} else {
-				font.setColor(Color.WHITE);
-			}
-
-			int yPos = model.getYPos() - model.getGap()*i;
-			int xPos = model.getXPos();
-			drawFont(menuItems[i],font,xPos, yPos);
-			menuItemPositions[i] = new Point(xPos,EGA.V_HEIGTH-yPos);
-			menuItemEndPositions[i] = new Point(xPos+(int)width, EGA.V_HEIGTH-yPos+model.getMenuFontSize());
-		}
-
-		model.setMenuItemPositions(menuItemPositions);
-		model.setMenuItemEndPositions(menuItemEndPositions);
-		sb.end();
-
-		rendered = true;
-	}
-
 	/**
 	 * A rendermethod used only to loop in matrixes with labels into a
 	 * menu. 
-	 * @author Rebecka, Erik
+	 * @author Rebecka Reitmaier, Erik
 	 * @param currentRow The row which will be marked with red labeltext
 	 * @param currentCol The column which will be marked with red labeltext
 	 * @param cam The camera positions where the text will be rendered
@@ -247,6 +195,58 @@ public class MenuRender {
 		rendered = true;
 
 	}
+	
+	/**
+	 * Renders text from a array into a menu
+	 * @param currentItem The item which will be marked with red labeltext
+	 * @param cam The camera positions where the text will be rendered
+	 * @param animatedTitle If the title should be animated or not
+	 */
+	public void render(int currentItem, OrthographicCamera cam, boolean animatedTitle) {
+
+		menuItems = model.getMenuItems();
+
+		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		cam.update();
+
+		sb.setProjectionMatrix(cam.combined);
+
+		sb.begin();
+
+		renderBackground();
+
+		layout.setText(titleFont, model.getTitle());
+		float width = layout.width;
+
+		if(animatedTitle){
+			animateTitle(width);
+		}else {
+			titleFont.draw(sb, model.getTitle(), (EGA.V_WIDTH-width) / 2, titleHeight);
+		}
+
+		for(int i = 0; i < menuItems.length; i++){
+			layout.setText(font, menuItems[i]);
+			if(currentItem == i){
+				font.setColor(Color.RED);
+			} else {
+				font.setColor(Color.WHITE);
+			}
+
+			int yPos = model.getYPos() - model.getGap()*i;
+			int xPos = model.getXPos();
+			drawFont(menuItems[i],font,xPos, yPos);
+			menuItemPositions[i] = new Point(xPos,EGA.V_HEIGTH-yPos);
+			menuItemEndPositions[i] = new Point(xPos+(int)width, EGA.V_HEIGTH-yPos+model.getMenuFontSize());
+		}
+
+		model.setMenuItemPositions(menuItemPositions);
+		model.setMenuItemEndPositions(menuItemEndPositions);
+		sb.end();
+
+		rendered = true;
+	}
+
 	public void drawFont(String item, BitmapFont myFont, int xPos, int yPos){
 		boolean startedNow = false;
 		if(!sb.isDrawing()){

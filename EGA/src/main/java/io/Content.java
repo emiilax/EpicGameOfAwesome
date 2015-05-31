@@ -129,6 +129,7 @@ public class Content {
 		TiledMap level8 = new TmxMapLoader().load("res/maps/level8.tmx");
 		//level 9
 		TiledMap level10 = new TmxMapLoader().load("res/maps/level10.tmx");
+		TiledMap level11 = new TmxMapLoader().load("res/maps/level11.tmx");
 		TiledMap level12 = new TmxMapLoader().load("res/maps/level12.tmx");
 		
 		maps = new HashMap<Integer, TiledMap>();
@@ -142,6 +143,7 @@ public class Content {
 		maps.put(8, level8);
 		//level 9
 		maps.put(10,  level10);
+		maps.put(11,  level11);
 		maps.put(12, level12);
 		}
 	/**
@@ -158,9 +160,7 @@ public class Content {
 		loadSound("res/sound/sound_oflyt.wav", "fail");
 	}
 	/**
-	 * @author Rebecka Reitmaier
 	 * getTiledMap is a method returns an object from the hashmap maps
-	 * OBS: currently only works with ints 1-3
 	 * 
 	 * @param int i, the map to the level you want
 	 * @return TiledMap
