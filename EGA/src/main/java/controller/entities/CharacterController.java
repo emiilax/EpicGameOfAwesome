@@ -2,7 +2,7 @@ package controller.entities;
 
 import static model.Variables.PPM;
 import io.Content;
-import view.entities.CharacteView;
+import view.entities.CharacterView;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import model.Variables;
@@ -54,13 +54,13 @@ public class CharacterController extends EntityController{
 	 * @param chModel, the CharacterModel
 	 * @param chView, the CharacterView
 	 */
-	public CharacterController(CharacterModel chModel, CharacteView chView){
+	public CharacterController(CharacterModel chModel, CharacterView chView){
 		
 		super(chModel, chView);
 
 		setIsBig(false);
 		
-		((CharacteView)getTheView()).setTexture(isBig);
+		((CharacterView)getTheView()).setTexture(isBig);
 		
 		shape = new PolygonShape();
 		fDef = new FixtureDef();
@@ -139,7 +139,7 @@ public class CharacterController extends EntityController{
 		setFixtureDef(currentWidth, currentHeigth);
 		//grow sound ? 
 		
-		((CharacteView)getTheView()).setTexture(isBig);
+		((CharacterView)getTheView()).setTexture(isBig);
 	}
 	
 	/**
@@ -150,7 +150,7 @@ public class CharacterController extends EntityController{
 		setFixtureDef(currentWidth, currentHeigth);
 		Content.getInstance().playSound("shrink");
 		
-		((CharacteView)getTheView()).setTexture(isBig);
+		((CharacterView)getTheView()).setTexture(isBig);
 
 	}
 	
@@ -178,7 +178,7 @@ public class CharacterController extends EntityController{
 	 */
 	int i = 1;
 	public void moveForward(){	
-		((CharacteView)super.getTheView()).setStopped(false);
+		((CharacterView)super.getTheView()).setStopped(false);
 		Body playerBody = this.getBody();
 		yVelocity = playerBody.getLinearVelocity().y;
 		
@@ -191,7 +191,7 @@ public class CharacterController extends EntityController{
 	 * Moves the Character-body backwards
 	 */
 	public void moveBackward(){
-		((CharacteView)super.getTheView()).setStopped(false);
+		((CharacterView)super.getTheView()).setStopped(false);
 		Body playerBody = this.getBody();
 		yVelocity = playerBody.getLinearVelocity().y;
 		playerBody.setLinearVelocity(-currentSpeed, yVelocity);
@@ -202,7 +202,7 @@ public class CharacterController extends EntityController{
 	 * Stops the Character-body from moving
 	 */
 	public void stop(){
-		((CharacteView)super.getTheView()).setStopped(true);
+		((CharacterView)super.getTheView()).setStopped(true);
 		Body playerBody = this.getBody();
 		yVelocity = playerBody.getLinearVelocity().y;
 		playerBody.setLinearVelocity(0, yVelocity);

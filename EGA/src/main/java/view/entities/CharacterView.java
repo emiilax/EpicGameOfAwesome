@@ -18,7 +18,7 @@ import model.entities.CharacterModel;
  */
 @Data 
 @EqualsAndHashCode(callSuper=false)
-public class CharacteView extends EntityView{
+public class CharacterView extends EntityView{
 	
 	/** Array of texture regions that will be used in animation class*/
 	private TextureRegion[] sprites;

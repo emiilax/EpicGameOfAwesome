@@ -2,7 +2,7 @@ package controller;
 
 import static model.Variables.PPM;
 import io.SaveHandler;
-import view.entities.CharacteView;
+import view.entities.CharacterView;
 import view.entities.EGATimerView;
 import view.entities.KeyView;
 import view.entities.SpikeView;
@@ -75,7 +75,7 @@ public class Level extends GameState{
 	//MVC Character 
 	private CharacterController chc;
 	private CharacterModel chm;
-	private CharacteView chv;
+	private CharacterView chv;
 	//private SpikeController spc;
 	
 
@@ -120,7 +120,7 @@ public class Level extends GameState{
 		entities = new Array<EntityController>(); 
 
 		//create controllers for the game and set the spritebatch
-		chc = new CharacterController(new CharacterModel(), new CharacteView());
+		chc = new CharacterController(new CharacterModel(), new CharacterView());
 		chc.setSpriteBatch(getSb());
 		
 		
