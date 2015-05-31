@@ -2,12 +2,12 @@ package controller;
 
 import static model.Variables.PPM;
 import io.SaveHandler;
-import view.entities.CharacterView;
+import view.entities.CharacteView;
 import view.entities.EGATimerView;
 import view.entities.KeyView;
 import view.entities.SpikeView;
 import view.entities.StarView;
-import view.renders.LevelRender;
+import view.renders.ViewRender;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import controller.entities.CharacterController;
@@ -75,7 +75,7 @@ public class Level extends GameState{
 	//MVC Character 
 	private CharacterController chc;
 	private CharacterModel chm;
-	private CharacterView chv;
+	private CharacteView chv;
 	//private SpikeController spc;
 	
 
@@ -84,7 +84,7 @@ public class Level extends GameState{
 	private DoorView doorV; //ldv
 	private EntityModel doorM;
 
-	private LevelRender lvlRender;
+	private ViewRender lvlRender;
 	private LevelModel lvlModel;
 	
 	private EGA game;
@@ -99,7 +99,7 @@ public class Level extends GameState{
 
 		lvlModel.setDebug(SaveHandler.getGameData().getIsDebug());
 
-		lvlRender = new LevelRender(lvlModel, sb);
+		lvlRender = new ViewRender(lvlModel, sb);
 
 		isPaused = false;
 		
@@ -120,7 +120,7 @@ public class Level extends GameState{
 		entities = new Array<EntityController>(); 
 
 		//create controllers for the game and set the spritebatch
-		chc = new CharacterController(new CharacterModel(), new CharacterView());
+		chc = new CharacterController(new CharacterModel(), new CharacteView());
 		chc.setSpriteBatch(getSb());
 		
 		
