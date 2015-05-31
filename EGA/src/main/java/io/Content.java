@@ -158,9 +158,7 @@ public class Content {
 		loadSound("res/sound/sound_oflyt.wav", "fail");
 	}
 	/**
-	 * @author Rebecka Reitmaier
 	 * getTiledMap is a method returns an object from the hashmap maps
-	 * OBS: currently only works with ints 1-3
 	 * 
 	 * @param int i, the map to the level you want
 	 * @return TiledMap

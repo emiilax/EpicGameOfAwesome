@@ -63,13 +63,8 @@ public class Level extends GameState{
 	private float tilesize;
 	private OrthogonalTiledMapRenderer tmr;
 	private GameStateManager gsm;
-
-	//Array with the entities
 	private Array<EntityController> entities;
-
-	
 	private EGATimer timer;
-	//private EGATimerView timerView;
 	private EGATimerController etc;
 	private boolean doorIsOpen;
 	private boolean isPaused;
@@ -97,20 +92,16 @@ public class Level extends GameState{
 	
 	private EGA game;
 
-	//public Level(GameStateManager gsm){
 	public Level(EGA game ,TiledMap tiledMap){
 
-		//super(gsm);
 		super();
 		this.game = game;
-		//this.gsm = gsm;
 		this.tiledMap = tiledMap;
 		lvlModel = new LevelModel();
 
 		lvlModel.setDebug(SaveHandler.getGameData().getIsDebug());
 
 		lvlRender = new LevelRender(lvlModel, getSb());
-		//doorIsOpen = false;
 		isPaused = false;
 		
 		// set up box2d stuff
@@ -158,7 +149,6 @@ public class Level extends GameState{
 		case MyInput.BUTTON_PAUSE: 
 			if(!isPaused){
 				EventSupport.getInstance().fireNewEvent("pause");
-				//gsm.pushState((new MenuFactory()).getMenu("pause", gsm));
 				isPaused = true;
 				timer.stopTimer();
 			}
