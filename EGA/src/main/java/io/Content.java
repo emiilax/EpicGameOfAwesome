@@ -98,8 +98,9 @@ public class Content {
 		}
 		return instance;
 	}
-	/* 
-	 * load the pictures for EGA
+	
+	/**
+	 * Load pictures for ega
 	 */
 	private void loadImages(){
 		loadTexture("res/stars/star.png", "star");
