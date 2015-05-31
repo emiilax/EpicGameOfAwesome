@@ -8,6 +8,7 @@ package controller.menus;
  * 
  */
 public interface IMenu {
+	
 	public void handleInput(int i);
 	public void select(int x, int y);
 	public void select();

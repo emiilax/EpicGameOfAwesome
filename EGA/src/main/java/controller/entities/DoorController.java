@@ -73,7 +73,9 @@ public class DoorController extends EntityController{
 			
 			setDoorSensor();
 		}
-	
+	/**
+	 * Sets the door sensor.
+	 */
 	public void setDoorSensor(){
 		
 		if(dv.getDoorIsLocked()){
@@ -83,6 +85,12 @@ public class DoorController extends EntityController{
 			setSensor(fDef, "openDoor");
 		}
 	}
+	
+	/**
+	 * Sets door, if its locked or not.
+	 * 
+	 * @param b, Boolean
+	 */
 	public void setDoorIsLocked(Boolean b){
 		dv.setDoorIsLocked(b);
 		setFixtureDef();

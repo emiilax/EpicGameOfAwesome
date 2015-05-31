@@ -8,18 +8,17 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import view.entities.EntityView;
 import lombok.Data;
 import model.entities.EntityModel;
+
 /**
  * Abstract controller super-class for all the
  * entities. 
  * 
  * @author Emil Axelsson
  *
- * 
  */
 
 @Data
 public abstract class EntityController {
-	
 	
 	private EntityModel theModel;
 	private EntityView theView;

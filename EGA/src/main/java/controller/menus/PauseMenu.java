@@ -17,7 +17,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import controller.EGA;
 import event.EventSupport;
 
-
 /**
  * 
  * @author Emil Axelsson
@@ -37,15 +36,12 @@ public class PauseMenu extends Menu{
 	/** The font for the undertitles*/
 	private BitmapFont font;
 	
-	/** The gamestate manager*/
-	
 	/** 
 	 * Constructor, sets up the necassary parts for the 
 	 * pause menu
 	 */
 	public PauseMenu() {
 		super();
-		
 		init();
 	}
 	

@@ -63,24 +63,22 @@ public class Level extends GameState{
 	private OrthogonalTiledMapRenderer tmr;
 	private GameStateManager gsm;
 
-	//Array with the entities
+	/** Array with the entities */
 	private Array<EntityController> entities;
 
-	
 	private EGATimer timer;
 	private EGATimerController etc;
 	private boolean doorIsOpen;
 	private boolean isPaused;
 
-	//MVC Character 
+	/**MVC Character */
 	private CharacterController chc;
 	private CharacterModel chm;
 	private CharacterView chv;
 	
-
-	//MVC Doors
-	private DoorController doorC; //ldc
-	private DoorView doorV; //ldv
+	/* MVC Door */
+	private DoorController doorC; 
+	private DoorView doorV;
 	private EntityModel doorM;
 
 	private ViewRender lvlRender;
@@ -138,30 +136,27 @@ public class Level extends GameState{
 		case -1: ((CharacterController)chc).stop();
 		break;
 
-		case MyInput.BUTTON_FORWARD:  ((CharacterController)chc).moveForward();//playerMoveForward();
+		case MyInput.BUTTON_FORWARD:  ((CharacterController)chc).moveForward();
 		break;
 
-		case MyInput.BUTTON_BACKWARD:  ((CharacterController)chc).moveBackward();//playerMoveBackward();
+		case MyInput.BUTTON_BACKWARD:  ((CharacterController)chc).moveBackward();
 		break;
 
-		case MyInput.BUTTON_JUMP:  if(cl.isPlayerOnGround()) ((CharacterController)chc).jump();//playerJump();
+		case MyInput.BUTTON_JUMP:  if(cl.isPlayerOnGround()) ((CharacterController)chc).jump();
 		break;
-		
-		// Pause
+
 		case MyInput.BUTTON_PAUSE: 
 			if(!isPaused){
 				EventSupport.getInstance().fireNewEvent("pause");
 				isPaused = true;
 				timer.stopTimer();
 			}
-			
 			break;
 
 		case MyInput.BUTTON_RESTART:
 			EventSupport.getInstance().fireNewEvent("level", 0);
 		break;
 		
-		// Pause
 		case MyInput.BUTTON_ESCAPE: 
 			EventSupport.getInstance().fireNewEvent("pause");
 
@@ -227,8 +222,7 @@ public class Level extends GameState{
 	public void dispose() {}
 	
 	/**
-	 * Loops through the array of bodies to remove, and removes the
-	 * bodys in it.
+	 * Loops through the array of bodies to remove, and removes the bodys in it.
 	 */
 	public void removeEntities(){
 		Array<Body> bodies = cl.getBodiesToRemove();
@@ -252,6 +246,7 @@ public class Level extends GameState{
 	
 	/**
 	 * Called when a star is collected
+	 * 
 	 * @param s, the star that have been collected
 	 */
 	public void collectedStar(StarController s){
@@ -265,9 +260,7 @@ public class Level extends GameState{
 			((CharacterController)chc).collectGrowStar();
 		}
 	}
-
-
-
+	
 	// 	CREATE METHODS --------------------------------------------------------------
 	public void createEntities(){
 		createPlayer();
@@ -323,8 +316,6 @@ public class Level extends GameState{
 
 		body.setUserData(etc);
 	}
-
-	
 	
 	/**
 	 * Creates the body around the layer
@@ -344,7 +335,6 @@ public class Level extends GameState{
 				// check if it exist
 				if(cell == null) continue;
 				if(cell.getTile() == null) continue;
-
 
 				// create a body + fixure from cell
 				bdef.type = BodyType.StaticBody;
@@ -479,6 +469,8 @@ public class Level extends GameState{
 		}
 	}
 	
+	// START create-methods for entities ------------------------------------------------
+	
 	/**
 	 * Creates the door
 	 */
@@ -542,8 +534,7 @@ public class Level extends GameState{
 		body.setUserData(chc);
 	}
 
-
-
+	//END create-methods for entities ------------------------------------------------
 	public Boolean getDoorIsOpen(){
 		return doorIsOpen;
 	}

@@ -1,7 +1,6 @@
 package controller.menus;
 
 
-
 /**
  * A menu factory that returns a menu
  * 
