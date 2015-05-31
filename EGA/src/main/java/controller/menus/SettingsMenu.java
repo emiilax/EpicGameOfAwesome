@@ -149,7 +149,6 @@ public class SettingsMenu extends Menu {
 	public void select(){
 		if (currentItem == 0){
 			EventSupport.getInstance().fireNewEvent("changecontroller");
-			//gsm.pushState(new ChangeControlMenu(gsm));
 		}
 		if(currentItem == 1){
 			resetAll();
@@ -172,12 +171,9 @@ public class SettingsMenu extends Menu {
 		init();
 	}
 	@Override
-	public void update(float dt) {
-		//handleInput();
-	}
+	public void update(float dt) {}
 
 	private void backMenu(){
-		//gsm.popState();
 		EventSupport.getInstance().fireNewEvent("pop");
 	}
 	

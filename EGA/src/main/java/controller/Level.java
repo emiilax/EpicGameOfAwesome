@@ -76,7 +76,6 @@ public class Level extends GameState{
 	private CharacterController chc;
 	private CharacterModel chm;
 	private CharacterView chv;
-	//private SpikeController spc;
 	
 
 	//MVC Doors
@@ -88,8 +87,7 @@ public class Level extends GameState{
 	private LevelModel lvlModel;
 	
 	private EGA game;
-
-	//public Level(GameStateManager gsm){
+	
 	public Level(EGA game ,TiledMap tiledMap){
 
 		super();
@@ -153,14 +151,13 @@ public class Level extends GameState{
 		case MyInput.BUTTON_PAUSE: 
 			if(!isPaused){
 				EventSupport.getInstance().fireNewEvent("pause");
-				//gsm.pushState((new MenuFactory()).getMenu("pause", gsm));
 				isPaused = true;
 				timer.stopTimer();
 			}
 			
 			break;
 
-		case MyInput.BUTTON_RESTART: //gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
+		case MyInput.BUTTON_RESTART:
 			EventSupport.getInstance().fireNewEvent("level", 0);
 		break;
 		
@@ -168,7 +165,6 @@ public class Level extends GameState{
 		case MyInput.BUTTON_ESCAPE: 
 			EventSupport.getInstance().fireNewEvent("pause");
 
-			//gsm.pushState((new MenuFactory()).getMenu("pause", gsm));
 			isPaused = true;
 			timer.stopTimer();
 		break;
@@ -189,8 +185,6 @@ public class Level extends GameState{
 	public void update(float dt) {
 
 		lvlModel.setDebug(SaveHandler.getGameData().getIsDebug());
-
-		//lvlModel.update();
 		
 		doorC.update(dt);
 
@@ -283,16 +277,7 @@ public class Level extends GameState{
 		createSpikes();
 		createKey();
 		createDoor();
-		//createMapObjects();
 	}
-
-//	public void createMapObjects(){
-//
-//		createStars();
-//		createSpikes();
-//		createKey();
-//		createDoor();
-//	}
 
 	/**
 	 * Creates the character
