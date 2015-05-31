@@ -122,8 +122,12 @@ public class Content {
 		TiledMap level1 = new TmxMapLoader().load("res/maps/level1.tmx");
 		TiledMap level2 = new TmxMapLoader().load("res/maps/level2.tmx");
 		TiledMap level3 = new TmxMapLoader().load("res/maps/level3.tmx");
-		TiledMap level8 = new TmxMapLoader().load("res/maps/level8.tmx");
+		TiledMap level4 = new TmxMapLoader().load("res/maps/Rebecka4.tmx");
+		TiledMap level5 = new TmxMapLoader().load("res/maps/Rebecka5.tmx");
+		TiledMap level6 = new TmxMapLoader().load("res/maps/Rebecka6.tmx");
 		TiledMap level7 = new TmxMapLoader().load("res/maps/level99.tmx");
+		TiledMap level8 = new TmxMapLoader().load("res/maps/level8.tmx");
+		//level 9
 		TiledMap level10 = new TmxMapLoader().load("res/maps/level10.tmx");
 		TiledMap level12 = new TmxMapLoader().load("res/maps/level12.tmx");
 		
@@ -131,8 +135,12 @@ public class Content {
 		maps.put(1, level1);
 		maps.put(2, level2);
 		maps.put(3, level3);
-		maps.put(8, level8);
+		maps.put(4, level4);
+		maps.put(5, level5);
+		maps.put(6, level6);
 		maps.put(7, level7);
+		maps.put(8, level8);
+		//level 9
 		maps.put(10,  level10);
 		maps.put(12, level12);
 		}
