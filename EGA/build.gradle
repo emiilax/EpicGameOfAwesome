@@ -5,7 +5,7 @@ apply plugin: 'application'
 sourceCompatibility = 1.5
 version = '1.0'
 
-mainClassName = 'main.DesktopLauncher'
+mainClassName = 'main.Main'
 jar {
     manifest {
  
