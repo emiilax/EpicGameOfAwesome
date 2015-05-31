@@ -35,7 +35,10 @@ public class LevelFinished extends Menu{
 		init();
 
 	}
-
+	
+	/**
+	 * Initiates all variables
+	 */
 	private void init(){
 		titleFontSize = Variables.subMenuTitleSize - 20;
 		menuFontSize = Variables.subMenuItemSize;

@@ -6,9 +6,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 
- * @author Emil Axelsson
  * Superclass for the entity models
+ * @author Emil Axelsson
+ *
  */
 @Data
 @EqualsAndHashCode(callSuper=false)
