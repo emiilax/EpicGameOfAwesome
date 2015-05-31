@@ -22,7 +22,7 @@ import controller.EGA;
 import event.EventSupport;
 
 /**
- * The control class for the menu that handles and shows the buttonmapping for the game. When this
+ * The control class for the menu that handles and shows the button mapping for the game. When this
  * menu is visible it is possible to change the controls used to play and navigate menus.
  * @author Erik
  *

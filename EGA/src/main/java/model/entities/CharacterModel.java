@@ -5,8 +5,8 @@ import lombok.*;
 
 /**
  * The model class for the character 
- * @author Emil Axelsson
  * 
+ * @author Emil Axelsson
  * 
  */
 public class CharacterModel extends EntityModel {

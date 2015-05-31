@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * Superclass for the entity models
+ * 
  * @author Emil Axelsson
  *
  */
