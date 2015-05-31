@@ -1,5 +1,7 @@
 package controller.menus;
 
+import io.SaveHandler;
+
 import java.awt.Point;
 
 import view.renders.MenuRender;
@@ -13,7 +15,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import controller.EGA;
-import controller.savehandler.SaveHandler;
 import event.EventSupport;
 
 

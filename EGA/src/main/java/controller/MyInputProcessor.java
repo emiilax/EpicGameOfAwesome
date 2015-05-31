@@ -1,11 +1,11 @@
 package controller;
 
+import io.SaveHandler;
 import model.GameData;
 import model.MyInput;
 
 import com.badlogic.gdx.InputAdapter;
 
-import controller.savehandler.SaveHandler;
 import event.EventSupport;
 import event.TheChangeListener;
 import event.TheEvent;

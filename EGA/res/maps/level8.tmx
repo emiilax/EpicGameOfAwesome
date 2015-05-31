@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="32" tileheight="32" nextobjectid="339">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="32" tileheight="32" nextobjectid="393">
  <tileset firstgid="1" name="greenblock" tilewidth="32" tileheight="32">
   <image source="../tiles/greenblock.png" width="32" height="32"/>
  </tileset>
@@ -42,20 +42,62 @@
  </layer>
  <layer name="platform" width="40" height="23">
   <data encoding="base64" compression="zlib">
-   eJzt0LEJAAAIA0Hdf2knEAlY3kHKNF8FAMCnXnZ9yGiW0yynWWYAOBwACw==
+   eJzt0jEKACAMQ9Ha+x/aVbpIBGmU/6B06BJCIwAAL8nuABtu+XKZKLveOrj1Vbnnc3XyW+NSlp/RmY7OdHSmmeoYACM=
   </data>
  </layer>
- <objectgroup name="stars"/>
+ <objectgroup name="stars">
+  <object id="387" x="13.7904" y="246.257">
+   <ellipse/>
+  </object>
+ </objectgroup>
  <objectgroup name="bigStars">
   <object id="338" x="433.897" y="455.529">
    <ellipse/>
   </object>
  </objectgroup>
  <objectgroup name="openDoor"/>
- <objectgroup name="key"/>
+ <objectgroup name="key">
+  <object id="386" gid="3" x="11.446" y="473.188"/>
+ </objectgroup>
  <objectgroup name="lockedDoor"/>
- <objectgroup name="upSpikes"/>
- <objectgroup name="leftSpikes"/>
- <objectgroup name="rightSpikes"/>
+ <objectgroup name="upSpikes">
+  <object id="356" gid="7" x="160.141" y="703.927"/>
+  <object id="357" gid="7" x="191.646" y="703.99"/>
+  <object id="364" gid="7" x="176.022" y="703.939"/>
+  <object id="365" gid="7" x="206.842" y="703.927"/>
+  <object id="366" gid="7" x="238.347" y="703.99"/>
+  <object id="367" gid="7" x="222.722" y="703.939"/>
+  <object id="368" gid="7" x="316.508" y="704.035"/>
+  <object id="369" gid="7" x="253.927" y="704.023"/>
+  <object id="370" gid="7" x="332.132" y="704.086"/>
+  <object id="371" gid="7" x="285.432" y="704.086"/>
+  <object id="372" gid="7" x="269.807" y="704.035"/>
+  <object id="373" gid="7" x="300.628" y="704.023"/>
+  <object id="374" gid="7" x="410.301" y="704.069"/>
+  <object id="375" gid="7" x="519.712" y="704.216"/>
+  <object id="376" gid="7" x="473.011" y="704.216"/>
+  <object id="377" gid="7" x="504.087" y="704.165"/>
+  <object id="378" gid="7" x="347.72" y="704.057"/>
+  <object id="379" gid="7" x="425.926" y="704.12"/>
+  <object id="380" gid="7" x="441.506" y="704.153"/>
+  <object id="381" gid="7" x="457.387" y="704.165"/>
+  <object id="382" gid="7" x="379.225" y="704.12"/>
+  <object id="383" gid="7" x="488.207" y="704.153"/>
+  <object id="384" gid="7" x="363.601" y="704.069"/>
+  <object id="385" gid="7" x="394.421" y="704.057"/>
+  <object id="388" gid="7" x="191.849" y="288.14"/>
+  <object id="389" gid="7" x="208.827" y="288.242"/>
+  <object id="392" gid="7" x="143.483" y="352.628"/>
+ </objectgroup>
+ <objectgroup name="leftSpikes">
+  <object id="350" gid="19" x="298.968" y="575.747"/>
+  <object id="351" gid="19" x="298.971" y="560.258"/>
+  <object id="352" gid="19" x="203.031" y="640.028"/>
+  <object id="353" gid="19" x="203.034" y="624.539"/>
+ </objectgroup>
+ <objectgroup name="rightSpikes">
+  <object id="390" gid="15" x="383.807" y="383.876"/>
+  <object id="391" gid="15" x="383.269" y="368.06"/>
+ </objectgroup>
  <objectgroup name="downSpikes"/>
 </map>

@@ -1,6 +1,7 @@
 package controller;
 
 import static model.Variables.PPM;
+import io.SaveHandler;
 import view.entities.CharacterView;
 import view.entities.EGATimerView;
 import view.entities.KeyView;
@@ -16,8 +17,7 @@ import controller.entities.EntityController;
 import controller.entities.KeyController;
 import controller.entities.SpikeController;
 import controller.entities.StarController;
-import controller.savehandler.SaveHandler;
-import controller.superstate.GameState;
+import controller.menus.GameState;
 import model.EGATimer;
 import model.LevelModel;
 import model.MyInput;
