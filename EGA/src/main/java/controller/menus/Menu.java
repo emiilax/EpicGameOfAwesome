@@ -2,7 +2,6 @@ package controller.menus;
 
 import java.awt.Point;
 
-import controller.superstate.GameState;
 import view.renders.MenuRender;
 import event.TheEvent;
 import model.MenuModel;

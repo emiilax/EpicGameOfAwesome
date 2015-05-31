@@ -10,8 +10,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
-import controller.savehandler.SaveHandler;
-
 
 /**
  * @author Rebecka Reitmaier, Emil Axelsson
@@ -74,6 +72,13 @@ public class Content {
 		sounds.get(key).play();
 	}
 	
+	public void stopAllSounds(){
+		for(Map.Entry<String, Music> entry : sounds.entrySet()){
+			entry.getValue().stop();
+		}
+	}
+	
+	
 	public void removeSound(String key) {
 		Music sound = sounds.get(key);
 		if(sound != null) {
@@ -117,6 +122,7 @@ public class Content {
 		TiledMap level1 = new TmxMapLoader().load("res/maps/level1.tmx");
 		TiledMap level2 = new TmxMapLoader().load("res/maps/level2.tmx");
 		TiledMap level3 = new TmxMapLoader().load("res/maps/level3.tmx");
+		TiledMap level8 = new TmxMapLoader().load("res/maps/level8.tmx");
 		TiledMap level7 = new TmxMapLoader().load("res/maps/level99.tmx");
 		TiledMap level12 = new TmxMapLoader().load("res/maps/level12.tmx");
 		
@@ -124,6 +130,7 @@ public class Content {
 		maps.put(1, level1);
 		maps.put(2, level2);
 		maps.put(3, level3);
+		maps.put(8, level8);
 		maps.put(7, level7);
 		maps.put(12, level12);
 		}

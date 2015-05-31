@@ -1,5 +1,7 @@
 package controller;
 
+import io.SaveHandler;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,10 +16,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 
-import controller.factory.MenuFactory;
 import controller.menus.ChangeControlMenu;
-import controller.savehandler.SaveHandler;
-import controller.superstate.GameState;
+import controller.menus.GameState;
+import controller.menus.MenuFactory;
 import event.EventSupport;
 import event.TheChangeListener;
 import event.TheEvent;
