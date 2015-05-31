@@ -17,7 +17,7 @@ import controller.entities.KeyController;
 import controller.entities.SpikeController;
 import controller.entities.StarController;
 import controller.savehandler.SaveHandler;
-import controller.superclass.GameState;
+import controller.superstate.GameState;
 import model.EGATimer;
 import model.LevelModel;
 import model.MyInput;
