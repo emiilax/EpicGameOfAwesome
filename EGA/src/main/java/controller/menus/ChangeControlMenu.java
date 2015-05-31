@@ -43,21 +43,15 @@ public class ChangeControlMenu extends Menu{
 	
 	private int key;
 
-	//private GameStateManager gsm;
-
-//	public ChangeControlMenu(GameStateManager gsm){
-//		super(gsm);
-//		this.gsm = gsm;
-//		init();
-//	}
 	public ChangeControlMenu(){
 		super();
 		init();
 	}
 
-
+	/**
+	 * Initiates all variables
+	 */
 	@SuppressWarnings("deprecation")
-
 	private void init(){
 		title = "Settings";
 		titleFontSize = Variables.subMenuTitleSize;
@@ -147,7 +141,6 @@ public class ChangeControlMenu extends Menu{
 	 * Changes the mapping of the previously pressed button, if it was a valid button. 
 	 */
 	private void changeButton(){
-		//int key = MyInputProcessor.getPressed();
 		List<Integer> keys = gd.getKeysList();
 		if(keys.contains(Keys.valueOf(latestRemoved))){
 			keys.remove(keys.indexOf(Keys.valueOf(latestRemoved)));

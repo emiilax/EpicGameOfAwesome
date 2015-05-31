@@ -19,17 +19,10 @@ import event.EventSupport;
 @EqualsAndHashCode(callSuper=false)
 public class MainMenu extends Menu{
 
-	//private GameStateManager gsm;
-	
+
 	private String subTitle;
 	private int subTitleFontSize;
 	
-	/*
-	public MainMenu(GameStateManager gsm) {
-		super(gsm);
-		this.gsm = gsm;
-		init();
-	}*/
 	
 	public MainMenu(){
 		super();

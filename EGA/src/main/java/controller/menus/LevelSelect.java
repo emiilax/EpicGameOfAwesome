@@ -40,15 +40,7 @@ public class LevelSelect extends Menu {
 
 	/**
 	 * LevelSelect constructor calls the superclass and initializes it
-	 * @param gsm, the GameStateManeger
 	 */
-	/*
-	public LevelSelect(GameStateManager gsm){
-		super(gsm);
-		this.gsm = gsm;
-		init();
-	}*/
-
 	public LevelSelect(){
 		super();
 		init();
