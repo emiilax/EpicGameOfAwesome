@@ -37,7 +37,7 @@ public class EGATimerView implements Observer {
 				Gdx.files.internal("res/fonts/orbitron-black.otf")
 				);
 		font = gen.generateFont(50);
-		font.setColor(Color.RED);
+		font.setColor(Color.BLACK);
 	}
 
 	public void update(Observable o, Object arg) {
