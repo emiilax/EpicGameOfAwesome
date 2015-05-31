@@ -74,6 +74,13 @@ public class Content {
 		sounds.get(key).play();
 	}
 	
+	public void stopAllSounds(){
+		for(Map.Entry<String, Music> entry : sounds.entrySet()){
+			entry.getValue().stop();
+		}
+	}
+	
+	
 	public void removeSound(String key) {
 		Music sound = sounds.get(key);
 		if(sound != null) {
