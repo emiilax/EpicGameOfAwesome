@@ -138,26 +138,29 @@ public class LevelSelect extends Menu {
 			JOptionPane.showMessageDialog(new Frame(), "Level doesn't exist");
 		}
 	}
-
+	
+	/**
+	 * When an arrow is pressed, this method is called 
+	 * @param index The number of the slide
+	 */
 	private void changeMenuItems(int index){
 		if(index == 0){
 			menuItems = new String[][]{
-					{"Level 1", "Level 2", "Level 3"}, //row 0 
-					{"Level 4", "Level 5", "Level 6"}, //row 1
+					{"Level 1", "Level 2", "Level 3"},  
+					{"Level 4", "Level 5", "Level 6"}, 
 					{"<--", "Back", "-->"}, 
 
 			};
 		} else if (index == 1){
 			menuItems = new String[][]{
-					{"Level 7", "Level 8", "Level 9"}, //row 0 
-					{"Level 10", "Level 11", "Level 12"}, //row 1
+					{"Level 7", "Level 8", "Level 9"}, 
+					{"Level 10", "Level 11", "Level 12"}, 
 					{"<--", "Back", "-->"}, 
 
 			};
 		}
 		currentlyVisible = index;
 		updateModel();
-		System.out.println(model.getMatrixMenuItems()[0][0]);
 	}
 
 	private int getNext(){
