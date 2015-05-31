@@ -1,6 +1,7 @@
 package controller;
 
 import io.SaveHandler;
+import io.Content;
 import model.GameData;
 import model.MyInput;
 
@@ -59,9 +60,11 @@ public class MyInputProcessor extends InputAdapter{
 			MyInput.setKey(MyInput.BUTTON_RESTART, true);
 		} 
 		if(k == gd.escape){
+			Content.getInstance().stopAllSounds();
 			MyInput.setKey(MyInput.BUTTON_ESCAPE, true);
 		}
 		if(k == gd.pause){
+			Content.getInstance().stopAllSounds();
 			MyInput.setKey(MyInput.BUTTON_PAUSE, true);
 		}
 		EventSupport.getInstance().fireNewEvent("latestPressed", k);
