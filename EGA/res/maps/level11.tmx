@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="32" tileheight="32" nextobjectid="644">
+ <tileset firstgid="1" name="greenblock" tilewidth="32" tileheight="32">
+  <image source="../tiles/greenblock.png" width="32" height="32"/>
+ </tileset>
+ <tileset firstgid="2" name="brownblock" tilewidth="32" tileheight="32">
+  <image source="../tiles/brownblock.png" width="32" height="32"/>
+ </tileset>
+ <tileset firstgid="3" name="keyTile" tilewidth="50" tileheight="50">
+  <image source="../key/key-4.png" width="50" height="50"/>
+ </tileset>
+ <tileset firstgid="4" name="closedDoor" tilewidth="50" tileheight="50">
+  <image source="../door/closedDoor.png" width="50" height="50"/>
+ </tileset>
+ <tileset firstgid="5" name="openDoor" tilewidth="50" tileheight="50">
+  <image source="../door/openDoor.png" width="50" height="50"/>
+ </tileset>
+ <tileset firstgid="6" name="upSpikes" tilewidth="16" tileheight="21">
+  <image source="../tiles/upSpikes_16x21.png" width="64" height="21"/>
+ </tileset>
+ <tileset firstgid="10" name="downSpikes" tilewidth="16" tileheight="21">
+  <image source="../tiles/downSpikes_16x21.png" width="64" height="21"/>
+ </tileset>
+ <tileset firstgid="14" name="rightSpikes" tilewidth="21" tileheight="16">
+  <image source="../tiles/rightSpikes_21x16.png" width="84" height="16"/>
+ </tileset>
+ <tileset firstgid="18" name="leftSpikes" tilewidth="21" tileheight="16">
+  <image source="../tiles/leftSpikes_21x16.png" width="84" height="16"/>
+ </tileset>
+ <tileset firstgid="22" name="skybackgroundemil2" tilewidth="1280" tileheight="720">
+  <image source="../tiles/skybackgroundemil2.jpg" width="1280" height="720"/>
+ </tileset>
+ <layer name="background" width="40" height="23">
+  <data encoding="base64" compression="zlib">
+   eJztzgEJAAAIA7CnsH9UeQoRtgRLAAAAqLkOPLcp4AAX
+  </data>
+ </layer>
+ <layer name="ground" width="40" height="23">
+  <data encoding="base64" compression="zlib">
+   eJztwwEJAAAMA6Ctf+nV+EHBBAAAgA96/AAbMAAp
+  </data>
+ </layer>
+ <layer name="platform" width="40" height="23">
+  <data encoding="base64" compression="zlib">
+   eJztVVsOwCAIM97/0PtashgpbRX3I8kynRQ6ebV2pVI6+TjYXdwqZNV2JbdVHye4ub5OcnN89mHN5rdyNuPCcuzDO9PN/KHaZr4hnV1xZjnuvj9WkC31Pv66Pyb/vjoRdmWOzPAR38iOsp+dqXmvxMv5J1UP4dT8e/eohzi4CK/0tMwe4sfEwOGW6Wf8lBpxuSEcqlcnNquzXp2JFbZZO0rfczBXauQBzO8Bcw==
+  </data>
+ </layer>
+ <objectgroup name="stars">
+  <object id="581" x="845" y="618">
+   <ellipse/>
+  </object>
+  <object id="582" x="252" y="201">
+   <ellipse/>
+  </object>
+  <object id="583" x="432" y="533">
+   <ellipse/>
+  </object>
+  <object id="587" x="880" y="431">
+   <ellipse/>
+  </object>
+ </objectgroup>
+ <objectgroup name="bigStars">
+  <object id="578" x="545" y="575">
+   <ellipse/>
+  </object>
+  <object id="579" x="1088" y="312">
+   <ellipse/>
+  </object>
+  <object id="580" x="630" y="641">
+   <ellipse/>
+  </object>
+  <object id="585" x="642" y="495">
+   <ellipse/>
+  </object>
+  <object id="586" x="998" y="454">
+   <ellipse/>
+  </object>
+ </objectgroup>
+ <objectgroup name="openDoor">
+  <object id="212" gid="5" x="1148.36" y="684.302"/>
+ </objectgroup>
+ <objectgroup name="key">
+  <object id="210" gid="3" x="883.337" y="323.667"/>
+ </objectgroup>
+ <objectgroup name="lockedDoor">
+  <object id="211" gid="4" x="1151.04" y="679.969"/>
+ </objectgroup>
+ <objectgroup name="upSpikes">
+  <object id="611" gid="7" x="414" y="383.667"/>
+  <object id="612" gid="7" x="384" y="384"/>
+  <object id="610" gid="7" x="399.5" y="384"/>
+  <object id="605" gid="7" x="897.5" y="576"/>
+  <object id="607" gid="7" x="912" y="576"/>
+  <object id="590" gid="7" x="782.167" y="256.667"/>
+  <object id="593" gid="7" x="526.667" y="255.667"/>
+  <object id="543" gid="7" x="749.667" y="255.667"/>
+  <object id="540" gid="7" x="704.167" y="256"/>
+  <object id="592" gid="7" x="559.167" y="256.667"/>
+  <object id="541" gid="7" x="719.667" y="256"/>
+  <object id="591" gid="7" x="766.667" y="256.667"/>
+  <object id="597" gid="7" x="496.667" y="256"/>
+  <object id="596" gid="7" x="511.167" y="255.667"/>
+  <object id="595" gid="7" x="543.667" y="256.667"/>
+  <object id="542" gid="7" x="734.167" y="255.667"/>
+  <object id="594" gid="7" x="481.167" y="256"/>
+  <object id="622" gid="7" x="943.5" y="384"/>
+  <object id="626" gid="7" x="928" y="384"/>
+  <object id="624" gid="7" x="913.5" y="384.333"/>
+  <object id="627" gid="7" x="847.5" y="385"/>
+  <object id="628" gid="7" x="832" y="385"/>
+  <object id="623" gid="7" x="898" y="384.333"/>
+  <object id="625" gid="7" x="960.5" y="385"/>
+  <object id="621" gid="7" x="976" y="385"/>
+  <object id="630" gid="7" x="205" y="545"/>
+  <object id="629" gid="7" x="190.5" y="544.333"/>
+  <object id="631" gid="7" x="430" y="384.333"/>
+  <object id="633" gid="7" x="460" y="384"/>
+  <object id="632" gid="7" x="445.5" y="384.333"/>
+  <object id="639" gid="7" x="269" y="608"/>
+  <object id="638" gid="7" x="254.5" y="608.333"/>
+ </objectgroup>
+ <objectgroup name="leftSpikes">
+  <object id="527" gid="19" x="781" y="384"/>
+  <object id="528" gid="19" x="780.667" y="367.666"/>
+  <object id="529" gid="19" x="781" y="352"/>
+  <object id="530" gid="19" x="780.333" y="336.667"/>
+  <object id="531" gid="19" x="780" y="320.333"/>
+  <object id="532" gid="19" x="780.333" y="304.667"/>
+  <object id="617" gid="19" x="780" y="400"/>
+  <object id="618" gid="19" x="779.667" y="415.666"/>
+  <object id="619" gid="19" x="780" y="432"/>
+  <object id="620" gid="19" x="780" y="447"/>
+ </objectgroup>
+ <objectgroup name="rightSpikes"/>
+ <objectgroup name="downSpikes">
+  <object id="571" gid="11" x="317" y="533"/>
+  <object id="572" gid="11" x="333" y="533"/>
+  <object id="573" gid="11" x="733" y="533"/>
+  <object id="574" gid="11" x="749" y="533"/>
+  <object id="588" gid="11" x="780" y="532.333"/>
+  <object id="589" gid="11" x="765" y="532.333"/>
+  <object id="598" gid="11" x="351" y="116"/>
+  <object id="599" gid="11" x="367" y="116"/>
+  <object id="600" gid="11" x="337" y="117"/>
+  <object id="601" gid="11" x="321" y="117"/>
+  <object id="602" gid="11" x="305" y="117"/>
+  <object id="603" gid="11" x="289" y="117"/>
+  <object id="640" gid="11" x="335" y="437"/>
+  <object id="641" gid="11" x="319" y="437"/>
+  <object id="636" gid="11" x="396" y="116"/>
+  <object id="635" gid="11" x="426" y="116"/>
+  <object id="634" gid="11" x="380" y="116"/>
+  <object id="637" gid="11" x="410" y="116"/>
+  <object id="643" gid="11" x="720" y="533"/>
+  <object id="642" gid="11" x="704" y="533"/>
+ </objectgroup>
+</map>
