@@ -68,12 +68,10 @@ public class MyContactListener implements ContactListener{
 		}
 		
 		if(fa.getUserData() != null && fa.getUserData().equals("bigStar")){
-			Content.getInstance().playSound("grow");
 			bodiesToRemove.add(fa.getBody());	
 		}
 		
 		if(fb.getUserData() != null && fb.getUserData().equals("bigStar")){
-			Content.getInstance().playSound("grow");
 			bodiesToRemove.add(fb.getBody());
 		}
 		if(fa.getUserData() != null && fa.getUserData().equals("openDoor")){

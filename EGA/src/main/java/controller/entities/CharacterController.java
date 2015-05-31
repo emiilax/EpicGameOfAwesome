@@ -137,7 +137,7 @@ public class CharacterController extends EntityController{
 	
 		setIsBig(true);
 		setFixtureDef(currentWidth, currentHeigth);
-		//grow sound ? 
+		Content.getInstance().playSound("grow");
 		
 		((CharacterView)getTheView()).setTexture(isBig);
 	}
