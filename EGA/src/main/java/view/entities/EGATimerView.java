@@ -13,7 +13,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import model.Variables;
-
+/**
+ * View class for the timer
+ * @author Hampus Rönström
+ *
+ */
 @Data
 public class EGATimerView implements Observer {
 	private boolean render;
@@ -30,7 +34,9 @@ public class EGATimerView implements Observer {
 		init();
 		render=true;
 	}
-
+	/**
+	 * sets font, fontsize and fontcolor
+	 */
 	@SuppressWarnings("deprecation")
 	private void init() {
 		FreeTypeFontGenerator gen = new FreeTypeFontGenerator(
@@ -39,7 +45,11 @@ public class EGATimerView implements Observer {
 		font = gen.generateFont(50);
 		font.setColor(Color.BLACK);
 	}
-
+	
+	/**
+	 * updates the x- and y-positions. They never change, but they update anyway. Updates the 
+	 * current time to display to match the actual timer.
+	 */
 	public void update(Observable o, Object arg) {
 		if (o instanceof EGATimer) {
 			EGATimer et = (EGATimer)o;
@@ -49,7 +59,9 @@ public class EGATimerView implements Observer {
 			render();
 		}		
 	}
-
+	/**
+	 * renders the timer with the current time
+	 */
 	private void render() {
 		if(render){
 			sb.begin();
@@ -60,7 +72,10 @@ public class EGATimerView implements Observer {
 		}
 		
 	}
-	
+	/**
+	 * sets the SpriteBatch to use.
+	 * @param sb, the SpriteBatch to use.
+	 */
 	public void setSpriteBatch(SpriteBatch sb){
 		this.sb = sb;
 	}
