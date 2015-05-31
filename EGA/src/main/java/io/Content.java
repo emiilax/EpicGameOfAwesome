@@ -120,15 +120,16 @@ public class Content {
 	 */
 	private void loadMaps(){
 		TiledMap level1 = new TmxMapLoader().load("res/maps/level1.tmx");
-		TiledMap level2 = new TmxMapLoader().load("res/maps/level2.tmx");
+		TiledMap level2 = new TmxMapLoader().load("res/maps/level10.tmx");
 		TiledMap level3 = new TmxMapLoader().load("res/maps/level3.tmx");
+		
 		TiledMap level4 = new TmxMapLoader().load("res/maps/Rebecka4.tmx");
 		TiledMap level5 = new TmxMapLoader().load("res/maps/Rebecka5.tmx");
 		TiledMap level6 = new TmxMapLoader().load("res/maps/Rebecka6.tmx");
 		TiledMap level7 = new TmxMapLoader().load("res/maps/level99.tmx");
 		TiledMap level8 = new TmxMapLoader().load("res/maps/level8.tmx");
 		//level 9
-		TiledMap level10 = new TmxMapLoader().load("res/maps/level10.tmx");
+		TiledMap level10 = new TmxMapLoader().load("res/maps/level2.tmx");
 		TiledMap level11 = new TmxMapLoader().load("res/maps/level11.tmx");
 		TiledMap level12 = new TmxMapLoader().load("res/maps/level12.tmx");
 		
