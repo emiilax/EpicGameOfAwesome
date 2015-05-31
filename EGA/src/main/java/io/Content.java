@@ -154,12 +154,12 @@ public class Content {
 	public void loadSounds(){
 		loadSound("res/sound/sound_mariojump.wav", "jump");
 		loadSound("res/sound/sound_forward.wav", "forward");
-		loadSound("res/sound/eriksmamma.wav", "grow");
+		loadSound("res/sound/sound_bwawaw.wav", "grow");
 		loadSound("res/sound/sound_ta-da.wav", "finish");
 		loadSound("res/sound/sound_shrink.wav", "shrink");
 		loadSound("res/sound/sound_unlockdoor.wav", "unlock");
 		loadSound("res/sound/sound_collectkey.wav", "collectkey");
-		loadSound("res/sound/sound_oflyt.wav", "fail");
+		loadSound("res/sound/sound_ohnoe.wav", "fail");
 	}
 	/**
 	 * getTiledMap is a method returns an object from the hashmap maps
