@@ -1,6 +1,9 @@
 package controller.menus;
 
+import java.awt.Frame;
 import java.awt.Point;
+
+import javax.swing.JOptionPane;
 
 import view.renders.MenuRender;
 import model.MenuModel;
@@ -44,7 +47,7 @@ public class LevelSelect extends Menu {
 		this.gsm = gsm;
 		init();
 	}*/
-	
+
 	public LevelSelect(){
 		super();
 		init();
@@ -107,35 +110,22 @@ public class LevelSelect extends Menu {
 		}
 		if(currentRow == 0){
 			if(currentCol == 0){
-				//EventSupport.getInstance().fireNewEvent("level", levelIndex+1);
-//				gsm.setState(new Level(gsm, gsm.getLevel(levelIndex+1)));
-//				gsm.setCurrentLevel(1);
 				levelIndex = levelIndex+1;
 			}
 			if(currentCol == 1){
-//				gsm.setState(new Level(gsm, gsm.getLevel(levelIndex+2)));
-//				gsm.setCurrentLevel(2);
 				levelIndex = levelIndex+2;
 			}
 			if(currentCol == 2){
-//				gsm.setState(new Level(gsm, gsm.getLevel(levelIndex+3)));
-//				gsm.setCurrentLevel(3);
 				levelIndex = levelIndex+3;
 			}
 		} else if(currentRow == 1){
 			if(currentCol == 0){
-//				gsm.setState(new Level(gsm, gsm.getLevel(levelIndex+4)));
-//				gsm.setCurrentLevel(4);
 				levelIndex = levelIndex+4;
 			}
 			if(currentCol == 1){
-//				gsm.setState(new Level(gsm, gsm.getLevel(levelIndex+5)));
-//				gsm.setCurrentLevel(5);
 				levelIndex = levelIndex+5;
 			}
 			if(currentCol == 2){
-//				gsm.setState(new Level(gsm, gsm.getLevel(levelIndex+6)));
-//				gsm.setCurrentLevel(6);
 				levelIndex = levelIndex+6;
 			}
 		} else {
@@ -148,11 +138,14 @@ public class LevelSelect extends Menu {
 				return;
 			}
 		}
-		
-		EventSupport.getInstance().fireNewEvent("level", levelIndex);
 
+		try{
+			EventSupport.getInstance().fireNewEvent("level", levelIndex);
+		}catch (NullPointerException e){
+			JOptionPane.showMessageDialog(new Frame(), "Level doesn't exist");
+		}
 	}
-	
+
 	private void changeMenuItems(int index){
 		if(index == 0){
 			menuItems = new String[][]{
@@ -173,7 +166,7 @@ public class LevelSelect extends Menu {
 		updateModel();
 		System.out.println(model.getMatrixMenuItems()[0][0]);
 	}
-	
+
 	private int getNext(){
 		if(currentlyVisible == 0){
 			return currentlyVisible+1;

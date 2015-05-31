@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.utils.Array;
 
-import controller.superclass.GameState;
+import controller.superstate.GameState;
 import event.EventSupport;
 
 /**
@@ -110,7 +110,6 @@ public class MyContactListener implements ContactListener{
 	public void contactWithSpike(){
 		Content.getInstance().playSound("fail");
 		EventSupport.getInstance().fireNewEvent("level", 0);
-		//gsm.setState(new Level(gsm, gsm.getCurrentTiledMap()));
 	}
 	
 	// called when two fixures no longer collide

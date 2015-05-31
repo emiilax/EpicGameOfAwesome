@@ -24,8 +24,6 @@ public class EGATimer extends Observable implements ActionListener {
 	private static EGATimer myTimer;
 	private float timePassed;
 	
-	private int interval = 0;
-	
 	private EGATimer(){
 		timer = new Timer(10,this);
 	}

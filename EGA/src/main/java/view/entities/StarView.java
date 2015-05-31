@@ -38,12 +38,12 @@ public class StarView extends EntityView {
 		TextureRegion[] sprites;
 		if(isBig){
 			tex = Content.getInstance().getTexture("bigStar");
-			sprites = TextureRegion.split(tex,  40,  42)[0];
+			sprites = TextureRegion.split(tex,  42,  42)[0];
 		} else {
 			tex = Content.getInstance().getTexture("star");
 			sprites = TextureRegion.split(tex,  18,  17)[0];
 		}
-		setAnimation(sprites, 1/ 12f);
+		setAnimation(sprites, 1/ 6f);
 	}
 	
 	public void update(Observable o, Object arg) {

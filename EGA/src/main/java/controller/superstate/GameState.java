@@ -1,4 +1,4 @@
-package controller.superclass;
+package controller.superstate;
 
 
 import com.badlogic.gdx.graphics.OrthographicCamera;

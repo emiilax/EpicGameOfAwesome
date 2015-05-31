@@ -17,7 +17,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import controller.factory.MenuFactory;
 import controller.menus.ChangeControlMenu;
 import controller.savehandler.SaveHandler;
-import controller.superclass.GameState;
+import controller.superstate.GameState;
 import event.EventSupport;
 import event.TheChangeListener;
 import event.TheEvent;

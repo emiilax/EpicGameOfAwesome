@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
+//import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -22,7 +23,7 @@ public class Content {
 	private Map<String, Texture> textures;
 	
 	/** Map for the sound*/
-	private Map<String, Sound> sounds;
+	private Map<String, Music> sounds;
 	
 	/** HashMap for the levels*/
 	private HashMap<Integer, TiledMap> maps;
@@ -34,8 +35,7 @@ public class Content {
 	private Content(){
 		
 		textures = new HashMap<String, Texture>();
-		sounds = new HashMap<String, Sound>();
-		
+		sounds = new HashMap<String, Music>();
 		loadImages();
 		loadMaps();
 		loadSounds();
@@ -58,20 +58,24 @@ public class Content {
 	}
 	
 	public void loadSound(String path, String key) {
-		Sound sound = Gdx.audio.newSound(Gdx.files.internal(path));
+		Music sound = Gdx.audio.newMusic(Gdx.files.internal(path));
 		sounds.put(key, sound);
 	}
 	
-	public Sound getSound(String key) {
+	public Music getSound(String key) {
 		return sounds.get(key);
 	}
 
 	public void playSound(String key){
-		sounds.get(key).play(SaveHandler.getGameData().getSoundVolume());
+		if (key != "fail"){
+			sounds.get(key).stop();
+		}
+		sounds.get(key).setVolume(SaveHandler.getGameData().getSoundVolume());
+		sounds.get(key).play();
 	}
 	
 	public void removeSound(String key) {
-		Sound sound = sounds.get(key);
+		Music sound = sounds.get(key);
 		if(sound != null) {
 			sounds.remove(key);
 			sound.dispose();
