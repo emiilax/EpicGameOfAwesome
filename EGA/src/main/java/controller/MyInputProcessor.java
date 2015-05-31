@@ -13,7 +13,6 @@ import event.EventSupport;
  *  
  * @author Emil Axelsson
  * 
- * 
  */
 public class MyInputProcessor extends InputAdapter{
 	/** The key that have been clicked*/

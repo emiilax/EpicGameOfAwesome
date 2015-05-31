@@ -20,12 +20,12 @@ import event.EventSupport;
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class SettingsMenu extends Menu { 
+	
 	private String debugStatus;
 
 	private String volume;
 	private float fVol;
 
-	
 	public SettingsMenu() {
 		super();
 		init();

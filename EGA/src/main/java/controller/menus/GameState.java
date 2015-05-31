@@ -11,18 +11,15 @@ import lombok.*;
 /**
  * A class used for all different states in a game.
  * Sets camera and view.
- * @author Emil, Erik, Hampus, Rebecca
+ * @author Emil, Erik, Hampus, Rebecka
  *
  */
 @Data
 public abstract class GameState {
 	
-
-	
 	protected SpriteBatch sb;
 	private OrthographicCamera cam; 
 	private OrthographicCamera hudCam;
-
 	
 	protected GameState(){
 		sb = new SpriteBatch();
